@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSSter.Tests", "RSSter.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{ACB0E647-4BF9-450B-A1AE-A111846A2FC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Context", "Context\Context.csproj", "{000C8F18-8084-418B-A5D5-41C2E85D90E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBContext", "Context\DBContext.csproj", "{000C8F18-8084-418B-A5D5-41C2E85D90E3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{0842AE3A-C32D-45B0-9748-909530BEB344}"
 EndProject
