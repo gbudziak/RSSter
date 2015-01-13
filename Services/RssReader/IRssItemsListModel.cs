@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RSSter.Tests
+namespace Services.RssReader
 {
-    class RssChannelTest
+    class IRssItemsListModel
     {
-
-
-
     }
 }
