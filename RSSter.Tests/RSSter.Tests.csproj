@@ -91,7 +91,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
-    <Compile Include="Models\RssChannelTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -100,10 +99,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{ACB0E647-4BF9-450B-A1AE-A111846A2FC0}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RSSter\RSSter.csproj">
       <Project>{ED41C43C-7C7E-4435-859C-E9DF43312058}</Project>
       <Name>RSSter</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
