@@ -89,6 +89,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\TChannelList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
@@ -100,16 +101,17 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
-      <Project>{ACB0E647-4BF9-450B-A1AE-A111846A2FC0}</Project>
+      <Project>{acb0e647-4bf9-450b-a1ae-a111846a2fc0}</Project>
       <Name>Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\RSSter\RSSter.csproj">
       <Project>{ED41C43C-7C7E-4435-859C-E9DF43312058}</Project>
       <Name>RSSter</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{0842ae3a-c32d-45b0-9748-909530beb344}</Project>
+      <Name>Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
