@@ -10,7 +10,6 @@ namespace Models.RSS
     {
         public List<Channel> Channels { get; set; }
 
-
         public void AddChannel(string link)
         {
             throw new NotImplementedException();

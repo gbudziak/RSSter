@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NUnit.Framework;
 using Models.RSS;
+using NUnit.Framework;
 
 namespace RSSter.Tests.Models
 {
@@ -31,8 +31,7 @@ namespace RSSter.Tests.Models
             // assert-mock
         }
 
-        //[Test]
-        //public void T002_
+
     }
 
     class ChannelManager

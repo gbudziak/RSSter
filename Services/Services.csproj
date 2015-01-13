@@ -40,8 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RssReader\Implementation\RssItemsListModel.cs" />
-    <Compile Include="RssReader\IRssItemsListModel.cs" />
+    <Compile Include="RssReader\Implementation\RssItemsList.cs" />
+    <Compile Include="RssReader\IRssItemsList.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">

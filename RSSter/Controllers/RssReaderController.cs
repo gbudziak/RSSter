@@ -7,30 +7,25 @@ using System.Web.Mvc;
 using System.Web.Services.Description;
 using System.Xml.Linq;
 using Models.RSS;
+using Services.RssReader;
+
 //using Services.RssReader;
 
 namespace RSSter.Controllers
 {
     public class RssReaderController : Controller
     {
+        private readonly IRssItemsList _rssItemsList;
 
-        // GET: RssReader
-        public ActionResult RssListView()
+        public RssReaderController(IRssItemsList rssItemsList)
         {
+            _rssItemsList = rssItemsList;
+        }
 
 
-            const string blogUrl = "http://www.tvn24.pl/najnowsze.xml";
-            XDocument feedXml = XDocument.Load(blogUrl);
-            var feeds = from feed in feedXml.Descendants("item")
-               select new Item
-               {
-                   Title = feed.Element("title").Value,
-                   Link = feed.Element("link").Value,
-                   Description = Regex.Match(feed.Element("description").Value, @"^.{1,180}\b(?<!\s)").Value
- 
-               };
-
-            return View(feeds);
+        public ActionResult RssListView(string blogUrl)
+        {
+            return View(_rssItemsList.GetRssFeed(blogUrl));
         }
     }
 }

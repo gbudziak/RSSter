@@ -101,7 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
-      <Project>{acb0e647-4bf9-450b-a1ae-a111846a2fc0}</Project>
+      <Project>{ACB0E647-4BF9-450B-A1AE-A111846A2FC0}</Project>
       <Name>Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\RSSter\RSSter.csproj">
@@ -113,6 +113,7 @@
       <Name>Services</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
