@@ -7,7 +7,7 @@ ViewBag.Title = "RssReader";
 
 <h2>RssReader</h2>
 
-<table>
+<table class="ui celled striped table">
     <tr>
         <th>
             Title
@@ -34,4 +34,32 @@ ViewBag.Title = "RssReader";
             </td>
         </tr>
     }
+</table>
+
+<table class="ui celled striped table">
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Link
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="collapsing">
+                <a href="@item.Link" target="_blank">@item.Title</a>
+            </td>
+            <td>@System.Web.HttpUtility.HtmlDecode(item.Description)</td>
+            <td class="right aligned collapsing"><a href="@item.Link" target="_blank">More</a></td>
+        </tr>        
+    }
+    </tbody>
 </table>
