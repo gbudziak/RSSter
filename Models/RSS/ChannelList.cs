@@ -6,19 +6,9 @@ using System.Threading.Tasks;
 
 namespace Models.RSS
 {
-    public class ChannelList : Interfaces.IChannelList
+    public class ChannelList
     {
         public List<Channel> Channels { get; set; }
 
-
-        public void AddChannel(string link)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteChannel(string link)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

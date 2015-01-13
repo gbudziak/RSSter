@@ -6,15 +6,9 @@ using System.Threading.Tasks;
 
 namespace Models.RSS
 {
-    public class Channel : Interfaces.IChannel
+    public class Channel 
     {
         public List<Item> Items { get; set; }
         public string Link { get; set; }
-
-
-        public void PupulateItems()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
