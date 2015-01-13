@@ -87,11 +87,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RSS\ChannelList.cs" />
     <Compile Include="RSS\Channel.cs" />
+    <Compile Include="RSS\Interfaces\IChannel.cs" />
+    <Compile Include="RSS\Interfaces\IChannelList.cs" />
     <Compile Include="RSS\Item.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
