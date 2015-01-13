@@ -1,4 +1,5 @@
-﻿@model System.Collections.Generic.IEnumerable<Models.RSS.Item>
+﻿@using System.Text
+@model System.Collections.Generic.IEnumerable<Models.RSS.Item>
 
 @{
 ViewBag.Title = "RssReader";
@@ -23,7 +24,7 @@ ViewBag.Title = "RssReader";
     {
         <tr>
             <td>
-                <a href="@item.Link" target="_blank">@Html.Encode(item.Title)</a>
+                <a href="@item.Link" target="_blank">@item.Title</a>
             </td>
             <td>
                 @System.Web.HttpUtility.HtmlDecode(item.Description)

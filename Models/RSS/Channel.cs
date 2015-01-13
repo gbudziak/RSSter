@@ -10,5 +10,19 @@ namespace Models.RSS
     {
         public List<Item> Items { get; set; }
         public string Link { get; set; }
+
+        public Channel() { }
+
+        public Channel(List<Item> items, string link)
+        {
+            this.Items = items;
+            this.Link = link;
+        }
+
+        public Channel(string link)
+        {
+            this.Link = link;
+            this.Items = new List<Item>();
+        }
     }
 }

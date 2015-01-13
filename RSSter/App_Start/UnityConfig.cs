@@ -24,10 +24,11 @@ namespace RSSter
         }
         #endregion
 
-       public static void RegisterTypes(IUnityContainer container)
+        public static void RegisterTypes(IUnityContainer container)
         {
 
             container.RegisterType<IRssItemsList, RssItemsList>();
+            container.RegisterType<IChannelService, ChannelService>();
         }
     }
 }
