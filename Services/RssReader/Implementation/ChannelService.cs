@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DBContext;
 using Models.RSS;
 
 namespace Services.RssReader.Implementation
@@ -15,9 +16,9 @@ namespace Services.RssReader.Implementation
             list.Channels.Remove(toRemove);
         }
 
-        public void AddChannel(ChannelList list, Channel newRssFeed)
-        {
-            list.Channels.Add(newRssFeed);
+        public void AddChannel(int channelListId, Channel newRssFeed)
+        {            
+            TemporaryDb.TempDb.Channels.Add(newRssFeed);            
         }
     }
 }

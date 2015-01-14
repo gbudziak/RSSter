@@ -14,24 +14,24 @@ namespace RSSter.Tests.Models
     class TChannelList
     {
 
-        [Test]
-        public void T001_Given_ChannelList_And_newRssFeed_Adds_newRssFeed_to_ChannelList()
-        {
-            // arrange
-            var newRssFeed = new Channel("http://www.tvn24.pl/pogoda,7.xml");
-            var cut = new ChannelList();
-            var channelService = new ChannelService();
+        //[Test]
+        //public void T001_Given_ChannelList_And_newRssFeed_Adds_newRssFeed_to_ChannelList()
+        //{
+        //    // arrange
+        //    var newRssFeed = new Channel("http://www.tvn24.pl/pogoda,7.xml");
+        //    var cut = new ChannelList();
+        //    var channelService = new ChannelService();
 
-            // arrange-mock
+        //    // arrange-mock
 
-            // act        
-            channelService.AddChannel(cut, newRssFeed);
+        //    // act        
+        //    channelService.AddChannel(cut, newRssFeed);
 
-            // assert            
-            Assert.AreEqual(newRssFeed, cut.Channels.FirstOrDefault(x => x == newRssFeed));
+        //    // assert            
+        //    Assert.AreEqual(newRssFeed, cut.Channels.FirstOrDefault(x => x == newRssFeed));
 
-            // assert-mock
-        }
+        //    // assert-mock
+        //}
 
 
         [Test]

@@ -16,9 +16,7 @@ namespace RSSter.Controllers
     public class RssReaderController : Controller
     {
         private readonly IRssItemsList _rssItemsList;
-        private readonly IChannelService _channelService;
-
-        static private ChannelList myChannelList = new ChannelList();
+        private readonly IChannelService _channelService;        
 
         public RssReaderController(IRssItemsList rssItemsList, IChannelService channelService)
         {
@@ -48,7 +46,7 @@ namespace RSSter.Controllers
         {
             if (ModelState.IsValid)
             {
-                _channelService.AddChannel(myChannelList, channel);
+                _channelService.AddChannel(1, channel);
                 return RedirectToAction("Index");
             }
             return View("AddRssChannel");
