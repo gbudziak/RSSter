@@ -1,35 +1,46 @@
-﻿<!DOCTYPE html>
+﻿@using Models.RSS
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
     <title>@ViewBag.Title</title>
-	@Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/semantic")
 </head>
+
+
 <body>
-<header class="column"><div class="ui segment">HEADER</div></header>
-<div class="ui two column centered grid">
+    <header class="column"><div class="ui segment">HEADER</div></header>
+    <div class="ui sixteen column grid">
         <div class="column"></div>
-        <div class="eight column centered row">
-            <div class="two wide column">
+
+        <div class="sixteen column row">
+            <div class="four wide column">
                 <div class="ui segment">
                     <p>MENU</p>
-                    <p><i class="browser icon"></i>@Html.ActionLink("My RSS Channels", "Index", "RssReader")</p>
-                    <p><i class="add circle icon"></i>@Html.ActionLink("Add new RSS", "AddRssChannel", "RssReader")</p>
+                    <p>@Html.ActionLink("My RSS Channels", "ChannelList", "RssReader")</p>
+                    <p>@Html.ActionLink("Add new RSS", "AddRssChannel", "RssReader")</p>
+                    <p>
+                        @using (Html.BeginForm("RssListView", "RssReader"))
+                        {
+                            @Html.TextBox("blogUrl")
+                        }
+                    </p>
+                   
                 </div>
             </div>
-            <div class="six wide column">
+            <div class="twelve wide column">
                 <div class="ui segment">
-                    <p>BODY</p> 
-                @RenderBody()
+                    <p>BODY</p>
+                    @RenderBody()
                 </div>
             </div>
         </div>
     </div>
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/semantic")
-@RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/semantic")
+    @RenderSection("scripts", required: false)
 </body>
 </html>

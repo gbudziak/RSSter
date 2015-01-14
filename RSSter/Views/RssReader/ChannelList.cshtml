@@ -1,0 +1,46 @@
+﻿@using Models.RSS
+@model Models.RSS.ChannelList
+
+@{
+    ViewBag.Title = "RssReader";
+    Layout = "~/Views/Shared/_Layout_Semantic.cshtml";
+    
+    //var newChannel = new Channel() { Link = "http://facet.wp.pl/rss.xml", Description = "first", Image = "none" };
+    //Model.Channels.Add(newChannel);
+    
+}
+
+<h2>Channel List</h2>
+
+
+<table class="ui celled striped table">
+    <thead>
+        <tr>
+            <th>
+                Channel Icon
+            </th>
+            <th>
+                Channel List
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Channels)
+        {
+            <tr>
+                <td>@item.Image</td>
+                <td>
+                    @item.Link
+                    <br/>
+                    @Html.ActionLink(@item.Description, "RssListView", "RssReader",
+                        new {link = @item.Link},
+                        new {})
+                </td>
+
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+   

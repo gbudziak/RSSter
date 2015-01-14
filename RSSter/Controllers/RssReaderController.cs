@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Services.Description;
 using System.Xml;
 using System.Xml.Linq;
+using DBContext;
 using Models.RSS;
 using Services.RssReader;
 
@@ -31,14 +32,15 @@ namespace RSSter.Controllers
         }
 
 
-        public ActionResult RssListView(string blogUrl)
+        public ActionResult RssListView(string link)
         {
-            return View(_rssItemsList.GetRssFeed(blogUrl));
+            return View(_rssItemsList.GetRssFeed(link));
         }
 
         [HttpGet]
         public ActionResult AddRssChannel()
         {
+
             return View("AddRssChannel");
         }
 
@@ -47,10 +49,17 @@ namespace RSSter.Controllers
         {
             if (ModelState.IsValid)
             {
-                _channelService.AddChannel(1, channel);
+                var model =_rssItemsList.GetRssFeed(channel.Link);
+                
+                _channelService.AddChannel(1, model);
                 return RedirectToAction("Index");
             }
             return View("AddRssChannel");
+        }
+        public ActionResult ChannelList()
+        {
+            //var model = new ChannelList();
+            return View(TemporaryDb.TempDb);
         }
     }
 }
