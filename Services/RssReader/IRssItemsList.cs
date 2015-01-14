@@ -9,6 +9,6 @@ namespace Services.RssReader
 {
     public interface IRssItemsList
     {
-        IEnumerable<Item> GetRssFeed(string blogUrl);
+        Channel GetRssFeed(string blogUrl);
     }
 }

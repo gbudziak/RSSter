@@ -11,7 +11,7 @@ namespace Services.RssReader.Implementation
     {
         public void AddChannel(ChannelList list, string newRssFeed)
         {
-            list.Channels.Add(new Channel(newRssFeed));
+            list.Channels.Add(new Channel{Link = newRssFeed});
         }
 
         public void RemoveChannel(ChannelList list, string rssFeed)

@@ -1,40 +1,10 @@
-﻿@using System.Text
-@model System.Collections.Generic.IEnumerable<Models.RSS.Item>
+﻿@model Models.RSS.Channel
 
 @{
 ViewBag.Title = "RssReader";
 }
 
 <h2>RssReader</h2>
-
-<table class="ui celled striped table">
-    <tr>
-        <th>
-            Title
-        </th>
-        <th>
-            Description
-        </th>
-        <th>
-            Link
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                <a href="@item.Link" target="_blank">@item.Title</a>
-            </td>
-            <td>
-                @System.Web.HttpUtility.HtmlDecode(item.Description)
-            </td>
-            <td>
-                <a href="@item.Link" target="_blank">More</a>
-            </td>
-        </tr>
-    }
-</table>
 
 <table class="ui celled striped table">
     <thead>
@@ -48,10 +18,16 @@ ViewBag.Title = "RssReader";
             <th>
                 Link
             </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Publish Date
+            </th>
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
+    @foreach (var item in Model.Items)
     {
         <tr>
             <td class="collapsing">
@@ -59,7 +35,9 @@ ViewBag.Title = "RssReader";
             </td>
             <td>@System.Web.HttpUtility.HtmlDecode(item.Description)</td>
             <td class="right aligned collapsing"><a href="@item.Link" target="_blank">More</a></td>
-        </tr>        
+            <td>@item.Category</td>
+            <td>@item.PublishDate</td>
+        </tr>
     }
     </tbody>
 </table>
