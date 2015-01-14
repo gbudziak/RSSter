@@ -18,7 +18,7 @@ namespace RSSter.Controllers
     public class RssReaderController : Controller
     {
         private readonly IRssItemsList _rssItemsList;
-        private readonly IChannelService _channelService;
+        private readonly IChannelService _channelService;        
 
         public RssReaderController(IRssItemsList rssItemsList, IChannelService channelService)
         {
@@ -26,10 +26,32 @@ namespace RSSter.Controllers
             _channelService = channelService;
         }
 
+        public ActionResult Index()
+        {
+            return View("Index");
+        }
+
 
         public ActionResult RssListView(string blogUrl)
         {
             return View(_rssItemsList.GetRssFeed(blogUrl));
+        }
+
+        [HttpGet]
+        public ActionResult AddRssChannel()
+        {
+            return View("AddRssChannel");
+        }
+
+        [HttpPost]
+        public ActionResult AddRssChannel(Channel channel)
+        {
+            if (ModelState.IsValid)
+            {
+                _channelService.AddChannel(1, channel);
+                return RedirectToAction("Index");
+            }
+            return View("AddRssChannel");
         }
     }
 }

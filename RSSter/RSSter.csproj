@@ -76,7 +76,6 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -283,7 +282,8 @@
     <Content Include="Views\Shared\_Layout_Semantic.cshtml" />
     <Content Include="Views\SemanticUI\Index.cshtml" />
     <Content Include="Views\RssReader\RssListView.cshtml" />
-    <Content Include="Views\Home\View.cshtml" />
+    <Content Include="Views\RssReader\Index.cshtml" />
+    <Content Include="Views\RssReader\AddRssChannel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
