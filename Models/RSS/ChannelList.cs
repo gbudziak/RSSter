@@ -10,5 +10,10 @@ namespace Models.RSS
     {
         public List<Channel> Channels { get; set; }
 
+        public ChannelList()
+        {
+            this.Channels = new List<Channel>();
+        }
+
     }
 }

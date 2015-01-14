@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using Models.RSS;
 using Moq;
+using Services.RssReader.Implementation;
 
 namespace RSSter.Tests.Models
 {
@@ -17,7 +18,7 @@ namespace RSSter.Tests.Models
         public void T001_Given_ChannelList_And_newRssFeed_Adds_newRssFeed_to_ChannelList()
         {
             // arrange
-            var newRssFeed = "http://www.tvn24.pl/pogoda,7.xml";
+            var newRssFeed = new Channel("http://www.tvn24.pl/pogoda,7.xml");
             var cut = new ChannelList();
             var channelService = new ChannelService();
 
@@ -27,7 +28,7 @@ namespace RSSter.Tests.Models
             channelService.AddChannel(cut, newRssFeed);
 
             // assert            
-            Assert.AreEqual(newRssFeed, cut.Channels.Find(x => x.Link == newRssFeed).ToString());
+            Assert.AreEqual(newRssFeed, cut.Channels.FirstOrDefault(x => x == newRssFeed));
 
             // assert-mock
         }
@@ -54,18 +55,5 @@ namespace RSSter.Tests.Models
         }
 
     }
-
-    public class ChannelService
-    {
-        public void AddChannel(ChannelList list, string newRssFeed)
-        {
-
-        }
-
-        public void RemoveChannel(ChannelList list, string rssFeed)
-        {
-            var toRemove = list.Channels.FirstOrDefault(x => x.Link == rssFeed);
-            list.Channels.Remove(toRemove);
-        }
-    }
+    
 }

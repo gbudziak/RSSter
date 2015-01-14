@@ -9,7 +9,7 @@ namespace Services.RssReader
 {
     public interface IChannelService
     {
-        void AddChannel(ChannelList list, string newRssFeed);
+        void AddChannel(ChannelList list, Channel newRssFeed);
 
         void RemoveChannel(ChannelList list, string rssFeed);
 
