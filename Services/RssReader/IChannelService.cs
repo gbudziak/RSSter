@@ -11,7 +11,7 @@ namespace Services.RssReader
     {
         void AddChannel(int channelListId, Channel newRssFeed);
 
-        void RemoveChannel(ChannelList list, string rssFeed);
+        void RemoveChannel(int channelListId, long channelId);
 
         ChannelList ShowChannelList();
     }

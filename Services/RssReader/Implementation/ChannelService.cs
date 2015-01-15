@@ -10,10 +10,11 @@ namespace Services.RssReader.Implementation
 {
     public class ChannelService : IChannelService
     {        
-        public void RemoveChannel(ChannelList list, string rssFeed)
+        public void RemoveChannel(int channelListId, long channelId)
         {
-            var toRemove = list.Channels.FirstOrDefault(x => x.Link == rssFeed);
-            list.Channels.Remove(toRemove);
+            var toRemove = TemporaryDb.TempDb.Channels.FirstOrDefault(foo => foo.ChannelId == channelId);
+            TemporaryDb.TempDb.Channels.Remove(toRemove);
+            
         }
 
         public void AddChannel(int channelListId, Channel newRssFeed)
