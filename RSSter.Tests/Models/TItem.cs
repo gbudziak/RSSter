@@ -49,6 +49,6 @@ namespace RSSter.Tests.Models
         //    Assert.AreEqual(expected, cut.Read);
 
         //    // assert-mock
-        }
+        //}
     }
 }

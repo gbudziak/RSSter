@@ -19,13 +19,13 @@ namespace RSSter.Tests.Models
         //{
         //    // arrange
         //    var newRssFeed = new Channel("http://www.tvn24.pl/pogoda,7.xml");
-        //    var cut = new ChannelList();
-        //    var channelService = new ChannelService();
+        //    var cut = new ChannelService();
+        //    var stubchannelService = new ChannelService();
 
         //    // arrange-mock
 
         //    // act        
-        //    channelService.AddChannel(cut, newRssFeed);
+        //    cut.AddChannel(cut, newRssFeed);
 
         //    // assert            
         //    Assert.AreEqual(newRssFeed, cut.Channels.FirstOrDefault(x => x == newRssFeed));
@@ -34,22 +34,39 @@ namespace RSSter.Tests.Models
         //}
 
 
+        //[Test]
+        //public void T002_Given_ChannelList_and_RssFeed_Removes_RssFeed_from_ChannelList()
+        //{
+        //    // arrange
+        //    var rssFeed = "http://www.tvn24.pl/pogoda,7.xml";            
+        //    var cut = new ChannelService();
+        //    var stubChannelList = new ChannelList();
+        //    stubChannelList.Channels.Add(new Channel {Items = new List<Item>(), Link = rssFeed});
+
+        //    // arrange-mock            
+
+        //    // act
+        //    cut.RemoveChannel(stubChannelList, rssFeed);
+
+        //    // assert
+        //    Assert.AreEqual(0, stubChannelList.Channels.Count);
+
+        //    // assert-mock
+        //}
+
+
         [Test]
-        public void T002_Given_ChannelList_and_RssFeed_Removes_RssFeed_from_ChannelList()
+        public void T003_Given_()
         {
             // arrange
-            var rssFeed = "http://www.tvn24.pl/pogoda,7.xml";            
             var cut = new ChannelService();
-            var stubChannelList = new ChannelList();
-            stubChannelList.Channels.Add(new Channel {Items = new List<Item>(), Link = rssFeed});
 
-            // arrange-mock            
+
+            // arrange-mock
 
             // act
-            cut.RemoveChannel(stubChannelList, rssFeed);
 
             // assert
-            Assert.AreEqual(0, stubChannelList.Channels.Count);
 
             // assert-mock
         }

@@ -19,6 +19,9 @@
             <th>
                 Channel List
             </th>
+            <th>
+                Actions
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -39,10 +42,15 @@
                 </td>
                 <td>
                     @item.Link
-                    <br />
+                    <br/>
                     @Html.ActionLink(@item.Description, "RssListView", "RssReader",
-                        new { link = @item.Link },
-                        new { })
+                        new {link = @item.Link},
+                        new {})
+                </td>
+                <td>
+                    <a href="@Url.Action("Delete", "RssReader", new{channelId = item.ChannelId})">
+                        <i class="trash icon"></i>
+                    </a>                    
                 </td>
 
             </tr>

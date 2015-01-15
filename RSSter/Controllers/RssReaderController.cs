@@ -56,10 +56,17 @@ namespace RSSter.Controllers
             }
             return View("AddRssChannel");
         }
+
         public ActionResult ChannelList()
         {
             //var model = new ChannelList();
             return View(TemporaryDb.TempDb);
+        }
+
+        public ActionResult Delete(long channelId)
+        {
+            _channelService.RemoveChannel(1,channelId);
+            return RedirectToAction("Index");
         }
     }
 }
