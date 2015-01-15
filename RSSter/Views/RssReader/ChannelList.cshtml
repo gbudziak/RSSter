@@ -4,14 +4,11 @@
 @{
     ViewBag.Title = "RssReader";
     Layout = "~/Views/Shared/_Layout_Semantic.cshtml";
-    
+
     //var newChannel = new Channel() { Link = "http://facet.wp.pl/rss.xml", Description = "first", Image = "none" };
     //Model.Channels.Add(newChannel);
-    
+
 }
-
-<h2>Channel List</h2>
-
 
 <table class="ui celled striped table">
     <thead>
@@ -28,13 +25,24 @@
         @foreach (var item in Model.Channels)
         {
             <tr>
-                <td>@item.Image</td>
+                <td>
+                    @Html.ActionLink(
+                    " ",
+                    "RssListView",
+                    "RssReader",
+                    new { link = @item.Link },
+                    new
+                    {
+                        style = "background: url('" + Url.Content(@item.Image) + "') no-repeat center right; display:block; height:84px; width:84px;"
+                    }
+)
+                </td>
                 <td>
                     @item.Link
-                    <br/>
+                    <br />
                     @Html.ActionLink(@item.Description, "RssListView", "RssReader",
-                        new {link = @item.Link},
-                        new {})
+                        new { link = @item.Link },
+                        new { })
                 </td>
 
             </tr>
@@ -43,4 +51,3 @@
     </tbody>
 </table>
 
-   
