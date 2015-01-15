@@ -31,12 +31,6 @@ namespace RSSter.Controllers
             return View("Index");
         }
 
-
-        public ActionResult RssListView(string link)
-        {
-            return View(_downloadChannelItemsList.GetRssFeed(link));
-        }
-
         [HttpGet]
         public ActionResult AddRssChannel()
         {
@@ -56,11 +50,15 @@ namespace RSSter.Controllers
             }
             return View("AddRssChannel");
         }
+
+        public ActionResult RssListView(string link)
+        {
+            return View(_downloadChannelItemsList.GetRssFeed(link));
+        }
+
         public ActionResult ChannelList()
         {
-
-            //var model = new ChannelList();
-            return View(TemporaryDb.TempDb);
+            return View(_channelService.ShowChannelList());
         }
     }
 }

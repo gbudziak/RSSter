@@ -13,6 +13,7 @@ namespace Services.RssReader
 
         void RemoveChannel(ChannelList list, string rssFeed);
 
+        ChannelList ShowChannelList();
     }
 }
 

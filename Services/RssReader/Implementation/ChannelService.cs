@@ -20,5 +20,10 @@ namespace Services.RssReader.Implementation
         {            
             TemporaryDb.TempDb.Channels.Add(newRssFeed);            
         }
+
+        public ChannelList ShowChannelList()
+        {
+            return TemporaryDb.TempDb;
+        }
     }
 }
