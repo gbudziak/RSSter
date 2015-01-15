@@ -43,8 +43,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RssReader\IChannelService.cs" />
     <Compile Include="RssReader\Implementation\ChannelService.cs" />
-    <Compile Include="RssReader\Implementation\RssItemsList.cs" />
-    <Compile Include="RssReader\IRssItemsList.cs" />
+    <Compile Include="RssReader\Implementation\downloadChannelItemsList.cs" />
+    <Compile Include="RssReader\IDownloadChannelItemsList.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Context\DBContext.csproj">

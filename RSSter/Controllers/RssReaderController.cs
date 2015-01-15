@@ -17,12 +17,12 @@ namespace RSSter.Controllers
 {
     public class RssReaderController : Controller
     {
-        private readonly IRssItemsList _rssItemsList;
-        private readonly IChannelService _channelService;        
+        private readonly IDownloadChannelItemsList _downloadChannelItemsList;
+        private readonly IChannelService _channelService;
 
-        public RssReaderController(IRssItemsList rssItemsList, IChannelService channelService)
+        public RssReaderController(IDownloadChannelItemsList downloadChannelItemsList, IChannelService channelService)
         {
-            _rssItemsList = rssItemsList;
+            _downloadChannelItemsList = downloadChannelItemsList;
             _channelService = channelService;
         }
 
@@ -34,7 +34,7 @@ namespace RSSter.Controllers
 
         public ActionResult RssListView(string link)
         {
-            return View(_rssItemsList.GetRssFeed(link));
+            return View(_downloadChannelItemsList.GetRssFeed(link));
         }
 
         [HttpGet]
@@ -49,7 +49,7 @@ namespace RSSter.Controllers
         {
             if (ModelState.IsValid)
             {
-                var model =_rssItemsList.GetRssFeed(channel.Link);
+                var model = _downloadChannelItemsList.GetRssFeed(channel.Link);
                 
                 _channelService.AddChannel(1, model);
                 return RedirectToAction("Index");
@@ -58,6 +58,7 @@ namespace RSSter.Controllers
         }
         public ActionResult ChannelList()
         {
+
             //var model = new ChannelList();
             return View(TemporaryDb.TempDb);
         }

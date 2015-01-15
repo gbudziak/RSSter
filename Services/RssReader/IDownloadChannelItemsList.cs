@@ -7,7 +7,7 @@ using Models.RSS;
 
 namespace Services.RssReader
 {
-    public interface IRssItemsList
+    public interface IDownloadChannelItemsList
     {
         Channel GetRssFeed(string blogUrl);
     }
