@@ -29,6 +29,7 @@ namespace RSSter
 
             container.RegisterType<IDownloadChannelItemsList, downloadChannelItemsList>();
             container.RegisterType<IChannelService, ChannelService>();
+            container.RegisterType<IDatabase, FakeDb>();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -14,45 +15,49 @@ namespace RSSter.Tests.Models
     class TChannelList
     {
 
-        //[Test]
-        //public void T001_Given_ChannelList_And_newRssFeed_Adds_newRssFeed_to_ChannelList()
-        //{
-        //    // arrange
-        //    var newRssFeed = new Channel("http://www.tvn24.pl/pogoda,7.xml");
-        //    var cut = new ChannelService();
-        //    var stubchannelService = new ChannelService();
+        [Test]
+        public void T001_Given_ChannelList_And_newRssFeed_Adds_newRssFeed_to_ChannelList()
+        {
+            // arrange
+            var newRssFeed = new Channel("http://www.tvn24.pl/pogoda,7.xml");
+            var mockDatabase = new Mock<IDatabase>();
+            var cut = new ChannelService(mockDatabase.Object);
+            var channelList = new List<Channel>();
 
-        //    // arrange-mock
+            mockDatabase.Setup(x => x.Channels).Returns(channelList);
 
-        //    // act        
-        //    cut.AddChannel(cut, newRssFeed);
+            // arrange-mock
 
-        //    // assert            
-        //    Assert.AreEqual(newRssFeed, cut.Channels.FirstOrDefault(x => x == newRssFeed));
+            // act        
+            cut.AddChannel(cut, newRssFeed);
 
-        //    // assert-mock
-        //}
+            // assert            
+            Assert.AreEqual(newRssFeed, cut.Channels.FirstOrDefault(x => x == newRssFeed));
+            mockDatabase.Verify(v=>v.Items, Times.Never);
+
+            // assert-mock
+        }
 
 
-        //[Test]
-        //public void T002_Given_ChannelList_and_RssFeed_Removes_RssFeed_from_ChannelList()
-        //{
-        //    // arrange
-        //    var rssFeed = "http://www.tvn24.pl/pogoda,7.xml";            
-        //    var cut = new ChannelService();
-        //    var stubChannelList = new ChannelList();
-        //    stubChannelList.Channels.Add(new Channel {Items = new List<Item>(), Link = rssFeed});
+        [Test]
+        public void T002_Given_ChannelList_and_RssFeed_Removes_RssFeed_from_ChannelList()
+        {
+            // arrange
+            var rssFeed = "http://www.tvn24.pl/pogoda,7.xml";
+            var cut = new ChannelService();
+            var stubChannelList = new ChannelList();
+            stubChannelList.Channels.Add(new Channel { Items = new List<Item>(), Link = rssFeed });
 
-        //    // arrange-mock            
+            // arrange-mock            
 
-        //    // act
-        //    cut.RemoveChannel(stubChannelList, rssFeed);
+            // act
+            cut.RemoveChannel(stubChannelList, rssFeed);
 
-        //    // assert
-        //    Assert.AreEqual(0, stubChannelList.Channels.Count);
+            // assert
+            Assert.AreEqual(0, stubChannelList.Channels.Count);
 
-        //    // assert-mock
-        //}
+            // assert-mock
+        }
 
 
         [Test]

@@ -60,5 +60,11 @@ namespace RSSter.Controllers
         {
             return View(_channelService.ShowChannelList());
         }
+
+        public ActionResult Delete(long channelId)
+        {
+            _channelService.RemoveChannel(1, channelId);
+            return RedirectToAction("Index");
+        }
     }
 }
