@@ -13,7 +13,9 @@ namespace Services.RssReader
 
         void RemoveChannel(int channelListId, long channelId);
 
-        ChannelList ShowChannelList();
+        List<Channel> ShowChannelList();
+        Channel ShowChannelFeedList(string link);
+
     }
 }
 

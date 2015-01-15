@@ -21,13 +21,6 @@
                     <p>MENU</p>
                     <p>@Html.ActionLink("My RSS Channels", "ChannelList", "RssReader")</p>
                     <p>@Html.ActionLink("Add new RSS", "AddRssChannel", "RssReader")</p>
-                    <p>
-                        @using (Html.BeginForm("RssListView", "RssReader"))
-                        {
-                            @Html.TextBox("blogUrl")
-                        }
-                    </p>
-                   
                 </div>
             </div>
             <div class="twelve wide column">

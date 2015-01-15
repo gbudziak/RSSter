@@ -1,7 +1,9 @@
 using System;
+using DBContext;
 using Microsoft.Practices.Unity;
 using Services.RssReader;
 using Services.RssReader.Implementation;
+
 
 namespace RSSter
 {
@@ -15,6 +17,10 @@ namespace RSSter
             return container;
         });
 
+        public UnityConfig()
+        {
+        }
+
         /// <summary>
         /// Gets the configured Unity container.
         /// </summary>
@@ -27,9 +33,9 @@ namespace RSSter
         public static void RegisterTypes(IUnityContainer container)
         {
 
-            container.RegisterType<IDownloadChannelItemsList, downloadChannelItemsList>();
+            container.RegisterType<IDownloadChannelItemsList, DownloadChannelItemsList>();
             container.RegisterType<IChannelService, ChannelService>();
-            container.RegisterType<IDatabase, FakeDb>();
+            container.RegisterType<IDatabase, Database>();
         }
     }
 }

@@ -43,7 +43,7 @@ namespace RSSter.Controllers
         {
             if (ModelState.IsValid)
             {
-                var model = _downloadChannelItemsList.GetRssFeed(channel.Link);
+                var model = _downloadChannelItemsList.GetRssChannelFeeds(channel.Link);
                 
                 _channelService.AddChannel(1, model);
                 return RedirectToAction("Index");
@@ -53,7 +53,8 @@ namespace RSSter.Controllers
 
         public ActionResult RssListView(string link)
         {
-            return View(_downloadChannelItemsList.GetRssFeed(link));
+
+            return View(_channelService.ShowChannelFeedList(link));
         }
 
         public ActionResult ChannelList()
@@ -64,7 +65,13 @@ namespace RSSter.Controllers
         public ActionResult Delete(long channelId)
         {
             _channelService.RemoveChannel(1, channelId);
-            return RedirectToAction("Index");
+            return RedirectToAction("ChannelList");
+        }
+
+        public ActionResult RefreshChannelFeeds()
+        {
+
+            return RedirectToAction("ChannelList");
         }
     }
 }

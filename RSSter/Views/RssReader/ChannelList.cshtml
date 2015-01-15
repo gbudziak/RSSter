@@ -1,15 +1,16 @@
 ﻿@using Models.RSS
-@model Models.RSS.ChannelList
+@model List<Models.RSS.Channel>
 
 @{
     ViewBag.Title = "RssReader";
     Layout = "~/Views/Shared/_Layout_Semantic.cshtml";
 
     //var newChannel = new Channel() { Link = "http://facet.wp.pl/rss.xml", Description = "first", Image = "none" };
-    //Model.Channels.Add(newChannel);
+    //Model.Add(newChannel);
 
 }
-
+@if (@Model!=null)
+{
 <table class="ui celled striped table">
     <thead>
         <tr>
@@ -25,7 +26,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Channels)
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -59,3 +60,4 @@
     </tbody>
 </table>
 
+}

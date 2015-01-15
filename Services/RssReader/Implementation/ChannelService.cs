@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,19 +20,23 @@ namespace Services.RssReader.Implementation
         public void RemoveChannel(int channelListId, long channelId)
         {
             var toRemove = _rssDatabase.Channels.FirstOrDefault(foo => foo.ChannelId == channelId);
-            TemporaryDb.TempDb.Channels.Remove(toRemove);
+            _rssDatabase.Channels.Remove(toRemove);
             
         }
 
         public void AddChannel(int channelListId, Channel newRssFeed)
-        {            
-            TemporaryDb.TempDb.Channels.Add(newRssFeed);
-            
+        {
+            _rssDatabase.Channels.Add(newRssFeed);
         }
 
-        public ChannelList ShowChannelList()
+        public List<Channel> ShowChannelList()
         {
-            return TemporaryDb.TempDb;
+            return _rssDatabase.Channels;
+        }
+
+        public Channel ShowChannelFeedList(string link)
+        {
+            return _rssDatabase.Channels.First(x => x.Link == link);
         }
     }
 }
