@@ -68,9 +68,9 @@ namespace RSSter.Controllers
             return RedirectToAction("ChannelList");
         }
 
-        public ActionResult RefreshChannelFeeds()
+        public ActionResult RefreshChannelFeeds(string link)
         {
-
+            
             return RedirectToAction("ChannelList");
         }
     }
