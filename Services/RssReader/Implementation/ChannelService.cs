@@ -9,7 +9,7 @@ using Models.RSS;
 namespace Services.RssReader.Implementation
 {
     public class ChannelService : IChannelService
-    {
+    {        
         public void RemoveChannel(int channelListId, long channelId)
         {
             var toRemove = TemporaryDb.TempDb.Channels.FirstOrDefault(foo => foo.ChannelId == channelId);
@@ -22,5 +22,9 @@ namespace Services.RssReader.Implementation
             TemporaryDb.TempDb.Channels.Add(newRssFeed);            
         }
 
+        public ChannelList ShowChannelList()
+        {
+            return TemporaryDb.TempDb;
+        }
     }
 }

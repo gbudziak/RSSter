@@ -13,6 +13,7 @@ namespace Services.RssReader
 
         void RemoveChannel(int channelListId, long channelId);
 
+        ChannelList ShowChannelList();
     }
 }
 

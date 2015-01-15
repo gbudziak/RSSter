@@ -27,7 +27,7 @@ namespace RSSter
         public static void RegisterTypes(IUnityContainer container)
         {
 
-            container.RegisterType<IRssItemsList, RssItemsList>();
+            container.RegisterType<IDownloadChannelItemsList, downloadChannelItemsList>();
             container.RegisterType<IChannelService, ChannelService>();
         }
     }

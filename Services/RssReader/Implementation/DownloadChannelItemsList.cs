@@ -13,7 +13,7 @@ using Models.RSS;
 
 namespace Services.RssReader.Implementation
 {
-    public class RssItemsList: IRssItemsList
+    public class downloadChannelItemsList: IDownloadChannelItemsList
     {
 
         public Channel GetRssFeed(string blogUrl)
@@ -27,17 +27,16 @@ namespace Services.RssReader.Implementation
 
             if (feed != null)
             {
-                var channelDescription = feed.Description.Text;
-
-                var channelImage = feed.ImageUrl;
+                //var channelDescription = feed.Description.Text;
+                //var channelImage = feed.ImageUrl;
 
                 foreach (SyndicationItem item in feed.Items)
                 {
-                    var itemId = item.Id;
-                    var itemPublishDate = item.PublishDate;
-                    var itemLink = item.Links[0].Uri;
-                    var itemSummary = item.Summary.Text;
-                    var itemTitle = item.Title.Text;
+                    //var itemId = item.Id;
+                    //var itemPublishDate = item.PublishDate;
+                    //var itemLink = item.Links[0].Uri;
+                    //var itemSummary = item.Summary.Text;
+                    //var itemTitle = item.Title.Text;
                     //var itemCategory = item.Categories[0].Name;
 
                     itemList.Add(new Item
@@ -51,13 +50,6 @@ namespace Services.RssReader.Implementation
                 }
             }
 
-            //XDocument feedXml = XDocument.Load(blogUrl);
-            //var feeds = feedXml.Descendants("item").Select(feed => new Item
-            //{
-            //    Title = feed.Element("title").Value,
-            //    Link = feed.Element("link").Value,
-            //    Description = Regex.Match(feed.Element("description").Value, @"^.{1,180}\b(?<!\s)").Value
-            //});
             channelModel.Items = itemList;
             channelModel.Description = feed.Description.Text;
             channelModel.Image = feed.ImageUrl.ToString();
@@ -66,3 +58,13 @@ namespace Services.RssReader.Implementation
         }
     }
 }
+
+
+
+//XDocument feedXml = XDocument.Load(blogUrl);
+//var feeds = feedXml.Descendants("item").Select(feed => new Item
+//{
+//    Title = feed.Element("title").Value,
+//    Link = feed.Element("link").Value,
+//    Description = Regex.Match(feed.Element("description").Value, @"^.{1,180}\b(?<!\s)").Value
+//});
