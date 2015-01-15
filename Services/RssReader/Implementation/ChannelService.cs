@@ -18,7 +18,8 @@ namespace Services.RssReader.Implementation
 
         public void AddChannel(int channelListId, Channel newRssFeed)
         {            
-            TemporaryDb.TempDb.Channels.Add(newRssFeed);            
+            TemporaryDb.TempDb.Channels.Add(newRssFeed);
+            
         }
 
         public ChannelList ShowChannelList()
