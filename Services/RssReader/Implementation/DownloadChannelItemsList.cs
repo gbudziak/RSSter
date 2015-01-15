@@ -46,7 +46,9 @@ namespace Services.RssReader.Implementation
             {
                 Link = blogUrl,
                 Description = feed.Description.Text,
+                Title = feed.Title.Text,
                 Image = feed.ImageUrl.ToString()
+
             };
 
             return channelModel;
@@ -55,10 +57,10 @@ namespace Services.RssReader.Implementation
         public Channel GetRssChannelFeeds(string blogUrl)
         {
             var feed = GetRssChannel(blogUrl);
-
             var channelModel = new Channel
             {
                 Link = blogUrl,
+                Title = feed.Title.Text,
                 Description = feed.Description.Text,
                 Image = feed.ImageUrl.ToString()
             };

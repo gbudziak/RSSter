@@ -7,6 +7,33 @@ Layout = "~/Views/Shared/_Layout_Semantic.cshtml";
 
 <h2>RssReader</h2>
 
+
+
+<div class="ui grid">
+    @foreach (var item in Model.Items)
+    {
+
+        <div class="four wide column center">
+           <td class="collapsing">
+                <a href="@item.Link" target="_blank">@item.Title</a>
+            </td>
+            <td>@Html.Raw(item.Description)</td>
+            <td class="right aligned collapsing"><a href="@item.Link" target="_blank">More</a></td>
+            <td>@item.Category</td>
+            <td>@item.PublishDate</td>
+
+        </div>
+
+
+    }
+</div>
+
+
+<br/>
+
+
+
+
 <table class="ui celled striped table">
     <thead>
         <tr>
@@ -34,7 +61,7 @@ Layout = "~/Views/Shared/_Layout_Semantic.cshtml";
             <td class="collapsing">
                 <a href="@item.Link" target="_blank">@item.Title</a>
             </td>
-            <td>@System.Web.HttpUtility.HtmlDecode(item.Description)</td>
+            <td>@Html.Raw(item.Description)</td>
             <td class="right aligned collapsing"><a href="@item.Link" target="_blank">More</a></td>
             <td>@item.Category</td>
             <td>@item.PublishDate</td>

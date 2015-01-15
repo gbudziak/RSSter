@@ -46,7 +46,7 @@ namespace RSSter.Controllers
                 var model = _downloadChannelItemsList.GetRssChannelFeeds(channel.Link);
                 
                 _channelService.AddChannel(1, model);
-                return RedirectToAction("Index");
+                return RedirectToAction("ChannelList");
             }
             return View("AddRssChannel");
         }

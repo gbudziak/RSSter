@@ -9,10 +9,48 @@
     //Model.Add(newChannel);
 
 }
-@if (@Model!=null)
+@if (@Model != null)
 {
-<table class="ui celled striped table">
-    <thead>
+    <div class="ui grid">
+        @foreach (var item in Model)
+        {
+
+            <div class="four wide column center">
+                <td>
+                    @Html.ActionLink(
+                        " ",
+                        "RssListView",
+                        "RssReader",
+                        new { link = @item.Link },
+                        new
+                        {
+                            style = "background: url('" + Url.Content(@item.Image) + "') no-repeat center right; display:block; height:84px; width:84px;"
+                        }
+                        )
+                </td>
+                <td>
+                    @item.Title
+                    <br />
+                    @Html.ActionLink(@item.Description, "RssListView", "RssReader",
+                        new { link = @item.Link },
+                        new { })
+                </td>
+                <td>
+                    <a href="@Url.Action("Delete", "RssReader", new {channelId = item.ChannelId})">
+                        <i class="trash icon"></i>
+                    </a>
+                </td>
+
+            </div>
+
+
+        }
+    </div>
+    <br/>
+
+
+    <table class="ui celled striped table">
+        <thead>
         <tr>
             <th>
                 Channel Icon
@@ -24,40 +62,26 @@
                 Actions
             </th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.ActionLink(
-                    " ",
-                    "RssListView",
-                    "RssReader",
-                    new { link = @item.Link },
-                    new
-                    {
-                        style = "background: url('" + Url.Content(@item.Image) + "') no-repeat center right; display:block; height:84px; width:84px;"
-                    }
-)
+                    @Html.ActionLink(" ", "RssListView", "RssReader", new {link = @item.Link}, new {style = "background: url('" + Url.Content(@item.Image) + "') no-repeat center right; display:block; height:84px; width:84px;"})
                 </td>
                 <td>
-                    @item.Link
+                    @item.Title
                     <br/>
-                    @Html.ActionLink(@item.Description, "RssListView", "RssReader",
-                        new {link = @item.Link},
-                        new {})
+                    @Html.ActionLink(@item.Description, "RssListView", "RssReader", new {link = @item.Link}, new {})
                 </td>
                 <td>
-                    <a href="@Url.Action("Delete", "RssReader", new{channelId = item.ChannelId})">
-                        <i class="trash icon"></i>
-                    </a>                    
+                    <a href="@Url.Action("Delete", "RssReader", new {channelId = item.ChannelId})"><i class="trash icon"></i></a>
                 </td>
 
             </tr>
 
         }
-    </tbody>
-</table>
-
+        </tbody>
+    </table>
 }
