@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Build.Framework;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Models.RSS
 {
@@ -10,7 +13,10 @@ namespace Models.RSS
     {
         public List<Item> Items { get; set; }
         public long ChannelId { get; set; }
+
+        //[Remote("ChannelAlreadyExist", "RssReader")]
         public string Link { get; set; }
+
         public string Description { get; set; }
         public string Image { get; set; }
         public string Title { get; set; }

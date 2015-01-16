@@ -17,6 +17,7 @@ namespace Services.RssReader.Implementation
             _rssDatabase = rssDatabase;
         }
 
+
         public void RemoveChannel(int channelListId, long channelId)
         {
             var toRemove = _rssDatabase.Channels.FirstOrDefault(foo => foo.ChannelId == channelId);
