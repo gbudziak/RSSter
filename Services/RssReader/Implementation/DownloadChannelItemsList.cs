@@ -12,6 +12,7 @@ using System.Xml;
 using System.Xml.Linq;
 using DBContext;
 using Models.RSS;
+using Services.RssReader;
 
 
 
@@ -23,10 +24,12 @@ namespace Services.RssReader.Implementation
     public class DownloadChannelItemsList: IDownloadChannelItemsList
     {
         private readonly IDatabase _rssDatabase;
+        private readonly IChannelService _channelService;
 
-        public DownloadChannelItemsList(IDatabase rssDatabase)
+        public DownloadChannelItemsList(IDatabase rssDatabase, IChannelService channelService)
         {
             _rssDatabase = rssDatabase;
+            _channelService = channelService;
         }
 
         public SyndicationFeed GetRssChannel(string blogUrl)
@@ -84,15 +87,16 @@ namespace Services.RssReader.Implementation
             return channelModel;
         }
 
- 
+  
         //public void RefreshChannelFeeds()
         //{
-        //    var linkList = _rssDatabase.Channels.Select(x => x.Link);
-        //    foreach (var x in _rssDatabase.Channels)
+        //    var channelLinkList = _rssDatabase.Channels.Select(x => x.Link);
+        //    foreach (var x in channelLinkList)
         //    {
+        //        var model = GetRssChannelFeeds(x);
                 
+        //        _channelService.AddChannel(1,model);
         //    }
-        //    GetRssChannelFeeds()
         //}
 
         

@@ -14,11 +14,13 @@ Layout = "~/Views/Shared/_Layout_Semantic.cshtml";
     {
 
         <div class="four wide column center">
-           <td class="collapsing">
+            <td>
                 <a href="@item.Link" target="_blank">@item.Title</a>
             </td>
+            <br/>
             <td>@Html.Raw(item.Description)</td>
             <td class="right aligned collapsing"><a href="@item.Link" target="_blank">More</a></td>
+            <br/><br/>
             <td>@item.Category</td>
             <td>@item.PublishDate</td>
 
@@ -29,43 +31,38 @@ Layout = "~/Views/Shared/_Layout_Semantic.cshtml";
 </div>
 
 
-<br/>
-
-
-
-
-<table class="ui celled striped table">
-    <thead>
-        <tr>
-            <th>
-                Title
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Link
-            </th>
-            <th>
-                Category
-            </th>
-            <th>
-                Publish Date
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model.Items)
-    {
-        <tr>
-            <td class="collapsing">
-                <a href="@item.Link" target="_blank">@item.Title</a>
-            </td>
-            <td>@Html.Raw(item.Description)</td>
-            <td class="right aligned collapsing"><a href="@item.Link" target="_blank">More</a></td>
-            <td>@item.Category</td>
-            <td>@item.PublishDate</td>
-        </tr>
-    }
-    </tbody>
-</table>
+        <table class="ui celled striped table">
+            <thead>
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Link
+                    </th>
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        Publish Date
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td class="collapsing">
+                            <a href="@item.Link" target="_blank">@item.Title</a>
+                        </td>
+                        <td>@Html.Raw(item.Description)</td>
+                        <td class="right aligned collapsing"><a href="@item.Link" target="_blank">More</a></td>
+                        <td>@item.Category</td>
+                        <td>@item.PublishDate</td>
+                    </tr>
+                }
+            </tbody>
+        </table>

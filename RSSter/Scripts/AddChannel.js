@@ -1,7 +1,7 @@
 ﻿$(document).ready(function() {
     $("#btnGoToChannel").mousedown(GoTo);
-    $("#createSubmit").hide();
-    $("#btnGoToChannel").hide();
+    //$("#createSubmit").hide();
+    //$("#btnGoToChannel").hide();
     $("#Link").keyup(function() {
         var link = $("#Link").val();
         $.ajax({

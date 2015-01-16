@@ -4,13 +4,17 @@
 @{
     ViewBag.Title = "RssReader";
     Layout = "~/Views/Shared/_Layout_Semantic.cshtml";
-
-    //var newChannel = new Channel() { Link = "http://facet.wp.pl/rss.xml", Description = "first", Image = "none" };
-    //Model.Add(newChannel);
-
 }
+
+
 @if (@Model != null)
 {
+
+
+    <a href="@Url.Action("RefreshChannelFeeds", "RssReader")">
+        <i class="huge refresh icon"></i>
+    </a>
+
     <div class="ui grid">
         @foreach (var item in Model)
         {
