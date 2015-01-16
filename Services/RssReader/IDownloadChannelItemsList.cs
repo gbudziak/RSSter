@@ -14,7 +14,7 @@ namespace Services.RssReader
         SyndicationFeed GetRssChannel(string blogUrl);
         Channel GetRssChannelInfo(string blogUrl);
         Channel GetRssChannelFeeds(string blogUrl);
-        void RefreshChannelFeeds();
+        //void RefreshChannelFeeds();
 
 
 
