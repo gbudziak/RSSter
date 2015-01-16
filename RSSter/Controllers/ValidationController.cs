@@ -18,9 +18,14 @@ namespace RSSter.Controllers
         } 
         
         //GET: Validation
-        public JsonResult LinkValidation(string link)
+        public JsonResult IsLinkInDb(string link)
         {            
             return Json(_validateService.IsLinkUnique(link), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult IsLinkValid(string link)
+        {
+            return Json(_validateService.IsLinkValid(link), JsonRequestBehavior.AllowGet);
         }
     }
 }

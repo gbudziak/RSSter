@@ -7,7 +7,7 @@
 
 <h2>AddRssChannel</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "AddRssForm" }))
 {
     @Html.AntiForgeryToken()
 
@@ -16,10 +16,19 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Link, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="ui negative message" hidden="hidden" id="wrongLink">
+                <i class="close icon"></i>
+                <div class="header">
+                    There is a problem with RSS Channel you wanna add.
+                </div>
+                <p>
+                    It is not working or the url is incorrect, please type in new one.
+                </p>
+            </div>
+            @Html.LabelFor(model => model.Link, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Link, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Link, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(model => model.Link, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.Link, "", new {@class = "text-danger"})
             </div>
         </div>
 
