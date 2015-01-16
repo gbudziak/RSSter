@@ -45,6 +45,8 @@
     <Compile Include="RssReader\Implementation\ChannelService.cs" />
     <Compile Include="RssReader\Implementation\DownloadChannelItemsList.cs" />
     <Compile Include="RssReader\IDownloadChannelItemsList.cs" />
+    <Compile Include="RssReader\Implementation\ValidateService.cs" />
+    <Compile Include="RssReader\IValidateService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Context\DBContext.csproj">

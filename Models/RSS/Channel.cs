@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Models.RSS
 {
     public class Channel 
     {
         public List<Item> Items { get; set; }
-        public long ChannelId { get; set; }
+        public long Id { get; set; }
+        //[Remote()]
         public string Link { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
