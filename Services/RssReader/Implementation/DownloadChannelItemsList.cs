@@ -37,7 +37,6 @@ namespace Services.RssReader.Implementation
             XmlReader reader = XmlReader.Create(blogUrl);
 
             var feed = SyndicationFeed.Load(reader);
-
             return feed;
         }
 
