@@ -36,7 +36,7 @@
                         new { })
                 </td>
                 <td>
-                    <a href="@Url.Action("Delete", "RssReader", new {channelId = item.ChannelId})">
+                    <a href="@Url.Action("Delete", "RssReader", new {link = @item.Link})">
                         <i class="trash icon"></i>
                     </a>
                 </td>
@@ -76,7 +76,7 @@
                     @Html.ActionLink(@item.Description, "RssListView", "RssReader", new {link = @item.Link}, new {})
                 </td>
                 <td>
-                    <a href="@Url.Action("Delete", "RssReader", new {channelId = item.ChannelId})"><i class="trash icon"></i></a>
+                    <a href="@Url.Action("Delete", "RssReader", new {link = @item.Link})"><i class="trash icon"></i></a>
                 </td>
 
             </tr>

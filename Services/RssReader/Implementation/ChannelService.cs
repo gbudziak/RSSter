@@ -17,14 +17,14 @@ namespace Services.RssReader.Implementation
             _rssDatabase = rssDatabase;
         }
 
-        public void RemoveChannel(int channelListId, long channelId)
+        public void RemoveChannel(string link)
         {
-            var toRemove = _rssDatabase.Channels.FirstOrDefault(foo => foo.ChannelId == channelId);
+            var toRemove = _rssDatabase.Channels.FirstOrDefault(foo => foo.Link == link);
             _rssDatabase.Channels.Remove(toRemove);
             
         }
 
-        public void AddChannel(int channelListId, Channel newRssFeed)
+        public void AddChannel(Channel newRssFeed)
         {
             _rssDatabase.Channels.Add(newRssFeed);
         }
