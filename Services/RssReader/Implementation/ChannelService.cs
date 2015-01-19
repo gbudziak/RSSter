@@ -44,7 +44,7 @@ namespace Services.RssReader.Implementation
             try
             {
                 var channel = _rssDatabase.Channels.First(foo => foo.Link == link);
-                channel.Raiting++;
+                //channel.Raiting++;
                 return true;
             }
             catch (ArgumentOutOfRangeException e)
@@ -60,7 +60,7 @@ namespace Services.RssReader.Implementation
             try
             {
                 var channel = _rssDatabase.Channels.First(foo => foo.Link == link);
-                channel.Raiting--;
+                //channel.Raiting--;
                 return true;
             }
             catch (ArgumentOutOfRangeException e)

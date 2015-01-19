@@ -20,6 +20,7 @@ namespace Models.RSS
         public string Image { get; set; }
         public string Title { get; set; }        
 
+
         public Channel() { }
 
         public Channel(List<Item> items, string link)

@@ -102,7 +102,7 @@ namespace Services.RssReader.Implementation
         public List<Channel> GetChannels()
         {
             var channels = _rssDatabase.Channels.ToList();
-
+    
             return channels;
         }
 
