@@ -1,4 +1,6 @@
 ﻿@using Models.RSS
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,39 +9,53 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/semantic")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/semantic")
+
 </head>
-
-
 <body>
-    <header class="column"><div class="ui segment">HEADER</div></header>
-    <div class="ui sixteen column grid">
-        <div class="column"></div>
-
-        <div class="sixteen column row">
-            <div class="four wide column">
-                <div class="ui segment">
-                    <p>MENU</p>
-
-
-                    <p>@Html.ActionLink("My RSS Channels", "ChannelList", "RssReader")</p>
-                    <p>@Html.ActionLink("Add new RSS", "AddRssChannel", "RssReader")</p>
-
-                    @{ Html.RenderAction("Channels", "RssReader"); }
-
-
+    <div class="main nav">
+        <div class="ui inverted main menu">
+            <div class="container">
+                <div class="left menu">
+                    <div class="title item">
+                        <b>Startpage</b>
+                    </div><a href="/" class="launch item">Home</a><a href="/contact" class="launch item">Contact</a>
+                    @Html.Partial("_LoginPartial")
                 </div>
-            </div>
-            <div class="twelve wide column">
-                <div class="ui segment">
-                    @*<p>BODY</p>*@
-                    @RenderBody()
+
+                <div class="right menu">
+                    @Html.Partial("_LoginPartial")
                 </div>
             </div>
         </div>
     </div>
 
+
+
+    <div class="main container">
+        <div class="ui grid">
+            <div class="three wide column">
+                <div class="ui segment">
+                    @Html.Partial("_LoginPartial")
+                    <p>@Html.ActionLink("My RSS Channels", "ChannelList", "RssReader")</p>
+                    <p>@Html.ActionLink("Add new RSS", "AddRssChannel", "RssReader")</p>
+                    @{ Html.RenderAction("Channels", "RssReader"); }
+
+                 </div>
+            </div>
+            <div class="thirteen wide column">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <div class="ui active inverted main dimmer" style="display: none;">
+        <div class="loader">
+            Loading, please wait.
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/semantic")
     @RenderSection("scripts", required: false)
 </body>
 </html>

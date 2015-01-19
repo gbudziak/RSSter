@@ -60,9 +60,13 @@ namespace RSSter
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
-            //    ClientId = "",
-            //    ClientSecret = ""
+
+            //    ClientId = "MYCLIENTID",
+            //    ClientSecret = "MYSECRET",
             //});
+
+            app.UseGoogleAuthentication();
+
         }
     }
 }

@@ -163,7 +163,7 @@ namespace RSSter.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("RssListView", "RssReader");
                 }
                 AddErrors(result);
             }
@@ -392,7 +392,7 @@ namespace RSSter.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "RssReader");
         }
 
         //
@@ -449,7 +449,7 @@ namespace RSSter.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "RssReader");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

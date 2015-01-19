@@ -27,8 +27,6 @@ namespace Services.RssReader.Implementation
         {
             var linkCount = _rssDatabase.Channels.Where(foo => foo.Link == link).ToList();
             return !linkCount.Any();
-            //var isUnique = _rssDatabase.Channels.Exists(foo => foo.Link == link);
-            //return isUnique;
         }
 
         /// <summary>
@@ -47,6 +45,12 @@ namespace Services.RssReader.Implementation
             {
                 return false;
             }
+        }
+
+        public bool IsLinkExist(string link)
+        {
+            var linkCount = _rssDatabase.Channels.Where(foo => foo.Link == link).ToList();
+            return !linkCount.Any();
         }
 
     }
