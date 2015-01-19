@@ -42,7 +42,6 @@
     <Compile Include="Database.cs" />
     <Compile Include="IDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TemporaryDB.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
