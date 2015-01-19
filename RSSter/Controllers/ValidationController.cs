@@ -22,5 +22,11 @@ namespace RSSter.Controllers
         {            
             return Json(_validateService.IsLinkUnique(link), JsonRequestBehavior.AllowGet);
         }
+
+        public void ChannelValidation(string link)
+        {
+            var isLinkUnique = _validateService.IsLinkUnique(link);
+            
+        }
     }
 }

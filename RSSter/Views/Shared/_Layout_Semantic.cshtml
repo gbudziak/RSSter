@@ -21,8 +21,14 @@
             <div class="four wide column">
                 <div class="ui segment">
                     <p>MENU</p>
+
+
                     <p>@Html.ActionLink("My RSS Channels", "ChannelList", "RssReader")</p>
                     <p>@Html.ActionLink("Add new RSS", "AddRssChannel", "RssReader")</p>
+
+                    @{ Html.RenderAction("Channels", "RssReader"); }
+
+
                 </div>
             </div>
             <div class="twelve wide column">
