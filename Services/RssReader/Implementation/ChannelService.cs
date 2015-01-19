@@ -55,5 +55,46 @@ namespace Services.RssReader.Implementation
         {
             return _rssDatabase.Channels.First(x => x.Link == link);
         }
+
+        /// <summary>
+        /// Method to add raiting to channel.
+        /// </summary>
+        /// <param name="link">Rss channel URL</param>
+        /// <returns>bool, true if successful</returns>
+        public bool AddRaiting(string link)
+        {
+            try
+            {
+                var channel = _rssDatabase.Channels.First(foo => foo.Link == link);
+                channel.Raiting++;
+                return true;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            
+        }
+
+        /// <summary>
+        /// Method to remove raiting from a channel
+        /// </summary>
+        /// <param name="link">Rss channel URL</param>
+        /// <returns>bool, true if successful</returns>
+        public bool RemoveRaiting(string link)
+        {
+            try
+            {
+                var channel = _rssDatabase.Channels.First(foo => foo.Link == link);
+                channel.Raiting--;
+                return true;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
     }
 }

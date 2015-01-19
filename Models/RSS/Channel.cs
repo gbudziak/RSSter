@@ -17,6 +17,8 @@ namespace Models.RSS
         public string Description { get; set; }
         public string Image { get; set; }
         public string Title { get; set; }
+        public int Raiting { get; set; }
+
         public Channel() { }
 
         public Channel(List<Item> items, string link)
