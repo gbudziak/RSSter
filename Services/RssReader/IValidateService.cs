@@ -10,7 +10,7 @@ namespace Services.RssReader
     public interface IValidateService
     {
         bool IsLinkUnique(string link);
-
+        bool IsLinkExist(string link);
         bool IsLinkValid(string link);
 
     }

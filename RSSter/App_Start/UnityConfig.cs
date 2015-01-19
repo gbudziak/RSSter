@@ -1,8 +1,16 @@
 using System;
+using System.Data.Entity;
+using System.Web;
 using DBContext;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
 using Microsoft.Practices.Unity;
+using Models.Models;
+using RSSter.Controllers;
 using Services.RssReader;
 using Services.RssReader.Implementation;
+using Database = DBContext.Database;
 
 
 namespace RSSter
@@ -37,6 +45,13 @@ namespace RSSter
             container.RegisterType<IChannelService, ChannelService>();
             container.RegisterType<IDatabase, Database>();
             container.RegisterType<IValidateService, ValidateService>();
+
+            container.RegisterType<UserManager<ApplicationUser>>(new HierarchicalLifetimeManager());
+            container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(new HierarchicalLifetimeManager());
+            container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<IAuthenticationManager>(new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
+
         }
     }
 }
