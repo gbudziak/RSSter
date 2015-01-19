@@ -15,5 +15,6 @@ namespace Models.RSS
         public string PublishDate { get; set; }
         public bool Read { get; set; }
         public bool ReadLater { get; set; }
+        public int Raiting { get; set; }
     }
 }

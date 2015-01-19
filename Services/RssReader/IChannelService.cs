@@ -17,9 +17,9 @@ namespace Services.RssReader
 
         Channel ShowChannelFeedList(string link);
 
-        bool AddRaiting(string link);
+        bool AddRaiting(string rssLink);
 
-        bool RemoveRaiting(string link);
+        bool RemoveRaiting(string rssLink);
 
     }
 }
