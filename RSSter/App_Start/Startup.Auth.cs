@@ -58,14 +58,13 @@ namespace RSSter
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
 
-            //    ClientId = "MYCLIENTID",
-            //    ClientSecret = "MYSECRET",
-            //});
+                ClientId = "931833409226-4psnln5q4c2u8ao84f2h12stk12hm1kj.apps.googleusercontent.com",
+                ClientSecret = "m168FWZ4B5o13PBRPuHEDLXk",
+            });
 
-            app.UseGoogleAuthentication();
 
         }
     }

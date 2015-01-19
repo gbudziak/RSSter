@@ -13,8 +13,10 @@ namespace Models.RSS
         public string Title { get; set; }
         public string Category { get; set; }
         public string PublishDate { get; set; }
-        public bool Read { get; set; }
-        public bool ReadLater { get; set; }
-        public int Raiting { get; set; }
+        public int RaitingPlus { get; set; }
+        public int RaitingMinus { get; set; }
+
+        //public bool Read { get; set; }
+        //public bool ReadLater { get; set; }
     }
 }

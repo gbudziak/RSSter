@@ -2,13 +2,10 @@
 
 @foreach (var item in Model)
 {
-
-    <div class="menu-subitem">
+    <div class="ui label">
         @Html.ActionLink(@item.Title, "RssListView", "RssReader",
                         new { link = @item.Link },
                         new { })
-        (@item.Items.Count)
-
+        <a class="detail"><i class="mail icon"></i> @item.Items.Count</a>
     </div>
-
 }
