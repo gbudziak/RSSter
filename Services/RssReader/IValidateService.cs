@@ -12,5 +12,6 @@ namespace Services.RssReader
         bool IsLinkUnique(string link);
 
         bool IsLinkValid(string link);
+
     }
 }

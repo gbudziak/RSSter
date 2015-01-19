@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "RssReader";
     Layout = "~/Views/Shared/_Layout_Semantic.cshtml";
+    
 }
 
 
@@ -11,9 +12,9 @@
 {
 
 
-    <a href="@Url.Action("RefreshChannelFeeds", "RssReader")">
+    @*<a href="@Url.Action("RefreshChannelFeeds", "RssReader")">
         <i class="huge refresh icon"></i>
-    </a>
+    </a>*@
 
     <div class="ui grid">
         @foreach (var item in Model)

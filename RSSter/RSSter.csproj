@@ -274,6 +274,7 @@
     <Content Include="Views\RssReader\Index.cshtml" />
     <Content Include="Views\RssReader\AddRssChannel.cshtml" />
     <Content Include="Views\RssReader\ChannelList.cshtml" />
+    <Content Include="Views\RssReader\Channels.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

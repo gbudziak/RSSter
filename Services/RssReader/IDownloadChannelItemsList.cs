@@ -15,6 +15,7 @@ namespace Services.RssReader
         Channel GetRssChannelInfo(string blogUrl);
         Channel GetRssChannelFeeds(string blogUrl);
         //void RefreshChannelFeeds();
+        List<Channel> GetChannels();
 
 
 

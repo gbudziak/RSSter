@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Models.RSS.Channel>
+
+@foreach (var item in Model)
+{
+
+    <div class="menu-subitem">
+        @Html.ActionLink(@item.Title, "RssListView", "RssReader",
+                        new { link = @item.Link },
+                        new { })
+        (@item.Items.Count)
+
+    </div>
+
+}

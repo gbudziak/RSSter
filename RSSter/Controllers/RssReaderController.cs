@@ -64,13 +64,10 @@ namespace RSSter.Controllers
             return RedirectToAction("ChannelList");
         }
 
-        //public ActionResult RefreshChannelFeeds()
-        //{
-        //    _downloadChannelItemsList.RefreshChannelFeeds();
-            
-        //    return RedirectToAction("ChannelList");
-        //}
-
-
+        public ActionResult Channels()
+        {
+            var channels = _downloadChannelItemsList.GetChannels();
+            return PartialView("Channels", channels);
+        }
     }
 }

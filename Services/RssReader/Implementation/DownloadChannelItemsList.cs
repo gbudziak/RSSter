@@ -37,6 +37,7 @@ namespace Services.RssReader.Implementation
             XmlReader reader = XmlReader.Create(blogUrl);
 
             var feed = SyndicationFeed.Load(reader);
+
             return feed;
         }
 
@@ -98,7 +99,13 @@ namespace Services.RssReader.Implementation
         //    }
         //}
 
-        
+        public List<Channel> GetChannels()
+        {
+            var channels = _rssDatabase.Channels.ToList();
+
+            return channels;
+        }
+
     }
 }
 
