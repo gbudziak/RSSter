@@ -5,11 +5,13 @@
     $("#Link").keyup(IsLinkInDB);
 });
 
+//Function that assigns destination for Go to channel button.
 function GoTo() {
     var link = $("#Link").val();
     window.location.assign("RssListView/?link=" + link);
 }
 
+//Feature method for user convenience, it uses ajax call for controller action, if user has the rss channel he tryes to add on his list already button to go to channel is shows, else create button is shown.
 function IsLinkInDB() {
     var link = $("#Link").val();
     $.ajax({
@@ -25,7 +27,7 @@ function IsLinkInDB() {
     $("#wrongLink").hide();
 };
 
-
+//Validation method from user side. It axaj calls controller action, if validation is true it unbinds and submits the form, if not is shows a message.
 $("#AddRssForm").submit(function (event) {
     event.preventDefault();
     var link = $("#Link").val();

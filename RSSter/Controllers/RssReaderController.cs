@@ -11,8 +11,6 @@ using DBContext;
 using Models.RSS;
 using Services.RssReader;
 
-//using Services.RssReader;
-
 namespace RSSter.Controllers
 {
     public class RssReaderController : Controller
@@ -34,7 +32,6 @@ namespace RSSter.Controllers
         [HttpGet]
         public ActionResult AddRssChannel()
         {
-
             return View("AddRssChannel");
         }
 
@@ -53,7 +50,6 @@ namespace RSSter.Controllers
 
         public ActionResult RssListView(string link)
         {
-
             return View(_channelService.ShowChannelFeedList(link));
         }
 

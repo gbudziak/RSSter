@@ -18,13 +18,22 @@ namespace Services.RssReader.Implementation
             _downloadChannelItemsList = downloadChannelItemsList;
         }
 
+        /// <summary>
+        /// Method that checks if the given link is already on channel list.
+        /// </summary>
+        /// <param name="link">Rss channel URL that is to be checked</param>
+        /// <returns>bool, true if link is not on channel list</returns>
         public bool IsLinkUnique(string link)
         {
             var linkCount = _rssDatabase.Channels.Where(foo => foo.Link == link).ToList();
             return !linkCount.Any();
         }
 
-
+        /// <summary>
+        /// Method that checks if the given link is a valid rss channel.
+        /// </summary>
+        /// <param name="link">Rss channel URL that is to be checked</param>
+        /// <returns>bool, true if link is valid</returns>
         public bool IsLinkValid(string link)
         {
             try
