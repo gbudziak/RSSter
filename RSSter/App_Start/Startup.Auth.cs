@@ -54,9 +54,9 @@ namespace RSSter
             //   consumerKey: "GTDTxdIPjitcK2L1Ao1a9vdWC",
             //   consumerSecret: "USxzeLKICSQmlDb49Ww5MITfsRZ6Q6czPMxEuXBEqvFXdaPASx");
 
-            app.UseFacebookAuthentication(
-               appId: "725904567505938",
-               appSecret: "3444079f290a1827ea477e9c9ef23da3");
+            //app.UseFacebookAuthentication(
+            //   appId: "725904567505938",
+            //   appSecret: "3444079f290a1827ea477e9c9ef23da3");
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {

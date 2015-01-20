@@ -1,5 +1,10 @@
 ﻿@model IEnumerable<Models.RSS.Channel>
 
+@{
+    ViewBag.Title = "SHowRSSChannels";
+    Layout = null;
+}
+
 @foreach (var item in Model)
 {
     <div class="ui label">

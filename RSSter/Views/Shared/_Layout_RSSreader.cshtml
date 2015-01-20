@@ -12,23 +12,26 @@
 
 </head>
 <body>
+<div class="main nav">
+    <div class="ui inverted main menu">
+        <div class="container">
+            <div class="left menu">
+                <div class="title item">
+                    <b>RSSter</b>
+                </div>
+                <a href="/about" class="launch item">About</a>
+                <a href="/contact" class="launch item">Contact</a>
+            </div>
 
+            <div class="right menu">
+                <a href="/about" class="launch item">Info</a>
+                <a href="/contact" class="launch item">info 2</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-
-            @RenderBody()
-
-
-
-
-
-            @Scripts.Render("~/bundles/jquery")
-            @Scripts.Render("~/bundles/semantic")
-            @RenderSection("scripts", required: false)
-</body>
-</html>
-
-
-@*<div class="main container">
+<div class="main container">
     <div class="ui grid">
         <div class="three wide column">
             <div class="ui segment">
@@ -45,8 +48,11 @@
     </div>
 </div>
 
-<div class="ui active inverted main dimmer" style="display: none;">
-    <div class="loader">
-        Loading, please wait.
-    </div>
-</div>*@
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/semantic")
+@RenderSection("scripts", required: false)
+</body>
+</html>
+
+

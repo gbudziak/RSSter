@@ -22,6 +22,12 @@ namespace RSSter.Controllers
         {
         }
 
+        [RequireHttps]
+        public ActionResult LoginIndex()
+        {
+            return View();
+        }
+
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
@@ -58,7 +64,7 @@ namespace RSSter.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
+            return View("LoginIndex");
         }
 
         //
@@ -70,7 +76,7 @@ namespace RSSter.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("LoginIndex",model);
             }
 
             // This doesn't count login failures towards account lockout
@@ -79,7 +85,7 @@ namespace RSSter.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "RssReader",model);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -87,7 +93,7 @@ namespace RSSter.Controllers
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                    return View("LoginIndex",model);
             }
         }
 
@@ -163,7 +169,7 @@ namespace RSSter.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("RssListView", "RssReader");
+                    return RedirectToAction("Index", "RssReader");
                 }
                 AddErrors(result);
             }
@@ -325,7 +331,7 @@ namespace RSSter.Controllers
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("LoginIndex");
             }
 
             // Sign in the user with this external login provider if the user already has a login
@@ -333,7 +339,7 @@ namespace RSSter.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "RssReader");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -392,7 +398,7 @@ namespace RSSter.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "RssReader");
+            return RedirectToAction("LoginIndex", "Account");
         }
 
         //
@@ -449,7 +455,7 @@ namespace RSSter.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "RssReader");
+            return RedirectToAction("LoginIndex", "Account");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult
