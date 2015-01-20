@@ -76,7 +76,7 @@ namespace RSSter.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("LoginIndex",model);
+                return View("LoginIndex");
             }
 
             // This doesn't count login failures towards account lockout
@@ -85,7 +85,7 @@ namespace RSSter.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Index", "RssReader",model);
+                    return RedirectToAction("Index", "RssReader");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -382,6 +382,7 @@ namespace RSSter.Controllers
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
+
                     }
                 }
                 AddErrors(result);

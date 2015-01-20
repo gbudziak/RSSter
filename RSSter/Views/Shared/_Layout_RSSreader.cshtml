@@ -1,4 +1,5 @@
-﻿@using Models.RSS
+﻿@using Microsoft.AspNet.Identity
+@using Models.RSS
 
 
 <!DOCTYPE html>
@@ -24,8 +25,15 @@
             </div>
 
             <div class="right menu">
-                <a href="/about" class="launch item">Info</a>
-                <a href="/contact" class="launch item">info 2</a>
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @*<a href="/about" class="launch item">Info</a>*@
+                <div class="ui dropdown item">
+                    <i class="remove icon"></i>
+                    <div class="menu">
+                        <a class="item" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
