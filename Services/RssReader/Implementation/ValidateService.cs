@@ -35,7 +35,7 @@ namespace Services.RssReader.Implementation
             {
                 return false;
             }
-        }
+        }        
 
         public bool IsLinkExist(string link)
         {

@@ -18,21 +18,34 @@ namespace Services.RssReader.Implementation
             _rssDatabase = rssDatabase;
         }
     
-        public void RemoveChannel(string link)
+        public void RemoveChannel(string userId, string link)
         {
             var toRemove = _rssDatabase.Channels.FirstOrDefault(foo => foo.Link == link);
             _rssDatabase.Channels.Remove(toRemove);
             
         }
      
-        public void AddChannel(Channel newRssFeed)
+        public void AddChannel(string userId, Channel newRssFeed)
         {
-            _rssDatabase.Channels.Add(newRssFeed);
+            var linkCount = _rssDatabase.Channels.Where(foo => foo.Link == newRssFeed.Link).ToList();
+            if (!linkCount.Any())
+            {
+                _rssDatabase.Channels.Add(newRssFeed);    
+                _rssDatabase.SaveChanges();
+            }
+            var channelId = _rssDatabase.Channels.FirstOrDefault(foo => foo.Link == newRssFeed.Link).Id;
+            var linkCount02 = _rssDatabase.UserChannels.Where(foo => foo.ChannelId == channelId).ToList();
+            if (!linkCount02.Any())
+            {
+                var userchannel = new UserChannel() {ApplicationUserId = userId, ChannelId = channelId};
+                _rssDatabase.UserChannels.Add(userchannel);
+                _rssDatabase.SaveChanges();
+            }
         }
       
-        public DbSet<Channel> ShowChannelList()
+        public List<Channel> ShowChannelList()
         {
-            return _rssDatabase.Channels;
+            return _rssDatabase.Channels.ToList();
         }
        
         public Channel ShowChannelFeedList(string link)

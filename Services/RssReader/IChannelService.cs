@@ -10,17 +10,17 @@ namespace Services.RssReader
 {
     public interface IChannelService
     {
-        void AddChannel(Channel newRssFeed);
+        void AddChannel(string userId, Channel newRssFeed);
 
-        void RemoveChannel(string link);
+        void RemoveChannel(string userId, string link);
 
-        DbSet<Channel> ShowChannelList();
+        List<Channel> ShowChannelList();
 
         Channel ShowChannelFeedList(string link);
 
-        bool AddRaiting(string rssLink);
+        //bool AddRaiting(string rssLink);
 
-        bool RemoveRaiting(string rssLink);
+        //bool RemoveRaiting(string rssLink);
 
     }
 }
