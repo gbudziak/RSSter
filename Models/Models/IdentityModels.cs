@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using System.Data.Entity;
 using Models.RSS;
 
 namespace Models.Models
@@ -34,5 +35,7 @@ namespace Models.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Channel> Channels { get; set; }
     }
 }
