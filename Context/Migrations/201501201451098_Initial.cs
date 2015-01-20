@@ -3,7 +3,7 @@ namespace DBContext.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class itemsUnderUserAsWell : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -61,6 +61,21 @@ namespace DBContext.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.UserChannels",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Category = c.String(),
+                        ChannelId = c.Long(nullable: false),
+                        ApplicationUserId = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserId)
+                .ForeignKey("dbo.Channels", t => t.ChannelId, cascadeDelete: true)
+                .Index(t => t.ChannelId)
+                .Index(t => t.ApplicationUserId);
+            
+            CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
@@ -108,7 +123,7 @@ namespace DBContext.Migrations
                 .Index(t => t.UserId);
             
             CreateTable(
-                "dbo.UItems",
+                "dbo.UserItems",
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
@@ -116,63 +131,48 @@ namespace DBContext.Migrations
                         RaitingPlus = c.Boolean(nullable: false),
                         RaitingMinus = c.Boolean(nullable: false),
                         ItemId = c.Long(nullable: false),
-                        ApplicationUser_Id = c.String(maxLength: 128),
-                        UChannel_Id = c.Long(),
+                        ApplicationUserId = c.String(maxLength: 128),
+                        UserChannel_Id = c.Long(),
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserId)
                 .ForeignKey("dbo.Items", t => t.ItemId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
-                .ForeignKey("dbo.UChannels", t => t.UChannel_Id)
+                .ForeignKey("dbo.UserChannels", t => t.UserChannel_Id)
                 .Index(t => t.ItemId)
-                .Index(t => t.ApplicationUser_Id)
-                .Index(t => t.UChannel_Id);
-            
-            CreateTable(
-                "dbo.UChannels",
-                c => new
-                    {
-                        Id = c.Long(nullable: false, identity: true),
-                        Category = c.String(),
-                        ChannelId = c.Long(nullable: false),
-                        ApplicationUser_Id = c.String(maxLength: 128),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Channels", t => t.ChannelId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
-                .Index(t => t.ChannelId)
-                .Index(t => t.ApplicationUser_Id);
+                .Index(t => t.ApplicationUserId)
+                .Index(t => t.UserChannel_Id);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.UChannels", "ApplicationUser_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.UItems", "UChannel_Id", "dbo.UChannels");
-            DropForeignKey("dbo.UChannels", "ChannelId", "dbo.Channels");
-            DropForeignKey("dbo.UItems", "ApplicationUser_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.UItems", "ItemId", "dbo.Items");
+            DropForeignKey("dbo.UserItems", "UserChannel_Id", "dbo.UserChannels");
+            DropForeignKey("dbo.UserItems", "ItemId", "dbo.Items");
+            DropForeignKey("dbo.UserItems", "ApplicationUserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.UserChannels", "ChannelId", "dbo.Channels");
+            DropForeignKey("dbo.UserChannels", "ApplicationUserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Items", "Channel_Id", "dbo.Channels");
-            DropIndex("dbo.UChannels", new[] { "ApplicationUser_Id" });
-            DropIndex("dbo.UChannels", new[] { "ChannelId" });
-            DropIndex("dbo.UItems", new[] { "UChannel_Id" });
-            DropIndex("dbo.UItems", new[] { "ApplicationUser_Id" });
-            DropIndex("dbo.UItems", new[] { "ItemId" });
+            DropIndex("dbo.UserItems", new[] { "UserChannel_Id" });
+            DropIndex("dbo.UserItems", new[] { "ApplicationUserId" });
+            DropIndex("dbo.UserItems", new[] { "ItemId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.UserChannels", new[] { "ApplicationUserId" });
+            DropIndex("dbo.UserChannels", new[] { "ChannelId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.Items", new[] { "Channel_Id" });
-            DropTable("dbo.UChannels");
-            DropTable("dbo.UItems");
+            DropTable("dbo.UserItems");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
+            DropTable("dbo.UserChannels");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Items");

@@ -5,10 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Models.Models;
 
 namespace Models.RSS
 {
-    public class UItem
+    public class UserItem
     {
         [Key]
         public long Id { get; set; }
@@ -19,5 +20,9 @@ namespace Models.RSS
         [ForeignKey("Item")]
         public long ItemId { get; set; }
         public virtual Item Item { get; set; }
+
+        [ForeignKey("ApplicationUser")]
+        public string ApplicationUserId { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

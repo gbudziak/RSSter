@@ -5,32 +5,37 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Models.Models;
 
 namespace Models.RSS
 {
-    public class UChannel
+    public class UserChannel
     {
         [Key]
         public long Id { get; set; }
         public string Category { get; set; }
-        public List<UItem> UItems { get; set; }
+        public List<UserItem> UItems { get; set; }
 
         [ForeignKey("Channel")]
         public long ChannelId { get; set; }
         public virtual Channel Channel { get; set; }
 
-        public UChannel() { }
+        [ForeignKey("ApplicationUser")]
+        public string ApplicationUserId { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
-        public UChannel(List<UItem> uitems, long id)
+        public UserChannel() { }
+
+        public UserChannel(List<UserItem> uitems, long id)
         {
             this.UItems = uitems;
             this.Id = id;
         }
 
-        public UChannel(long id)
+        public UserChannel(long id)
         {
             this.Id = id;
-            this.UItems = new List<UItem>();
+            this.UItems = new List<UserItem>();
         }
     }
 }

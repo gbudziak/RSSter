@@ -57,9 +57,9 @@
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="IApplicationDbContext.cs" />
-    <Compile Include="Migrations\201501201312160_itemsUnderUserAsWell.cs" />
-    <Compile Include="Migrations\201501201312160_itemsUnderUserAsWell.Designer.cs">
-      <DependentUpon>201501201312160_itemsUnderUserAsWell.cs</DependentUpon>
+    <Compile Include="Migrations\201501201451098_Initial.cs" />
+    <Compile Include="Migrations\201501201451098_Initial.Designer.cs">
+      <DependentUpon>201501201451098_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,8 +75,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201501201312160_itemsUnderUserAsWell.resx">
-      <DependentUpon>201501201312160_itemsUnderUserAsWell.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201501201451098_Initial.resx">
+      <DependentUpon>201501201451098_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

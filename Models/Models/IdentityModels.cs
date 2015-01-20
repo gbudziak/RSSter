@@ -12,9 +12,7 @@ namespace Models.Models
     public class ApplicationUser : IdentityUser, IUser<string>
     {
         public string Name { get; set; }
-        public string Forname { get; set; }
-        public List<UChannel> UserChannels { get; set; }
-        public List<UItem> UItems { get; set; }
+        public string Forname { get; set; }        
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

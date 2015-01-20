@@ -16,7 +16,7 @@ namespace RSSter.Controllers
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
+        private ApplicationUserManager _userManager;        
 
         public AccountController()
         {
@@ -57,7 +57,7 @@ namespace RSSter.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
+            ViewBag.ReturnUrl = returnUrl;            
             return View();
         }
 

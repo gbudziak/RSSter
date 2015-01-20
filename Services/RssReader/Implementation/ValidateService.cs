@@ -20,7 +20,7 @@ namespace Services.RssReader.Implementation
         
         public bool IsLinkUnique(string link)
         {
-            var linkCount = _rssDatabase.Channels.Where(foo => foo.Link == link).ToList();
+            var linkCount = _rssDatabase.Channels.Where(foo => foo.Link == link).ToList();                  
             return !linkCount.Any();
         }
         
