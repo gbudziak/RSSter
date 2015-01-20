@@ -10,7 +10,6 @@ using Models.Models;
 using RSSter.Controllers;
 using Services.RssReader;
 using Services.RssReader.Implementation;
-using Database = DBContext.ApplicationDbContext;
 
 
 namespace RSSter
@@ -43,7 +42,7 @@ namespace RSSter
 
             container.RegisterType<IDownloadChannelItemsList, DownloadChannelItemsList>();
             container.RegisterType<IChannelService, ChannelService>();
-            container.RegisterType<IApplicationDbContext, Database>();
+            container.RegisterType<IApplicationDbContext, ApplicationDbContext>();
             container.RegisterType<IValidateService, ValidateService>();
 
             container.RegisterType<UserManager<ApplicationUser>>(new HierarchicalLifetimeManager());
