@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using Models.RSS;
 
 namespace DBContext
 {
-    public interface IDatabase
+    public interface IApplicationDbContext
     {
         //List<ChannelList> ChannelLists { get; set; }
-        List<Channel> Channels { get; set; }
+        DbSet<Channel> Channels { get; set; }
         //List<Item> Items { get; set; }
 
     }
