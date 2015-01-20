@@ -78,8 +78,7 @@ namespace Services.RssReader.Implementation
                         Description = item.Summary.Text,
                         Link = item.Links[0].Uri.ToString(),
                         Title = item.Title.Text,
-                        PublishDate = item.PublishDate.ToString(),
-                        Category = "none"
+                        PublishDate = item.PublishDate.ToString()                        
                     });
                 }
             }

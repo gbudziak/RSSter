@@ -87,6 +87,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RSS\Channel.cs" />
     <Compile Include="RSS\Item.cs" />
+    <Compile Include="RSS\UChannel.cs" />
+    <Compile Include="RSS\UItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
