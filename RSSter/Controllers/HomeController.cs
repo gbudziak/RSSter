@@ -8,11 +8,11 @@ namespace RSSter.Controllers
 {
     public class HomeController : Controller
     {
-        //[RequireHttps]
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
+        [RequireHttps]
+        public ActionResult Index()
+        {
+            return View("Index-cat-example");
+        }
 
         public ActionResult About()
         {

@@ -8,6 +8,7 @@ using System.Web.Services.Description;
 using System.Xml;
 using System.Xml.Linq;
 using DBContext;
+using Microsoft.AspNet.Identity;
 using Models.RSS;
 using Services.RssReader;
 
@@ -41,26 +42,28 @@ namespace RSSter.Controllers
             if (ModelState.IsValid)
             {
                 var model = _downloadChannelItemsList.GetRssChannelFeeds(channel.Link);
+                var userId = User.Identity.GetUserId();
                 
-                _channelService.AddChannel(model);
+                _channelService.AddChannel(userId, model);
                 return RedirectToAction("ChannelList");
             }
             return View("AddRssChannel");
         }
 
         public ActionResult RssListView(string link)
-        {
+        {            
             return View(_channelService.ShowChannelFeedList(link));
         }
 
         public ActionResult ChannelList()
-        {
+        {            
             return View(_channelService.ShowChannelList());
         }
 
         public ActionResult Delete(string link)
         {
-            _channelService.RemoveChannel(link);
+            var userId = User.Identity.GetUserId();
+            _channelService.RemoveChannel(userId, link);
             return RedirectToAction("ChannelList");
         }
 
