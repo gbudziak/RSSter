@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,9 @@ namespace Services.RssReader.Implementation
 {
     public class ChannelService : IChannelService
     {
-        private readonly IDatabase _rssDatabase;
+        private readonly IApplicationDbContext _rssDatabase;
 
-        public ChannelService(IDatabase rssDatabase)
+        public ChannelService(IApplicationDbContext rssDatabase)
         {
             _rssDatabase = rssDatabase;
         }
@@ -29,7 +30,7 @@ namespace Services.RssReader.Implementation
             _rssDatabase.Channels.Add(newRssFeed);
         }
       
-        public List<Channel> ShowChannelList()
+        public DbSet<Channel> ShowChannelList()
         {
             return _rssDatabase.Channels;
         }

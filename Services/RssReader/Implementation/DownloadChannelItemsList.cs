@@ -23,10 +23,10 @@ namespace Services.RssReader.Implementation
 {
     public class DownloadChannelItemsList: IDownloadChannelItemsList
     {
-        private readonly IDatabase _rssDatabase;
+        private readonly IApplicationDbContext _rssDatabase;
         private readonly IChannelService _channelService;
 
-        public DownloadChannelItemsList(IDatabase rssDatabase, IChannelService channelService)
+        public DownloadChannelItemsList(IApplicationDbContext rssDatabase, IChannelService channelService)
         {
             _rssDatabase = rssDatabase;
             _channelService = channelService;

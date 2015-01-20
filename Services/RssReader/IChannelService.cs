@@ -1,6 +1,7 @@
 ﻿using Models.RSS;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace Services.RssReader
 
         void RemoveChannel(string link);
 
-        List<Channel> ShowChannelList();
+        DbSet<Channel> ShowChannelList();
 
         Channel ShowChannelFeedList(string link);
 
