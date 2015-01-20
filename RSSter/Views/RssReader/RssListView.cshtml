@@ -2,7 +2,7 @@
 
 @{
 ViewBag.Title = "RssReader";
-Layout = "~/Views/Shared/_Layout_Semantic.cshtml";
+Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
 }
 
 <h2>RssReader</h2>
@@ -21,7 +21,6 @@ Layout = "~/Views/Shared/_Layout_Semantic.cshtml";
             <td>@Html.Raw(item.Description)</td>
             <td class="right aligned collapsing"><a href="@item.Link" target="_blank">More</a></td>
             <br/><br/>
-            <td>@item.Category</td>
             <td>@item.PublishDate</td>
 
         </div>
@@ -60,7 +59,6 @@ Layout = "~/Views/Shared/_Layout_Semantic.cshtml";
                         </td>
                         <td>@Html.Raw(item.Description)</td>
                         <td class="right aligned collapsing"><a href="@item.Link" target="_blank">More</a></td>
-                        <td>@item.Category</td>
                         <td>@item.PublishDate</td>
                     </tr>
                 }
