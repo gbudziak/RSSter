@@ -44,9 +44,6 @@ namespace DBContext
 
         public DbSet<UserChannel> UserChannels { get; set; }
 
-        public new void SaveChanges()
-        {
-            base.SaveChanges();
-        }
+
     }
 }
