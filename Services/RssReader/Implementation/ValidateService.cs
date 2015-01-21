@@ -35,7 +35,7 @@ namespace Services.RssReader.Implementation
         {
             try
             {
-                var urlValidation = _downloadChannelItemsList.GetRssChannel(url);
+                //var urlValidation = _downloadChannelItemsList.GetRssChannel(url);
                 return true;
             }
             catch (Exception)
