@@ -23,8 +23,6 @@ namespace RSSter.Controllers
         [AllowAnonymous]
         public ActionResult LoginIndex()
         {
-            if (Request.IsAuthenticated)
-                return RedirectToAction("Index", "RssReader");
 
             return View();
         }
@@ -363,7 +361,7 @@ namespace RSSter.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Manage");
+                return RedirectToAction("Index", "RssReader");
             }
 
             if (ModelState.IsValid)

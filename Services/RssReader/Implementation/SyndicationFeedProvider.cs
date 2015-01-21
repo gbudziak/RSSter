@@ -3,7 +3,7 @@ using System.Xml;
 
 namespace Services.RssReader.Implementation
 {
-    class SyndicationFeedProvider : ISyndicationFeedProvider
+    public class SyndicationFeedProvider : ISyndicationFeedProvider
     {
         public SyndicationFeed GetSyndicationFeed(string url)
         {

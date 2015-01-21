@@ -38,7 +38,7 @@ namespace RSSter.Controllers
                 var userId = User.Identity.GetUserId();
                 
                 _channelService.AddChannel(userId, model);
-                return RedirectToAction("ChannelList");
+                return RedirectToAction("Index","RssReader");
             }
             return View("AddRssChannel");
         }

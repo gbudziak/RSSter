@@ -44,7 +44,7 @@
         <div class="three wide column">
             <div class="ui segment">
                 @Html.Partial("_LoginPartial")
-                <p>@Html.ActionLink("My RSS Channels", "ChannelList", "RssReader")</p>
+                @*<p>@Html.ActionLink("My RSS Channels", "ChannelList", "RssReader")</p>*@
                 <p>@Html.ActionLink("Add new RSS", "AddRssChannel", "RssReader")</p>
                 @{ Html.RenderAction("Channels", "RssReader"); }
 
