@@ -32,9 +32,10 @@ namespace Models.RSS
             this.Id = id;
         }
 
-        public UserChannel(long id)
+        public UserChannel(long channelId, string applicationUserId)
         {
-            this.Id = id;
+            this.ChannelId = channelId;
+            this.ApplicationUserId = applicationUserId;
             this.UItems = new List<UserItem>();
         }
     }

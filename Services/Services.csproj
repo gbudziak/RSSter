@@ -87,9 +87,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RssReader\IChannelService.cs" />
     <Compile Include="RssReader\Implementation\AccountService.cs" />
+    <Compile Include="RssReader\Implementation\ChannelPrivder.cs" />
     <Compile Include="RssReader\Implementation\ChannelService.cs" />
     <Compile Include="RssReader\Implementation\DownloadChannelItemsList.cs" />
     <Compile Include="RssReader\IDownloadChannelItemsList.cs" />
+    <Compile Include="RssReader\Implementation\ISyndicateFeedProvider.cs" />
     <Compile Include="RssReader\Implementation\ValidateService.cs" />
     <Compile Include="RssReader\IValidateService.cs" />
   </ItemGroup>

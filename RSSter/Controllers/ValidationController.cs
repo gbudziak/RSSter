@@ -20,7 +20,7 @@ namespace RSSter.Controllers
         //GET: Validation
         public JsonResult IsLinkInDb(string link)
         {            
-            return Json(_validateService.IsLinkUnique(link), JsonRequestBehavior.AllowGet);
+            return Json(_validateService.IsLinkUniqueInChannels(link), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult IsLinkValid(string link)
@@ -40,11 +40,11 @@ namespace RSSter.Controllers
         ////GET: Validation
         //public JsonResult LinkValidation(string link)
         //{            
-        //    return Json(_validateService.IsLinkUnique(link), JsonRequestBehavior.AllowGet);
+        //    return Json(_validateService.IsLinkUniqueInChannels(link), JsonRequestBehavior.AllowGet);
         //}
 
         //public void ChannelValidation(string link)
         //{
-        //    var isLinkUnique = _validateService.IsLinkUnique(link);
+        //    var IsLinkUniqueInChannels = _validateService.IsLinkUniqueInChannels(link);
             
         //}

@@ -18,12 +18,21 @@ namespace Services.RssReader.Implementation
             _downloadChannelItemsList = downloadChannelItemsList;
         }
         
-        public bool IsLinkUnique(string link)
+        public bool IsLinkUniqueInChannels(string link)
         {
             var linkCount = _rssDatabase.Channels.Where(foo => foo.Link == link).ToList();                  
             return !linkCount.Any();
         }
-        
+
+        public bool IsLinkUniqueInUserChannels(string userId, long channelId)
+        {
+            var linkCount =
+                _rssDatabase.UserChannels.Where(foo => foo.ApplicationUserId == userId)
+                    .Where(goo => goo.ChannelId == channelId)
+                    .ToList();
+            return !linkCount.Any();
+        }
+
         public bool IsLinkValid(string link)
         {
             try
