@@ -16,10 +16,10 @@ namespace RSSter.Controllers
 {
     public class RssReaderController : Controller
     {
-        private readonly IDownloadChannelItemsList _downloadChannelItemsList;
+        private readonly IGetRssChannel _downloadChannelItemsList;
         private readonly IChannelService _channelService;
 
-        public RssReaderController(IDownloadChannelItemsList downloadChannelItemsList, IChannelService channelService)
+        public RssReaderController(IGetRssChannel downloadChannelItemsList, IChannelService channelService)
         {
             _downloadChannelItemsList = downloadChannelItemsList;
             _channelService = channelService;

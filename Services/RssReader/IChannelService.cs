@@ -1,10 +1,5 @@
-﻿using Models.RSS;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Models.RSS;
 
 namespace Services.RssReader
 {
@@ -24,6 +19,7 @@ namespace Services.RssReader
 
         bool RemoveRaiting(string userId, long userChannelId, long userItemId);
 
+        List<Channel> GetChannels();
     }
 }
 
