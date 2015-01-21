@@ -22,8 +22,9 @@ namespace Services.RssReader.Implementation
 
         public bool IsUrlUniqueInChannels(string url)
         {
-            var linkCount = _rssDatabase.Channels.Where(foo => foo.Url == url).ToList();                  
-            return !linkCount.Any();
+            var linkCount = _rssDatabase.Channels.Where(foo => foo.Url == url).ToList();
+            var result = !linkCount.Any();
+            return result;
         }
 
         public bool IsUrlUniqueInUserChannels(string userId, string url)
@@ -31,12 +32,13 @@ namespace Services.RssReader.Implementation
             var isInDatabase = _rssDatabase.Channels.FirstOrDefault(foo => foo.Url == url);
             if (isInDatabase == null)
             {
-                return false;
+                return true;
             }
             var isInUserDatabase =
                 _rssDatabase.UserChannels.Where(
                     foo => foo.ApplicationUserId == userId && foo.ChannelId == isInDatabase.Id).ToList();
-            return !isInUserDatabase.Any();
+            var result = !isInUserDatabase.Any();
+            return result;
         }
 
         public bool IsUrlValid(string url)
