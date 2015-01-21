@@ -9,10 +9,10 @@ namespace Services.RssReader
 {
     public interface IValidateService
     {
-        bool IsLinkUniqueInChannels(string link);
-        bool IsLinkUniqueInUserChannels(string userId, long channelId);
-        bool IsLinkExist(string link);
-        bool IsLinkValid(string link);
+        bool IsUrlUniqueInChannels(string url);
+        bool IsUrlUniqueInUserChannels(string userId, long channelId);
+        bool IsUrlExist(string url);
+        bool IsUrlValid(string url);
 
     }
 }

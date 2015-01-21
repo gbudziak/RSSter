@@ -12,17 +12,17 @@ namespace Services.RssReader
     {
         void AddChannel(string userId, Channel newRssFeed);
 
-        void RemoveChannel(string userId, string link);
+        void RemoveChannel(string userId, long userChannelId);
 
-        long ReturnChannelId(string link);
+        long ReturnChannelId(string url);
 
         List<Channel> ShowChannelList();
 
-        Channel ShowChannelFeedList(string link);
+        Channel ShowChannelFeedList(string url);
 
-        bool AddRaiting(string rssLink);
+        bool AddRaiting(string userId, long userChannelId, long userItemId);
 
-        bool RemoveRaiting(string rssLink);
+        bool RemoveRaiting(string userId, long userChannelId, long userItemId);
 
     }
 }

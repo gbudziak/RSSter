@@ -41,7 +41,7 @@ namespace RSSter.Controllers
         {
             if (ModelState.IsValid)
             {
-                var model = _downloadChannelItemsList.GetRssChannelFeeds(channel.Link);
+                var model = _downloadChannelItemsList.GetRssChannelFeeds(channel.Url);
                 var userId = User.Identity.GetUserId();
                 
                 _channelService.AddChannel(userId, model);
@@ -60,10 +60,10 @@ namespace RSSter.Controllers
             return View(_channelService.ShowChannelList());
         }
 
-        public ActionResult Delete(string link)
+        public ActionResult Delete(long userChannelId)
         {
             var userId = User.Identity.GetUserId();
-            _channelService.RemoveChannel(userId, link);
+            _channelService.RemoveChannel(userId, userChannelId);
             return RedirectToAction("ChannelList");
         }
 
@@ -71,6 +71,20 @@ namespace RSSter.Controllers
         {
             var channels = _downloadChannelItemsList.GetChannels();
             return PartialView("Channels", channels);
+        }
+
+        public JsonResult RaitingUp(long userChannelId, long userItemId)
+        {
+            var userId = User.Identity.GetUserId();
+            var result = _channelService.AddRaiting(userId, userChannelId, userItemId);
+            return Json(result);
+        }
+
+        public JsonResult RaitingDown(long userChannelId, long userItemId)
+        {
+            var userId = User.Identity.GetUserId();
+            var result = _channelService.AddRaiting(userId, userChannelId, userItemId);
+            return Json(result);
         }
     }
 }

@@ -13,36 +13,34 @@ namespace Services.RssReader.Implementation
     public class ChannelService : IChannelService
     {
         private readonly IApplicationDbContext _rssDatabase;
-        private readonly IValidateService _validateService;
 
-        public ChannelService(IApplicationDbContext rssDatabase, IValidateService validateService)
+        public ChannelService(IApplicationDbContext rssDatabase)
         {
             _rssDatabase = rssDatabase;
-            _validateService = validateService;
         }
     
-        public void RemoveChannel(string userId, string link)
+        public void RemoveChannel(string userId, long userChannelId)
         {
-            var toRemove = _rssDatabase.Channels.FirstOrDefault(foo => foo.Link == link);
-            _rssDatabase.Channels.Remove(toRemove);
-            
+            var toRemove =
+                _rssDatabase.UserChannels.First(foo => foo.ApplicationUserId == userId && foo.Id == userChannelId);
+            toRemove.IsHidden = true;
         }
 
-        public long ReturnChannelId(string link)
+        public long ReturnChannelId(string url)
         {
-            var channelId = _rssDatabase.Channels.First(foo => foo.Link == link).Id;
+            var channelId = _rssDatabase.Channels.First(foo => foo.Url == url).Id;
             return channelId;
         }
 
         public void AddChannel(string userId, Channel newRssFeed)
         {            
-            if (_validateService.IsLinkUniqueInChannels(newRssFeed.Link))
+            if (true)
             {
                 _rssDatabase.Channels.Add(newRssFeed);    
                 _rssDatabase.SaveChanges();
             }
-            var channelId = ReturnChannelId(newRssFeed.Link);
-            if (_validateService.IsLinkUniqueInUserChannels(userId, channelId))
+            var channelId = ReturnChannelId(newRssFeed.Url);
+            if (true)
             {
                 var userchannel = new UserChannel(channelId,userId);
                 _rssDatabase.UserChannels.Add(userchannel);
@@ -55,40 +53,22 @@ namespace Services.RssReader.Implementation
             return _rssDatabase.Channels.ToList();
         }
        
-        public Channel ShowChannelFeedList(string link)
+        public Channel ShowChannelFeedList(string url)
         {
-            return _rssDatabase.Channels.First(x => x.Link == link);
+            return _rssDatabase.Channels.First(x => x.Url == url);
         }
-    
-        public bool AddRaiting(string link)
+
+        public bool AddRaiting(string userId, long userChannelId, long userItemId)
         {
-            try
-            {
-                var channel = _rssDatabase.Channels.First(foo => foo.Link == link);
-                //channel.Raiting++;
-                return true;
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                Console.WriteLine(e.Message);
-                return false;
-            }
-            
+            var likeUp =
+                _rssDatabase.UserChannels.First(foo => foo.ApplicationUserId == userId && foo.Id == userItemId)
+                    .UserItems.First(goo => goo.Id == userItemId);
+            return true;
         }
-      
-        public bool RemoveRaiting(string link)
+
+        public bool RemoveRaiting(string userId, long userChannelId, long userItemId)
         {
-            try
-            {
-                var channel = _rssDatabase.Channels.First(foo => foo.Link == link);
-                //channel.Raiting--;
-                return true;
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                Console.WriteLine(e.Message);
-                return false;
-            }
+            return true;
         }
     }
 }

@@ -13,14 +13,14 @@ namespace Services.RssReader.Implementation
         {
             _syndicateFeedProvider = syndicateFeedProvider;
         }
-
+        
         public Channel GetChannel(string url)
         {
             var feed = _syndicateFeedProvider.GetSyndicationFeed(url);
             var channelModel = ParseFeedToChannelWithItem(url, feed);
             return channelModel;
         }
-
+        
         private static Channel ParseFeedToChannelWithItem(string url, SyndicationFeed feed)
         {
             var itemList = new List<Item>();

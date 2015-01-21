@@ -14,7 +14,8 @@ namespace Models.RSS
         [Key]
         public long Id { get; set; }
         public string Category { get; set; }
-        public List<UserItem> UItems { get; set; }
+        public List<UserItem> UserItems { get; set; }
+        public bool IsHidden { get; set; }
 
         [ForeignKey("Channel")]
         public long ChannelId { get; set; }
@@ -24,19 +25,16 @@ namespace Models.RSS
         public string ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
 
-        public UserChannel() { }
-
-        public UserChannel(List<UserItem> uitems, long id)
+        public UserChannel()
         {
-            this.UItems = uitems;
-            this.Id = id;
+            UserItems = new List<UserItem>();
         }
 
         public UserChannel(long channelId, string applicationUserId)
         {
             this.ChannelId = channelId;
             this.ApplicationUserId = applicationUserId;
-            this.UItems = new List<UserItem>();
+            this.UserItems = new List<UserItem>();
         }
     }
 }

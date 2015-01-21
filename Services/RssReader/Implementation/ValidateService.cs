@@ -10,21 +10,19 @@ namespace Services.RssReader.Implementation
     public class ValidateService : IValidateService
     {
         private readonly IApplicationDbContext _rssDatabase;
-        private readonly IDownloadChannelItemsList _downloadChannelItemsList;
 
-        public ValidateService(IApplicationDbContext rssDatabase, IDownloadChannelItemsList downloadChannelItemsList)
+        public ValidateService(IApplicationDbContext rssDatabase)
         {
             _rssDatabase = rssDatabase;
-            _downloadChannelItemsList = downloadChannelItemsList;
         }
         
-        public bool IsLinkUniqueInChannels(string link)
+        public bool IsUrlUniqueInChannels(string url)
         {
-            var linkCount = _rssDatabase.Channels.Where(foo => foo.Link == link).ToList();                  
+            var linkCount = _rssDatabase.Channels.Where(foo => foo.Url == url).ToList();                  
             return !linkCount.Any();
         }
 
-        public bool IsLinkUniqueInUserChannels(string userId, long channelId)
+        public bool IsUrlUniqueInUserChannels(string userId, long channelId)
         {
             var linkCount =
                 _rssDatabase.UserChannels.Where(foo => foo.ApplicationUserId == userId)
@@ -33,11 +31,11 @@ namespace Services.RssReader.Implementation
             return !linkCount.Any();
         }
 
-        public bool IsLinkValid(string link)
+        public bool IsUrlValid(string url)
         {
             try
             {
-                var linkValidation = _downloadChannelItemsList.GetRssChannel(link);
+                var urlValidation = _downloadChannelItemsList.GetRssChannel(url);
                 return true;
             }
             catch (Exception)
@@ -46,9 +44,9 @@ namespace Services.RssReader.Implementation
             }
         }        
 
-        public bool IsLinkExist(string link)
+        public bool IsUrlExist(string url)
         {
-            var linkCount = _rssDatabase.Channels.Where(foo => foo.Link == link).ToList();
+            var linkCount = _rssDatabase.Channels.Where(foo => foo.Url == url).ToList();
             return !linkCount.Any();
         }
 
