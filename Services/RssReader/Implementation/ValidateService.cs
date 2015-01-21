@@ -10,9 +10,9 @@ namespace Services.RssReader.Implementation
     public class ValidateService : IValidateService
     {
         private readonly IApplicationDbContext _rssDatabase;
-        private readonly IDownloadChannelItemsList _downloadChannelItemsList;
+        private readonly IGetRssChannel _downloadChannelItemsList;
 
-        public ValidateService(IApplicationDbContext rssDatabase, IDownloadChannelItemsList downloadChannelItemsList)
+        public ValidateService(IApplicationDbContext rssDatabase, IGetRssChannel downloadChannelItemsList)
         {
             _rssDatabase = rssDatabase;
             _downloadChannelItemsList = downloadChannelItemsList;

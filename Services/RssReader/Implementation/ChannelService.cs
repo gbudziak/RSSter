@@ -90,5 +90,11 @@ namespace Services.RssReader.Implementation
                 return false;
             }
         }
+
+        public List<Channel> GetChannels()
+        {
+            var channels = _rssDatabase.Channels.ToList();
+            return channels;
+        }
     }
 }

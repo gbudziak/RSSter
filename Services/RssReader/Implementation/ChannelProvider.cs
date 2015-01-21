@@ -1,22 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Syndication;
+using AutoMapper;
 using Models.RSS;
 
 namespace Services.RssReader.Implementation
 {
-    public class ChannelPrivder : ISyndicateFeed
+    public class ChannelProvider : IChannelProvider
     {
-        private readonly ISyndicateFeedProvider _syndicateFeedProvider;
+        private readonly ISyndicationFeedProvider _syndicationFeedProvider;
 
-        public ChannelPrivder(ISyndicateFeedProvider syndicateFeedProvider)
+        public ChannelProvider(ISyndicationFeedProvider syndicationFeedProvider)
         {
-            _syndicateFeedProvider = syndicateFeedProvider;
+            _syndicationFeedProvider = syndicationFeedProvider;
         }
 
         public Channel GetChannel(string url)
         {
-            var feed = _syndicateFeedProvider.GetSyndicationFeed(url);
+            var feed = _syndicationFeedProvider.GetSyndicationFeed(url);
             var channelModel = ParseFeedToChannelWithItem(url, feed);
             return channelModel;
         }
@@ -27,18 +28,11 @@ namespace Services.RssReader.Implementation
 
             if (feed != null)
             {
-                foreach (SyndicationItem item in feed.Items)
+                foreach (SyndicationItem syndicationItem in feed.Items)
                 {
-                    var item = Mapper.Map<SyndicationItem, Item>(item);
+                    var item = Mapper.Map<SyndicationItem, Item>(syndicationItem);
                     itemList.Add(item);
 
-                    //itemList.Add(new Item
-                    //{
-                    //    Description = item.Summary.Text,
-                    //    Link = item.Links[0].Uri.ToString(),
-                    //    Title = item.Title.Text,
-                    //    PublishDate = item.PublishDate.ToString()
-                    //});
                 }
             }
 
