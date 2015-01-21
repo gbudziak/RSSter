@@ -1,6 +1,5 @@
 ﻿@using Models.RSS
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,26 +26,3 @@
 </body>
 </html>
 
-
-@*<div class="main container">
-    <div class="ui grid">
-        <div class="three wide column">
-            <div class="ui segment">
-                @Html.Partial("_LoginPartial")
-                <p>@Html.ActionLink("My RSS Channels", "ChannelList", "RssReader")</p>
-                <p>@Html.ActionLink("Add new RSS", "AddRssChannel", "RssReader")</p>
-                @{ Html.RenderAction("Channels", "RssReader"); }
-
-            </div>
-        </div>
-        <div class="thirteen wide column">
-            @RenderBody()
-        </div>
-    </div>
-</div>
-
-<div class="ui active inverted main dimmer" style="display: none;">
-    <div class="loader">
-        Loading, please wait.
-    </div>
-</div>*@

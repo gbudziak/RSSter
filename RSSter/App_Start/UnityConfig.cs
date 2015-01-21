@@ -45,6 +45,9 @@ namespace RSSter
             container.RegisterType<IApplicationDbContext, ApplicationDbContext>();
             container.RegisterType<IValidateService, ValidateService>();
             container.RegisterType<IChannelProvider, ChannelProvider>();
+            container.RegisterType<ISyndicationFeedProvider, SyndicationFeedProvider>();
+
+
 
             container.RegisterType<UserManager<ApplicationUser>>(new HierarchicalLifetimeManager());
             container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(new HierarchicalLifetimeManager());

@@ -1,5 +1,5 @@
-﻿@using Models.RSS
-@model System.Data.Entity.DbSet<Channel>
+﻿@using 
+@model IEnumerable<Models.RSS.Channel>
 
 @{
     ViewBag.Title = "RssReader";
@@ -26,10 +26,10 @@
                         " ",
                         "RssListView",
                         "RssReader",
-                        new { link = @item.Link },
+                        new { link = @item.Url },
                         new
                         {
-                            style = "background: url('" + Url.Content(@item.Image) + "') no-repeat center right; display:block; height:84px; width:84px;"
+                            style = "background: url('" + Url.Content(@item.ImageUrl) + "') no-repeat center right; display:block; height:84px; width:84px;"
                         }
                         )
                 </td>
@@ -37,11 +37,11 @@
                     @item.Title
                     <br />
                     @Html.ActionLink(@item.Description, "RssListView", "RssReader",
-                        new { link = @item.Link },
+                        new { link = @item.Url },
                         new { })
                 </td>
                 <td>
-                    <a href="@Url.Action("Delete", "RssReader", new {link = @item.Link})">
+                    <a href="@Url.Action("Delete", "RssReader", new {link = @item.Url})">
                         <i class="trash icon"></i>
                     </a>
                 </td>
@@ -73,15 +73,15 @@
         {
             <tr>
                 <td>
-                    @Html.ActionLink(" ", "RssListView", "RssReader", new {link = @item.Link}, new {style = "background: url('" + Url.Content(@item.Image) + "') no-repeat center right; display:block; height:84px; width:84px;"})
+                    @Html.ActionLink(" ", "RssListView", "RssReader", new {link = @item.Url}, new {style = "background: url('" + Url.Content(@item.ImageUrl) + "') no-repeat center right; display:block; height:84px; width:84px;"})
                 </td>
                 <td>
                     @item.Title
                     <br/>
-                    @Html.ActionLink(@item.Description, "RssListView", "RssReader", new {link = @item.Link}, new {})
+                    @Html.ActionLink(@item.Description, "RssListView", "RssReader", new {link = @item.Url}, new {})
                 </td>
                 <td>
-                    <a href="@Url.Action("Delete", "RssReader", new {link = @item.Link})"><i class="trash icon"></i></a>
+                    <a href="@Url.Action("Delete", "RssReader", new {link = @item.Url})"><i class="trash icon"></i></a>
                 </td>
 
             </tr>

@@ -1,30 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Services.Description;
-using System.Xml;
-using System.Xml.Linq;
-using DBContext;
+﻿using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Models.RSS;
 using Services.RssReader;
 
 namespace RSSter.Controllers
 {
+    [Authorize]
     public class RssReaderController : Controller
     {
-        private readonly IGetRssChannel _downloadChannelItemsList;
+        private readonly IGetRssChannel _getRssChannel;
         private readonly IChannelService _channelService;
 
-        public RssReaderController(IGetRssChannel downloadChannelItemsList, IChannelService channelService)
+        public RssReaderController(IGetRssChannel getRssChannel, IChannelService channelService)
         {
-            _downloadChannelItemsList = downloadChannelItemsList;
+            _getRssChannel = getRssChannel;
             _channelService = channelService;
         }
 
+        [Authorize]
         public ActionResult Index()
         {
             return View("Index");
@@ -41,11 +34,11 @@ namespace RSSter.Controllers
         {
             if (ModelState.IsValid)
             {
-                var model = _downloadChannelItemsList.GetRssChannelFeeds(channel.Url);
+                var model = _getRssChannel.GetRssChannelWithFeeds(channel.Url);
                 var userId = User.Identity.GetUserId();
                 
                 _channelService.AddChannel(userId, model);
-                return RedirectToAction("ChannelList");
+                return RedirectToAction("Index","RssReader");
             }
             return View("AddRssChannel");
         }
@@ -56,8 +49,9 @@ namespace RSSter.Controllers
         }
 
         public ActionResult ChannelList()
-        {            
-            return View(_channelService.ShowChannelList());
+        {
+            var channels = _channelService.ShowChannelList();
+            return View(channels);
         }
 
         public ActionResult Delete(long userChannelId)
@@ -69,7 +63,7 @@ namespace RSSter.Controllers
 
         public ActionResult Channels()
         {
-            var channels = _downloadChannelItemsList.GetChannels();
+            var channels = _channelService.GetChannels();
             return PartialView("Channels", channels);
         }
 

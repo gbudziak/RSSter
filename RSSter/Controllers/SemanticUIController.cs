@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace RSSter.Controllers
 {
-    public class SemanticUIController : Controller
+    public class SemanticUiController : Controller
     {
         //
         // GET: /SemanticUI/

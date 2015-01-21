@@ -1,7 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -23,8 +20,10 @@ namespace RSSter.Controllers
         }
 
         [RequireHttps]
+        [AllowAnonymous]
         public ActionResult LoginIndex()
         {
+
             return View();
         }
 
@@ -362,7 +361,7 @@ namespace RSSter.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Manage");
+                return RedirectToAction("Index", "RssReader");
             }
 
             if (ModelState.IsValid)

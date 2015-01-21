@@ -9,7 +9,7 @@
 {
     <div class="ui label">
         @Html.ActionLink(@item.Title, "RssListView", "RssReader",
-                        new { link = @item.Link },
+                        new { link = @item.Url },
                         new { })
         <a class="detail"><i class="mail icon"></i> @item.Items.Count</a>
     </div>
