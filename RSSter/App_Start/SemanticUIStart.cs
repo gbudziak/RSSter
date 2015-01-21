@@ -2,12 +2,12 @@ using System.Web;
 using System.Web.Optimization;
 
 [assembly: WebActivatorEx.PostApplicationStartMethod(
-      typeof(RSSter.SemanticUIStart), "PostStart")]
+      typeof(RSSter.SemanticUiStart), "PostStart")]
 
 
 namespace RSSter
 {
-    public static class SemanticUIStart
+    public static class SemanticUiStart
     {
         public static void PostStart()
         {

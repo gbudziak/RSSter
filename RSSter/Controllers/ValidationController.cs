@@ -8,6 +8,7 @@ using Services.RssReader.Implementation;
 
 namespace RSSter.Controllers
 {
+    [Authorize]
     public class ValidationController : Controller
     {
         private readonly IValidateService _validateService;
@@ -17,22 +18,22 @@ namespace RSSter.Controllers
             _validateService = validateService;
         } 
         
-        //GET: Validation
-        public JsonResult IsLinkInDb(string link)
-        {            
-            return Json(_validateService.IsLinkUniqueInChannels(link), JsonRequestBehavior.AllowGet);
-        }
+        ////GET: Validation
+        //public JsonResult IsLinkInDb(string link)
+        //{            
+        //    return Json(_validateService.IsLinkUniqueInChannels(link), JsonRequestBehavior.AllowGet);
+        //}
 
-        public JsonResult IsLinkValid(string link)
-        {
-            return Json(_validateService.IsLinkValid(link), JsonRequestBehavior.AllowGet);
-        }
+        //public JsonResult IsLinkValid(string link)
+        //{
+        //    return Json(_validateService.IsLinkValid(link), JsonRequestBehavior.AllowGet);
+        //}
 
-        //GET: Validation
-        public JsonResult LinkValidation(string link)
-        {
-            return Json(_validateService.IsLinkExist(link), JsonRequestBehavior.AllowGet);
-        }
+        ////GET: Validation
+        //public JsonResult LinkValidation(string link)
+        //{
+        //    return Json(_validateService.IsLinkExist(link), JsonRequestBehavior.AllowGet);
+        //}
     }
 }
 
