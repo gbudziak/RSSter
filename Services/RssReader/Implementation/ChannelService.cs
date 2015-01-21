@@ -18,7 +18,7 @@ namespace Services.RssReader.Implementation
         {
             _rssDatabase = rssDatabase;
         }
-    
+
         public void RemoveChannel(string userId, long userChannelId)
         {
             var toRemove =
@@ -33,26 +33,23 @@ namespace Services.RssReader.Implementation
         }
 
         public void AddChannel(string userId, Channel newRssFeed)
-        {            
-            if (true)
+        {
+            if (!_rssDatabase.Channels.Any(foo => foo.Url == newRssFeed.Url))
             {
-                _rssDatabase.Channels.Add(newRssFeed);    
+                _rssDatabase.Channels.Add(newRssFeed);
                 _rssDatabase.SaveChanges();
             }
             var channelId = ReturnChannelId(newRssFeed.Url);
-            if (true)
-            {
-                var userchannel = new UserChannel(channelId,userId);
-                _rssDatabase.UserChannels.Add(userchannel);
-                _rssDatabase.SaveChanges();
-            }
+            var userchannel = new UserChannel(channelId, userId);
+            _rssDatabase.UserChannels.Add(userchannel);
+            _rssDatabase.SaveChanges();
         }
-      
+
         public List<Channel> ShowChannelList()
         {
             return _rssDatabase.Channels.ToList();
         }
-       
+
         public Channel ShowChannelFeedList(string url)
         {
             return _rssDatabase.Channels.First(x => x.Url == url);

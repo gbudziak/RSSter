@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Services.RssReader;
 using Services.RssReader.Implementation;
 
@@ -17,34 +18,34 @@ namespace RSSter.Controllers
             _validateService = validateService;
         } 
         
-        //GET: Validation
-        public JsonResult IsLinkInDb(string link)
-        {            
-            return Json(_validateService.IsLinkUniqueInChannels(link), JsonRequestBehavior.AllowGet);
+        public JsonResult IsLinkInUserDatabe(string url)
+        {
+            var userId = User.Identity.GetUserId();
+            return Json(_validateService.IsUrlUniqueInUserChannels(userId, url), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult IsLinkValid(string link)
+        public JsonResult IsLinkValid(string url)
         {
-            return Json(_validateService.IsLinkValid(link), JsonRequestBehavior.AllowGet);
+            return Json(_validateService.IsUrlValid(url), JsonRequestBehavior.AllowGet);
         }
-
-        //GET: Validation
-        public JsonResult LinkValidation(string link)
+        /*
+        public JsonResult LinkValidation(string url)
         {
-            return Json(_validateService.IsLinkExist(link), JsonRequestBehavior.AllowGet);
+            return Json(_validateService.IsLinkExist(url), JsonRequestBehavior.AllowGet);
         }
+         */
     }
 }
 
 
         ////GET: Validation
-        //public JsonResult LinkValidation(string link)
+        //public JsonResult LinkValidation(string url)
         //{            
-        //    return Json(_validateService.IsLinkUniqueInChannels(link), JsonRequestBehavior.AllowGet);
+        //    return Json(_validateService.IsLinkUniqueInChannels(url), JsonRequestBehavior.AllowGet);
         //}
 
-        //public void ChannelValidation(string link)
+        //public void ChannelValidation(string url)
         //{
-        //    var IsLinkUniqueInChannels = _validateService.IsLinkUniqueInChannels(link);
+        //    var IsLinkUniqueInChannels = _validateService.IsLinkUniqueInChannels(url);
             
         //}

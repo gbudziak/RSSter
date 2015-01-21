@@ -3,6 +3,12 @@
     $("#createSubmit").hide();
     $("#btnGoToChannel").hide();
     $("#Link").keyup(IsLinkInDB);
+    $(window).keydown(function (event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            return false;
+        }
+    });
 });
 
 //Function that assigns destination for Go to channel button.
@@ -15,7 +21,7 @@ function GoTo() {
 function IsLinkInDB() {
     var link = $("#Link").val();
     $.ajax({
-        url: "/Validation/IsLinkInDb/?link=" + link,
+        url: "/Validation/IsLinkInUserDatabe/?link=" + link,
         success: function (result) {
             if (result) {
                 $("#createSubmit").show();

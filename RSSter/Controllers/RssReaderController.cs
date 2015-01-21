@@ -83,7 +83,7 @@ namespace RSSter.Controllers
         public JsonResult RaitingDown(long userChannelId, long userItemId)
         {
             var userId = User.Identity.GetUserId();
-            var result = _channelService.AddRaiting(userId, userChannelId, userItemId);
+            var result = _channelService.RemoveRaiting(userId, userChannelId, userItemId);
             return Json(result);
         }
     }
