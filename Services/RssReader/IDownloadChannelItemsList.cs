@@ -10,14 +10,8 @@ namespace Services.RssReader
 {
     public interface IDownloadChannelItemsList
     {
-        //Channel GetRssFeed(string blogUrl);
         SyndicationFeed GetRssChannel(string blogUrl);
-        Channel GetRssChannelInfo(string blogUrl);
         Channel GetRssChannelFeeds(string blogUrl);
-        //void RefreshChannelFeeds();
         List<Channel> GetChannels();
-
-
-
     }
 }

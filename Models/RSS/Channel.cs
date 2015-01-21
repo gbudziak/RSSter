@@ -8,35 +8,33 @@ using System.Web.Mvc;
 
 namespace Models.RSS
 {
-    public class Channel 
+    public class Channel
     {
         [Key]
         public long Id { get; set; }
         public List<Item> Items { get; set; }
-        
-        //[Remote("LinkValidation","Validation")]
-        public string Link { get; set; }
-        
+        public string Url { get; set; }
         public string Description { get; set; }
-        public string Image { get; set; }
+        public string ImageUrl { get; set; }
         public string Title { get; set; }
         public long Readers { get; set; }
 
         public Channel()
-        {
-            this.Items = new List<Item>();
-        }
-
-        public Channel(List<Item> items, string link)
-        {
-            this.Items = items;
-            this.Link = link;
-        }
+            : this(string.Empty, string.Empty, string.Empty, string.Empty, new List<Item>(), 0)
+        { }
 
         public Channel(string link)
+            : this(link, string.Empty, string.Empty, string.Empty, new List<Item>(), 0)
+        { }
+
+        public Channel(string url, string title, string description, string imageUrl, List<Item> itemList, long readersCount)
         {
-            this.Link = link;
-            this.Items = new List<Item>();
+            Url = url;
+            Title = title;
+            Description = description;
+            ImageUrl = imageUrl;
+            Items = itemList;
+            Readers = readersCount;
         }
     }
 }

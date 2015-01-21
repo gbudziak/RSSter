@@ -14,13 +14,15 @@ namespace Services.RssReader
 
         void RemoveChannel(string userId, string link);
 
+        long ReturnChannelId(string link);
+
         List<Channel> ShowChannelList();
 
         Channel ShowChannelFeedList(string link);
 
-        //bool AddRaiting(string rssLink);
+        bool AddRaiting(string rssLink);
 
-        //bool RemoveRaiting(string rssLink);
+        bool RemoveRaiting(string rssLink);
 
     }
 }
