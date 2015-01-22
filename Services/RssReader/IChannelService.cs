@@ -19,7 +19,7 @@ namespace Services.RssReader
 
         bool RemoveRaiting(string userId, long userChannelId, long userItemId);
 
-        List<Channel> GetChannels();
+        List<Channel> GetChannels(string userId);
     }
 }
 

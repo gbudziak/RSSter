@@ -30,9 +30,9 @@ namespace Services.RssReader.Implementation
             {
                 foreach (SyndicationItem syndicationItem in feed.Items)
                 {
-                    //var item = new Item();
-                    //item = Mapper.Map<SyndicationItem, Item>(syndicationItem);
+                    //var item = Mapper.Map<SyndicationItem, Item>(syndicationItem);
                     //itemList.Add(item);
+
                     itemList.Add(new Item
                     {
                         Description = syndicationItem.Summary.Text,

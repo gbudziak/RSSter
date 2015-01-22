@@ -89,10 +89,18 @@ namespace Services.RssReader.Implementation
             return true;
         }
 
-   
-        public List<Channel> GetChannels()
+
+        public List<Channel> GetChannels(string userId)
         {
-            var channels = _rssDatabase.Channels.ToList();
+            var subscriptions = _rssDatabase.UserChannels.Where(x => x.ApplicationUser.Id == userId).ToList();
+
+            var channels = new List<Channel>();
+
+            foreach (var item in subscriptions)
+            {
+                channels.Add(_rssDatabase.Channels.First(x => x.Id == item.ChannelId));
+
+            }
             return channels;
         }
     }
