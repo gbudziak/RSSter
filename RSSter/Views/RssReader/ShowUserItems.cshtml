@@ -17,6 +17,7 @@ Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
 <table class="ui celled striped table">
     <thead>
         <tr>
+            <th></th>
             <th>
                 Title
             </th>
@@ -35,11 +36,13 @@ Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
         @foreach (var item in Model)
         {
             <tr>
-                <td class="collapsing">
-                    <a href="@item.Item.Url" target="_blank">@item.Item.Title</a>
+                <td>
                     <i class="hide icon" id="@item.Id"></i>
                     <i class="pointing up icon" id="@item.Id"></i>
                     <i class="pointing down icon" id="@item.Id"></i>
+                </td>
+                <td class="collapsing">
+                    <a href="@item.Item.Url" target="_blank">@item.Item.Title</a>
                 </td>
                 <td>@Html.Raw(item.Item.Description)</td>
                 <td class="right aligned collapsing"><a href="@item.Item.Url" target="_blank">More</a></td>
@@ -49,3 +52,10 @@ Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
     </tbody>
 </table>
 
+@section scripts
+{
+    <script src="~/Scripts/Developer/isRead.js"></script>
+    <script src="~/Scripts/Developer/raitings.js"></script>
+    <script src="~/Scripts/Attachers/showUserItems.js"></script>
+
+}

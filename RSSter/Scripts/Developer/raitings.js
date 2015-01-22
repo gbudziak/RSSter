@@ -3,8 +3,8 @@
     $.ajax({
         url: "/RssReader/RaitingUp/?userItemId=" + userItemId,
         success: function(result) {
-            if (result) {
-                $("i#" + userItemId).fadeToggle();
+            if (result) {                
+                $("#"+userItemId,".up").dimmer("show");
             } else {
                 $("#ratingError").show();
             }
