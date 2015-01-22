@@ -1,16 +1,25 @@
-﻿@model IEnumerable<Models.RSS.Channel>
+﻿@using Microsoft.AspNet.Identity
+@model List<Models.RSS.UserChannel>
 
 @{
     ViewBag.Title = "SHowRSSChannels";
     Layout = null;
-}
+    
+    }
+
 
 @foreach (var item in Model)
 {
     <div class="ui label">
-        @Html.ActionLink(@item.Title, "RssListView", "RssReader",
-                        new { link = @item.Url },
-                        new { })
-        <a class="detail"><i class="mail icon"></i> @item.Items.Count</a>
+       
+        @Html.ActionLink(@item.Channel.Title, "RssListView", "RssReader",
+            new {userChannelId = @item.Id},
+            new {})
+        @*<a class="detail"><i class="mail icon"></i> @item.UserItems.Where(x => x.ApplicationUserId == User.Identity.GetUserId()).Count(userItem => userItem.Read == false)
+        </a>*@
+        @*<a class="detail">
+            <i class="mail icon"></i> @item.UserItems.Where(x => x.ApplicationUserId == User.Identity.GetUserId()).Count(userItem => userItem.Read == false)
+        </a>*@
+
     </div>
 }

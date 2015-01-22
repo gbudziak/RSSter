@@ -65,6 +65,10 @@
     <Compile Include="Migrations\201501211326041_Jarek changes.Designer.cs">
       <DependentUpon>201501211326041_Jarek changes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201501221324155_UserChannelID.cs" />
+    <Compile Include="Migrations\201501221324155_UserChannelID.Designer.cs">
+      <DependentUpon>201501221324155_UserChannelID.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -84,6 +88,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201501211326041_Jarek changes.resx">
       <DependentUpon>201501211326041_Jarek changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501221324155_UserChannelID.resx">
+      <DependentUpon>201501221324155_UserChannelID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
