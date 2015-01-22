@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DBContext;
-using Models.Models;
 using Models.RSS;
 
 namespace Services.RssReader.Implementation
@@ -9,10 +8,12 @@ namespace Services.RssReader.Implementation
     public class ChannelService : IChannelService
     {
         private readonly IApplicationDbContext _rssDatabase;
+        private readonly IGetRssChannel _iGetRssChannel;
 
-        public ChannelService(IApplicationDbContext rssDatabase)
+        public ChannelService(IApplicationDbContext rssDatabase, IGetRssChannel iGetRssChannel)
         {
             _rssDatabase = rssDatabase;
+            _iGetRssChannel = iGetRssChannel;
         }
 
         public void RemoveChannel(string userId, long userChannelId)
@@ -28,37 +29,17 @@ namespace Services.RssReader.Implementation
             return channelId;
         }
 
-        public void AddChannel(string userId, Channel newRssFeed)
+        public void AddChannel(string userId, string url)
         {
-            if (!_rssDatabase.Channels.Any(foo => foo.Url == newRssFeed.Url))
+            if (!_rssDatabase.Channels.Any(foo => foo.Url == url))
             {
-                _rssDatabase.Channels.Add(newRssFeed);
+                var model = _iGetRssChannel.GetRssChannelWithFeeds(url);
+                _rssDatabase.Channels.Add(model);
                 _rssDatabase.SaveChanges();
             }
-
-            var channelId = ReturnChannelId(newRssFeed.Url);
+            var channelId = ReturnChannelId(url);
             var userchannel = new UserChannel(channelId, userId);
-            var itemstosave =_rssDatabase.Channels.First(foo => foo.Url == newRssFeed.Url).Items.ToList();
-            if (itemstosave.Count < 10)
-            {
-                foreach (var x in itemstosave)
-                {
-                    userchannel.UserItems.Add(new UserItem
-                    {
-                        ApplicationUser = new ApplicationUser(),
-                        Id = channelId,
-                        ApplicationUserId = userId,
-                        Item = x,
-                        ItemId = channelId,
-                        RaitingMinus = x,
-                        RaitingPlus = 0,
-                        Read = 0
-                    });
-
-                }
-            }
             _rssDatabase.UserChannels.Add(userchannel);
-            
             _rssDatabase.SaveChanges();
         }
 
@@ -85,17 +66,9 @@ namespace Services.RssReader.Implementation
             return true;
         }
 
-        public List<Channel> GetChannels(string userId)
+        public List<Channel> GetChannels()
         {
-            var subscriptions = _rssDatabase.UserChannels.Where(x => x.ApplicationUser.Id == userId).ToList();
-
-            var channels = new List<Channel>();
-
-            foreach (var item in subscriptions)
-            {
-                channels.Add(_rssDatabase.Channels.First(x => x.Id == item.ChannelId));
-
-            }
+            var channels = _rssDatabase.Channels.ToList();
             return channels;
         }
     }

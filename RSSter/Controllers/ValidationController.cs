@@ -21,12 +21,14 @@ namespace RSSter.Controllers
         public JsonResult IsLinkInUserDatabe(string url)
         {
             var userId = User.Identity.GetUserId();
-            return Json(_validateService.IsUrlUniqueInUserChannels(userId, url), JsonRequestBehavior.AllowGet);
+            var result = _validateService.IsUrlUniqueInUserChannels(userId, url);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult IsLinkValid(string url)
         {
-            return Json(_validateService.IsUrlValid(url), JsonRequestBehavior.AllowGet);
+            var result = _validateService.IsUrlValid(url);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
         /*
         public JsonResult LinkValidation(string url)

@@ -8,12 +8,10 @@ namespace RSSter.Controllers
     [Authorize]
     public class RssReaderController : Controller
     {
-        private readonly IGetRssChannel _getRssChannel;
         private readonly IChannelService _channelService;
 
-        public RssReaderController(IGetRssChannel getRssChannel, IChannelService channelService)
+        public RssReaderController(IChannelService channelService)
         {
-            _getRssChannel = getRssChannel;
             _channelService = channelService;
         }
 
@@ -30,14 +28,14 @@ namespace RSSter.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddRssChannel(Channel channel)
+        public ActionResult AddRssChannel(string url)
         {
             if (ModelState.IsValid)
             {
-                var model = _getRssChannel.GetRssChannelWithFeeds(channel.Url);
-                var userId = User.Identity.GetUserId();
                 
-                _channelService.AddChannel(userId, model);
+                var userId = User.Identity.GetUserId();                
+                _channelService.AddChannel(userId, url);
+
                 return RedirectToAction("Index","RssReader");
             }
             return View("AddRssChannel");

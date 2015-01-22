@@ -2,26 +2,28 @@
     $("#btnGoToChannel").mousedown(GoTo);
     $("#createSubmit").hide();
     $("#btnGoToChannel").hide();
-    $("#Link").keyup(IsLinkInDB);
-    $(window).keydown(function (event) {
-        if (event.keyCode == 13) {
-            event.preventDefault();
-            return false;
-        }
-    });
+    $("#Url").keyup(IsUrlInUserDatabase);
+    //$(window).keydown(function (event) {
+    //    if (event.keyCode == 13) {
+    //        event.preventDefault();
+    //        return false;
+    //    }
+    //});
 });
 
 //Function that assigns destination for Go to channel button.
 function GoTo() {
-    var link = $("#Link").val();
-    window.location.assign("RssListView/?link=" + link);
+    var url = $("#Url").val();
+    window.location.assign("RssListView/?url=" + url);
 }
 
 //Feature method for user convenience, it uses ajax call for controller action, if user has the rss channel he tryes to add on his list already button to go to channel is shows, else create button is shown.
-function IsLinkInDB() {
-    var link = $("#Link").val();
+function IsUrlInUserDatabase() {
+    var url = $("#Url").val();
+    $("#createSubmit").hide();
+    $("#btnGoToChannel").hide();
     $.ajax({
-        url: "/Validation/IsLinkInUserDatabe/?link=" + link,
+        url: "/Validation/IsLinkInUserDatabe/?url=" + url,
         success: function (result) {
             if (result) {
                 $("#createSubmit").show();
@@ -30,20 +32,20 @@ function IsLinkInDB() {
             }
         }
     });    
-    $("#wrongLink").hide();
+    $("#wrongUrl").hide();
 };
 
 //Validation method from user side. It axaj calls controller action, if validation is true it unbinds and submits the form, if not is shows a message.
 $("#AddRssForm").submit(function (event) {
     event.preventDefault();
-    var link = $("#Link").val();
+    var url = $("#Url").val();
     $.ajax({
-        url: "/Validation/IsLinkValid/?link=" + link,
+        url: "/Validation/IsLinkValid/?url=" + url,
         success: function (result) {
             if (result) {
                 $("#AddRssForm").unbind("submit").submit();
             } else {
-                $("#wrongLink").show();
+                $("#wrongUrl").show();
             }
 
         }
