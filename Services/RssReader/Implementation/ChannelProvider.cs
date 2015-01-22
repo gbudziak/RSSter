@@ -30,17 +30,8 @@ namespace Services.RssReader.Implementation
             {
                 foreach (SyndicationItem syndicationItem in feed.Items)
                 {
-                    //var item = Mapper.Map<SyndicationItem, Item>(syndicationItem);
-                    //itemList.Add(item);
-
-                    itemList.Add(new Item
-                    {
-                        Description = syndicationItem.Summary.Text,
-                        Url = syndicationItem.Links[0].Uri.ToString(),
-                        Title = syndicationItem.Title.Text,
-                        PublishDate = syndicationItem.PublishDate.ToString()
-                    });
-
+                    var item = Mapper.Map<SyndicationItem, Item>(syndicationItem);
+                    itemList.Add(item);
                 }
             }
 
