@@ -61,7 +61,9 @@ namespace RSSter.Controllers
 
         public ActionResult Channels()
         {
-            var channels = _channelService.GetChannels();
+            var userId = User.Identity.GetUserId();
+
+            var channels = _channelService.GetChannels(userId);
             return PartialView("Channels", channels);
         }
 
