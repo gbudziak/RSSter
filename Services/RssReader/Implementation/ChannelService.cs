@@ -103,9 +103,7 @@ namespace Services.RssReader.Implementation
             _rssDatabase.SaveChanges();
             return true;
         }
-
-
-
+        
         public bool MarkAsRead(long userItemId)
         {
             var userItem =

@@ -16,7 +16,6 @@ namespace RSSter.Controllers
             _channelService = channelService;
         }
 
-        [Authorize]
         public ActionResult Index()
         {
             return View("Index");
@@ -42,7 +41,7 @@ namespace RSSter.Controllers
             return View("AddRssChannel");
         }
 
-        public ActionResult RssListView(long userChannelId)
+        public ActionResult ShowUserItems(long userChannelId)
         {
             var userId = User.Identity.GetUserId();                
 
@@ -56,12 +55,12 @@ namespace RSSter.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Channels()
+        public ActionResult ShowUserChannels()
         {
             var userId = User.Identity.GetUserId();
 
             var channels = _channelService.GetUserChannels(userId);
-            return PartialView("Channels", channels);
+            return PartialView("ShowUserChannels", channels);
         }
 
         public JsonResult RaitingUp(long userItemId)

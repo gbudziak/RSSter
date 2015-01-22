@@ -283,11 +283,10 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout_Semantic.cshtml" />
     <Content Include="Views\SemanticUI\Index.cshtml" />
-    <Content Include="Views\RssReader\RssListView.cshtml" />
+    <Content Include="Views\RssReader\ShowUserItems.cshtml" />
     <Content Include="Views\RssReader\Index.cshtml" />
     <Content Include="Views\RssReader\AddRssChannel.cshtml" />
-    <Content Include="Views\RssReader\ChannelList.cshtml" />
-    <Content Include="Views\RssReader\Channels.cshtml" />
+    <Content Include="Views\RssReader\ShowUserChannels.cshtml" />
     <Content Include="Views\Home\Index-cat-example.cshtml" />
     <Content Include="Views\Account\LoginIndex.cshtml" />
     <Content Include="Views\Shared\_Layout_RSSreader.cshtml" />
