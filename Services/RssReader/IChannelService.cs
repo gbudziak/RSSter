@@ -21,7 +21,7 @@ namespace Services.RssReader
 
         List<Channel> GetChannels(string userId);
 
-        bool MarkAsRead(string userId, long userChannelId, long userItemId);
+        bool MarkAsRead(long userItemId);
     }
 }
 

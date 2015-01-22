@@ -70,13 +70,19 @@ namespace RSSter.Controllers
         public JsonResult RaitingUp(long userItemId)
         {
             var result = _channelService.AddRaiting(userItemId);
-            return Json(result);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult RaitingDown(long userItemId)
         {
             var result = _channelService.RemoveRaiting(userItemId);
-            return Json(result);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Read(long userItemId)
+        {
+            var result = _channelService.MarkAsRead(userItemId);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }
