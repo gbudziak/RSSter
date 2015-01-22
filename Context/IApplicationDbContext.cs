@@ -9,6 +9,8 @@ namespace DBContext
     {        
         DbSet<Channel> Channels { get; set; }
         DbSet<UserChannel> UserChannels { get; set; }
+        DbSet<UserItem> UsersItems { get; set; }
+        DbSet<Item> AllItems { get; set; }
 
         void SaveChanges();
     }   

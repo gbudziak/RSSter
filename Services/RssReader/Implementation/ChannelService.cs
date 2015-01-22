@@ -53,13 +53,12 @@ namespace Services.RssReader.Implementation
             return _rssDatabase.Channels.First(x => x.Url == url);
         }
 
-        public bool AddRaiting(string userId, long userChannelId, long userItemId)
+        public bool AddRaiting(long userItemId)
         {
             var likeUp =
-                _rssDatabase.UserChannels.First(foo => foo.ApplicationUserId == userId && foo.Id == userItemId)
-                    .UserItems.First(goo => goo.Id == userItemId);
+                _rssDatabase.UsersItems.First(foo => foo.Id == userItemId);
             var itemMaster =
-                _rssDatabase.Channels.First(foo => foo.Id == userChannelId).Items.First(goo => goo.Id == likeUp.ItemId);
+                _rssDatabase.AllItems.First(foo => foo.Id == likeUp.ItemId);
             if (likeUp.RaitingMinus)
             {
                 likeUp.RaitingMinus = false;
@@ -71,13 +70,12 @@ namespace Services.RssReader.Implementation
             return true;
         }
 
-        public bool RemoveRaiting(string userId, long userChannelId, long userItemId)
+        public bool RemoveRaiting(long userItemId)
         {
             var likeDown =
-                _rssDatabase.UserChannels.First(foo => foo.ApplicationUserId == userId && foo.Id == userItemId)
-                    .UserItems.First(goo => goo.Id == userItemId);
+                _rssDatabase.UsersItems.First(foo => foo.Id == userItemId);
             var itemMaster =
-                _rssDatabase.Channels.First(foo => foo.Id == userChannelId).Items.First(goo => goo.Id == likeDown.ItemId);
+                _rssDatabase.AllItems.First(foo => foo.Id == likeDown.ItemId);
             if (likeDown.RaitingPlus)
             {
                 likeDown.RaitingPlus = false;
@@ -102,6 +100,15 @@ namespace Services.RssReader.Implementation
 
             }
             return channels;
+        }
+
+        public bool MarkAsRead(string userId, long userChannelId, long userItemId)
+        {
+            var userItem =
+                _rssDatabase.UserChannels.First(foo => foo.Id == userChannelId)
+                    .UserItems.First(goo => goo.Id == userItemId);
+            userItem.Read = true;
+            return true;
         }
     }
 }

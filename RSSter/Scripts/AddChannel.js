@@ -3,12 +3,12 @@
     $("#createSubmit").hide();
     $("#btnGoToChannel").hide();
     $("#Url").keyup(IsUrlInUserDatabase);
-    //$(window).keydown(function (event) {
-    //    if (event.keyCode == 13) {
-    //        event.preventDefault();
-    //        return false;
-    //    }
-    //});
+    $(window).keydown(function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            return false;
+        }
+    });
 });
 
 //Function that assigns destination for Go to channel button.
