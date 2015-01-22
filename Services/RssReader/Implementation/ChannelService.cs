@@ -66,6 +66,7 @@ namespace Services.RssReader.Implementation
             return true;
         }
 
+   
         public List<Channel> GetChannels()
         {
             var channels = _rssDatabase.Channels.ToList();
