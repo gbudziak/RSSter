@@ -10,56 +10,62 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/semantic")
-
 </head>
 <body>
-<div class="main nav">
-    <div class="ui inverted main menu">
-        <div class="container">
-            <div class="left menu">
-                <div class="title item">
-                    <b>RSSter</b>
-                </div>
-                <a href="/about" class="launch item">About</a>
-                <a href="/contact" class="launch item">Contact</a>
-            </div>
-
-            <div class="right menu">
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-                @*<a href="/about" class="launch item">Info</a>*@
-                <div class="ui dropdown item">
-                    <i class="remove icon"></i>
-                    <div class="menu">
-                        <a class="item" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
-
+    <div class="main nav">
+        <div class="ui inverted main menu">
+            <div class="container">
+                <div class="left menu">
+                    <div class="title item">
+                        <b>RSSter</b>
                     </div>
+                    <a href="/about" class="launch item">About</a>
+                    <a href="/contact" class="launch item">Contact</a>
+                </div>
+
+                <div class="right menu ">
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="title item">
+
+                            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                        </div>
+
+                        <div class="ui dropdown item">
+                            <i class="remove icon"></i>
+                            <div class="menu">
+
+                                <a class="item" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                            </div>
+                        </div>
+                    }
+
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="main container">
-    <div class="ui grid">
-        <div class="three wide column">
-            <div class="ui segment">
-                @Html.Partial("_LoginPartial")
-                @*<p>@Html.ActionLink("My RSS Channels", "ChannelList", "RssReader")</p>*@
-                <p>@Html.ActionLink("Add new RSS", "AddRssChannel", "RssReader")</p>
-                @{ Html.RenderAction("Channels", "RssReader"); }
+    <div class="main container">
+        <div class="ui grid">
+            <div class="three wide column">
+                <div class="ui segment">
+                    <p>@Html.ActionLink("Add new RSS", "AddRssChannel", "RssReader")</p>
+                    @{ Html.RenderAction("Channels", "RssReader"); }
 
+                </div>
+            </div>
+            <div class="thirteen wide column">
+                @RenderBody()
             </div>
         </div>
-        <div class="thirteen wide column">
-            @RenderBody()
-        </div>
     </div>
-</div>
 
 
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/semantic")
-@RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/semantic")
+    @RenderSection("scripts", required: false)
 </body>
 </html>
 
