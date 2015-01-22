@@ -229,6 +229,7 @@
     <Content Include="Scripts\AddChannel.js" />
     <Content Include="Scripts\feed.js" />
     <Content Include="Scripts\homepage.js" />
+    <Content Include="Scripts\isRead.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery-2.1.3.min.map" />

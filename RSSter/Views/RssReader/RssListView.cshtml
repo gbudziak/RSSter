@@ -5,7 +5,15 @@ ViewBag.Title = "RssReader";
 Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
 }
 
-
+<div id="Error" class="ui negative message" hidden="hidden">
+    <i class="close icon"></i>
+    <div class="header">
+        We are experiencing some trouble processing your request
+    </div>
+    <p>
+        Please try again in few minites
+    </p>
+</div>
 <table class="ui celled striped table">
     <thead>
         <tr>
@@ -18,7 +26,6 @@ Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
             <th>
                 Link
             </th>
-
             <th>
                 Publish Date
             </th>
@@ -30,6 +37,9 @@ Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
             <tr>
                 <td class="collapsing">
                     <a href="@item.Item.Url" target="_blank">@item.Item.Title</a>
+                    <i class="hide icon" id="@item.Id"></i>
+                    <i class="pointing up icon" id="@item.Id"></i>
+                    <i class="pointing down icon" id="@item.Id"></i>
                 </td>
                 <td>@Html.Raw(item.Item.Description)</td>
                 <td class="right aligned collapsing"><a href="@item.Item.Url" target="_blank">More</a></td>
