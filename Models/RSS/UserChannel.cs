@@ -35,6 +35,7 @@ namespace Models.RSS
             this.ChannelId = channelId;
             this.ApplicationUserId = applicationUserId;
             this.UserItems = new List<UserItem>();
+
         }
     }
 }

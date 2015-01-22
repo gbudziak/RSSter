@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Models.RSS;
 using Services.RssReader;
@@ -41,9 +42,11 @@ namespace RSSter.Controllers
             return View("AddRssChannel");
         }
 
-        public ActionResult RssListView(string link)
-        {            
-            return View(_channelService.ShowChannelFeedList(link));
+        public ActionResult RssListView(long userChannelId)
+        {
+            var userId = User.Identity.GetUserId();                
+
+            return View(_channelService.ShowChannelFeedList(userChannelId,userId));
         }
 
         public ActionResult ChannelList()

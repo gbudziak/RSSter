@@ -24,5 +24,18 @@ namespace Models.RSS
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+        [ForeignKey("UserChannel")]
+        public long UserChannelId { get; set; }
+        public virtual UserChannel UserChannel { get; set; }
+
+        public UserItem() { }
+        
+        public UserItem(string applicationUserId, long itemId, long userChannelId)
+        {
+            this.ApplicationUserId = applicationUserId;
+            this.ItemId = itemId;
+            this.UserChannelId = userChannelId;
+        }
     }
 }

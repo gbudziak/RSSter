@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using DBContext;
 using Models.RSS;
@@ -41,6 +42,16 @@ namespace Services.RssReader.Implementation
             var userchannel = new UserChannel(channelId, userId);
             _rssDatabase.UserChannels.Add(userchannel);
             _rssDatabase.SaveChanges();
+
+            var userChannelId =_rssDatabase.UserChannels.First(x => x.ChannelId == channelId && x.ApplicationUserId == userId).Id;
+            var channels = _rssDatabase.Channels.First(x => x.Id == channelId);
+
+            foreach (var item in channels.Items)
+            {
+                userchannel.UserItems.Add(new UserItem(userId, item.Id, userChannelId));
+            }
+            
+            _rssDatabase.SaveChanges();
         }
 
         public List<Channel> ShowChannelList()
@@ -48,9 +59,11 @@ namespace Services.RssReader.Implementation
             return _rssDatabase.Channels.ToList();
         }
 
-        public Channel ShowChannelFeedList(string url)
+        public List<UserItem> ShowChannelFeedList(long userChannelId, string userId)
         {
-            return _rssDatabase.Channels.First(x => x.Url == url);
+            return
+                _rssDatabase.UsersItems.Where(x => x.UserChannelId == userChannelId && x.ApplicationUserId == userId)
+                    .ToList();
         }
 
         public bool AddRaiting(long userItemId)
@@ -88,17 +101,11 @@ namespace Services.RssReader.Implementation
         }
 
 
-        public List<Channel> GetChannels(string userId)
+        public List<UserChannel> GetChannels(string userId)
         {
-            var subscriptions = _rssDatabase.UserChannels.Where(x => x.ApplicationUser.Id == userId).ToList();
+            var channels = _rssDatabase.UserChannels
+                .Where(x => x.ApplicationUserId == userId && x.IsHidden == false).ToList();
 
-            var channels = new List<Channel>();
-
-            foreach (var item in subscriptions)
-            {
-                channels.Add(_rssDatabase.Channels.First(x => x.Id == item.ChannelId));
-
-            }
             return channels;
         }
 
