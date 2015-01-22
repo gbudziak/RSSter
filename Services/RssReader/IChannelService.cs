@@ -19,7 +19,7 @@ namespace Services.RssReader
 
         List<UserChannel> GetUserChannels(string userId);
 
-
+        bool MarkAsRead(long userItemId);
     }
 }
 

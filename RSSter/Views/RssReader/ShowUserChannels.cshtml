@@ -1,25 +1,25 @@
-﻿@using Microsoft.AspNet.Identity
-@model List<Models.RSS.UserChannel>
+﻿@model List<Models.RSS.UserChannel>
 
 @{
-    ViewBag.Title = "SHowRSSChannels";
+    ViewBag.Title = "SHowUserChannels";
     Layout = null;
-    
-    }
+ }
 
 
 @foreach (var item in Model)
 {
     <div class="ui label">
        
-        @Html.ActionLink(@item.Channel.Title, "RssListView", "RssReader",
+        @Html.ActionLink(@item.Channel.Title, "ShowUserItems", "RssReader",
             new {userChannelId = @item.Id},
             new {})
+        @*<a class="detail">
+            <i class="mail icon"></i> @item.UserItems)
+        </a>*@
         @*<a class="detail"><i class="mail icon"></i> @item.UserItems.Where(x => x.ApplicationUserId == User.Identity.GetUserId()).Count(userItem => userItem.Read == false)
         </a>*@
         @*<a class="detail">
             <i class="mail icon"></i> @item.UserItems.Where(x => x.ApplicationUserId == User.Identity.GetUserId()).Count(userItem => userItem.Read == false)
         </a>*@
-
-    </div>
+            </div>
 }
