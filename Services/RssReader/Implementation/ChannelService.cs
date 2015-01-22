@@ -58,11 +58,34 @@ namespace Services.RssReader.Implementation
             var likeUp =
                 _rssDatabase.UserChannels.First(foo => foo.ApplicationUserId == userId && foo.Id == userItemId)
                     .UserItems.First(goo => goo.Id == userItemId);
+            var itemMaster =
+                _rssDatabase.Channels.First(foo => foo.Id == userChannelId).Items.First(goo => goo.Id == likeUp.ItemId);
+            if (likeUp.RaitingMinus)
+            {
+                likeUp.RaitingMinus = false;
+                itemMaster.RaitingMinus--;
+            }
+            likeUp.RaitingPlus = true;
+            itemMaster.RaitingPlus++;
+            _rssDatabase.SaveChanges();
             return true;
         }
 
         public bool RemoveRaiting(string userId, long userChannelId, long userItemId)
         {
+            var likeDown =
+                _rssDatabase.UserChannels.First(foo => foo.ApplicationUserId == userId && foo.Id == userItemId)
+                    .UserItems.First(goo => goo.Id == userItemId);
+            var itemMaster =
+                _rssDatabase.Channels.First(foo => foo.Id == userChannelId).Items.First(goo => goo.Id == likeDown.ItemId);
+            if (likeDown.RaitingPlus)
+            {
+                likeDown.RaitingPlus = false;
+                itemMaster.RaitingPlus--;
+            }
+            likeDown.RaitingMinus = true;
+            itemMaster.RaitingMinus++;
+            _rssDatabase.SaveChanges();
             return true;
         }
 
