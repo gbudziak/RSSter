@@ -18,7 +18,8 @@ namespace Services.RssReader
         bool RemoveRaiting(long userItemId);
 
         List<UserChannel> GetUserChannels(string userId);
-        bool MarkAsRead(string userId, long userChannelId, long userItemId);
+
+
     }
 }
 

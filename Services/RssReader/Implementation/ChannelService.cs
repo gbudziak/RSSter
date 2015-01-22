@@ -105,11 +105,11 @@ namespace Services.RssReader.Implementation
         }
 
 
-        public bool MarkAsRead(string userId, long userChannelId, long userItemId)
+
+        public bool MarkAsRead(long userItemId)
         {
             var userItem =
-                _rssDatabase.UserChannels.First(foo => foo.Id == userChannelId)
-                    .UserItems.First(goo => goo.Id == userItemId);
+                _rssDatabase.UsersItems.First(foo => foo.Id == userItemId);
             userItem.Read = true;
             return true;
         }
