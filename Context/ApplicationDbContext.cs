@@ -45,6 +45,8 @@ namespace DBContext
         public DbSet<UserChannel> UserChannels { get; set; }
 
         public DbSet<UserItem> UsersItems { get; set; }
+
+        public DbSet<Item> AllItems { get; set; }
        
     }
 }
