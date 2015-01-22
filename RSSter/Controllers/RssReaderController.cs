@@ -46,27 +46,21 @@ namespace RSSter.Controllers
         {
             var userId = User.Identity.GetUserId();                
 
-            return View(_channelService.ShowChannelFeedList(userChannelId,userId));
-        }
-
-        public ActionResult ChannelList()
-        {
-            var channels = _channelService.ShowChannelList();
-            return View(channels);
+            return View(_channelService.GetUserItems(userChannelId,userId));
         }
 
         public ActionResult Delete(long userChannelId)
         {
             var userId = User.Identity.GetUserId();
             _channelService.RemoveChannel(userId, userChannelId);
-            return RedirectToAction("ChannelList");
+            return RedirectToAction("Index");
         }
 
         public ActionResult Channels()
         {
             var userId = User.Identity.GetUserId();
 
-            var channels = _channelService.GetChannels(userId);
+            var channels = _channelService.GetUserChannels(userId);
             return PartialView("Channels", channels);
         }
 

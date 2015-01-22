@@ -11,15 +11,13 @@ namespace Services.RssReader
 
         long ReturnChannelId(string url);
 
-        List<Channel> ShowChannelList();
-
-        List<UserItem> ShowChannelFeedList(long channelId, string userId);
+        List<UserItem> GetUserItems(long channelId, string userId);
 
         bool AddRaiting(long userItemId);
 
         bool RemoveRaiting(long userItemId);
 
-        List<UserChannel> GetChannels(string userId);
+        List<UserChannel> GetUserChannels(string userId);
         bool MarkAsRead(string userId, long userChannelId, long userItemId);
     }
 }

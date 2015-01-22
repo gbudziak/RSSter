@@ -17,6 +17,21 @@ namespace Services.RssReader.Implementation
             _iGetRssChannel = iGetRssChannel;
         }
 
+        public List<UserItem> GetUserItems(long userChannelId, string userId)
+        {
+            return
+                _rssDatabase.UsersItems.Where(x => x.UserChannelId == userChannelId && x.ApplicationUserId == userId)
+                    .ToList();
+        }
+
+        public List<UserChannel> GetUserChannels(string userId)
+        {
+            var channels = _rssDatabase.UserChannels
+                .Where(x => x.ApplicationUserId == userId && x.IsHidden == false).ToList();
+
+            return channels;
+        }
+
         public void RemoveChannel(string userId, long userChannelId)
         {
             var toRemove =
@@ -38,6 +53,7 @@ namespace Services.RssReader.Implementation
                 _rssDatabase.Channels.Add(model);
                 _rssDatabase.SaveChanges();
             }
+
             var channelId = ReturnChannelId(url);
             var userchannel = new UserChannel(channelId, userId);
             _rssDatabase.UserChannels.Add(userchannel);
@@ -52,18 +68,6 @@ namespace Services.RssReader.Implementation
             }
             
             _rssDatabase.SaveChanges();
-        }
-
-        public List<Channel> ShowChannelList()
-        {
-            return _rssDatabase.Channels.ToList();
-        }
-
-        public List<UserItem> ShowChannelFeedList(long userChannelId, string userId)
-        {
-            return
-                _rssDatabase.UsersItems.Where(x => x.UserChannelId == userChannelId && x.ApplicationUserId == userId)
-                    .ToList();
         }
 
         public bool AddRaiting(long userItemId)
@@ -100,14 +104,6 @@ namespace Services.RssReader.Implementation
             return true;
         }
 
-
-        public List<UserChannel> GetChannels(string userId)
-        {
-            var channels = _rssDatabase.UserChannels
-                .Where(x => x.ApplicationUserId == userId && x.IsHidden == false).ToList();
-
-            return channels;
-        }
 
         public bool MarkAsRead(string userId, long userChannelId, long userItemId)
         {
