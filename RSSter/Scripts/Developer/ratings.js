@@ -6,7 +6,7 @@ function RateUp(e) {
     $.ajax({
         url: "/RssReader/RatingUp/?userItemId=" + userItemId,
         method:"POST",
-        success: RateSuccess(icon),
+        success: RateUpSuccess(icon),
         error: errorToggle
     });
 };
@@ -18,7 +18,7 @@ function RateDown(e) {
     $.ajax({
         url: "/RssReader/RatingDown/?userItemId=" + userItemId,
         method: "POST",
-        success: RateSuccess(icon),
+        success: RateDownSuccess(icon),
         error: errorToggle
     });
 };
@@ -27,15 +27,26 @@ function errorToggle() {
     $("#ratingError").show();
 }
 
-function RateSuccess(icon) {
+function RateUpSuccess(icon) {
     var up = icon.parent().find(".up");
-    up.toggle();
+    up.hide();
     var smile = icon.parent().find(".smile");
-    smile.toggle();
+    smile.show();
     var frown = icon.parent().find(".frown");
-    frown.toggle();
+    frown.hide();
     var down = icon.parent().find(".down");
-    down.toggle();
+    down.show();
+}
+
+function RateDownSuccess(icon) {
+    var up = icon.parent().find(".up");
+    up.show();
+    var smile = icon.parent().find(".smile");
+    smile.hide();
+    var frown = icon.parent().find(".frown");
+    frown.show();
+    var down = icon.parent().find(".down");
+    down.hide();
 }
 
 function RateIconsInitialization(idx,e) {

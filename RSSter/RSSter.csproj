@@ -295,6 +295,7 @@
     <Content Include="Views\Home\Index-cat-example.cshtml" />
     <Content Include="Views\Account\LoginIndex.cshtml" />
     <Content Include="Views\Shared\_Layout_RSSreader.cshtml" />
+    <Content Include="Views\RssReader\ViewChannelInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -107,5 +107,11 @@ namespace Services.RssReader.Implementation
                 _rssDatabase.UsersItems.First(foo => foo.Id == userItemId);
             userItem.Read = true;
         }
+
+        public Channel GetChannelInfo(string userId, long userChannelId)
+        {
+            return _rssDatabase.UserChannels.First(foo => foo.ApplicationUserId == userId && foo.Id == userChannelId)
+                    .Channel;            
+        }
     }
 }
