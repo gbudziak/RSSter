@@ -9,8 +9,8 @@ namespace Models.RSS
         [Key]
         public long Id { get; set; }
         public bool Read { get; set; }
-        public bool RaitingPlus { get; set; }
-        public bool RaitingMinus { get; set; }
+        public bool RatingPlus { get; set; }
+        public bool RatingMinus { get; set; }
 
         [ForeignKey("Item")]
         public long ItemId { get; set; }

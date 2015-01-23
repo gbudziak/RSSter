@@ -64,16 +64,16 @@ namespace RSSter.Controllers
         }
         
         [HttpPost]
-        public JsonResult RaitingUp(long userItemId)
+        public JsonResult RatingUp(long userItemId)
         {
-            _channelService.AddRaiting(userItemId);
+            _channelService.AddRating(userItemId);
             return Json(null);
         }
 
         [HttpPost]
-        public JsonResult RaitingDown(long userItemId)
+        public JsonResult RatingDown(long userItemId)
         {
-            _channelService.RemoveRaiting(userItemId);
+            _channelService.RemoveRating(userItemId);
             return Json(null);
         }
 
