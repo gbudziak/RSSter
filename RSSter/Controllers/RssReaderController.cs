@@ -62,23 +62,26 @@ namespace RSSter.Controllers
             var channels = _channelService.GetUserChannels(userId);
             return PartialView("ShowUserChannels", channels);
         }
-
+        
+        [HttpPost]
         public JsonResult RaitingUp(long userItemId)
         {
-            var result = _channelService.AddRaiting(userItemId);
-            return Json(result, JsonRequestBehavior.AllowGet);
+            _channelService.AddRaiting(userItemId);
+            return Json(null);
         }
 
+        [HttpPost]
         public JsonResult RaitingDown(long userItemId)
         {
-            var result = _channelService.RemoveRaiting(userItemId);
-            return Json(result, JsonRequestBehavior.AllowGet);
+            _channelService.RemoveRaiting(userItemId);
+            return Json(null);
         }
 
+        [HttpPost]
         public JsonResult Read(long userItemId)
         {
-            var result = _channelService.MarkAsRead(userItemId);
-            return Json(result, JsonRequestBehavior.AllowGet);
+            _channelService.MarkAsRead(userItemId);
+            return Json(null);
         }
     }
 }

@@ -35,14 +35,16 @@ Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr id="@item.Id">
                 <td>
-                    <i class="hide icon" id="@item.Id"></i>
-                    <i class="pointing up icon" id="@item.Id"></i>
-                    <i class="pointing down icon" id="@item.Id"></i>
+                    <i class="hide icon" data-item-id="@item.Id"></i>
+                    <i class="thumbs outline up icon" data-item-id="@item.Id" data-item-rate="@item.RaitingPlus"></i>
+                    <i class="smile icon" data-item-rate="@item.RaitingMinus"></i>
+                    <i class="thumbs outline down icon" data-item-id="@item.Id" data-item-rate="@item.RaitingMinus"></i>
+                    <i class="frown icon" data-item-rate="@item.RaitingPlus"></i>
                 </td>
                 <td class="collapsing">
-                    <a href="@item.Item.Url" target="_blank">@item.Item.Title</a>
+                    <a href="@item.Item.Url" target="_blank" data-item-id="@item.Id">@item.Item.Title</a>
                 </td>
                 <td>@Html.Raw(item.Item.Description)</td>
                 <td class="right aligned collapsing"><a href="@item.Item.Url" target="_blank">More</a></td>
@@ -55,7 +57,7 @@ Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
 @section scripts
 {
     <script src="~/Scripts/Developer/isRead.js"></script>
-    <script src="~/Scripts/Developer/raitings.js"></script>
+    <script src="~/Scripts/Developer/ratings.js"></script>
     <script src="~/Scripts/Attachers/showUserItems.js"></script>
 
 }

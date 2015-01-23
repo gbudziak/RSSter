@@ -1,17 +1,4 @@
-﻿$(document).ready(function () {
-    $("#btnGoToChannel").mousedown(GoTo);
-    $("#createSubmit").hide();
-    $("#btnGoToChannel").hide();
-    $("#Url").keyup(IsUrlInUserDatabase);
-    $(window).keydown(function (event) {
-        if (event.keyCode === 13) {
-            event.preventDefault();
-            return false;
-        }
-    });
-});
-
-//Function that assigns destination for Go to channel button.
+﻿//Function that assigns destination for Go to channel button.
 function GoTo() {
     var url = $("#Url").val();
     window.location.assign("RssListView/?url=" + url);

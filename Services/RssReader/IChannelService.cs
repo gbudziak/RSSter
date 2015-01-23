@@ -13,13 +13,13 @@ namespace Services.RssReader
 
         List<UserItem> GetUserItems(long channelId, string userId);
 
-        bool AddRaiting(long userItemId);
+        void AddRaiting(long userItemId);
 
-        bool RemoveRaiting(long userItemId);
+        void RemoveRaiting(long userItemId);
 
         List<UserChannel> GetUserChannels(string userId);
 
-        bool MarkAsRead(long userItemId);
+        void MarkAsRead(long userItemId);
     }
 }
 

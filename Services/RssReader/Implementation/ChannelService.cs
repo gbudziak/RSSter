@@ -20,7 +20,7 @@ namespace Services.RssReader.Implementation
         public List<UserItem> GetUserItems(long userChannelId, string userId)
         {
             return
-                _rssDatabase.UsersItems.Where(x => x.UserChannelId == userChannelId && x.ApplicationUserId == userId)
+                _rssDatabase.UsersItems.Where(x => x.UserChannelId == userChannelId && x.ApplicationUserId == userId && x.Read == false)
                     .ToList();
         }
 
@@ -70,7 +70,7 @@ namespace Services.RssReader.Implementation
             _rssDatabase.SaveChanges();
         }
 
-        public bool AddRaiting(long userItemId)
+        public void AddRaiting(long userItemId)
         {
             var likeUp =
                 _rssDatabase.UsersItems.First(foo => foo.Id == userItemId);
@@ -84,10 +84,9 @@ namespace Services.RssReader.Implementation
             likeUp.RaitingPlus = true;
             itemMaster.RaitingPlus++;
             _rssDatabase.SaveChanges();
-            return true;
         }
 
-        public bool RemoveRaiting(long userItemId)
+        public void RemoveRaiting(long userItemId)
         {
             var likeDown =
                 _rssDatabase.UsersItems.First(foo => foo.Id == userItemId);
@@ -101,15 +100,13 @@ namespace Services.RssReader.Implementation
             likeDown.RaitingMinus = true;
             itemMaster.RaitingMinus++;
             _rssDatabase.SaveChanges();
-            return true;
         }
         
-        public bool MarkAsRead(long userItemId)
+        public void MarkAsRead(long userItemId)
         {
             var userItem =
                 _rssDatabase.UsersItems.First(foo => foo.Id == userItemId);
             userItem.Read = true;
-            return true;
         }
     }
 }
