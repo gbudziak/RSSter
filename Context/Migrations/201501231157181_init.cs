@@ -3,39 +3,39 @@ namespace DBContext.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
-            CreateTable(
-                "dbo.Channels",
-                c => new
-                    {
-                        Id = c.Long(nullable: false, identity: true),
-                        Link = c.String(),
-                        Description = c.String(),
-                        Image = c.String(),
-                        Title = c.String(),
-                        Readers = c.Long(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
-            
             CreateTable(
                 "dbo.Items",
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Link = c.String(),
+                        Url = c.String(),
                         Description = c.String(),
                         Title = c.String(),
                         PublishDate = c.String(),
                         RaitingPlus = c.Int(nullable: false),
                         RaitingMinus = c.Int(nullable: false),
-                        Channel_Id = c.Long(),
+                        ChannelId = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Channels", t => t.Channel_Id)
-                .Index(t => t.Channel_Id);
+                .ForeignKey("dbo.Channels", t => t.ChannelId, cascadeDelete: true)
+                .Index(t => t.ChannelId);
+            
+            CreateTable(
+                "dbo.Channels",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Url = c.String(),
+                        Description = c.String(),
+                        ImageUrl = c.String(),
+                        Title = c.String(),
+                        Readers = c.Long(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -66,6 +66,7 @@ namespace DBContext.Migrations
                     {
                         Id = c.Long(nullable: false, identity: true),
                         Category = c.String(),
+                        IsHidden = c.Boolean(nullable: false),
                         ChannelId = c.Long(nullable: false),
                         ApplicationUserId = c.String(maxLength: 128),
                     })
@@ -132,21 +133,21 @@ namespace DBContext.Migrations
                         RaitingMinus = c.Boolean(nullable: false),
                         ItemId = c.Long(nullable: false),
                         ApplicationUserId = c.String(maxLength: 128),
-                        UserChannel_Id = c.Long(),
+                        UserChannelId = c.Long(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
+                .PrimaryKey(t => t.Id) 
                 .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserId)
-                .ForeignKey("dbo.Items", t => t.ItemId, cascadeDelete: true)
-                .ForeignKey("dbo.UserChannels", t => t.UserChannel_Id)
+                .ForeignKey("dbo.Items", t => t.ItemId, cascadeDelete: false)
+                .ForeignKey("dbo.UserChannels", t => t.UserChannelId, cascadeDelete: true)
                 .Index(t => t.ItemId)
                 .Index(t => t.ApplicationUserId)
-                .Index(t => t.UserChannel_Id);
+                .Index(t => t.UserChannelId);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.UserItems", "UserChannel_Id", "dbo.UserChannels");
+            DropForeignKey("dbo.UserItems", "UserChannelId", "dbo.UserChannels");
             DropForeignKey("dbo.UserItems", "ItemId", "dbo.Items");
             DropForeignKey("dbo.UserItems", "ApplicationUserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.UserChannels", "ChannelId", "dbo.Channels");
@@ -155,8 +156,8 @@ namespace DBContext.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Items", "Channel_Id", "dbo.Channels");
-            DropIndex("dbo.UserItems", new[] { "UserChannel_Id" });
+            DropForeignKey("dbo.Items", "ChannelId", "dbo.Channels");
+            DropIndex("dbo.UserItems", new[] { "UserChannelId" });
             DropIndex("dbo.UserItems", new[] { "ApplicationUserId" });
             DropIndex("dbo.UserItems", new[] { "ItemId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
@@ -167,7 +168,7 @@ namespace DBContext.Migrations
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.Items", new[] { "Channel_Id" });
+            DropIndex("dbo.Items", new[] { "ChannelId" });
             DropTable("dbo.UserItems");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
@@ -175,8 +176,8 @@ namespace DBContext.Migrations
             DropTable("dbo.UserChannels");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.Items");
             DropTable("dbo.Channels");
+            DropTable("dbo.Items");
         }
     }
 }

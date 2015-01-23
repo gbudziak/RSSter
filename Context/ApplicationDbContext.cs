@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Models.Models;
 using Models.RSS;
@@ -47,6 +48,7 @@ namespace DBContext
         public DbSet<UserItem> UsersItems { get; set; }
 
         public DbSet<Item> AllItems { get; set; }
-       
+
+ 
     }
 }

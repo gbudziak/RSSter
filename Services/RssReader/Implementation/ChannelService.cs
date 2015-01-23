@@ -46,31 +46,6 @@ namespace Services.RssReader.Implementation
             return channelId;
         }
 
-        //public void AddChannel(string userId, string url)
-        //{
-        //    if (!_rssDatabase.Channels.Any(foo => foo.Url == url))
-        //    {
-        //        var model = _iGetRssChannel.GetRssChannelWithFeeds(url);
-        //        _rssDatabase.Channels.Add(model);
-        //        _rssDatabase.SaveChanges();
-        //    }
-
-        //    var channelId = ReturnChannelId(url);
-        //    var userchannel = new UserChannel(channelId, userId);
-        //    _rssDatabase.UserChannels.Add(userchannel);
-        //    _rssDatabase.SaveChanges();
-
-        //    var userChannelId = _rssDatabase.UserChannels.First(x => x.ChannelId == channelId && x.ApplicationUserId == userId).Id;
-        //    var channels = _rssDatabase.Channels.First(x => x.Id == channelId);
-
-        //    foreach (var item in channels.Items)
-        //    {
-        //        userchannel.UserItems.Add(new UserItem(userId, item.Id, userChannelId));
-        //    }
-        //    _rssDatabase.UserChannels.AddOrUpdate(userchannel);
-
-        //    _rssDatabase.SaveChanges();
-        //}
 
         public void AddChannel(string userId, string url)
         {
@@ -84,7 +59,6 @@ namespace Services.RssReader.Implementation
             var channelId = ReturnChannelId(url);
             var userchannel = new UserChannel(channelId, userId);
             var channel = _rssDatabase.Channels.Single(x => x.Id == channelId);
-
 
             foreach (var item in channel.Items)
             {
@@ -104,10 +78,10 @@ namespace Services.RssReader.Implementation
             if (likeUp.RaitingMinus)
             {
                 likeUp.RaitingMinus = false;
-                itemMaster.RaitingMinus--;
+                itemMaster.RatingMinus--;
             }
             likeUp.RaitingPlus = true;
-            itemMaster.RaitingPlus++;
+            itemMaster.RatingPlus++;
             _rssDatabase.SaveChanges();
             return true;
         }
@@ -121,10 +95,10 @@ namespace Services.RssReader.Implementation
             if (likeDown.RaitingPlus)
             {
                 likeDown.RaitingPlus = false;
-                itemMaster.RaitingPlus--;
+                itemMaster.RatingPlus--;
             }
             likeDown.RaitingMinus = true;
-            itemMaster.RaitingMinus++;
+            itemMaster.RatingMinus++;
             _rssDatabase.SaveChanges();
             return true;
         }
