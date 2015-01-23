@@ -57,13 +57,9 @@
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="IApplicationDbContext.cs" />
-    <Compile Include="Migrations\201501231157181_init.cs" />
-    <Compile Include="Migrations\201501231157181_init.Designer.cs">
-      <DependentUpon>201501231157181_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201501231216185_Rating name correction.cs" />
-    <Compile Include="Migrations\201501231216185_Rating name correction.Designer.cs">
-      <DependentUpon>201501231216185_Rating name correction.cs</DependentUpon>
+    <Compile Include="Migrations\201501231224209_init.cs" />
+    <Compile Include="Migrations\201501231224209_init.Designer.cs">
+      <DependentUpon>201501231224209_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,11 +75,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201501231157181_init.resx">
-      <DependentUpon>201501231157181_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201501231216185_Rating name correction.resx">
-      <DependentUpon>201501231216185_Rating name correction.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201501231224209_init.resx">
+      <DependentUpon>201501231224209_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

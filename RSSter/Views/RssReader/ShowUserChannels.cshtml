@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "SHowUserChannels";
     Layout = null;
+
 }
 
     <div class="ui large vertical menu">
@@ -17,7 +18,6 @@
                 <div class=" ui green circular label">
                     @item.UserItems.Where(x => x.UserChannelId == item.Id && x.ApplicationUserId == item.ApplicationUserId).Count(x => x.Read == false)
                 </div>
-
             </div>
         }
     </div>

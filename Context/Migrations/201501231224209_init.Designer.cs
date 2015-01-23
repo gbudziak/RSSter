@@ -7,13 +7,13 @@ namespace DBContext.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.2-31219")]
-    public sealed partial class Ratingnamecorrection : IMigrationMetadata
+    public sealed partial class init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Ratingnamecorrection));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201501231216185_Rating name correction"; }
+            get { return "201501231224209_init"; }
         }
         
         string IMigrationMetadata.Source

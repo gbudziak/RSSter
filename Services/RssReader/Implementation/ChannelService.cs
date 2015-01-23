@@ -59,13 +59,13 @@ namespace Services.RssReader.Implementation
             var channelId = ReturnChannelId(url);
             var userchannel = new UserChannel(channelId, userId);
             var channel = _rssDatabase.Channels.Single(x => x.Id == channelId);
-
-            foreach (var item in channel.Items)
+            var items = _rssDatabase.AllItems.Where(x => x.ChannelId == channelId).ToList();
+            foreach (var item in items)
             {
                 userchannel.UserItems.Add(new UserItem(userId, item.Id));
             }
 
-            _rssDatabase.UserChannels.Add(userchannel);
+            _rssDatabase.UserChannels.AddOrUpdate(userchannel);
             _rssDatabase.SaveChanges();
         }
 
