@@ -69,34 +69,34 @@ namespace Services.RssReader.Implementation
             _rssDatabase.SaveChanges();
         }
 
-        public void AddRaiting(long userItemId)
+        public void AddRating(long userItemId)
         {
             var likeUp =
                 _rssDatabase.UsersItems.First(foo => foo.Id == userItemId);
             var itemMaster =
                 _rssDatabase.AllItems.First(foo => foo.Id == likeUp.ItemId);
-            if (likeUp.RaitingMinus)
+            if (likeUp.RatingMinus)
             {
-                likeUp.RaitingMinus = false;
+                likeUp.RatingMinus = false;
                 itemMaster.RatingMinus--;
             }
-            likeUp.RaitingPlus = true;
+            likeUp.RatingPlus = true;
             itemMaster.RatingPlus++;
             _rssDatabase.SaveChanges();
         }
 
-        public void RemoveRaiting(long userItemId)
+        public void RemoveRating(long userItemId)
         {
             var likeDown =
                 _rssDatabase.UsersItems.First(foo => foo.Id == userItemId);
             var itemMaster =
                 _rssDatabase.AllItems.First(foo => foo.Id == likeDown.ItemId);
-            if (likeDown.RaitingPlus)
+            if (likeDown.RatingPlus)
             {
-                likeDown.RaitingPlus = false;
+                likeDown.RatingPlus = false;
                 itemMaster.RatingPlus--;
             }
-            likeDown.RaitingMinus = true;
+            likeDown.RatingMinus = true;
             itemMaster.RatingMinus++;
             _rssDatabase.SaveChanges();
         }

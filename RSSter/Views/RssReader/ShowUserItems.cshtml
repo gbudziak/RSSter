@@ -38,10 +38,10 @@ Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
             <tr id="@item.Id">
                 <td>
                     <i class="hide icon" data-item-id="@item.Id"></i>
-                    <i class="thumbs outline up icon" data-item-id="@item.Id" data-item-rate="@item.RaitingPlus"></i>
-                    <i class="smile icon" data-item-rate="@item.RaitingMinus"></i>
-                    <i class="thumbs outline down icon" data-item-id="@item.Id" data-item-rate="@item.RaitingMinus"></i>
-                    <i class="frown icon" data-item-rate="@item.RaitingPlus"></i>
+                    <i class="thumbs outline up icon" data-item-id="@item.Id" data-item-rate="@item.RatingPlus"></i>
+                    <i class="smile icon" data-item-rate="@item.RatingMinus"></i>
+                    <i class="thumbs outline down icon" data-item-id="@item.Id" data-item-rate="@item.RatingMinus"></i>
+                    <i class="frown icon" data-item-rate="@item.RatingPlus"></i>
                 </td>
                 <td class="collapsing">
                     <a href="@item.Item.Url" target="_blank" data-item-id="@item.Id">@item.Item.Title</a>

@@ -13,9 +13,9 @@ namespace Services.RssReader
 
         List<UserItem> GetUserItems(long channelId, string userId);
 
-        void AddRaiting(long userItemId);
+        void AddRating(long userItemId);
 
-        void RemoveRaiting(long userItemId);
+        void RemoveRating(long userItemId);
 
         List<UserChannel> GetUserChannels(string userId);
 
