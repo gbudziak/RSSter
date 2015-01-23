@@ -7,7 +7,7 @@ namespace RSSter.Controllers
         [RequireHttps]
         public ActionResult Index()
         {
-            return View("Index-cat-example");
+            return View("Index-feed-example");
         }
 
         public ActionResult About()
