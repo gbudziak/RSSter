@@ -30,7 +30,14 @@ namespace Models.RSS
         public virtual UserChannel UserChannel { get; set; }
 
         public UserItem() { }
-        
+
+        public UserItem(string applicationUserId, long itemId)
+        {
+            this.ApplicationUserId = applicationUserId;
+            this.ItemId = itemId;
+
+        }
+
         public UserItem(string applicationUserId, long itemId, long userChannelId)
         {
             this.ApplicationUserId = applicationUserId;
