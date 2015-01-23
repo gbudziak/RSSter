@@ -4,28 +4,34 @@
     ViewBag.Title = "SHowUserChannels";
     Layout = null;
 
+
 }
 
-<div class="ui large vertical menu">
-    <div class="header item">
-        <i class="user icon"></i>
-        Communities
+
+<div class="ui tiny animated selection list">
+    
+    <div class="item">
+        <div class="content">
+            <div class="header">
+                @Html.ActionLink("Add new RSS", "AddRssChannel", "RssReader")
+            </div>
+        </div>
     </div>
     @foreach (var item in Model)
     {
         <div class="link item">
-
-            @Html.ActionLink(@item.Channel.Title, "ShowUserItems", "RssReader",
-                new {userChannelId = @item.Id},
-                new {})
+            <img class="ui avatar image" src="@item.Channel.ImageUrl" />
+            <div class="content">
+                <div class="header">
+                    @Html.ActionLink(@item.Channel.Title, "ShowUserItems", "RssReader",
+                                    new { userChannelId = @item.Id },
+                                    new { })
+                </div>
+            </div>
             <div class=" ui green circular label">
                 @item.UserItems.Where(x => x.UserChannelId == item.Id && x.ApplicationUserId == item.ApplicationUserId).Count(x => x.Read == false)
             </div>
         </div>
     }
 </div>
-
-
-
-
 

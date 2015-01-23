@@ -6,4 +6,9 @@ $(function() {
     $("a").on("click", MarkAsRead);
     $("i").each(RateIconsInitialization);
     $("tr").each(HideEmoticons);
+    $('.left.sidebar')
+        .sidebar('attach events', '.toggle.button');
+
+    $('.sidebar')
+        .sidebar('attach events', '.toggle.thinbutton');
 })

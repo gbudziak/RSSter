@@ -63,10 +63,19 @@
     </div>
 </div>
 <div class="ui celled grid">
-    <div class="three wide middle column">
-        @Html.ActionLink("Add new RSS", "AddRssChannel", "RssReader")
-        @{ Html.RenderAction("ShowUserChannels", "RssReader"); }
-    </div>
+    <div class="three wide middle column" style="
+    padding-right: 0;
+    padding-left: 0;
+    padding-left: 0;
+    padding-left: 0;
+    ">
+
+
+@{ Html.RenderAction("ShowUserChannels", "RssReader"); }
+        
+
+</div>
+
     <div class="thirteen wide right column">
         @RenderBody()
     </div>
@@ -75,7 +84,7 @@
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/semantic")
+    @Scripts.Render("~/bundles/menu")
 @RenderSection("scripts", required: false)
 </body>
 </html>
-
