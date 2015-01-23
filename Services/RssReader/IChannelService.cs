@@ -20,6 +20,8 @@ namespace Services.RssReader
         List<UserChannel> GetUserChannels(string userId);
 
         void MarkAsRead(long userItemId);
+        
+        Channel GetChannelInfo(string userId, long userChannelId);
     }
 }
 

@@ -83,5 +83,12 @@ namespace RSSter.Controllers
             _channelService.MarkAsRead(userItemId);
             return Json(null);
         }
+
+        public ActionResult ViewChannelInfo(long userChannelId)
+        {
+            var userId = User.Identity.GetUserId();
+            var channel = _channelService.GetChannelInfo(userId, userChannelId);
+            return PartialView("ViewChannelInfo", channel);
+        }
     }
 }

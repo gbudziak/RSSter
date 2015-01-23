@@ -16,6 +16,7 @@ Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
         Please try again in few minites
     </p>
 </div>
+@Html.Action("ViewChannelInfo", "RssReader", new{Model[0].UserChannelId})
 <table class="ui celled striped table">
     <thead>
         <tr>
