@@ -12,6 +12,7 @@
         <div class="extra content">
             <i class="unhide icon"></i>
             @Model.Readers
+            <i class='unlock icon'></i>@Html.ActionLink("Unsubscibe", "Delete", new { channelId = @Model.Id })
         </div>
     </div>
 </div>

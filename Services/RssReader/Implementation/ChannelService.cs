@@ -33,11 +33,12 @@ namespace Services.RssReader.Implementation
             return channels;
         }
 
-        public void RemoveChannel(string userId, long userChannelId)
+        public void RemoveChannel(string userId, long channelId)
         {
             var toRemove =
-                _rssDatabase.UserChannels.First(foo => foo.ApplicationUserId == userId && foo.Id == userChannelId);
+                _rssDatabase.UserChannels.First(foo => foo.ApplicationUserId == userId && foo.ChannelId == channelId);
             toRemove.IsHidden = true;
+            _rssDatabase.SaveChanges();
         }
 
         public long ReturnChannelId(string url)
