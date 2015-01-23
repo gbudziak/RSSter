@@ -47,3 +47,12 @@ function RateIconsInitialization(idx,e) {
         $(e).hide();
     }
 }
+
+function HideEmoticons(idx, e) {
+    var smile = $(e).find(".smile");
+    var frown = $(e).find(".frown");
+    if (smile.data("item-rate") == frown.data("item-rate")) {
+        smile.hide();
+        frown.hide();
+    }
+}
