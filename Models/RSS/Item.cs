@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,13 @@ namespace Models.RSS
         public string Description { get; set; }
         public string Title { get; set; }        
         public string PublishDate { get; set; }
-        public int RaitingPlus { get; set; }
-        public int RaitingMinus { get; set; }                
+        public int RatingPlus { get; set; }
+        public int RatingMinus { get; set; }
+
+        [ForeignKey("Channel")]
+        public long ChannelId { get; set; }
+        public virtual Channel Channel { get; set; }
+
+
     }
 }

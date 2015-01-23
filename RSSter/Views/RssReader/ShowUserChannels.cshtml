@@ -3,18 +3,23 @@
 @{
     ViewBag.Title = "SHowUserChannels";
     Layout = null;
- }
-
-
-@foreach (var item in Model)
-{
-    <div class="ui label">
-       
-        @Html.ActionLink(@item.Channel.Title, "ShowUserItems", "RssReader",
-            new {userChannelId = @item.Id},
-            new {})
-        <a class="detail">
-            <i class="mail icon"></i> @item.UserItems.Where(x=>x.UserChannelId == item.Id && x.ApplicationUserId == item.ApplicationUserId).Count(x=>x.Read == false)
-        </a>
-    </div>
 }
+
+    <div class="ui large vertical menu">
+
+        @foreach (var item in Model)
+        {
+            <div class="link item">
+
+                @Html.ActionLink(@item.Channel.Title, "ShowUserItems", "RssReader",
+                new { userChannelId = @item.Id },
+                new { })
+                <div class=" ui green circular label">
+                    @item.UserItems.Where(x => x.UserChannelId == item.Id && x.ApplicationUserId == item.ApplicationUserId).Count(x => x.Read == false)
+                </div>
+
+            </div>
+        }
+    </div>
+
+

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using DBContext;
@@ -45,6 +46,7 @@ namespace Services.RssReader.Implementation
             return channelId;
         }
 
+
         public void AddChannel(string userId, string url)
         {
             if (!_rssDatabase.Channels.Any(foo => foo.Url == url))
@@ -56,17 +58,14 @@ namespace Services.RssReader.Implementation
 
             var channelId = ReturnChannelId(url);
             var userchannel = new UserChannel(channelId, userId);
-            _rssDatabase.UserChannels.Add(userchannel);
-            _rssDatabase.SaveChanges();
+            var channel = _rssDatabase.Channels.Single(x => x.Id == channelId);
 
-            var userChannelId =_rssDatabase.UserChannels.First(x => x.ChannelId == channelId && x.ApplicationUserId == userId).Id;
-            var channels = _rssDatabase.Channels.First(x => x.Id == channelId);
-
-            foreach (var item in channels.Items)
+            foreach (var item in channel.Items)
             {
-                userchannel.UserItems.Add(new UserItem(userId, item.Id, userChannelId));
+                userchannel.UserItems.Add(new UserItem(userId, item.Id));
             }
-            
+
+            _rssDatabase.UserChannels.Add(userchannel);
             _rssDatabase.SaveChanges();
         }
 
@@ -79,10 +78,10 @@ namespace Services.RssReader.Implementation
             if (likeUp.RaitingMinus)
             {
                 likeUp.RaitingMinus = false;
-                itemMaster.RaitingMinus--;
+                itemMaster.RatingMinus--;
             }
             likeUp.RaitingPlus = true;
-            itemMaster.RaitingPlus++;
+            itemMaster.RatingPlus++;
             _rssDatabase.SaveChanges();
         }
 
@@ -95,10 +94,10 @@ namespace Services.RssReader.Implementation
             if (likeDown.RaitingPlus)
             {
                 likeDown.RaitingPlus = false;
-                itemMaster.RaitingPlus--;
+                itemMaster.RatingPlus--;
             }
             likeDown.RaitingMinus = true;
-            itemMaster.RaitingMinus++;
+            itemMaster.RatingMinus++;
             _rssDatabase.SaveChanges();
         }
         

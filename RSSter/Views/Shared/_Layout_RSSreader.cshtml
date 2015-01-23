@@ -49,14 +49,14 @@
 
     <div class="main container">
         <div class="ui grid">
-            <div class="three wide column">
+            <div class="four wide column">
                 <div class="ui segment">
                     <p>@Html.ActionLink("Add new RSS", "AddRssChannel", "RssReader")</p>
                     @{ Html.RenderAction("ShowUserChannels", "RssReader"); }
 
                 </div>
             </div>
-            <div class="thirteen wide column">
+            <div class="twelve wide column">
                 @RenderBody()
             </div>
         </div>

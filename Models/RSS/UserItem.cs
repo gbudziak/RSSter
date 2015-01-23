@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Models.Models;
 
 namespace Models.RSS
@@ -30,7 +25,13 @@ namespace Models.RSS
         public virtual UserChannel UserChannel { get; set; }
 
         public UserItem() { }
-        
+
+        public UserItem(string applicationUserId, long itemId)
+        {
+            this.ApplicationUserId = applicationUserId;
+            this.ItemId = itemId;
+        }
+
         public UserItem(string applicationUserId, long itemId, long userChannelId)
         {
             this.ApplicationUserId = applicationUserId;

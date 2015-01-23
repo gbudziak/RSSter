@@ -7,13 +7,13 @@ namespace DBContext.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.2-31219")]
-    public sealed partial class UserChannelID : IMigrationMetadata
+    public sealed partial class init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UserChannelID));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201501221324155_UserChannelID"; }
+            get { return "201501231157181_init"; }
         }
         
         string IMigrationMetadata.Source
