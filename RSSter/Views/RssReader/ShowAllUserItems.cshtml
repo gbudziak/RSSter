@@ -1,8 +1,9 @@
-﻿@model List<Models.RSS.UserItem>
+﻿
+@model List<Models.RSS.UserItem>
 
 @{
-ViewBag.Title = "RssReader";
-Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
+    ViewBag.Title = "RssReader";
+    Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
 }
 
 <div id="Error" class="ui negative message" hidden="hidden">
@@ -14,7 +15,7 @@ Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
         Please try again in few minites
     </p>
 </div>
-@Html.Action("ViewChannelInfo", "RssReader", new{Model[0].UserChannelId})
+@*@Html.Action("ViewChannelInfo", "RssReader", new{Model[0].UserChannelId})*@
 <table class="ui celled striped table">
     <thead>
         <tr>

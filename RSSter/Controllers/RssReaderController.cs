@@ -68,7 +68,7 @@ namespace RSSter.Controllers
             var userId = User.Identity.GetUserId();
 
             var items = _channelService.GetAllUserItems(userId);
-            return View("ShowUserItems", items);
+            return View("ShowAllUserItems", items);
         }
 
         public ActionResult ShowAllUnreadUserItems()
@@ -76,7 +76,7 @@ namespace RSSter.Controllers
             var userId = User.Identity.GetUserId();
 
             var items = _channelService.GetAllUnreadUserItems(userId);
-            return View("ShowUserItems", items);
+            return View("ShowAllUserItems", items);
         }
         
         [HttpPost]
