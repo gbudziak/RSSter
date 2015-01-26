@@ -4,19 +4,52 @@
     ViewBag.Title = "SHowUserChannels";
     Layout = null;
 
-
+    var allItems = 0;
+    var notReaded = 0;
+    foreach (var x in Model)
+    {
+        allItems += x.UserItems.Count(foo => foo.ApplicationUserId == x.ApplicationUserId);
+        notReaded += x.UserItems.Count(foo => foo.ApplicationUserId == x.ApplicationUserId && foo.Read == false);
+    }
 }
 
 
 <div class="ui tiny animated selection list">
-    
+
     <div class="item">
         <div class="content">
             <div class="header">
                 @Html.ActionLink("Add new RSS", "AddRssChannel", "RssReader")
             </div>
+            <i class="remove icon"></i>
+
         </div>
     </div>
+    <div class="item">
+        <div class="content">
+            <div class="header">
+                @Html.ActionLink("All news", "ShowAllUserItems", "RssReader")
+            </div>
+            <div class=" ui red circular label">
+                @allItems
+                </div>
+
+        </div>
+    </div>
+    <div class="item">
+        <div class="content">
+            <div class="header">
+                @Html.ActionLink("Al unread news", "ShowAllUnreadUserItems", "RssReader")
+            </div>
+            <div class=" ui red circular label">
+                @notReaded
+
+
+
+
+            </div>
+        </div>
+        </div>
     @foreach (var item in Model)
     {
         <div class="link item">
@@ -34,4 +67,3 @@
         </div>
     }
 </div>
-

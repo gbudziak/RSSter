@@ -13,6 +13,10 @@ namespace Services.RssReader
 
         List<UserItem> GetUserItems(long channelId, string userId);
 
+        List<UserItem> GetAllUserItems(string userId);
+
+        List<UserItem> GetAllUnreadUserItems(string userId);
+
         void AddRating(long userItemId);
 
         void RemoveRating(long userItemId);

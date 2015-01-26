@@ -209,6 +209,15 @@
     <Content Include="Content\homepage.css" />
     <Content Include="Content\Images\bg.jpg" />
     <Content Include="Content\Images\cat.png" />
+    <Content Include="Content\Images\loginPage\bg.png" />
+    <Content Include="Content\Images\loginPage\border.png" />
+    <Content Include="Content\Images\loginPage\contact.png" />
+    <Content Include="Content\Images\loginPage\facebook.png" />
+    <Content Include="Content\Images\loginPage\gplus.png" />
+    <Content Include="Content\Images\loginPage\lock.png" />
+    <Content Include="Content\Images\loginPage\mark.png" />
+    <Content Include="Content\Images\loginPage\twitter.png" />
+    <Content Include="Content\loginPageStyle.css" />
     <Content Include="Content\semantic.css" />
     <Content Include="Content\semantic.min.css" />
     <Content Include="Content\semantic.site.css" />
@@ -293,9 +302,10 @@
     <Content Include="Views\RssReader\AddRssChannel.cshtml" />
     <Content Include="Views\RssReader\ShowUserChannels.cshtml" />
     <Content Include="Views\Home\Index-cat-example.cshtml" />
-    <Content Include="Views\Account\LoginIndex.cshtml" />
+    <Content Include="Views\Account\LoginIndex-test.cshtml" />
     <Content Include="Views\Shared\_Layout_RSSreader.cshtml" />
     <Content Include="Views\RssReader\ViewChannelInfo.cshtml" />
+    <Content Include="Views\Account\LoginIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

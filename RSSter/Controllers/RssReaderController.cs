@@ -18,7 +18,7 @@ namespace RSSter.Controllers
 
         public ActionResult Index()
         {
-            return View("Index");
+            return RedirectToAction("ShowAllUnreadUserItems", "RssReader");
         }
 
         [HttpGet]
@@ -61,6 +61,22 @@ namespace RSSter.Controllers
 
             var channels = _channelService.GetUserChannels(userId);
             return PartialView("ShowUserChannels", channels);
+        }
+
+        public ActionResult ShowAllUserItems()
+        {
+            var userId = User.Identity.GetUserId();
+
+            var items = _channelService.GetAllUserItems(userId);
+            return View("ShowUserItems", items);
+        }
+
+        public ActionResult ShowAllUnreadUserItems()
+        {
+            var userId = User.Identity.GetUserId();
+
+            var items = _channelService.GetAllUnreadUserItems(userId);
+            return View("ShowUserItems", items);
         }
         
         [HttpPost]
