@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Models.RSS;
@@ -18,7 +19,7 @@ namespace RSSter.Controllers
 
         public ActionResult Index()
         {
-            return View("Index");
+            return RedirectToAction("ShowAllUnreadUserItems", "RssReader");
         }
 
         [HttpGet]
@@ -61,6 +62,22 @@ namespace RSSter.Controllers
 
             var channels = _channelService.GetUserChannels(userId);
             return PartialView("ShowUserChannels", channels);
+        }
+
+        public ActionResult ShowAllUserItems()
+        {
+            var userId = User.Identity.GetUserId();
+
+            var items = _channelService.GetAllUserItems(userId);
+            return View("ShowAllUserItems", items);
+        }
+
+        public ActionResult ShowAllUnreadUserItems()
+        {
+            var userId = User.Identity.GetUserId();
+
+            var items = _channelService.GetAllUnreadUserItems(userId);
+            return View("ShowAllUserItems", items);
         }
         
         [HttpPost]

@@ -2,7 +2,108 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
+    
+
 }
 
-<h2>Start Page</h2>
+<script type="text/javascript">
 
+    var content = [
+        { title: 'Andorrs' },
+        { title: 'United Arab Emirates' },
+        { title: 'Afghanistas' },
+        { title: 'Antigus' },
+        { title: 'Anguills' },
+        { title: 'Albanis' },
+        { title: 'Armenis' },
+        { title: 'Netherlands Antilles' },
+        { title: 'Angols' },
+        { title: 'Argentins' },
+        { title: 'American Samos' },
+        { title: 'Austris' },
+        { title: 'Australis' },
+        { title: 'Arubs' },
+        { title: 'Aland Islands' },
+        { title: 'Azerbaijas' },
+        { title: 'Bosnis' }
+        // etc
+    ];
+
+
+
+</script>
+
+<body>
+    <div class="ui tabular filter menu">
+        <a class="active item" data-tab="unread">Unread</a>
+        <a class="item" data-tab="saved">Saved</a>
+        <a class="item" data-tab="all">All</a>
+    </div>
+    <div class="ui divided inbox selection list active tab" data-tab="unread">
+        <a class="item">
+            <div class="left floated ui star rating">
+                <i class="icon"></i>
+            </div>
+            <div class="right floated date">Sep 14, 2013</div>
+            <div class="description">Weekly Webcomic Wrapup fought the law, and the law won</div>
+        </a>
+    </div>
+    <div class="ui divided inbox selection list tab" data-tab="saved">
+        <a class="item">
+            <div class="left floated ui star rating">
+                <i class="icon"></i>
+            </div>
+            <div class="right floated date">Sep 14, 2013</div>
+            <div class="description">Your favorite saved article</div>
+        </a>
+    </div>
+    <div class="ui divided inbox selection list tab" data-tab="all">
+        <a class="item">
+            <div class="left floated ui star rating">
+                <i class="link icon"></i>
+            </div>
+            <div class="right floated date">Sep 14, 2013</div>
+            <div class="description">There turns out there is only one article under all.</div>
+        </a>
+    </div>
+
+    <div class="ui divider"></div>
+
+    <div class="page">
+        Showing <b>x</b> of xxx
+    </div>
+
+    <div class="ui pagination menu">
+        <a class="icon item"><i class="icon left arrow"></i></a>
+        <a class="active item">1</a>
+        <div class="disabled item">...</div>
+        <a class="item">10</a>
+        <a class="item">11</a>
+        <a class="item">12</a>
+        <a class="icon item"><i class="icon right arrow"></i></a>
+    </div>
+
+
+    <div class="ui search">
+        <div class="ui icon input">
+            <input class="prompt" type="text" placeholder="Search countries...">
+            <i class="search icon"></i>
+        </div>
+        <div class="results"></div>
+    </div>
+
+    <select id="selectRegisterType">
+        <option value="None">Select One</option>
+        <option value="tenant">Tentant</option>
+        <option value="Apartment Owner">Apartment Owner</option>
+    </select>
+</body>
+
+
+
+@section scripts
+{
+    <script src="~/Scripts/Attachers/showUserChannels.js"></script>
+}
+
+@Scripts.Render("~/bundles/jquery")

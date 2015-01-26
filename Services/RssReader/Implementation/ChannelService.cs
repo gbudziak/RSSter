@@ -33,6 +33,21 @@ namespace Services.RssReader.Implementation
             return channels;
         }
 
+        public List<UserItem> GetAllUserItems(string userId)
+        {
+            var items = _rssDatabase.UsersItems.Where(x => x.ApplicationUserId == userId).OrderByDescending(x=>x.Item.PublishDate).ToList();
+
+            return items;
+        }
+
+        public List<UserItem> GetAllUnreadUserItems(string userId)
+        {
+            var items = _rssDatabase.UsersItems.Where(x => x.ApplicationUserId == userId).Where(x=>x.Read == false).OrderByDescending(x=>x.Item.PublishDate).ToList();
+
+            return items;
+        }
+
+
         public void RemoveChannel(string userId, long channelId)
         {
             var toRemove =
@@ -135,8 +150,9 @@ namespace Services.RssReader.Implementation
         public void MarkAsRead(long userItemId)
         {
             var userItem =
-                _rssDatabase.UsersItems.First(foo => foo.Id == userItemId);
+                _rssDatabase.UsersItems.Single(foo => foo.Id == userItemId);
             userItem.Read = true;
+            _rssDatabase.SaveChanges();
         }
 
         public Channel GetChannelInfo(string userId, long userChannelId)

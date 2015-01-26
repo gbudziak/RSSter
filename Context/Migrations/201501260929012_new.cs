@@ -3,7 +3,7 @@ namespace DBContext.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init : DbMigration
+    public partial class _new : DbMigration
     {
         public override void Up()
         {
@@ -15,7 +15,7 @@ namespace DBContext.Migrations
                         Url = c.String(),
                         Description = c.String(),
                         Title = c.String(),
-                        PublishDate = c.String(),
+                        PublishDate = c.DateTime(nullable: false),
                         RatingPlus = c.Int(nullable: false),
                         RatingMinus = c.Int(nullable: false),
                         ChannelId = c.Long(nullable: false),
