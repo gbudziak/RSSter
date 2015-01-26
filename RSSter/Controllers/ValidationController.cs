@@ -33,6 +33,7 @@ namespace RSSter.Controllers
 
         public JsonResult RemoteLinkValidation(string url)
         {
+
             
             if (_validateService.AddChannelRemoteValidation(url))
             {
@@ -40,7 +41,13 @@ namespace RSSter.Controllers
 
             }
 
-            return Json(true, JsonRequestBehavior.AllowGet);
+            if (_validateService.IsUrlValid(url))
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(false, JsonRequestBehavior.AllowGet);
+
         }
       
     }
