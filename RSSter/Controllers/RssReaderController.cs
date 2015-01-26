@@ -44,8 +44,8 @@ namespace RSSter.Controllers
 
         public ActionResult ShowUserItems(long userChannelId)
         {
-            var userId = User.Identity.GetUserId();                
-
+            var userId = User.Identity.GetUserId();
+            ViewBag.UserChannelId = userChannelId;
             return View(_channelService.GetUserItems(userChannelId,userId));
         }
 
@@ -79,7 +79,14 @@ namespace RSSter.Controllers
             var items = _channelService.GetAllUnreadUserItems(userId);
             return View("ShowAllUserItems", items);
         }
-        
+
+        public ActionResult MarkAllItemsAsRead(long userChannelId)
+        {
+            var userId = User.Identity.GetUserId();
+            _channelService.MarkAllItemsAsRead(userId,userChannelId);
+            return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
+        }
+
         [HttpPost]
         public JsonResult RatingUp(long userItemId)
         {

@@ -153,12 +153,40 @@ namespace Services.RssReader.Implementation
                 _rssDatabase.UsersItems.Single(foo => foo.Id == userItemId);
             userItem.Read = true;
             _rssDatabase.SaveChanges();
+            
         }
 
         public Channel GetChannelInfo(string userId, long userChannelId)
         {
             return _rssDatabase.UserChannels.First(foo => foo.ApplicationUserId == userId && foo.Id == userChannelId)
                     .Channel;            
+        }
+
+        public void MarkAllItemsAsRead(string userId,long channelId)
+        {
+            if (channelId == 0)
+            {
+                var items = _rssDatabase.UsersItems.Where(
+                    x=>x.ApplicationUserId == userId)
+                    .ToList();
+                foreach (var item in items)
+                    item.Read = true;
+
+                _rssDatabase.SaveChanges();
+            }
+            else
+            {
+                var items = _rssDatabase.UsersItems.Where(
+                    x => x.UserChannelId == channelId && x.ApplicationUserId == userId)
+                    .ToList();
+                foreach (var item in items)
+                    item.Read = true;
+
+                _rssDatabase.SaveChanges();
+            }
+
+           
+
         }
     }
 }

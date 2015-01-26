@@ -26,6 +26,7 @@ namespace Services.RssReader
         void MarkAsRead(long userItemId);
         
         Channel GetChannelInfo(string userId, long userChannelId);
+        void MarkAllItemsAsRead(string userId,long channelId);
     }
 }
 
