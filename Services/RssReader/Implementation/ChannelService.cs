@@ -35,14 +35,14 @@ namespace Services.RssReader.Implementation
 
         public List<UserItem> GetAllUserItems(string userId)
         {
-            var items = _rssDatabase.UsersItems.Where(x => x.ApplicationUserId == userId).ToList();
+            var items = _rssDatabase.UsersItems.Where(x => x.ApplicationUserId == userId).OrderByDescending(x=>x.Item.PublishDate).ToList();
 
             return items;
         }
 
         public List<UserItem> GetAllUnreadUserItems(string userId)
         {
-            var items = _rssDatabase.UsersItems.Where(x => x.ApplicationUserId == userId).Where(x=>x.Read == false).ToList();
+            var items = _rssDatabase.UsersItems.Where(x => x.ApplicationUserId == userId).Where(x=>x.Read == false).OrderByDescending(x=>x.Item.PublishDate).ToList();
 
             return items;
         }
