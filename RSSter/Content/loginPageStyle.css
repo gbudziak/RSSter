@@ -32,15 +32,17 @@ nav.vertical ul li{	display:block;}/* vertical menu */
 nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
 /*end reset*/
-body{
-	font-family: 'Rokkitt', serif;
+body {
+    font-family: 'Rokkitt', serif;
 	font-size:100%;
 	background: #000060;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: center;
-	background-size: cover;
+    -ms-background-size: cover;
+    background-size: cover;
 }
+
 .wrap{
 	width: 50%;
 	margin: 0 auto;

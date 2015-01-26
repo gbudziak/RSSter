@@ -32,6 +32,8 @@ namespace Services.RssReader
         void AddReader(long channelId);
 
         void RemoveReader(long channelId);
+
+        void MarkAllItemsAsRead(string userId, long channelId);
     }
 }
 
