@@ -206,6 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\checkbox.min.css" />
+    <Content Include="Content\dimmer.min.css" />
     <Content Include="Content\feed.css" />
     <Content Include="Content\homepage.css" />
     <Content Include="Content\Images\bg.jpg" />
@@ -240,6 +241,7 @@
     <Content Include="Scripts\Attachers\showUserChannels.js" />
     <Content Include="Scripts\Attachers\showUserItems.js" />
     <Content Include="Scripts\Developer\AddChannel.js" />
+    <Content Include="Scripts\dimmer.min.js" />
     <Content Include="Scripts\feed.js" />
     <Content Include="Scripts\homepage.js" />
     <Content Include="Scripts\Developer\isRead.js" />

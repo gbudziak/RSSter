@@ -23,7 +23,7 @@ function ShowReadItems() {
     $("tr").each(function(ind, e) {
         var tr = $(e);
         if (tr.data("item-read") == "True") {
-            tr.show();
+            tr.show();            
         };
     });
 }
@@ -32,7 +32,7 @@ function HideReadItems() {
     $("tr").each(function (ind, e) {
         var tr = $(e);
         if (tr.data("item-read") == "True") {
-            tr.hide();
+            tr.hide();            
         };
     });
 }
