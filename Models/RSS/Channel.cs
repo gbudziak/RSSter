@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
 namespace Models.RSS
@@ -10,6 +11,8 @@ namespace Models.RSS
         [Key]
         public long Id { get; set; }
         public List<Item> Items { get; set; }
+
+        [Remote("RemoteLinkValidation", "Validation")]
         public string Url { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }
