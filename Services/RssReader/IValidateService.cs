@@ -13,6 +13,6 @@ namespace Services.RssReader
         bool IsUrlUniqueInUserChannels(string userId, string url);
         bool IsUrlExist(string url);
         bool IsUrlValid(string url);
-
+        bool AddChannelRemoteValidation(string url);
     }
 }

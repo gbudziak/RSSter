@@ -30,12 +30,19 @@ namespace RSSter.Controllers
             var result = _validateService.IsUrlValid(url);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        /*
-        public JsonResult LinkValidation(string url)
+
+        public JsonResult RemoteLinkValidation(string url)
         {
-            return Json(_validateService.IsLinkExist(url), JsonRequestBehavior.AllowGet);
+            
+            if (_validateService.AddChannelRemoteValidation(url))
+            {
+                return Json("you already have this channel , click GO TO CHANNEL!", JsonRequestBehavior.AllowGet);
+
+            }
+
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
-         */
+      
     }
 }
 
