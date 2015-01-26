@@ -7,7 +7,7 @@ function PostIsRead(e) {
         url: "/RssReader/Read/?userItemId=" + userItemId,
         method: "POST",
         success: HideTr(userItemId),
-        error: errorToggle
+        error: errorToggle()
     });
 };
 
