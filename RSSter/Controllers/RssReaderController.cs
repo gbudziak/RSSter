@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Microsoft.AspNet.Identity;
 using Models.RSS;
 using Services.RssReader;
@@ -35,9 +36,8 @@ namespace RSSter.Controllers
             {
                 
                 var userId = User.Identity.GetUserId();                
-                _channelService.AddChannel(userId, url);
-
-                return RedirectToAction("Index","RssReader");
+                var userChannelId = _channelService.AddChannel(userId, url);                
+                return RedirectToAction("ShowUserItems","RssReader", new { userChannelId = userChannelId});
             }
             return View("AddRssChannel");
         }
@@ -53,6 +53,7 @@ namespace RSSter.Controllers
         {
             var userId = User.Identity.GetUserId();
             var userChannelId = _channelService.ReturnUserChannelId(url, userId);
+            ViewBag.UserChannelId = userChannelId;
 
             return View("ShowUserItems", _channelService.GetUserItems(userChannelId, userId));
         }

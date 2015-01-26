@@ -81,7 +81,7 @@ namespace Services.RssReader.Implementation
         }
 
 
-        public void AddChannel(string userId, string url)
+        public long AddChannel(string userId, string url)
         {
             if (!_rssDatabase.Channels.Any(foo => foo.Url == url))
             {
@@ -95,10 +95,12 @@ namespace Services.RssReader.Implementation
             if (hiddenUserChannel != null)
             {
                 RestoreHiddenChannel(userId, url, hiddenUserChannel);
+                return hiddenUserChannel.Id;
             }
             else
             {
-                CreateNewUserChannel(userId, url);
+                var userChannelId = CreateNewUserChannel(userId, url);
+                return userChannelId;
             }
             
         }
@@ -117,15 +119,14 @@ namespace Services.RssReader.Implementation
             {
                 hiddenUserChannel.UserItems.Add(new UserItem(userId, item.Id));
             }
-            _rssDatabase.SaveChanges();
+            _rssDatabase.SaveChanges();            
         }
 
-        private void CreateNewUserChannel(string userId, string url)
+        private long CreateNewUserChannel(string userId, string url)
         {
             var channelId = ReturnChannelId(url);
             AddReader(channelId);
             var userchannel = new UserChannel(channelId, userId);
-            var channel = _rssDatabase.Channels.Single(x => x.Id == channelId);
             var items = _rssDatabase.AllItems.Where(x => x.ChannelId == channelId).ToList();
             foreach (var item in items)
             {
@@ -133,6 +134,7 @@ namespace Services.RssReader.Implementation
             }
             _rssDatabase.UserChannels.AddOrUpdate(userchannel);
             _rssDatabase.SaveChanges();
+            return userchannel.Id;
         }
 
         public void AddRating(long userItemId)
