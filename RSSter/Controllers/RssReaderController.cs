@@ -19,7 +19,7 @@ namespace RSSter.Controllers
 
         public ActionResult Index()
         {
-            return RedirectToAction("ShowAllUnreadUserItems", "RssReader");
+            return RedirectToAction("ShowAllUserItems", "RssReader");
         }
 
         [HttpGet]

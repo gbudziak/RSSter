@@ -24,11 +24,13 @@ namespace RSSter
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/checkbox.min.css",
+                      "~/Content/semantic.css",
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/menu").Include(
                         "~/Scripts/Attacher/showUserChannels.js"));
+
         }
     }
 }

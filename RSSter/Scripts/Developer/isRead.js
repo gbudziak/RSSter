@@ -18,3 +18,4 @@ function HideTr(userItemId) {
 function MarkAsRead(e) {
     PostIsRead(e);
 }
+

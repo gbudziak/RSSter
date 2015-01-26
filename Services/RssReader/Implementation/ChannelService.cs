@@ -20,9 +20,12 @@ namespace Services.RssReader.Implementation
 
         public List<UserItem> GetUserItems(long userChannelId, string userId)
         {
+            //return
+            //    _rssDatabase.UsersItems.Where(x => x.UserChannelId == userChannelId && x.ApplicationUserId == userId && x.Read == false)
+            //        .ToList();
             return
-                _rssDatabase.UsersItems.Where(x => x.UserChannelId == userChannelId && x.ApplicationUserId == userId && x.Read == false)
-                    .ToList();
+    _rssDatabase.UsersItems.Where(x => x.UserChannelId == userChannelId && x.ApplicationUserId == userId)
+        .ToList();
         }
 
         public List<UserChannel> GetUserChannels(string userId)

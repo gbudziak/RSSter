@@ -11,4 +11,8 @@ $(function() {
 
     $('.sidebar')
         .sidebar('attach events', '.toggle.thinbutton');
+
+    $('#unreadOrAll')
+        .checkbox();
+
 })
