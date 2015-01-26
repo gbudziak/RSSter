@@ -1,7 +1,7 @@
 ﻿//Function that assigns destination for Go to channel button.
 function GoTo() {
     var url = $("#Url").val();
-    window.location.assign("RssListView/?url=" + url);
+    window.location.assign("/RssReader/ShowUserItemsByUrl/?url=" + url);
 }
 
 //Feature method for user convenience, it uses ajax call for controller action, if user has the rss channel he tryes to add on his list already button to go to channel is shows, else create button is shown.

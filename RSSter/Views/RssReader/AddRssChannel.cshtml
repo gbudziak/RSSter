@@ -34,11 +34,16 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input id="createSubmit" type="submit" value="Create" class="btn btn-default"/>
-                <button id="btnGoToChannel" class="btn btn-default" type="button">Go to channel</button>
+                <input id="createSubmit" type="submit" value="Create" class="ui button" />
+                <button id="btnGoToChannel" class="ui animated button" type="button">
+                    <div class="visible content">Go to channel</div>
+                    <div class="hidden content">
+                        <i class="right arrow icon"></i>
+                    </div>
+                </button>
             </div>
-            
         </div>
+
     </div>
 }
 @section scripts

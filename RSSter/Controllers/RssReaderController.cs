@@ -49,6 +49,14 @@ namespace RSSter.Controllers
             return View(_channelService.GetUserItems(userChannelId,userId));
         }
 
+        public ActionResult ShowUserItemsByUrl(string url)
+        {
+            var userId = User.Identity.GetUserId();
+            var userChannelId = _channelService.ReturnUserChannelId(url, userId);
+
+            return View("ShowUserItems", _channelService.GetUserItems(userChannelId, userId));
+        }
+
         public ActionResult Delete(long channelId)
         {
             var userId = User.Identity.GetUserId();

@@ -62,6 +62,13 @@ namespace Services.RssReader.Implementation
             return channelId;
         }
 
+        public long ReturnUserChannelId(string url, string userId)
+        {
+            var userChannelId =
+                _rssDatabase.UserChannels.First(foo => foo.ApplicationUserId == userId && foo.Channel.Url == url).Id;
+            return userChannelId;
+        }
+
 
         public void AddChannel(string userId, string url)
         {
@@ -160,5 +167,7 @@ namespace Services.RssReader.Implementation
             return _rssDatabase.UserChannels.First(foo => foo.ApplicationUserId == userId && foo.Id == userChannelId)
                     .Channel;            
         }
+
+        
     }
 }
