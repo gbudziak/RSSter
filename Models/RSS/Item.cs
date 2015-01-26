@@ -15,7 +15,7 @@ namespace Models.RSS
         public string Url { get; set; }
         public string Description { get; set; }
         public string Title { get; set; }        
-        public string PublishDate { get; set; }
+        public DateTime PublishDate { get; set; }
         public int RatingPlus { get; set; }
         public int RatingMinus { get; set; }
 
