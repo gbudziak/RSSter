@@ -28,6 +28,10 @@ namespace Services.RssReader
         Channel GetChannelInfo(string userId, long userChannelId);
         
         long ReturnUserChannelId(string url, string userId);
+
+        void AddReader(long channelId);
+
+        void RemoveReader(long channelId);
     }
 }
 

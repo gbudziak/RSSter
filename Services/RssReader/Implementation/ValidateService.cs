@@ -36,7 +36,7 @@ namespace Services.RssReader.Implementation
             }
             var isInUserDatabase =
                 _rssDatabase.UserChannels.Where(
-                    foo => foo.ApplicationUserId == userId && foo.ChannelId == isInDatabase.Id).ToList();
+                    foo => foo.ApplicationUserId == userId && foo.ChannelId == isInDatabase.Id && foo.IsHidden == false).ToList();
             var result = !isInUserDatabase.Any();
             return result;
         }
