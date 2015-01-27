@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    //$("#btnGoToChannel").mousedown(GoTo);
+    $("#btnGoToChannel").mousedown(GoTo);
     //$("#createSubmit").hide();
     //$("#btnGoToChannel").hide();
     //$("#Url").keyup(IsUrlInUserDatabase);

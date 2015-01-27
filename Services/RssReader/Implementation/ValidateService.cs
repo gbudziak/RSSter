@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DBContext;
+using RssDataContext;
 
 namespace Services.RssReader.Implementation
 {
     public class ValidateService : IValidateService
     {
         
-        private readonly IApplicationDbContext _rssDatabase;
+        private readonly IApplicationRssDataContext _rssDatabase;
         private readonly ISyndicationFeedProvider _iSyndicationFeedProvider;
 
 
-        public ValidateService(IApplicationDbContext rssDatabase, ISyndicationFeedProvider iSyndicationFeedProvider)
+        public ValidateService(IApplicationRssDataContext rssDatabase, ISyndicationFeedProvider iSyndicationFeedProvider)
         {
             _rssDatabase = rssDatabase;
             _iSyndicationFeedProvider = iSyndicationFeedProvider;

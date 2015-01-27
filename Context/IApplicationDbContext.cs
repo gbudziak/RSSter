@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using RssDataContext;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Models.RSS;
 
-namespace DBContext
+namespace RssDataContext
 {
-    public interface IApplicationDbContext
+    public interface IApplicationRssDataContext
     {        
         DbSet<Channel> Channels { get; set; }
         DbSet<UserChannel> UserChannels { get; set; }
@@ -13,7 +14,10 @@ namespace DBContext
         DbSet<Item> AllItems { get; set; }
 
         void SaveChanges();
-    }   
+
+
+        IRssTransaction OpenTransaction();
+    }
 }
 
    

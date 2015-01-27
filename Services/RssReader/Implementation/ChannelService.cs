@@ -1,18 +1,18 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using DBContext;
+using RssDataContext;
 using Models.RSS;
 
 namespace Services.RssReader.Implementation
 {
     public class ChannelService : IChannelService
     {
-        private readonly IApplicationDbContext _rssDatabase;
+        private readonly IApplicationRssDataContext _rssDatabase;
         private readonly IGetRssChannel _iGetRssChannel;
 
-        public ChannelService(IApplicationDbContext rssDatabase, IGetRssChannel iGetRssChannel)
+        public ChannelService(IApplicationRssDataContext rssDatabase, IGetRssChannel iGetRssChannel)
         {
             _rssDatabase = rssDatabase;
             _iGetRssChannel = iGetRssChannel;
@@ -86,26 +86,39 @@ namespace Services.RssReader.Implementation
 
         public long AddChannel(string userId, string url)
         {
-            if (!_rssDatabase.Channels.Any(foo => foo.Url == url))
+            using (var transaction = _rssDatabase.OpenTransaction())
             {
-                var model = _iGetRssChannel.GetRssChannelWithFeeds(url);
-                _rssDatabase.Channels.Add(model);
-                _rssDatabase.SaveChanges();
+                try
+                {
+                    if (!_rssDatabase.Channels.Any(foo => foo.Url == url))
+                    {
+                        var model = _iGetRssChannel.GetRssChannelWithFeeds(url);
+                        _rssDatabase.Channels.Add(model);
+                        _rssDatabase.SaveChanges();
+                    }
+                    var hiddenUserChannel =
+                        _rssDatabase.UserChannels.FirstOrDefault(
+                            foo => foo.ApplicationUserId == userId && foo.Channel.Url == url);
+                    if (hiddenUserChannel != null)
+                    {
+                        RestoreHiddenChannel(userId, url, hiddenUserChannel);
+                        transaction.Commit();
+                        return hiddenUserChannel.Id;
+                    }
+                    else
+                    {
+                        var userChannelId = CreateNewUserChannel(userId, url);
+                        transaction.Commit();
+                        return userChannelId;
+                    }
+                    
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
             }
-            var hiddenUserChannel =
-                _rssDatabase.UserChannels.FirstOrDefault(
-                    foo => foo.ApplicationUserId == userId && foo.Channel.Url == url);
-            if (hiddenUserChannel != null)
-            {
-                RestoreHiddenChannel(userId, url, hiddenUserChannel);
-                return hiddenUserChannel.Id;
-            }
-            else
-            {
-                var userChannelId = CreateNewUserChannel(userId, url);
-                return userChannelId;
-            }
-            
+            return 1; //TO IMPROVE
         }
 
         private void RestoreHiddenChannel(string userId, string url, UserChannel hiddenUserChannel)
