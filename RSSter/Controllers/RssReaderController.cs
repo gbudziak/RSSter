@@ -108,14 +108,14 @@ namespace RSSter.Controllers
         [HttpPost]
         public JsonResult RatingUp(long userItemId)
         {
-            _itemService.AddRating(userItemId);
+            _itemService.IncreaseUserRating(userItemId);
             return Json(null);
         }
 
         [HttpPost]
         public JsonResult RatingDown(long userItemId)
         {
-            _itemService.RemoveRating(userItemId);
+            _itemService.DecreaseUserRating(userItemId);
             return Json(null);
         }
 

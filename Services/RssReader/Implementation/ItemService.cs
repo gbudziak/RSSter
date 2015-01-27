@@ -8,9 +8,9 @@ using RssDataContext;
 
 namespace Services.RssReader.Implementation
 {
-    public class ItemService: IItemService
+    public class ItemService : IItemService
     {
-
+        #region Constructor
          private readonly IApplicationRssDataContext _rssDatabase;
         private readonly IChannelGet _iChannelGet;
 
@@ -19,6 +19,7 @@ namespace Services.RssReader.Implementation
             _rssDatabase = rssDatabase;
             _iChannelGet = iChannelGet;
         }
+        #endregion
         public List<UserItem> GetUserChannelItems(long userChannelId, string userId)
         {
             
@@ -52,47 +53,61 @@ namespace Services.RssReader.Implementation
             return items;
         }
         
-        public void AddRating(long userItemId)
+        public void IncreaseUserRating(long userItemId)
         {
-            var likeUp =
-                _rssDatabase.UsersItems.First(foo => foo.Id == userItemId);
-            var itemMaster =
-                _rssDatabase.AllItems.First(foo => foo.Id == likeUp.ItemId);
-            if (likeUp.RatingMinus)
+            using (var transaction = _rssDatabase.OpenTransaction())
             {
-                likeUp.RatingMinus = false;
-                itemMaster.RatingMinus--;
+                try
+                {
+                    IncreaseItemRating(userItemId);
+                    transaction.Commit();
             }
-            likeUp.RatingPlus = true;
-            itemMaster.RatingPlus++;
-
-            _rssDatabase.SaveChanges();
+                catch (Exception)
+                {
+                    transaction.Rollback();
+        }
+            }
         }
 
-        public void RemoveRating(long userItemId)
-        {
-            var likeDown =
-                _rssDatabase.UsersItems.First(foo => foo.Id == userItemId);
-            var itemMaster =
-                _rssDatabase.AllItems.First(foo => foo.Id == likeDown.ItemId);
-            if (likeDown.RatingPlus)
-            {
-                likeDown.RatingPlus = false;
-                itemMaster.RatingPlus--;
-            }
-            likeDown.RatingMinus = true;
-            itemMaster.RatingMinus++;
 
-            _rssDatabase.SaveChanges();
+
+        public void DecreaseUserRating(long userItemId)
+        {
+            using (var transaction = _rssDatabase.OpenTransaction())
+            {
+                try
+                {
+                    DecreaseItemRating(userItemId);
+                    transaction.Commit();
+            }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
+            }
         }
+
+
 
         public void MarkAsRead(long userItemId)
         {
+            using (var transaction = _rssDatabase.OpenTransaction())
+            {
+                try
+                {
             var userItem =
-                _rssDatabase.UsersItems.Single(foo => foo.Id == userItemId);
+                        _rssDatabase.UsersItems
+                            .Single(item => item.Id == userItemId);
             userItem.Read = true;
 
             _rssDatabase.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
+            }
         }
 
         public void MarkAllItemsAsRead(string userId)
@@ -126,6 +141,44 @@ namespace Services.RssReader.Implementation
 
         }
 
+        #region Private Methods
+        private void IncreaseItemRating(long userItemId)
+        {
+            var userItem =
+                _rssDatabase.UsersItems
+                    .FirstOrDefault(querry => querry.Id == userItemId);
+            var item =
+                _rssDatabase.AllItems
+                    .FirstOrDefault(querry => querry.Id == userItem.ItemId);
+            if (userItem.RatingMinus)
+            {
+                userItem.RatingMinus = false;
+                item.RatingMinus--;
+            }
+            userItem.RatingPlus = true;
+            item.RatingPlus++;
+
+            _rssDatabase.SaveChanges();
+        }
+
+        private void DecreaseItemRating(long userItemId)
+        {
+            var userItem =
+                _rssDatabase.UsersItems.FirstOrDefault(querry => querry.Id == userItemId);
+            var item =
+                _rssDatabase.AllItems.FirstOrDefault(querry => querry.Id == userItem.ItemId);
+            if (userItem.RatingPlus)
+            {
+                userItem.RatingPlus = false;
+                item.RatingPlus--;
+            }
+            userItem.RatingMinus = true;
+            item.RatingMinus++;
+
+            _rssDatabase.SaveChanges();
+        }
+        #endregion
+       
         //public void AddNewItemsToChannel(string userId, long channelId)
         //{
 

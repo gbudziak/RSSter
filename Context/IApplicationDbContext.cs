@@ -15,7 +15,6 @@ namespace RssDataContext
 
         void SaveChanges();
 
-
         IRssTransaction OpenTransaction();
     }
 }
