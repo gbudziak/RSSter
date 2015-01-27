@@ -62,6 +62,7 @@ namespace Services.RssReader.Implementation
             return 1; //TO IMPROVE
         }
 
+
         public void RemoveChannel(string userId, long channelId)
         {
             var toRemove =

@@ -26,7 +26,10 @@ namespace Services.RssReader.Implementation
            return _syndicateFeed.GetChannel(url);
         }
 
-
+        //public Channel GetNewFeedsFromRssChannel(string url)
+        //{
+        //    return _syndicateFeed.GetChannel(url);
+        //}
 
     }
 }

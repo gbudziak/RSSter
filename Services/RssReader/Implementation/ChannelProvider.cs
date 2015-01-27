@@ -21,8 +21,8 @@ namespace Services.RssReader.Implementation
             var channelModel = ParseFeedToChannelWithItem(url, feed);
             return channelModel;
         }
-        
-        private static Channel ParseFeedToChannelWithItem(string url, SyndicationFeed feed)
+
+        private static List<Item> GetItemsFromFeed(SyndicationFeed feed)
         {
             var itemList = new List<Item>();
 
@@ -35,8 +35,20 @@ namespace Services.RssReader.Implementation
                 }
             }
 
-            var channelModel = new Channel(url, feed.Title.Text, feed.Description.Text, feed.ImageUrl.ToString(), itemList);
-            return channelModel;
+            return itemList;
+        }
+
+        
+        private static Channel ParseFeedToChannelWithItem(string url, SyndicationFeed feed)
+        {
+            var itemList = GetItemsFromFeed(feed);
+
+            return new Channel(url,
+                feed.Title.Text,
+                feed.Description.Text,
+                feed.ImageUrl.ToString(),
+                itemList);
+             
         }
     }
 }

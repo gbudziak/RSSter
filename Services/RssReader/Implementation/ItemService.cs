@@ -25,6 +25,7 @@ namespace Services.RssReader.Implementation
             var items = _rssDatabase.UsersItems
                         .Where(x => x.UserChannelId == userChannelId)
                         .Where(x => x.ApplicationUserId == userId)
+                        .OrderByDescending(x=>x.Item.PublishDate)
                         .ToList();
 
             return items;
@@ -124,6 +125,25 @@ namespace Services.RssReader.Implementation
             _rssDatabase.SaveChanges();
 
         }
+
+        //public void AddNewItemsToChannel(string userId, long channelId)
+        //{
+
+        //    var url = _rssDatabase.UserChannels.Single(x => x.Channel.Id == channelId).Channel.Url;
+
+        //    var items = _rssDatabase.UsersItems
+        //                .Where(x => x.UserChannelId == channelId)
+        //                .Where(x => x.ApplicationUserId == userId)
+        //                .ToList();
+
+        //    foreach (var item in items)
+        //    {
+        //        item.Read = true;
+        //    }
+
+        //    _rssDatabase.SaveChanges();
+
+        //}
        
     }
 }
