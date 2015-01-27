@@ -20,9 +20,6 @@ namespace Services.RssReader.Implementation
 
         public List<UserItem> GetUserItems(long userChannelId, string userId)
         {
-            //return
-            //    _rssDatabase.UsersItems.Where(x => x.UserChannelId == userChannelId && x.ApplicationUserId == userId && x.Read == false)
-            //        .ToList();
             return
     _rssDatabase.UsersItems.Where(x => x.UserChannelId == userChannelId && x.ApplicationUserId == userId)
         .ToList();
@@ -200,20 +197,21 @@ namespace Services.RssReader.Implementation
                     .Channel;            
         }
 
-        public void MarkAllItemsAsRead(string userId,long channelId)
+        public void MarkAllItemsAsRead(string userId)
         {
-            if (channelId == 0)
-            {
-                var items = _rssDatabase.UsersItems.Where(
-                    x=>x.ApplicationUserId == userId)
+            var items = _rssDatabase.UsersItems.Where(
+                    x => x.ApplicationUserId == userId)
                     .ToList();
-                foreach (var item in items)
-                    item.Read = true;
+            foreach (var item in items)
+                item.Read = true;
 
-                _rssDatabase.SaveChanges();
-            }
-            else
-            {
+            _rssDatabase.SaveChanges();
+        }
+
+
+        public void MarkAllChannelItemsAsRead(string userId,long channelId)
+        {
+
                 var items = _rssDatabase.UsersItems.Where(
                     x => x.UserChannelId == channelId && x.ApplicationUserId == userId)
                     .ToList();
@@ -221,9 +219,6 @@ namespace Services.RssReader.Implementation
                     item.Read = true;
 
                 _rssDatabase.SaveChanges();
-            }
-
-           
 
         }
     }

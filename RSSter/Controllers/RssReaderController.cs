@@ -20,7 +20,7 @@ namespace RSSter.Controllers
 
         public ActionResult Index()
         {
-            return RedirectToAction("ShowAllUserItems", "RssReader");
+            return View();
         }
 
         [HttpGet]
@@ -89,10 +89,17 @@ namespace RSSter.Controllers
             return View("ShowAllUserItems", items);
         }
 
-        public ActionResult MarkAllItemsAsRead(long userChannelId)
+        public ActionResult MarkAllItemsAsRead()
         {
             var userId = User.Identity.GetUserId();
-            _channelService.MarkAllItemsAsRead(userId,userChannelId);
+            _channelService.MarkAllItemsAsRead(userId);
+            return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
+        }
+
+        public ActionResult MarkAllChannelItemsAsRead(long userChannelId)
+        {
+            var userId = User.Identity.GetUserId();
+            _channelService.MarkAllChannelItemsAsRead(userId,userChannelId);
             return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
         }
 
