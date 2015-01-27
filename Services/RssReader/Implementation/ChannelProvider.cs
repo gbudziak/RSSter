@@ -35,7 +35,7 @@ namespace Services.RssReader.Implementation
                 }
             }
 
-            var channelModel = new Channel(url, feed.Title.Text, feed.Description.Text, feed.ImageUrl.ToString(), itemList, 0);
+            var channelModel = new Channel(url, feed.Title.Text, feed.Description.Text, feed.ImageUrl.ToString(), itemList);
             return channelModel;
         }
     }

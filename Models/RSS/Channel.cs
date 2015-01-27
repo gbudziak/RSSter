@@ -20,21 +20,21 @@ namespace Models.RSS
         public long Readers { get; set; }
 
         public Channel()
-            : this(string.Empty, string.Empty, string.Empty, string.Empty, new List<Item>(), 0)
+            : this(string.Empty, string.Empty, string.Empty, string.Empty, new List<Item>())
         { }
 
         public Channel(string link)
-            : this(link, string.Empty, string.Empty, string.Empty, new List<Item>(), 0)
+            : this(link, string.Empty, string.Empty, string.Empty, new List<Item>())
         { }
 
-        public Channel(string url, string title, string description, string imageUrl, List<Item> itemList, long readersCount)
+        public Channel(string url, string title, string description, string imageUrl, List<Item> itemList)
         {
             Url = url;
             Title = title;
             Description = description;
             ImageUrl = imageUrl;
             Items = itemList;
-            Readers = readersCount;
+            Readers = 0;
         }
     }
 }
