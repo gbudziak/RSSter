@@ -19,25 +19,14 @@
 
 
     @Html.Action("ViewChannelInfo", "RssReader", new { userChannelId = @ViewBag.UserChannelId })
-
-<div class="ui three column center aligned stackable divided grid segment">
-
-    <div class="column">
-    </div>
-    <div class="column">
-        @Html.ActionLink("Mark all items as read", "MarkAllItemsAsRead", "RssReader", new { userChannelId = @ViewBag.UserChannelId }, null)
-
-    </div>
-
-    <div class="column">
+    @Html.ActionLink("Mark all items as read", "MarkAllChannelItemsAsRead", "RssReader", new { userChannelId = @ViewBag.UserChannelId }, null)
+<br/><br/>
         <div class="ui toggle checkbox">
             <input type="checkbox" id="unreadOrAll">
             <label>show read</label>
         </div>
-    </div>
 
-</div>
-<br/>
+
 <table class="ui celled striped table">
     <thead>
     <tr>
