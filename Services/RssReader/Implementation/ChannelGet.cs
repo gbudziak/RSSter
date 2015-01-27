@@ -6,11 +6,11 @@ namespace Services.RssReader.Implementation
 {
 
 
-    public class GetRssChannel : IGetRssChannel
+    public class ChannelGet : IChannelGet
     {
         private readonly IChannelProvider _syndicateFeed;
 
-        public GetRssChannel(IChannelProvider syndicateFeed)
+        public ChannelGet(IChannelProvider syndicateFeed)
         {
             _syndicateFeed = syndicateFeed;
         }

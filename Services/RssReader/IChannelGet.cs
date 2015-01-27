@@ -3,7 +3,7 @@ using Models.RSS;
 
 namespace Services.RssReader
 {
-    public interface IGetRssChannel
+    public interface IChannelGet
     {
         SyndicationFeed GetRssChannelInfo(string url);
         Channel GetRssChannelWithFeeds(string url);

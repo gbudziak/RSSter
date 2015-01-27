@@ -5,27 +5,15 @@ namespace Services.RssReader
 {
     public interface IChannelService
     {
+        Channel GetChannelInfo(string userId, long userChannelId);
+
         long AddChannel(string userId, string url);
 
         void RemoveChannel(string userId, long channelId);
 
         long ReturnChannelId(string url);
-
-        List<UserItem> GetUserItems(long channelId, string userId);
-
-        List<UserItem> GetAllUserItems(string userId);
-
-        List<UserItem> GetAllUnreadUserItems(string userId);
-
-        void AddRating(long userItemId);
-
-        void RemoveRating(long userItemId);
-
-        List<UserChannel> GetUserChannels(string userId);
-
-        void MarkAsRead(long userItemId);
         
-        Channel GetChannelInfo(string userId, long userChannelId);
+        List<UserChannel> GetUserChannels(string userId);
         
         long ReturnUserChannelId(string url, string userId);
 
@@ -33,8 +21,7 @@ namespace Services.RssReader
 
         void RemoveReader(long channelId);
 
-        void MarkAllItemsAsRead(string userId);
-        void MarkAllChannelItemsAsRead(string userId, long channelId);
+
     }
 }
 

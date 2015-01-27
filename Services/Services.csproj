@@ -94,8 +94,10 @@
     <Compile Include="RssReader\IChannelService.cs" />
     <Compile Include="RssReader\Implementation\ChannelProvider.cs" />
     <Compile Include="RssReader\Implementation\ChannelService.cs" />
-    <Compile Include="RssReader\Implementation\GetRssChannel.cs" />
-    <Compile Include="RssReader\IGetRssChannel.cs" />
+    <Compile Include="RssReader\Implementation\ChannelGet.cs" />
+    <Compile Include="RssReader\IChannelGet.cs" />
+    <Compile Include="RssReader\IItemService.cs" />
+    <Compile Include="RssReader\Implementation\ItemService.cs" />
     <Compile Include="RssReader\Implementation\SyndicationFeedProvider.cs" />
     <Compile Include="RssReader\IChannelProvider.cs" />
     <Compile Include="RssReader\ISyndicationFeedProvider.cs" />

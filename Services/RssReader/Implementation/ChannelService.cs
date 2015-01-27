@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.IO;
 using System.Linq;
 using RssDataContext;
 using Models.RSS;
@@ -10,43 +11,56 @@ namespace Services.RssReader.Implementation
     public class ChannelService : IChannelService
     {
         private readonly IApplicationRssDataContext _rssDatabase;
-        private readonly IGetRssChannel _iGetRssChannel;
+        private readonly IChannelGet _iChannelGet;
 
-        public ChannelService(IApplicationRssDataContext rssDatabase, IGetRssChannel iGetRssChannel)
+        public ChannelService(IApplicationRssDataContext rssDatabase, IChannelGet iChannelGet)
         {
             _rssDatabase = rssDatabase;
-            _iGetRssChannel = iGetRssChannel;
+            _iChannelGet = iChannelGet;
         }
 
-        public List<UserItem> GetUserItems(long userChannelId, string userId)
+        public Channel GetChannelInfo(string userId, long userChannelId)
         {
-            return
-    _rssDatabase.UsersItems.Where(x => x.UserChannelId == userChannelId && x.ApplicationUserId == userId)
-        .ToList();
+            return _rssDatabase.UserChannels.First(foo => foo.ApplicationUserId == userId && foo.Id == userChannelId)
+                    .Channel;
         }
 
-        public List<UserChannel> GetUserChannels(string userId)
+        public long AddChannel(string userId, string url)
         {
-            var channels = _rssDatabase.UserChannels
-                .Where(x => x.ApplicationUserId == userId && x.IsHidden == false).ToList();
+            using (var transaction = _rssDatabase.OpenTransaction())
+            {
+                try
+                {
+                    if (!_rssDatabase.Channels.Any(foo => foo.Url == url))
+                    {
+                        var model = _iChannelGet.GetRssChannelWithFeeds(url);
+                        _rssDatabase.Channels.Add(model);
+                        _rssDatabase.SaveChanges();
+                    }
+                    var hiddenUserChannel =
+                        _rssDatabase.UserChannels.FirstOrDefault(
+                            foo => foo.ApplicationUserId == userId && foo.Channel.Url == url);
+                    if (hiddenUserChannel != null)
+                    {
+                        RestoreHiddenChannel(userId, url, hiddenUserChannel);
+                        transaction.Commit();
+                        return hiddenUserChannel.Id;
+                    }
+                    else
+                    {
+                        var userChannelId = CreateNewUserChannel(userId, url);
+                        transaction.Commit();
+                        return userChannelId;
+                    }
 
-            return channels;
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
+            }
+            return 1; //TO IMPROVE
         }
-
-        public List<UserItem> GetAllUserItems(string userId)
-        {
-            var items = _rssDatabase.UsersItems.Where(x => x.ApplicationUserId == userId).OrderByDescending(x=>x.Item.PublishDate).ToList();
-
-            return items;
-        }
-
-        public List<UserItem> GetAllUnreadUserItems(string userId)
-        {
-            var items = _rssDatabase.UsersItems.Where(x => x.ApplicationUserId == userId).Where(x=>x.Read == false).OrderByDescending(x=>x.Item.PublishDate).ToList();
-
-            return items;
-        }
-
 
         public void RemoveChannel(string userId, long channelId)
         {
@@ -57,6 +71,14 @@ namespace Services.RssReader.Implementation
             _rssDatabase.SaveChanges();
         }
 
+       public List<UserChannel> GetUserChannels(string userId)
+        {
+            var channels = _rssDatabase.UserChannels
+                .Where(x => x.ApplicationUserId == userId && x.IsHidden == false).ToList();
+
+            return channels;
+        }
+        
         public long ReturnChannelId(string url)
         {
             var channelId = _rssDatabase.Channels.First(foo => foo.Url == url).Id;
@@ -81,41 +103,27 @@ namespace Services.RssReader.Implementation
         }
 
 
-        public long AddChannel(string userId, string url)
+
+        #region PRIVATE METHODS
+
+        private long CreateNewUserChannel(string userId, string url)
         {
-            using (var transaction = _rssDatabase.OpenTransaction())
+            var channelId = ReturnChannelId(url);
+            AddReader(channelId);
+
+            var userchannel = new UserChannel(channelId, userId);
+            var items = _rssDatabase.AllItems
+                .Where(x => x.ChannelId == channelId)
+                .ToList();
+
+            foreach (var item in items)
             {
-                try
-                {
-                    if (!_rssDatabase.Channels.Any(foo => foo.Url == url))
-                    {
-                        var model = _iGetRssChannel.GetRssChannelWithFeeds(url);
-                        _rssDatabase.Channels.Add(model);
-                        _rssDatabase.SaveChanges();
-                    }
-                    var hiddenUserChannel =
-                        _rssDatabase.UserChannels.FirstOrDefault(
-                            foo => foo.ApplicationUserId == userId && foo.Channel.Url == url);
-                    if (hiddenUserChannel != null)
-                    {
-                        RestoreHiddenChannel(userId, url, hiddenUserChannel);
-                        transaction.Commit();
-                        return hiddenUserChannel.Id;
-                    }
-                    else
-                    {
-                        var userChannelId = CreateNewUserChannel(userId, url);
-                        transaction.Commit();
-                        return userChannelId;
-                    }
-                    
-                }
-                catch (Exception)
-                {
-                    transaction.Rollback();
-                }
+                userchannel.UserItems.Add(new UserItem(userId, item.Id));
             }
-            return 1; //TO IMPROVE
+
+            _rssDatabase.UserChannels.AddOrUpdate(userchannel);
+            _rssDatabase.SaveChanges();
+            return userchannel.Id;
         }
 
         private void RestoreHiddenChannel(string userId, string url, UserChannel hiddenUserChannel)
@@ -132,94 +140,10 @@ namespace Services.RssReader.Implementation
             {
                 hiddenUserChannel.UserItems.Add(new UserItem(userId, item.Id));
             }
-            _rssDatabase.SaveChanges();            
-        }
-
-        private long CreateNewUserChannel(string userId, string url)
-        {
-            var channelId = ReturnChannelId(url);
-            AddReader(channelId);
-            var userchannel = new UserChannel(channelId, userId);
-            var items = _rssDatabase.AllItems.Where(x => x.ChannelId == channelId).ToList();
-            foreach (var item in items)
-            {
-                userchannel.UserItems.Add(new UserItem(userId, item.Id));
-            }
-            _rssDatabase.UserChannels.AddOrUpdate(userchannel);
-            _rssDatabase.SaveChanges();
-            return userchannel.Id;
-        }
-
-        public void AddRating(long userItemId)
-        {
-            var likeUp =
-                _rssDatabase.UsersItems.First(foo => foo.Id == userItemId);
-            var itemMaster =
-                _rssDatabase.AllItems.First(foo => foo.Id == likeUp.ItemId);
-            if (likeUp.RatingMinus)
-            {
-                likeUp.RatingMinus = false;
-                itemMaster.RatingMinus--;
-            }
-            likeUp.RatingPlus = true;
-            itemMaster.RatingPlus++;
             _rssDatabase.SaveChanges();
         }
 
-        public void RemoveRating(long userItemId)
-        {
-            var likeDown =
-                _rssDatabase.UsersItems.First(foo => foo.Id == userItemId);
-            var itemMaster =
-                _rssDatabase.AllItems.First(foo => foo.Id == likeDown.ItemId);
-            if (likeDown.RatingPlus)
-            {
-                likeDown.RatingPlus = false;
-                itemMaster.RatingPlus--;
-            }
-            likeDown.RatingMinus = true;
-            itemMaster.RatingMinus++;
-            _rssDatabase.SaveChanges();
-        }
-        
-        public void MarkAsRead(long userItemId)
-        {
-            var userItem =
-                _rssDatabase.UsersItems.Single(foo => foo.Id == userItemId);
-            userItem.Read = true;
-            _rssDatabase.SaveChanges();
-            
-        }
+        #endregion
 
-        public Channel GetChannelInfo(string userId, long userChannelId)
-        {
-            return _rssDatabase.UserChannels.First(foo => foo.ApplicationUserId == userId && foo.Id == userChannelId)
-                    .Channel;            
-        }
-
-        public void MarkAllItemsAsRead(string userId)
-        {
-            var items = _rssDatabase.UsersItems.Where(
-                    x => x.ApplicationUserId == userId)
-                    .ToList();
-            foreach (var item in items)
-                item.Read = true;
-
-            _rssDatabase.SaveChanges();
-        }
-
-
-        public void MarkAllChannelItemsAsRead(string userId,long channelId)
-        {
-
-                var items = _rssDatabase.UsersItems.Where(
-                    x => x.UserChannelId == channelId && x.ApplicationUserId == userId)
-                    .ToList();
-                foreach (var item in items)
-                    item.Read = true;
-
-                _rssDatabase.SaveChanges();
-
-        }
     }
 }
