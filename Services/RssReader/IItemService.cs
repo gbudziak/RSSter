@@ -11,9 +11,9 @@ namespace Services.RssReader
 
         List<UserItem> GetAllUnreadUserItems(string userId);
 
-        void AddRating(long userItemId);
+        void IncreaseUserRating(long userItemId);
 
-        void RemoveRating(long userItemId);
+        void DecreaseUserRating(long userItemId);
 
         void MarkAsRead(long userItemId);
 

@@ -8,10 +8,10 @@ using RssDataContext;
 
 namespace Services.RssReader.Implementation
 {
-    public class ItemService: IItemService
+    public class ItemService : IItemService
     {
-
-         private readonly IApplicationRssDataContext _rssDatabase;
+        #region Constructor
+        private readonly IApplicationRssDataContext _rssDatabase;
         private readonly IChannelGet _iChannelGet;
 
         public ItemService(IApplicationRssDataContext rssDatabase, IChannelGet iChannelGet)
@@ -19,6 +19,7 @@ namespace Services.RssReader.Implementation
             _rssDatabase = rssDatabase;
             _iChannelGet = iChannelGet;
         }
+        #endregion
         public List<UserItem> GetUserChannelItems(long userChannelId, string userId)
         {
             return
@@ -48,48 +49,62 @@ namespace Services.RssReader.Implementation
 
             return items;
         }
-        
-        public void AddRating(long userItemId)
-        {
-            var likeUp =
-                _rssDatabase.UsersItems.First(foo => foo.Id == userItemId);
-            var itemMaster =
-                _rssDatabase.AllItems.First(foo => foo.Id == likeUp.ItemId);
-            if (likeUp.RatingMinus)
-            {
-                likeUp.RatingMinus = false;
-                itemMaster.RatingMinus--;
-            }
-            likeUp.RatingPlus = true;
-            itemMaster.RatingPlus++;
 
-            _rssDatabase.SaveChanges();
+        public void IncreaseUserRating(long userItemId)
+        {
+            using (var transaction = _rssDatabase.OpenTransaction())
+            {
+                try
+                {
+                    IncreaseItemRating(userItemId);
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
+            }
         }
 
-        public void RemoveRating(long userItemId)
-        {
-            var likeDown =
-                _rssDatabase.UsersItems.First(foo => foo.Id == userItemId);
-            var itemMaster =
-                _rssDatabase.AllItems.First(foo => foo.Id == likeDown.ItemId);
-            if (likeDown.RatingPlus)
-            {
-                likeDown.RatingPlus = false;
-                itemMaster.RatingPlus--;
-            }
-            likeDown.RatingMinus = true;
-            itemMaster.RatingMinus++;
 
-            _rssDatabase.SaveChanges();
+
+        public void DecreaseUserRating(long userItemId)
+        {
+            using (var transaction = _rssDatabase.OpenTransaction())
+            {
+                try
+                {
+                    DecreaseItemRating(userItemId);
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
+            }
         }
+
+
 
         public void MarkAsRead(long userItemId)
         {
-            var userItem =
-                _rssDatabase.UsersItems.Single(foo => foo.Id == userItemId);
-            userItem.Read = true;
+            using (var transaction = _rssDatabase.OpenTransaction())
+            {
+                try
+                {
+                    var userItem =
+                        _rssDatabase.UsersItems
+                            .Single(item => item.Id == userItemId);
+                    userItem.Read = true;
 
-            _rssDatabase.SaveChanges();
+                    _rssDatabase.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
+            }
         }
 
         public void MarkAllItemsAsRead(string userId)
@@ -117,6 +132,44 @@ namespace Services.RssReader.Implementation
             _rssDatabase.SaveChanges();
 
         }
-       
+
+        #region Private Methods
+        private void IncreaseItemRating(long userItemId)
+        {
+            var userItem =
+                _rssDatabase.UsersItems
+                    .FirstOrDefault(querry => querry.Id == userItemId);
+            var item =
+                _rssDatabase.AllItems
+                    .FirstOrDefault(querry => querry.Id == userItem.ItemId);
+            if (userItem.RatingMinus)
+            {
+                userItem.RatingMinus = false;
+                item.RatingMinus--;
+            }
+            userItem.RatingPlus = true;
+            item.RatingPlus++;
+
+            _rssDatabase.SaveChanges();
+        }
+
+        private void DecreaseItemRating(long userItemId)
+        {
+            var userItem =
+                _rssDatabase.UsersItems.FirstOrDefault(querry => querry.Id == userItemId);
+            var item =
+                _rssDatabase.AllItems.FirstOrDefault(querry => querry.Id == userItem.ItemId);
+            if (userItem.RatingPlus)
+            {
+                userItem.RatingPlus = false;
+                item.RatingPlus--;
+            }
+            userItem.RatingMinus = true;
+            item.RatingMinus++;
+
+            _rssDatabase.SaveChanges();
+        }
+        #endregion
+
     }
 }
