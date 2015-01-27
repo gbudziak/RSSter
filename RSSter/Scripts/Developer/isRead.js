@@ -4,7 +4,7 @@ function PostIsRead(e) {
     var userItemId = icon.data("item-id");
     $("#ratingError").hide();
     $.ajax({
-        url: "/RssReader/Read/?userItemId=" + userItemId,
+        url: "/Ajax/Read/?userItemId=" + userItemId,
         method: "POST",
         success: HideTr(userItemId),
         error: errorToggle()

@@ -11,14 +11,17 @@ namespace RSSter.Controllers
     [Authorize]
     public class RssReaderController : Controller
     {
+        #region Constructor
         private readonly IChannelService _channelService;
         private readonly IItemService _itemService;
 
-        public RssReaderController(IChannelService channelService, IItemService itemService)
+        public RssReaderController(IChannelService channelService, 
+            IItemService itemService)
         {
             _channelService = channelService;
             _itemService = itemService;
         }
+        #endregion
 
         public ActionResult Index()
         {
@@ -103,27 +106,6 @@ namespace RSSter.Controllers
             var userId = User.Identity.GetUserId();
             _itemService.MarkAllChannelItemsAsRead(userId, userChannelId);
             return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
-        }
-
-        [HttpPost]
-        public JsonResult RatingUp(long userItemId)
-        {
-            _itemService.IncreaseUserRating(userItemId);
-            return Json(null);
-        }
-
-        [HttpPost]
-        public JsonResult RatingDown(long userItemId)
-        {
-            _itemService.DecreaseUserRating(userItemId);
-            return Json(null);
-        }
-
-        [HttpPost]
-        public JsonResult Read(long userItemId)
-        {
-            _itemService.MarkAsRead(userItemId);
-            return Json(null);
         }
 
         public ActionResult ViewChannelInfo(long userChannelId)

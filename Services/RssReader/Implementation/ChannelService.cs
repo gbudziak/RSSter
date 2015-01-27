@@ -93,7 +93,7 @@ namespace Services.RssReader.Implementation
                 _rssDatabase.UserChannels
                 .Where(userChannel => userChannel.ApplicationUserId == userId)
                 .FirstOrDefault(userChannel => userChannel.Channel.Url == url)
-                .Id);
+                .Id;
             return userChannelId;
         }
 
@@ -106,8 +106,6 @@ namespace Services.RssReader.Implementation
         {
             _rssDatabase.Channels.FirstOrDefault(channel => channel.Id == channelId).Readers--;
         }
-
-
 
         #region PRIVATE METHODS
 
