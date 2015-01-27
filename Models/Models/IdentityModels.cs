@@ -23,16 +23,16 @@ namespace Models.Models
         }
     }
 
-    //public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    //public class ApplicationRssDataContext : IdentityRssDataContext<ApplicationUser>
     //{
-    //    public ApplicationDbContext()
+    //    public ApplicationRssDataContext()
     //        : base("DefaultConnection", throwIfV1Schema: false)
     //    {
     //    }
 
-    //    public static ApplicationDbContext Create()
+    //    public static ApplicationRssDataContext Create()
     //    {
-    //        return new ApplicationDbContext();
+    //        return new ApplicationRssDataContext();
     //    }
 
     //    public DbSet<Channel> Channels { get; set; }

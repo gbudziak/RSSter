@@ -1,7 +1,7 @@
 using System;
 using System.Data.Entity;
 using System.Web;
-using DBContext;
+using RssDataContext;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
@@ -42,7 +42,7 @@ namespace RSSter
 
             container.RegisterType<IGetRssChannel, GetRssChannel>();
             container.RegisterType<IChannelService, ChannelService>();
-            container.RegisterType<IApplicationDbContext, ApplicationDbContext>();
+            container.RegisterType<IApplicationRssDataContext, ApplicationRssDataContext>();
             container.RegisterType<IValidateService, ValidateService>();
             container.RegisterType<IChannelProvider, ChannelProvider>();
             container.RegisterType<ISyndicationFeedProvider, SyndicationFeedProvider>();
@@ -51,7 +51,7 @@ namespace RSSter
 
             container.RegisterType<UserManager<ApplicationUser>>(new HierarchicalLifetimeManager());
             container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(new HierarchicalLifetimeManager());
-            container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<DbContext, ApplicationRssDataContext>(new HierarchicalLifetimeManager());
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<IAuthenticationManager>(new InjectionFactory(o => HttpContext.Current.GetOwinContext().Authentication));
 

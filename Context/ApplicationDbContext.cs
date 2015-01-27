@@ -2,13 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using RssDataContext;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Models.Models;
 using Models.RSS;
 
-namespace DBContext
+namespace RssDataContext
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
+
+    public class ApplicationRssDataContext :
+        IdentityDbContext<ApplicationUser>, IApplicationRssDataContext
     {
         
         //static private List<Channel> _channels;
@@ -24,21 +27,20 @@ namespace DBContext
         //    _channels = new List<Channel>(); 
         //}
 
-        public ApplicationDbContext()
+        public ApplicationRssDataContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
            
         }
 
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-           
-        }
-
         public new void SaveChanges()
         {
-            base.SaveChanges();
+            base.SaveChanges();            
+        }
+
+        public IRssTransaction OpenTransaction()
+        {
+            return new RssTransaction(this.Database);
         }
 
         public DbSet<Channel> Channels { get; set; }
@@ -49,6 +51,10 @@ namespace DBContext
 
         public DbSet<Item> AllItems { get; set; }
 
- 
+
+        public static ApplicationRssDataContext Create()
+        {
+            return new ApplicationRssDataContext();
+        }
     }
 }

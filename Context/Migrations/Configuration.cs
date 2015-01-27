@@ -1,18 +1,18 @@
-namespace DBContext.Migrations
+namespace RssDataContext.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<DBContext.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<RssDataContext.ApplicationRssDataContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(DBContext.ApplicationDbContext context)
+        protected override void Seed(RssDataContext.ApplicationRssDataContext context)
         {
             //  This method will be called after migrating to the latest version.
 

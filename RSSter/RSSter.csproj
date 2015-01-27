@@ -320,9 +320,9 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Context\DBContext.csproj">
+    <ProjectReference Include="..\Context\RssDataContext.csproj">
       <Project>{000c8f18-8084-418b-a5d5-41c2e85d90e3}</Project>
-      <Name>DBContext</Name>
+      <Name>RssDataContext</Name>
     </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{ACB0E647-4BF9-450B-A1AE-A111846A2FC0}</Project>

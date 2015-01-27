@@ -7,8 +7,8 @@
     <ProjectGuid>{000C8F18-8084-418B-A5D5-41C2E85D90E3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DBContext</RootNamespace>
-    <AssemblyName>DBContext</AssemblyName>
+    <RootNamespace>RssDataContext</RootNamespace>
+    <AssemblyName>RssDataContext</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -57,12 +57,14 @@
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="IApplicationDbContext.cs" />
+    <Compile Include="IRssTransaction.cs" />
     <Compile Include="Migrations\201501260929012_new.cs" />
     <Compile Include="Migrations\201501260929012_new.Designer.cs">
       <DependentUpon>201501260929012_new.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RssTransaction.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">

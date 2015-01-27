@@ -1,4 +1,4 @@
-namespace DBContext.Migrations
+namespace RssDataContext.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
