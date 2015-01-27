@@ -8,7 +8,7 @@ using RssDataContext;
 
 namespace Services.RssReader.Implementation
 {
-    class ItemService: IItemService
+    public class ItemService: IItemService
     {
 
          private readonly IApplicationRssDataContext _rssDatabase;

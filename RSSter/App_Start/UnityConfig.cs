@@ -39,8 +39,8 @@ namespace RSSter
 
         public static void RegisterTypes(IUnityContainer container)
         {
-
-            container.RegisterType<IGetRssChannel, GetRssChannel>();
+            container.RegisterType<IItemService, ItemService>();
+            container.RegisterType<IChannelGet, ChannelGet>();
             container.RegisterType<IChannelService, ChannelService>();
             container.RegisterType<IApplicationRssDataContext, ApplicationRssDataContext>();
             container.RegisterType<IValidateService, ValidateService>();

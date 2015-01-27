@@ -12,10 +12,12 @@ namespace RSSter.Controllers
     public class RssReaderController : Controller
     {
         private readonly IChannelService _channelService;
+        private readonly IItemService _itemService;
 
-        public RssReaderController(IChannelService channelService)
+        public RssReaderController(IChannelService channelService, IItemService itemService)
         {
             _channelService = channelService;
+            _itemService = itemService;
         }
 
         public ActionResult Index()
@@ -46,7 +48,7 @@ namespace RSSter.Controllers
         {
             var userId = User.Identity.GetUserId();
             ViewBag.UserChannelId = userChannelId;
-            return View(_channelService.GetUserItems(userChannelId,userId));
+            return View(_itemService.GetUserChannelItems(userChannelId,userId));
         }
 
         public ActionResult ShowUserItemsByUrl(string url)
@@ -55,7 +57,7 @@ namespace RSSter.Controllers
             var userChannelId = _channelService.ReturnUserChannelId(url, userId);
             ViewBag.UserChannelId = userChannelId;
 
-            return View("ShowUserItems", _channelService.GetUserItems(userChannelId, userId));
+            return View("ShowUserItems", _itemService.GetUserChannelItems(userChannelId, userId));
         }
 
         public ActionResult Delete(long channelId)
@@ -77,7 +79,7 @@ namespace RSSter.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            var items = _channelService.GetAllUserItems(userId);
+            var items = _itemService.GetAllUserItems(userId);
             return View("ShowAllUserItems", items);
         }
 
@@ -85,42 +87,42 @@ namespace RSSter.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            var items = _channelService.GetAllUnreadUserItems(userId);
+            var items = _itemService.GetAllUnreadUserItems(userId);
             return View("ShowAllUserItems", items);
         }
 
         public ActionResult MarkAllItemsAsRead()
         {
             var userId = User.Identity.GetUserId();
-            _channelService.MarkAllItemsAsRead(userId);
+            _itemService.MarkAllItemsAsRead(userId);
             return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
         }
 
         public ActionResult MarkAllChannelItemsAsRead(long userChannelId)
         {
             var userId = User.Identity.GetUserId();
-            _channelService.MarkAllChannelItemsAsRead(userId,userChannelId);
+            _itemService.MarkAllChannelItemsAsRead(userId, userChannelId);
             return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
         }
 
         [HttpPost]
         public JsonResult RatingUp(long userItemId)
         {
-            _channelService.AddRating(userItemId);
+            _itemService.AddRating(userItemId);
             return Json(null);
         }
 
         [HttpPost]
         public JsonResult RatingDown(long userItemId)
         {
-            _channelService.RemoveRating(userItemId);
+            _itemService.RemoveRating(userItemId);
             return Json(null);
         }
 
         [HttpPost]
         public JsonResult Read(long userItemId)
         {
-            _channelService.MarkAsRead(userItemId);
+            _itemService.MarkAsRead(userItemId);
             return Json(null);
         }
 
