@@ -22,7 +22,7 @@ namespace RSSter.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("ShowAllUserItems","RssReader");
         }
 
         [HttpGet]
