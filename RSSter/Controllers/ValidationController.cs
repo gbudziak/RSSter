@@ -34,19 +34,22 @@ namespace RSSter.Controllers
         public JsonResult RemoteLinkValidation(string url)
         {
 
-            
-            if (_validateService.AddChannelRemoteValidation(url))
+            if (!_validateService.IsUrlValid(url))
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+
+            var userId = User.Identity.GetUserId();
+
+            if (_validateService.AddChannelRemoteValidation(url,userId))
             {
                 return Json("you already have this channel , click GO TO CHANNEL!", JsonRequestBehavior.AllowGet);
 
             }
 
-            if (_validateService.IsUrlValid(url))
-            {
-                return Json(true, JsonRequestBehavior.AllowGet);
-            }
 
-            return Json(false, JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
+
 
         }
       

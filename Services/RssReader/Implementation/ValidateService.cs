@@ -60,19 +60,21 @@ namespace Services.RssReader.Implementation
             return !linkCount.Any();
         }
 
-        public bool AddChannelRemoteValidation(string url)
+        public bool AddChannelRemoteValidation(string url, string userId)
         {
             if (_rssDatabase.Channels.Any(x => x.Url == url))
             {
                 var channelId = _rssDatabase.Channels.Single(x => x.Url == url).Id;
-                return _rssDatabase.UserChannels.Where(x => x.ChannelId == channelId).ToList().Any();
-            }
-            
-            return  false;
-           
-        }
-        
 
-    }
+                return _rssDatabase.UserChannels.Where(
+                    x => x.ChannelId == channelId &&
+                    x.ApplicationUserId == userId &&
+                    x.IsHidden == false)
+                    .ToList()
+                    .Any();
+            }
+            return  false;
+         }
+       }
 }
       
