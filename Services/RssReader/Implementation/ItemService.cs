@@ -22,19 +22,21 @@ namespace Services.RssReader.Implementation
         #endregion
         public List<UserItem> GetUserChannelItems(long userChannelId, string userId)
         {
-            return
-            _rssDatabase.UsersItems
-            .Where(x => x.UserChannelId == userChannelId)
-            .Where(x => x.ApplicationUserId == userId)
-            .ToList();
+            
+            var items = _rssDatabase.UsersItems
+                        .Where(x => x.UserChannelId == userChannelId)
+                        .Where(x => x.ApplicationUserId == userId)
+                        .ToList();
+
+            return items;
         }
 
         public List<UserItem> GetAllUserItems(string userId)
         {
             var items = _rssDatabase.UsersItems
-                .Where(x => x.ApplicationUserId == userId)
-                .OrderByDescending(x => x.Item.PublishDate)
-                .ToList();
+                        .Where(x => x.ApplicationUserId == userId)
+                        .OrderByDescending(x => x.Item.PublishDate)
+                        .ToList();
 
             return items;
         }
@@ -42,10 +44,10 @@ namespace Services.RssReader.Implementation
         public List<UserItem> GetAllUnreadUserItems(string userId)
         {
             var items = _rssDatabase.UsersItems
-                .Where(x => x.ApplicationUserId == userId)
-                .Where(x => x.Read == false)
-                .OrderByDescending(x => x.Item.PublishDate)
-                .ToList();
+                        .Where(x => x.ApplicationUserId == userId)
+                        .Where(x => x.Read == false)
+                        .OrderByDescending(x => x.Item.PublishDate)
+                        .ToList();
 
             return items;
         }
@@ -109,11 +111,14 @@ namespace Services.RssReader.Implementation
 
         public void MarkAllItemsAsRead(string userId)
         {
-            var items = _rssDatabase.UsersItems.Where(
-                    x => x.ApplicationUserId == userId)
-                    .ToList();
+            var items = _rssDatabase.UsersItems
+                        .Where(x => x.ApplicationUserId == userId)
+                        .ToList();
+
             foreach (var item in items)
+            {
                 item.Read = true;
+            }
 
             _rssDatabase.SaveChanges();
         }
@@ -122,12 +127,14 @@ namespace Services.RssReader.Implementation
         public void MarkAllChannelItemsAsRead(string userId, long channelId)
         {
             var items = _rssDatabase.UsersItems
-                .Where(x => x.UserChannelId == channelId)
-                .Where(x => x.ApplicationUserId == userId)
-                .ToList();
+                        .Where(x => x.UserChannelId == channelId)
+                        .Where(x => x.ApplicationUserId == userId)
+                        .ToList();
 
             foreach (var item in items)
+            {
                 item.Read = true;
+            }
 
             _rssDatabase.SaveChanges();
 

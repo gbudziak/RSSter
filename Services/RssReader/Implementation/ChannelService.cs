@@ -73,7 +73,9 @@ namespace Services.RssReader.Implementation
         public List<UserChannel> GetUserChannels(string userId)
         {
             var channels = _rssDatabase.UserChannels
-                .Where(x => x.ApplicationUserId == userId && x.IsHidden == false).ToList();
+                            .Where(x => x.ApplicationUserId == userId)
+                            .Where(x => x.IsHidden == false)
+                            .ToList();
 
             return channels;
         }
