@@ -7,7 +7,7 @@ $(function() {
     $(".hide").on("click", PostIsRead);
     $("a").on("click", MarkAsRead);
     $("i").each(RateIconsInitialization);
-    $("tr").each(HideEmoticons).each(HideReadItems).each(HideRateLabel); 
+    $("tr").each(HideEmoticons).each(HideReadItems);
     $(".ui.checkbox")
         .checkbox();
     $("#unreadOrAll").on("change", CheckboxAllChange);

@@ -36,6 +36,12 @@ function RateUpSuccess(icon) {
     frown.hide();
     var down = icon.parent().find(".down");
     down.show();
+    var greenLabel = icon.parent().find(".green");
+    var greenLabelValue = Number(greenLabel.html());
+    greenLabel.html(greenLabelValue + 1);
+    var redLabel = icon.parent().find(".red");
+    var redLabelValue = Number(redLabel.html());
+    redLabel.html(redLabelValue - 1);
 }
 
 function RateDownSuccess(icon) {
@@ -47,6 +53,12 @@ function RateDownSuccess(icon) {
     frown.show();
     var down = icon.parent().find(".down");
     down.hide();
+    var greenLabel = icon.parent().find(".green");
+    var greenLabelValue = Number(greenLabel.html());
+    greenLabel.html(greenLabelValue - 1);
+    var redLabel = icon.parent().find(".red");
+    var redLabelValue = Number(redLabel.html());    
+    redLabel.html(redLabelValue + 1);
 }
 
 function RateIconsInitialization(idx,e) {
@@ -66,27 +78,4 @@ function HideEmoticons(idx, e) {
         smile.hide();
         frown.hide();
     }
-}
-
-function RatingDisplayChange(e) {
-    var label = $(e.target);
-    if (label.hasClass("green")) {
-        if (label.html() < 1) {
-            label.hide();
-        } else {
-            label.show();
-        }
-    }
-    if (label.hasClass("red")) {
-        if (label.html() > -1) {
-            label.hide();
-        } else {
-            label.show();
-        }
-    }
-}
-
-function HideRateLabel(idx, e) {    
-    $(e).find(".green").RatingDisplayChange(this);
-    $(e).find(".red").RatingDisplayChange(this);
 }
