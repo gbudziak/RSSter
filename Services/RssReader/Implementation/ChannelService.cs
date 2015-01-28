@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Entity.Migrations;
-using System.IO;
 using System.Linq;
-using RssDataContext;
+using System.Security.Cryptography.X509Certificates;
 using Models.RSS;
+using RssDataContext;
 
 namespace Services.RssReader.Implementation
 {
@@ -12,12 +13,12 @@ namespace Services.RssReader.Implementation
     {
         #region Constructor
         private readonly IApplicationRssDataContext _rssDatabase;
-        private readonly IChannelGet _iChannelGet;
+        private readonly IChannelGet _channelGet;
 
-        public ChannelService(IApplicationRssDataContext rssDatabase, IChannelGet iChannelGet)
+        public ChannelService(IApplicationRssDataContext rssDatabase, IChannelGet channelGet)
         {
             _rssDatabase = rssDatabase;
-            _iChannelGet = iChannelGet;
+            _channelGet = channelGet;
         }
         #endregion
         public Channel GetChannelInfo(string userId, long userChannelId)
@@ -93,7 +94,7 @@ namespace Services.RssReader.Implementation
                 _rssDatabase.UserChannels
                 .Where(userChannel => userChannel.ApplicationUserId == userId)
                 .FirstOrDefault(userChannel => userChannel.Channel.Url == url)
-                .Id);
+                .Id;
             return userChannelId;
         }
 
@@ -107,7 +108,58 @@ namespace Services.RssReader.Implementation
             _rssDatabase.Channels.FirstOrDefault(channel => channel.Id == channelId).Readers--;
         }
 
+        public void AddNewItemsToChannel(long userChannelId, string userId)
+        {
 
+            var mainChannelId = _rssDatabase.UserChannels
+                .Where(x=>x.ApplicationUserId == userId)
+                .Single(x=>x.Id == userChannelId).ChannelId;
+
+            var lastItemDateTime = _rssDatabase.AllItems
+                .Where(x => x.ChannelId == mainChannelId)
+                .OrderByDescending(x=>x.PublishDate)
+                .ToList()[0].PublishDate;
+
+
+            var url = _rssDatabase.Channels
+                .Single(x => x.Id == mainChannelId)
+                .Url;
+
+            var channel = _channelGet.GetUpdatedRssChannel(url, lastItemDateTime, mainChannelId);
+
+            _rssDatabase.Channels.AddOrUpdate(channel);
+            _rssDatabase.AllItems.AddRange(channel.Items);
+
+            
+            _rssDatabase.SaveChanges();
+
+        }
+
+        public void AddNewItemsToUserChannel(long userChannelId, string userId)
+        {
+
+            var mainChannelId = _rssDatabase.UserChannels
+                .Where(x => x.ApplicationUserId == userId)
+                .Single(x => x.Id == userChannelId).ChannelId;
+
+           var lastdata = _rssDatabase.UsersItems.Where(x => x.UserChannelId == userChannelId)
+                .OrderByDescending(x => x.Item.PublishDate).ToList()[0].Item.PublishDate;
+
+            var items = _rssDatabase.AllItems
+               .Where(x => x.ChannelId == mainChannelId)
+               .Where(x => x.PublishDate > lastdata)
+               .ToList();
+
+            foreach (var item in items)
+            {
+               
+                    var userItem = new UserItem(userId, item.Id) { UserChannelId = userChannelId };
+                    _rssDatabase.UsersItems.Add(userItem);
+                
+            }
+
+            _rssDatabase.SaveChanges();
+        }
 
         #region PRIVATE METHODS
 
@@ -132,7 +184,7 @@ namespace Services.RssReader.Implementation
         private void CheckAndCreateChannel(string url)
         {
             if (_rssDatabase.Channels.Any(channelChecl => channelChecl.Url == url)) return;
-            var channel = _iChannelGet.GetRssChannelWithFeeds(url);
+            var channel = _channelGet.GetRssChannelWithFeeds(url);
             _rssDatabase.Channels.Add(channel);
             _rssDatabase.SaveChanges();
         }
@@ -172,6 +224,11 @@ namespace Services.RssReader.Implementation
                 hiddenUserChannel.UserItems.Add(new UserItem(userId, item.Id));
             }
             _rssDatabase.SaveChanges();
+        }
+
+        private void RefreshChannelInfoAndItems(string userId, string url, UserChannel hiddenUserChannel)
+        {
+
         }
 
         #endregion

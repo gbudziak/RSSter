@@ -132,5 +132,28 @@ namespace RSSter.Controllers
             var channel = _channelService.GetChannelInfo(userId, userChannelId);
             return PartialView("ViewChannelInfo", channel);
         }
+
+        public ActionResult RefreshAllUserChannels()
+        {
+            var userId = User.Identity.GetUserId();
+            var channels = _channelService.GetUserChannels(userId);
+            foreach (var channel in channels)
+            {
+                RefreshChannelItems(channel.ChannelId);
+            }
+
+            return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
+
+        }
+
+
+        public ActionResult RefreshChannelItems(long userChannelId)
+        {
+            var userId = User.Identity.GetUserId();
+
+            _channelService.AddNewItemsToChannel(userChannelId,userId);
+            _channelService.AddNewItemsToUserChannel(userChannelId,userId);
+            return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
+        }
     }
 }

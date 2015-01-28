@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Models.RSS;
 
 namespace Services.RssReader
@@ -21,6 +22,9 @@ namespace Services.RssReader
 
         void DecreaseReadersCount(long channelId);
 
+        void AddNewItemsToChannel(long userChannelId, string userId);
+
+        void AddNewItemsToUserChannel(long userChannelId, string userId);
 
     }
 }

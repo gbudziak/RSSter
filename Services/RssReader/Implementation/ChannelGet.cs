@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel.Syndication;
 using Models.RSS;
 
@@ -8,28 +9,21 @@ namespace Services.RssReader.Implementation
 
     public class ChannelGet : IChannelGet
     {
-        private readonly IChannelProvider _syndicateFeed;
+        private readonly IChannelProvider _channelProvider;
 
-        public ChannelGet(IChannelProvider syndicateFeed)
+        public ChannelGet(IChannelProvider channelProvider)
         {
-            _syndicateFeed = syndicateFeed;
-        }
-
-        public SyndicationFeed GetRssChannelInfo(string url)
-        {
-            //TO DO
-            throw new NotImplementedException();
+            _channelProvider = channelProvider;
         }
 
         public Channel GetRssChannelWithFeeds(string url)
         {
-           return _syndicateFeed.GetChannel(url);
+            return _channelProvider.GetChannel(url);
         }
 
-        //public Channel GetNewFeedsFromRssChannel(string url)
-        //{
-        //    return _syndicateFeed.GetChannel(url);
-        //}
-
+        public Channel GetUpdatedRssChannel(string url, DateTime lastItemDateTime, long channelId)
+        {
+            return _channelProvider.GetChannelWithNewItems(url,lastItemDateTime,channelId);
+        }
     }
 }
