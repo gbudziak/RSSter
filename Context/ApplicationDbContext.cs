@@ -6,6 +6,7 @@ using RssDataContext;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Models.Models;
 using Models.RSS;
+using Models.User;
 
 namespace RssDataContext
 {
@@ -33,6 +34,8 @@ namespace RssDataContext
            
         }
 
+        public DbSet<UserCustomView> UsersCustomViews { get; set; }
+
         public new void SaveChanges()
         {
             base.SaveChanges();            
@@ -50,7 +53,6 @@ namespace RssDataContext
         public DbSet<UserItem> UsersItems { get; set; }
 
         public DbSet<Item> AllItems { get; set; }
-
 
         public static ApplicationRssDataContext Create()
         {

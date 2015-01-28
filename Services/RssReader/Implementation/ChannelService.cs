@@ -10,7 +10,7 @@ namespace Services.RssReader.Implementation
 {
     public class ChannelService : IChannelService
     {
-        #region Constructor
+        #region This is nice piece of code, DO NOT LOOK INSIDE 
         private readonly IApplicationRssDataContext _rssDatabase;
         private readonly IChannelGet _iChannelGet;
 
@@ -20,12 +20,13 @@ namespace Services.RssReader.Implementation
             _iChannelGet = iChannelGet;
         }
         #endregion
-        public Channel GetChannelInfo(string userId, long userChannelId)
+        public Channel GetChannel(string userId, long userChannelId)
         {
-            return _rssDatabase.UserChannels
-                    .Where(userChannel => userChannel.ApplicationUserId == userId)
-                    .FirstOrDefault(userChannel => userChannel.Id == userChannelId)
-                    .Channel;
+            var channel = _rssDatabase.UserChannels
+                .Where(userChannel => userChannel.ApplicationUserId == userId)
+                .FirstOrDefault(userChannel => userChannel.Id == userChannelId)
+                .Channel;
+            return channel;
         }
 
         public long AddChannel(string userId, string url)
@@ -36,11 +37,11 @@ namespace Services.RssReader.Implementation
                 try
                 {
                     CheckAndCreateChannel(url);
-                    result = CreateOrRestoreUserChannel(userId, url, transaction);
+                    result = CreateOrRestoreUserChannel(userId, url);
                     transaction.Commit();
                     return result;
                 }
-                catch (Exception)
+                catch
                 {
                     transaction.Rollback();
                 }
@@ -83,7 +84,7 @@ namespace Services.RssReader.Implementation
 
         public long ReturnChannelId(string url)
         {
-            var channelId = _rssDatabase.Channels.FirstOrDefault(channel => channel.Url == url).Id;
+            var channelId = _rssDatabase.Channels.First(channel => channel.Url == url).Id;
             return channelId;
         }
 
@@ -109,7 +110,7 @@ namespace Services.RssReader.Implementation
 
         #region PRIVATE METHODS
 
-        private long CreateOrRestoreUserChannel(string userId, string url, IRssTransaction transaction)
+        private long CreateOrRestoreUserChannel(string userId, string url)
         {
             var hiddenUserChannel =
                 _rssDatabase.UserChannels
@@ -158,17 +159,23 @@ namespace Services.RssReader.Implementation
         private void RestoreHiddenChannel(string userId, string url, UserChannel hiddenUserChannel)
         {
             hiddenUserChannel.IsHidden = false;
+
             var channelId = ReturnChannelId(url);
             IncreaseReadersCount(channelId);
+            
             var userItems =
                 _rssDatabase.UsersItems.Where(
                     foo => foo.ApplicationUserId == userId && foo.UserChannelId == hiddenUserChannel.Id).ToList();
+
+
             var userItemsIds = userItems.Select(foo => foo.ItemId).ToList();
             var items = _rssDatabase.AllItems.Where(x => x.ChannelId == channelId && !userItemsIds.Contains(x.Id)).ToList();
+            
             foreach (var item in items)
             {
                 hiddenUserChannel.UserItems.Add(new UserItem(userId, item.Id));
             }
+            
             _rssDatabase.SaveChanges();
         }
 

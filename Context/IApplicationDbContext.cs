@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
-using RssDataContext;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using System.Data.Entity;
 using Models.RSS;
+using Models.User;
 
 namespace RssDataContext
 {
@@ -12,6 +10,7 @@ namespace RssDataContext
         DbSet<UserChannel> UserChannels { get; set; }
         DbSet<UserItem> UsersItems { get; set; }
         DbSet<Item> AllItems { get; set; }
+        DbSet<UserCustomView> UsersCustomViews { get; set; }
 
         void SaveChanges();
 

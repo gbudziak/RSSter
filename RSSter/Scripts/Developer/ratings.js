@@ -67,3 +67,26 @@ function HideEmoticons(idx, e) {
         frown.hide();
     }
 }
+
+function RatingDisplayChange(e) {
+    var label = $(e.target);
+    if (label.hasClass("green")) {
+        if (label.html() < 1) {
+            label.hide();
+        } else {
+            label.show();
+        }
+    }
+    if (label.hasClass("red")) {
+        if (label.html() > -1) {
+            label.hide();
+        } else {
+            label.show();
+        }
+    }
+}
+
+function HideRateLabel(idx, e) {    
+    $(e).find(".green").RatingDisplayChange(this);
+    $(e).find(".red").RatingDisplayChange(this);
+}

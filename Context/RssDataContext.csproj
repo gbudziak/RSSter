@@ -58,9 +58,9 @@
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="IApplicationDbContext.cs" />
     <Compile Include="IRssTransaction.cs" />
-    <Compile Include="Migrations\201501260929012_new.cs" />
-    <Compile Include="Migrations\201501260929012_new.Designer.cs">
-      <DependentUpon>201501260929012_new.cs</DependentUpon>
+    <Compile Include="Migrations\201501271435023_userCustomViewModel.cs" />
+    <Compile Include="Migrations\201501271435023_userCustomViewModel.Designer.cs">
+      <DependentUpon>201501271435023_userCustomViewModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,8 +77,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201501260929012_new.resx">
-      <DependentUpon>201501260929012_new.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201501271435023_userCustomViewModel.resx">
+      <DependentUpon>201501271435023_userCustomViewModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

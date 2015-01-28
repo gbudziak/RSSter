@@ -141,6 +141,12 @@ namespace Services.RssReader.Implementation
 
         }
 
+        public UserItem FetchUserItem(long userItemId)
+        {
+            return _rssDatabase.UsersItems
+                .FirstOrDefault(userItem => userItem.Id == userItemId);
+        }
+
         #region Private Methods
         private void IncreaseItemRating(long userItemId)
         {

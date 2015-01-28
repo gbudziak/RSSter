@@ -11,7 +11,6 @@ namespace RSSter.Controllers
     [Authorize]
     public class RssReaderController : Controller
     {
-        #region Constructor
         private readonly IChannelService _channelService;
         private readonly IItemService _itemService;
 
@@ -21,7 +20,6 @@ namespace RSSter.Controllers
             _channelService = channelService;
             _itemService = itemService;
         }
-        #endregion
 
         public ActionResult Index()
         {
@@ -111,7 +109,7 @@ namespace RSSter.Controllers
         public ActionResult ViewChannelInfo(long userChannelId)
         {
             var userId = User.Identity.GetUserId();
-            var channel = _channelService.GetChannelInfo(userId, userChannelId);
+            var channel = _channelService.GetChannel(userId, userChannelId);
             return PartialView("ViewChannelInfo", channel);
         }
     }

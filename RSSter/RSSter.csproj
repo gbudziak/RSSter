@@ -199,6 +199,7 @@
     <Compile Include="Controllers\RssReaderController.cs" />
     <Compile Include="Controllers\SemanticUIController.cs" />
     <Compile Include="Controllers\ValidationController.cs" />
+    <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -316,6 +317,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Ajax\" />
     <Folder Include="Views\Validation\" />
+    <Folder Include="Views\View\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
