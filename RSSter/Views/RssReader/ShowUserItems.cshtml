@@ -19,7 +19,13 @@
 
 
     @Html.Action("ViewChannelInfo", "RssReader", new { userChannelId = @ViewBag.UserChannelId })
+<br/>
     @Html.ActionLink("Mark all items as read", "MarkAllChannelItemsAsRead", "RssReader", new { userChannelId = @ViewBag.UserChannelId }, null)
+<br />
+
+@Html.ActionLink("refresh news", "RefreshChannelItems", "RssReader", new { userChannelId = @ViewBag.UserChannelId }, null)
+
+
 <br/><br/>
         <div class="ui toggle checkbox">
             <input type="checkbox" id="unreadOrAll">

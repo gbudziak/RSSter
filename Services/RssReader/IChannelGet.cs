@@ -1,11 +1,11 @@
-﻿using System.ServiceModel.Syndication;
+﻿using System;
 using Models.RSS;
 
 namespace Services.RssReader
 {
     public interface IChannelGet
     {
-        SyndicationFeed GetRssChannelInfo(string url);
         Channel GetRssChannelWithFeeds(string url);
+        Channel GetUpdatedRssChannel(string url, DateTime lastItemDateTime, long channelId);
     }
 }

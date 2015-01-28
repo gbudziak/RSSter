@@ -36,5 +36,15 @@ namespace Models.RSS
             Items = itemList;
             Readers = 0;
         }
+        public Channel(long iD, string url, string title, string description, string imageUrl, List<Item> itemList)
+        {
+            Id = iD;
+            Url = url;
+            Title = title;
+            Description = description;
+            ImageUrl = imageUrl;
+            Items = itemList;
+            Readers = 0;
+        }
     }
 }

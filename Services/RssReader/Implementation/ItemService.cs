@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Models.RSS;
 using RssDataContext;
 
@@ -68,9 +66,7 @@ namespace Services.RssReader.Implementation
         }
             }
         }
-
-
-
+        
         public void DecreaseUserRating(long userItemId)
         {
             using (var transaction = _rssDatabase.OpenTransaction())
@@ -87,17 +83,15 @@ namespace Services.RssReader.Implementation
             }
         }
 
-
-
         public void MarkAsRead(long userItemId)
         {
             using (var transaction = _rssDatabase.OpenTransaction())
             {
                 try
                 {
-            var userItem =
-                        _rssDatabase.UsersItems
-                            .Single(item => item.Id == userItemId);
+            var userItem = _rssDatabase.UsersItems
+                           .Single(item => item.Id == userItemId);
+
             userItem.Read = true;
 
             _rssDatabase.SaveChanges();
@@ -123,7 +117,6 @@ namespace Services.RssReader.Implementation
 
             _rssDatabase.SaveChanges();
         }
-
 
         public void MarkAllChannelItemsAsRead(string userId, long channelId)
         {
@@ -184,25 +177,6 @@ namespace Services.RssReader.Implementation
             _rssDatabase.SaveChanges();
         }
         #endregion
-       
-        //public void AddNewItemsToChannel(string userId, long channelId)
-        //{
 
-        //    var url = _rssDatabase.UserChannels.Single(x => x.Channel.Id == channelId).Channel.Url;
-
-        //    var items = _rssDatabase.UsersItems
-        //                .Where(x => x.UserChannelId == channelId)
-        //                .Where(x => x.ApplicationUserId == userId)
-        //                .ToList();
-
-        //    foreach (var item in items)
-        //    {
-        //        item.Read = true;
-        //    }
-
-        //    _rssDatabase.SaveChanges();
-
-        //}
-       
     }
 }
