@@ -82,6 +82,17 @@ namespace Services.RssReader.Implementation
             return channels;
         }
 
+        public List<long> GetUserChannelsIdList(string userId)
+        {
+            var idList = _rssDatabase.UserChannels
+                            .Where(x => x.ApplicationUserId == userId)
+                            .Where(x => x.IsHidden == false)
+                            .Select(x=>x.Id)
+                            .ToList();
+
+            return idList;
+        }
+
         public long ReturnChannelId(string url)
         {
             var channelId = _rssDatabase.Channels.FirstOrDefault(channel => channel.Url == url).Id;
@@ -111,21 +122,21 @@ namespace Services.RssReader.Implementation
         public void AddNewItemsToChannel(long userChannelId, string userId)
         {
 
-            var mainChannelId = _rssDatabase.UserChannels
+            var channelId = _rssDatabase.UserChannels
                 .Where(x=>x.ApplicationUserId == userId)
                 .Single(x=>x.Id == userChannelId).ChannelId;
 
             var lastItemDateTime = _rssDatabase.AllItems
-                .Where(x => x.ChannelId == mainChannelId)
+                .Where(x => x.ChannelId == channelId)
                 .OrderByDescending(x=>x.PublishDate)
                 .ToList()[0].PublishDate;
 
 
             var url = _rssDatabase.Channels
-                .Single(x => x.Id == mainChannelId)
+                .Single(x => x.Id == channelId)
                 .Url;
 
-            var channel = _channelGet.GetUpdatedRssChannel(url, lastItemDateTime, mainChannelId);
+            var channel = _channelGet.GetUpdatedRssChannel(url, lastItemDateTime, channelId);
 
             _rssDatabase.Channels.AddOrUpdate(channel);
             _rssDatabase.AllItems.AddRange(channel.Items);
