@@ -60,17 +60,19 @@
             
 
             <td>
-                <div class="ui slider checkbox">
-                    <input type="checkbox" data-item-id="@x.Id">
-                    <label>Keep unread</label>
-                </div>
+                <p>
+                    <div class="ui slider checkbox">
+                        <input type="checkbox" data-item-id="@x.Id">
+                        <label>Keep unread</label>
+                    </div>
+                </p>
                 <i class="hide icon" data-item-id="@x.Id"></i>
                 <a class="ui green label">@x.Item.RatingPlus</a>
                 <i class="thumbs outline up icon" data-item-id="@x.Id" data-item-rate="@x.RatingPlus"></i>
                 <i class="smile icon" data-item-rate="@x.RatingMinus"></i>
-                <a class="ui red label">@x.Item.RatingMinus</a>
                 <i class="thumbs outline down icon" data-item-id="@x.Id" data-item-rate="@x.RatingMinus"></i>
                 <i class="frown icon" data-item-rate="@x.RatingPlus"></i>
+                <a class="ui red label">@x.Item.RatingMinus</a>
             </td>
             <td class="collapsing">
                 <a href="@x.Item.Url" target="_blank" data-item-id="@x.Id">@x.Item.Title</a>
