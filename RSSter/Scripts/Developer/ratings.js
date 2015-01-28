@@ -4,7 +4,7 @@ function RateUp(e) {
     var userItemId = icon.data("item-id");
     $("#ratingError").slideToggle();
     $.ajax({
-        url: "/RssReader/RatingUp/?userItemId=" + userItemId,
+        url: "/Ajax/RatingUp/?userItemId=" + userItemId,
         method:"POST",
         success: RateUpSuccess(icon),
         error: errorToggle
@@ -16,7 +16,7 @@ function RateDown(e) {
     var userItemId = icon.data("item-id");
     $("#ratingError").hide();
     $.ajax({
-        url: "/RssReader/RatingDown/?userItemId=" + userItemId,
+        url: "/Ajax/RatingDown/?userItemId=" + userItemId,
         method: "POST",
         success: RateDownSuccess(icon),
         error: errorToggle
