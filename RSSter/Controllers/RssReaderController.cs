@@ -116,10 +116,10 @@ namespace RSSter.Controllers
         public ActionResult RefreshAllUserChannels()
         {
             var userId = User.Identity.GetUserId();
-            var channels = _channelService.GetUserChannels(userId);
+            var channels = _channelService.GetUserChannelsIdList(userId);
             foreach (var channel in channels)
             {
-                RefreshChannelItems(channel.ChannelId);
+                RefreshChannelItems(channel);
             }
 
             return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);

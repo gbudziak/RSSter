@@ -26,6 +26,8 @@ namespace Services.RssReader
 
         void AddNewItemsToUserChannel(long userChannelId, string userId);
 
+        List<long> GetUserChannelsIdList(string userId);
+
     }
 }
 
