@@ -120,29 +120,19 @@ namespace Services.RssReader.Implementation
             _rssDatabase.Channels.FirstOrDefault(channel => channel.Id == channelId).Readers--;
         }
 
-        public void AddNewItemsToChannel(long userChannelId, string userId)
+        public void AddNewItemsToChannel(string userId, long channelId, string url)
         {
-
-            var channelId = _rssDatabase.UserChannels
-                .Where(x=>x.ApplicationUserId == userId)
-                .Single(x=>x.Id == userChannelId).ChannelId;
-
+            
             var lastItemDateTime = _rssDatabase.AllItems
                 .Where(x => x.ChannelId == channelId)
                 .OrderByDescending(x=>x.PublishDate)
                 .ToList()[0].PublishDate;
-
-
-            var url = _rssDatabase.Channels
-                .Single(x => x.Id == channelId)
-                .Url;
 
             var channel = _channelGet.GetUpdatedRssChannel(url, lastItemDateTime, channelId);
 
             _rssDatabase.Channels.AddOrUpdate(channel);
             _rssDatabase.AllItems.AddRange(channel.Items);
 
-            
             _rssDatabase.SaveChanges();
 
         }

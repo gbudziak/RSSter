@@ -58,7 +58,7 @@
             <div class="content">
                 <div class="header">
                     @Html.ActionLink(@item.Channel.Title, "ShowUserItems", "RssReader",
-                                    new { userChannelId = @item.Id },
+                                    new { userChannelId = @item.Id, channelId = @item.ChannelId, url = @item.Channel.Url },
                                     new { })
                 </div>
             </div>

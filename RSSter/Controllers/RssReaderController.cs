@@ -45,10 +45,14 @@ namespace RSSter.Controllers
             return View("AddRssChannel");
         }
 
-        public ActionResult ShowUserItems(long userChannelId)
+        public ActionResult ShowUserItems(long userChannelId, long channelId, string url)
         {
             var userId = User.Identity.GetUserId();
+
             ViewBag.UserChannelId = userChannelId;
+            ViewBag.ChannelId = channelId;
+            ViewBag.Url = url;
+
             return View(_itemService.GetUserChannelItems(userChannelId,userId));
         }
 
@@ -119,7 +123,7 @@ namespace RSSter.Controllers
             var channels = _channelService.GetUserChannelsIdList(userId);
             foreach (var channel in channels)
             {
-                RefreshChannelItems(channel);
+                //RefreshChannelItems(channel);
             }
 
             return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
@@ -127,11 +131,11 @@ namespace RSSter.Controllers
         }
 
 
-        public ActionResult RefreshChannelItems(long userChannelId)
+        public ActionResult RefreshChannelItems(long userChannelId, long currentChannelId, string channelUrl)
         {
             var userId = User.Identity.GetUserId();
 
-            _channelService.AddNewItemsToChannel(userChannelId,userId);
+            _channelService.AddNewItemsToChannel(userId,currentChannelId,channelUrl);
             _channelService.AddNewItemsToUserChannel(userChannelId,userId);
             return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
         }

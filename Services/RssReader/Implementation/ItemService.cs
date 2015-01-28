@@ -140,6 +140,8 @@ namespace Services.RssReader.Implementation
                 .FirstOrDefault(userItem => userItem.Id == userItemId);
         }
 
+
+
         #region Private Methods
         private void IncreaseItemRating(long userItemId)
         {

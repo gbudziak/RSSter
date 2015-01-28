@@ -22,7 +22,7 @@ namespace Services.RssReader
 
         void DecreaseReadersCount(long channelId);
 
-        void AddNewItemsToChannel(long userChannelId, string userId);
+        void AddNewItemsToChannel(string userId, long channelId, string url);
 
         void AddNewItemsToUserChannel(long userChannelId, string userId);
 
