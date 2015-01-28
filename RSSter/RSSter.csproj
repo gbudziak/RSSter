@@ -199,7 +199,7 @@
     <Compile Include="Controllers\RssReaderController.cs" />
     <Compile Include="Controllers\SemanticUIController.cs" />
     <Compile Include="Controllers\ValidationController.cs" />
-    <Compile Include="Controllers\ViewController.cs" />
+    <Compile Include="Controllers\ItemViewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -312,12 +312,13 @@
     <Content Include="Views\RssReader\ViewChannelInfo.cshtml" />
     <Content Include="Views\Account\LoginIndex.cshtml" />
     <Content Include="Views\RssReader\ShowAllUserItems.cshtml" />
+    <Content Include="Views\ItemView\ViewItem.cshtml" />
+    <Content Include="Views\ItemView\ErrorView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Ajax\" />
     <Folder Include="Views\Validation\" />
-    <Folder Include="Views\View\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
