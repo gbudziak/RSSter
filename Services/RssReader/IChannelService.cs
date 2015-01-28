@@ -6,7 +6,7 @@ namespace Services.RssReader
 {
     public interface IChannelService
     {
-        Channel GetChannelInfo(string userId, long userChannelId);
+        Channel GetChannel(string userId, long userChannelId);
 
         long AddChannel(string userId, string url);
 

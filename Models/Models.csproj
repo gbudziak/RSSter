@@ -93,6 +93,7 @@
     <Compile Include="RSS\Item.cs" />
     <Compile Include="RSS\UserChannel.cs" />
     <Compile Include="RSS\UserItem.cs" />
+    <Compile Include="User\UserCustomView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

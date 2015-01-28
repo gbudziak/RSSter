@@ -25,10 +25,8 @@ namespace Models.RSS
         public string ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
 
-        public UserChannel()
-        {
-            UserItems = new List<UserItem>();
-        }
+        public UserChannel():this(-1,"")
+        {}
 
         public UserChannel(long channelId, string applicationUserId)
         {

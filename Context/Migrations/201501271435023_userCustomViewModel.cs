@@ -3,7 +3,7 @@ namespace RssDataContext.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class _new : DbMigration
+    public partial class userCustomViewModel : DbMigration
     {
         public override void Up()
         {
@@ -21,7 +21,7 @@ namespace RssDataContext.Migrations
                         ChannelId = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Channels", t => t.ChannelId, cascadeDelete: false)
+                .ForeignKey("dbo.Channels", t => t.ChannelId, cascadeDelete: true)
                 .Index(t => t.ChannelId);
             
             CreateTable(
@@ -138,15 +138,32 @@ namespace RssDataContext.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserId)
                 .ForeignKey("dbo.Items", t => t.ItemId, cascadeDelete: true)
-                .ForeignKey("dbo.UserChannels", t => t.UserChannelId, cascadeDelete: true)
+                .ForeignKey("dbo.UserChannels", t => t.UserChannelId, cascadeDelete: false)
                 .Index(t => t.ItemId)
                 .Index(t => t.ApplicationUserId)
                 .Index(t => t.UserChannelId);
+            
+            CreateTable(
+                "dbo.UserCustomViews",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Image = c.Boolean(nullable: false),
+                        Title = c.Boolean(nullable: false),
+                        Description = c.Boolean(nullable: false),
+                        PublishDate = c.Boolean(nullable: false),
+                        Rating = c.Boolean(nullable: false),
+                        UserId = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .Index(t => t.UserId);
             
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.UserCustomViews", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.UserItems", "UserChannelId", "dbo.UserChannels");
             DropForeignKey("dbo.UserItems", "ItemId", "dbo.Items");
             DropForeignKey("dbo.UserItems", "ApplicationUserId", "dbo.AspNetUsers");
@@ -157,6 +174,7 @@ namespace RssDataContext.Migrations
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Items", "ChannelId", "dbo.Channels");
+            DropIndex("dbo.UserCustomViews", new[] { "UserId" });
             DropIndex("dbo.UserItems", new[] { "UserChannelId" });
             DropIndex("dbo.UserItems", new[] { "ApplicationUserId" });
             DropIndex("dbo.UserItems", new[] { "ItemId" });
@@ -169,6 +187,7 @@ namespace RssDataContext.Migrations
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.Items", new[] { "ChannelId" });
+            DropTable("dbo.UserCustomViews");
             DropTable("dbo.UserItems");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");

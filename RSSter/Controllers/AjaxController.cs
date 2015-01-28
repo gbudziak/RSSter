@@ -10,7 +10,6 @@ namespace RSSter.Controllers
     [Authorize]
     public class AjaxController : Controller
     {
-         #region Constructor
         private readonly IChannelService _channelService;
         private readonly IItemService _itemService;
 
@@ -20,7 +19,6 @@ namespace RSSter.Controllers
             _channelService = channelService;
             _itemService = itemService;
         }
-        #endregion
 
         [HttpPost]
         public JsonResult RatingUp(long userItemId)
