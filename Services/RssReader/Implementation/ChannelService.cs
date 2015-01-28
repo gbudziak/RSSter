@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using Models.RSS;
 using RssDataContext;
 
@@ -11,7 +9,7 @@ namespace Services.RssReader.Implementation
 {
     public class ChannelService : IChannelService
     {
-        #region This is nice piece of code, DO NOT LOOK INSIDE 
+ 
         private readonly IApplicationRssDataContext _rssDatabase;
         private readonly IChannelGet _channelGet;
 
@@ -20,7 +18,7 @@ namespace Services.RssReader.Implementation
             _rssDatabase = rssDatabase;
             _channelGet = channelGet;
         }
-        #endregion
+
         public Channel GetChannel(string userId, long userChannelId)
         {
             var channel = _rssDatabase.UserChannels
@@ -83,17 +81,6 @@ namespace Services.RssReader.Implementation
             return channels;
         }
 
-        public List<long> GetUserChannelsIdList(string userId)
-        {
-            var idList = _rssDatabase.UserChannels
-                            .Where(x => x.ApplicationUserId == userId)
-                            .Where(x => x.IsHidden == false)
-                            .Select(x=>x.Id)
-                            .ToList();
-
-            return idList;
-        }
-
         public long ReturnChannelId(string url)
         {
             var channelId = _rssDatabase.Channels.First(channel => channel.Url == url).Id;
@@ -120,50 +107,64 @@ namespace Services.RssReader.Implementation
             _rssDatabase.Channels.FirstOrDefault(channel => channel.Id == channelId).Readers--;
         }
 
-        public void AddNewItemsToChannel(string userId, long channelId, string url)
+        private DateTime GetDateTimeFromLastChannelItem(long channelId)
         {
-            
             var lastItemDateTime = _rssDatabase.AllItems
                 .Where(x => x.ChannelId == channelId)
-                .OrderByDescending(x=>x.PublishDate)
-                .ToList()[0].PublishDate;
+                .OrderByDescending(x => x.PublishDate)
+                .ToList();
 
+            if (lastItemDateTime.Any())
+            {
+                return lastItemDateTime[0].PublishDate;;
+            }
+
+            return new DateTime(0);
+        }
+
+        public void AddNewItemsToChannel(long channelId, string url)
+        {
+            var lastItemDateTime = GetDateTimeFromLastChannelItem(channelId);
             var channel = _channelGet.GetUpdatedRssChannel(url, lastItemDateTime, channelId);
 
             _rssDatabase.Channels.AddOrUpdate(channel);
             _rssDatabase.AllItems.AddRange(channel.Items);
 
             _rssDatabase.SaveChanges();
+         }
 
-        }
-
-        public void AddNewItemsToUserChannel(long userChannelId, string userId)
+        private DateTime GetDateTimeFromLastUserChannelItem(long userChannelId)
         {
 
-            var mainChannelId = _rssDatabase.UserChannels
-                .Where(x => x.ApplicationUserId == userId)
-                .Single(x => x.Id == userChannelId).ChannelId;
+            var lastItemDateTime = _rssDatabase.UsersItems
+                .Where(x => x.UserChannelId == userChannelId)
+                .OrderByDescending(x => x.Item.PublishDate)
+                .ToList();
+            if (lastItemDateTime.Any())
+            {
+                return lastItemDateTime[0].Item.PublishDate;
+            }
 
-           var lastdata = _rssDatabase.UsersItems.Where(x => x.UserChannelId == userChannelId)
-                .OrderByDescending(x => x.Item.PublishDate).ToList()[0].Item.PublishDate;
+            return DateTime.Now;
+        }
+
+        public void AddNewItemsToUserChannel(string userId, long channelId,long userChannelId)
+        {
+            var lastUserItemDateTime = GetDateTimeFromLastUserChannelItem(userChannelId);
 
             var items = _rssDatabase.AllItems
-               .Where(x => x.ChannelId == mainChannelId)
-               .Where(x => x.PublishDate > lastdata)
+               .Where(x => x.ChannelId == channelId)
+               .Where(x => x.PublishDate > lastUserItemDateTime)
                .ToList();
 
             foreach (var item in items)
             {
-               
-                    var userItem = new UserItem(userId, item.Id) { UserChannelId = userChannelId };
+                var userItem = new UserItem(userId, item.Id, userChannelId);
                     _rssDatabase.UsersItems.Add(userItem);
-                
             }
 
             _rssDatabase.SaveChanges();
         }
-
-        #region PRIVATE METHODS
 
         private long CreateOrRestoreUserChannel(string userId, string url)
         {
@@ -233,13 +234,5 @@ namespace Services.RssReader.Implementation
             
             _rssDatabase.SaveChanges();
         }
-
-        private void RefreshChannelInfoAndItems(string userId, string url, UserChannel hiddenUserChannel)
-        {
-
-        }
-
-        #endregion
-
     }
 }

@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using System.Web.Routing;
+﻿using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using Models.RSS;
 using Services.RssReader;
 
 namespace RSSter.Controllers
@@ -40,7 +36,9 @@ namespace RSSter.Controllers
                 
                 var userId = User.Identity.GetUserId();                
                 var userChannelId = _channelService.AddChannel(userId, url);                
-                return RedirectToAction("ShowUserItems","RssReader", new { userChannelId = userChannelId});
+                //TO DO
+                //return RedirectToAction("ShowUserItems","RssReader", new { userChannelId = userChannelId, url}); 
+                return RedirectToAction("Index","RssReader");
             }
             return View("AddRssChannel");
         }
@@ -120,10 +118,11 @@ namespace RSSter.Controllers
         public ActionResult RefreshAllUserChannels()
         {
             var userId = User.Identity.GetUserId();
-            var channels = _channelService.GetUserChannelsIdList(userId);
+            //var channels = _channelService.GetUserChannelsIdList(userId);
+            var channels = _channelService.GetUserChannels(userId);
             foreach (var channel in channels)
             {
-                //RefreshChannelItems(channel);
+                RefreshChannelItems(channel.Id,channel.ChannelId,channel.Channel.Url);
             }
 
             return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
@@ -131,12 +130,12 @@ namespace RSSter.Controllers
         }
 
 
-        public ActionResult RefreshChannelItems(long userChannelId, long currentChannelId, string channelUrl)
+        public ActionResult RefreshChannelItems(long userChannelId, long channelId, string channelUrl)
         {
             var userId = User.Identity.GetUserId();
 
-            _channelService.AddNewItemsToChannel(userId,currentChannelId,channelUrl);
-            _channelService.AddNewItemsToUserChannel(userChannelId,userId);
+            _channelService.AddNewItemsToChannel(channelId,channelUrl);
+            _channelService.AddNewItemsToUserChannel(userId, channelId,userChannelId);
             return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
         }
     }

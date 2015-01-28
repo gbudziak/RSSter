@@ -23,7 +23,7 @@
     @Html.ActionLink("Mark all items as read", "MarkAllChannelItemsAsRead", "RssReader", new { userChannelId = @ViewBag.UserChannelId }, null)
 <br />
 
-@Html.ActionLink("refresh news", "RefreshChannelItems", "RssReader", new { userChannelId = @ViewBag.UserChannelId, currentChannelId = @ViewBag.channelId, channelUrl = @ViewBag.Url}, null)
+@Html.ActionLink("refresh news", "RefreshChannelItems", "RssReader", new { userChannelId = @ViewBag.UserChannelId, channelId = @ViewBag.ChannelId, channelUrl = @ViewBag.Url}, null)
 
 
 <br/><br/>
