@@ -25,8 +25,6 @@ namespace RSSter
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/checkbox.min.css",
-                      "~/Content/semantic.css",
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/menu").Include(
