@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Models.User;
 using RssDataContext;
@@ -17,6 +18,12 @@ namespace Services.RssReader.Implementation
         {
             var userCustomView = _rssDatabase.UsersCustomViews.First(userView => userView.UserId == userId);
             return userCustomView;
+        }
+
+        public TimeSpan CalculateItemAge(DateTime publishTime)
+        {
+            var result = DateTime.Now - publishTime;
+            return result;
         }
     }
 }

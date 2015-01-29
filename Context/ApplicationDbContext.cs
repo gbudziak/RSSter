@@ -36,6 +36,8 @@ namespace RssDataContext
 
         public DbSet<UserCustomView> UsersCustomViews { get; set; }
 
+        public DbSet<UserInfo> UserInfos { get; set; }
+
         public new void SaveChanges()
         {
             base.SaveChanges();            
