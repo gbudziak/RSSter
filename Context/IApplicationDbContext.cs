@@ -11,6 +11,7 @@ namespace RssDataContext
         DbSet<UserItem> UsersItems { get; set; }
         DbSet<Item> AllItems { get; set; }
         DbSet<UserCustomView> UsersCustomViews { get; set; }
+        DbSet<UserInfo> UserInfos { get; set; }
 
         void SaveChanges();
 
