@@ -19,7 +19,7 @@ namespace RSSter.Controllers
 
         public ActionResult Index()
         {
-            return RedirectToAction("ShowAllUserItems","RssReader");
+            return View("Index");
         }
 
         [HttpGet]
@@ -118,7 +118,6 @@ namespace RSSter.Controllers
         public ActionResult RefreshAllUserChannels()
         {
             var userId = User.Identity.GetUserId();
-            //var channels = _channelService.GetUserChannelsIdList(userId);
             var channels = _channelService.GetUserChannels(userId);
             foreach (var channel in channels)
             {

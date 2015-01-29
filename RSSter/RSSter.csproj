@@ -213,6 +213,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RssReaderController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SemanticUIController.cs" />
     <Compile Include="Controllers\ValidationController.cs" />
     <Compile Include="Controllers\ItemViewController.cs" />
@@ -336,6 +337,7 @@
     <Content Include="Views\RssReader\ShowAllUserItems.cshtml" />
     <Content Include="Views\ItemView\ViewItem.cshtml" />
     <Content Include="Views\ItemView\ErrorView.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
