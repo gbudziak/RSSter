@@ -8,13 +8,13 @@ namespace Services.RssReader.Implementation
     {
         
         private readonly IApplicationRssDataContext _rssDatabase;
-        private readonly ISyndicationFeedProvider _iSyndicationFeedProvider;
+        private readonly ISyndicationFeedProvider _syndicationFeedProvider;
 
 
-        public ValidateService(IApplicationRssDataContext rssDatabase, ISyndicationFeedProvider iSyndicationFeedProvider)
+        public ValidateService(IApplicationRssDataContext rssDatabase, ISyndicationFeedProvider syndicationFeedProvider)
         {
             _rssDatabase = rssDatabase;
-            _iSyndicationFeedProvider = iSyndicationFeedProvider;
+            _syndicationFeedProvider = syndicationFeedProvider;
         }
 
         public bool IsUrlUniqueInChannels(string url)
@@ -42,7 +42,7 @@ namespace Services.RssReader.Implementation
         {
             try
             {
-                var urlValidation = _iSyndicationFeedProvider.GetSyndicationFeed(url);
+                var urlValidation = _syndicationFeedProvider.GetSyndicationFeed(url);
                 return true;
             }
             catch (Exception)
@@ -59,14 +59,16 @@ namespace Services.RssReader.Implementation
 
         public bool AddChannelRemoteValidation(string url, string userId)
         {
-            if (_rssDatabase.Channels.Any(x => x.Url == url))
+            if (_rssDatabase.Channels
+                .Any(x => x.Url == url))
             {
-                var channelId = _rssDatabase.Channels.Single(x => x.Url == url).Id;
+                var channelId = _rssDatabase.Channels
+                    .Single(x => x.Url == url).Id;
 
-                return _rssDatabase.UserChannels.Where(
-                    x => x.ChannelId == channelId &&
-                    x.ApplicationUserId == userId &&
-                    x.IsHidden == false)
+                return _rssDatabase.UserChannels
+                    .Where(x => x.ChannelId == channelId)
+                    .Where(x=>x.ApplicationUserId == userId)
+                    .Where(x=>x.IsHidden == false)
                     .ToList()
                     .Any();
             }

@@ -1,8 +1,54 @@
-﻿@model dynamic
+﻿@model List<Models.RSS.Channel>
 
 @{
     ViewBag.Title = "title";
     Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
+
 }
 
-<h2>title</h2>
+<h2>Search!</h2>
+
+
+<p>
+@using (Html.BeginForm())
+{
+    <p>
+        Title: @Html.TextBox("searchString") <br />
+        <input type="submit" value="Search" />
+    </p>
+    }
+    </p>
+
+
+<br />
+<table class="ui celled striped table">
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Readers
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model)
+        {
+            <tr>
+                <td>
+                    @x.Title
+                </td>
+                <td>@Html.Raw(x.Description)</td>
+                <td>@x.Readers</td>
+                <td >ADD CHANNEL</td>
+            </tr>
+        }
+    </tbody>
+</table>
