@@ -212,6 +212,7 @@
     <Content Include="Content\dimmer.min.css" />
     <Content Include="Content\feed.css" />
     <Content Include="Content\homepage.css" />
+    <Content Include="Content\icon.min.css" />
     <Content Include="Content\Images\bg.jpg" />
     <Content Include="Content\Images\cat.png" />
     <Content Include="Content\Images\loginPage\bg.png" />

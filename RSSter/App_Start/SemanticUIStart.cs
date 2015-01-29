@@ -13,11 +13,15 @@ namespace RSSter
         {
             BundleTable.Bundles.Add(new ScriptBundle("~/bundles/semantic").
 			   Include("~/Scripts/semantic.js",
-			           "~/Scripts/semantic.site.js"));
+			           "~/Scripts/semantic.site.js",
+                       "~/Scripts/dimmer.min.js"));
 			   
             BundleTable.Bundles.Add(new StyleBundle("~/Content/semantic").
 			   Include("~/Content/semantic.css",
-			           "~/Content/semantic.site.css"));
+			           "~/Content/semantic.site.css",
+                       "~/Content/checkbox.min.css",
+                       "~/Content/dimmer.min.css",
+                       "~/Content/icon.min.css"));
         }
     }
 }
