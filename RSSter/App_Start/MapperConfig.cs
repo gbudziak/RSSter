@@ -31,6 +31,18 @@ namespace RSSter
                 .ForMember(dest => dest.Read, opts => opts.MapFrom(uitem => uitem.Read))
                 .ForMember(dest => dest.RatingPlus, opts => opts.MapFrom(uitem => uitem.RatingPlus))
                 .ForMember(dest => dest.RatingMinus, opts => opts.MapFrom(uitem => uitem.RatingMinus));
+
+            Mapper.CreateMap<Channel, CompleteChannelInfo>()
+                .ForMember(dest => dest.ChannelId, opts => opts.MapFrom(channel => channel.Id))
+                .ForMember(dest => dest.Url, opts => opts.MapFrom(channel => channel.Url))
+                .ForMember(dest => dest.Description, opts => opts.MapFrom(channel => channel.Description))
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(channel => channel.ImageUrl))
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(channel => channel.Title))
+                .ForMember(dest => dest.Readers, opt => opt.MapFrom(channel => channel.Readers));
+
+            Mapper.CreateMap<UserChannel, CompleteChannelInfo>()
+                .ForMember(dest => dest.UserChannelId, opt => opt.MapFrom(uchannel => uchannel.Id))
+                .ForMember(dest => dest.IsHidden, opt => opt.MapFrom(uchannel => uchannel.IsHidden));
         }
     }
 }

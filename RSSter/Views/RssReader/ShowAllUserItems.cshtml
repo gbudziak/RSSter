@@ -37,23 +37,9 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var x in Model)
+        @foreach (var userItem in Model)
         {
-            <tr id="@x.Id">
-                <td>
-                    <i class="hide icon" data-item-id="@x.Id"></i>
-                    <i class="thumbs outline up icon" data-item-id="@x.Id" data-item-rate="@x.RatingPlus"></i>
-                    <i class="smile icon" data-item-rate="@x.RatingMinus"></i>
-                    <i class="thumbs outline down icon" data-item-id="@x.Id" data-item-rate="@x.RatingMinus"></i>
-                    <i class="frown icon" data-item-rate="@x.RatingPlus"></i>
-                </td>
-                <td class="collapsing">
-                    <a href="@x.Item.Url" target="_blank" data-item-id="@x.Id">@x.Item.Title</a>
-                </td>
-                <td>@Html.Raw(x.Item.Description)</td>
-                <td class="right aligned collapsing"><a href="@x.Item.Url" target="_blank">More</a></td>
-                <td>@x.Item.PublishDate</td>
-            </tr>
+            @Html.Partial("_UserItem", userItem)
         }
     </tbody>
 </table>
