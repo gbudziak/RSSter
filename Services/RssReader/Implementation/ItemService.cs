@@ -8,8 +8,8 @@ namespace Services.RssReader.Implementation
 {
     public class ItemService : IItemService
     {
-        #region Constructor
-         private readonly IApplicationRssDataContext _rssDatabase;
+
+        private readonly IApplicationRssDataContext _rssDatabase;
         private readonly IChannelGet _iChannelGet;
 
         public ItemService(IApplicationRssDataContext rssDatabase, IChannelGet iChannelGet)
@@ -17,7 +17,7 @@ namespace Services.RssReader.Implementation
             _rssDatabase = rssDatabase;
             _iChannelGet = iChannelGet;
         }
-        #endregion
+
         public List<UserItem> GetUserChannelItems(long userChannelId, string userId)
         {
             
@@ -59,11 +59,11 @@ namespace Services.RssReader.Implementation
                 {
                     IncreaseItemRating(userItemId);
                     transaction.Commit();
-            }
+                }
                 catch (Exception)
                 {
                     transaction.Rollback();
-        }
+                }
             }
         }
         
@@ -75,7 +75,7 @@ namespace Services.RssReader.Implementation
                 {
                     DecreaseItemRating(userItemId);
                     transaction.Commit();
-            }
+                }
                 catch (Exception)
                 {
                     transaction.Rollback();
@@ -89,12 +89,12 @@ namespace Services.RssReader.Implementation
             {
                 try
                 {
-            var userItem = _rssDatabase.UsersItems
-                           .Single(item => item.Id == userItemId);
+                     var userItem = _rssDatabase.UsersItems
+                     .Single(item => item.Id == userItemId);
 
-            userItem.Read = true;
+                     userItem.Read = true;
 
-            _rssDatabase.SaveChanges();
+                    _rssDatabase.SaveChanges();
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -141,8 +141,6 @@ namespace Services.RssReader.Implementation
         }
 
 
-
-        #region Private Methods
         private void IncreaseItemRating(long userItemId)
         {
             var userItem =
@@ -178,7 +176,7 @@ namespace Services.RssReader.Implementation
 
             _rssDatabase.SaveChanges();
         }
-        #endregion
+
 
     }
 }
