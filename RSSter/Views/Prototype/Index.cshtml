@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Models.ViewModels.CompleteItemInfo>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserItemId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Read)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RatingPlus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RatingMinus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Url)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PublishDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RatingPlusCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RatingMinusCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemAge)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserItemId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Read)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RatingPlus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RatingMinus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Url)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PublishDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RatingPlusCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RatingMinusCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemAge)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

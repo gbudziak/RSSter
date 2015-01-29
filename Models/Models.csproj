@@ -98,9 +98,6 @@
     <Compile Include="ViewModels\CompleteChannelInfo.cs" />
     <Compile Include="ViewModels\CompleteItemInfo.cs" />
     <Compile Include="ViewModels\DefaultViews.cs" />
-    <Compile Include="ViewModels\UserChannelViewModel.cs" />
-    <Compile Include="ViewModels\UserItemDTO.cs" />
-    <Compile Include="ViewModels\UserItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

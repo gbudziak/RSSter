@@ -17,7 +17,7 @@ namespace RSSter.Controllers
             _itemService = itemService;
             _viewService = viewService;
         }
-
+        /*
         public ActionResult ViewItem(long userItemId, string viewType)
         {
             var userItem = _itemService.FetchUserItem(userItemId);
@@ -41,5 +41,6 @@ namespace RSSter.Controllers
 
             return PartialView("ViewItem", userItemView);
         }
+        */
     }
 }

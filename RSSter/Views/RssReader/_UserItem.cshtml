@@ -1,0 +1,29 @@
+﻿@model Models.RSS.UserItem
+
+<tr id="@Model.Id" data-item-read="@Model.Read">
+
+
+    <td>
+        <p>
+            <div class="ui slider checkbox">
+                <input type="checkbox" data-item-id="@Model.Id">
+                <label>Keep unread</label>
+            </div>
+        </p>
+        <i class="hide icon" data-item-id="@Model.Id"></i>
+        <a class="ui green label">@Model.Item.RatingPlus</a>
+        <i class="thumbs outline up icon" data-item-id="@Model.Id" data-item-rate="@Model.RatingPlus"></i>
+        <i class="smile icon" data-item-rate="@Model.RatingMinus"></i>
+        <i class="thumbs outline down icon" data-item-id="@Model.Id" data-item-rate="@Model.RatingMinus"></i>
+        <i class="frown icon" data-item-rate="@Model.RatingPlus"></i>
+        <a class="ui red label">@Model.Item.RatingMinus</a>
+    </td>
+    <td class="collapsing">
+        <a href="@Model.Item.Url" target="_blank" data-item-id="@Model.Id">@Model.Item.Title</a>
+    </td>
+    <td>@Html.Raw(Model.Item.Description)</td>
+    <td class="right aligned collapsing"><a href="@Model.Item.Url" target="_blank">More</a></td>
+    <td>@Model.Item.PublishDate</td>
+
+
+</tr>
