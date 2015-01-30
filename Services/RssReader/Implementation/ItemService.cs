@@ -58,15 +58,12 @@ namespace Services.RssReader.Implementation
             return allUserItemViewModelSorted;
         }
 
-        public List<UserItem> GetAllUnreadUserItems(string userId)
+        public List<ShowAllUserItemsViewModel> GetAllUnreadUserItems(string userId)
         {
-            var items = _rssDatabase.UsersItems
-                        .Where(x => x.ApplicationUserId == userId)
-                        .Where(x => x.Read == false)
-                        .OrderByDescending(x => x.Item.PublishDate)
-                        .ToList();
+            var allUserItems = GetAllUserItems(userId);
+            var allUnreadUserItemsViewModel = allUserItems.Where(x => x.Read == false).ToList();
 
-            return items;
+            return allUnreadUserItemsViewModel;
         }
         
         public void IncreaseUserRating(long userItemId)

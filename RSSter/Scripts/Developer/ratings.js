@@ -64,8 +64,6 @@ function RateDownSuccess(icon) {
 function RateIconsInitialization(idx,e) {
     
     var show = $(e).data("item-rate");
-    console.log(show);
-
     if (show == "True") {
         $(e).hide();
     }

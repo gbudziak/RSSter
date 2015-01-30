@@ -91,8 +91,8 @@ namespace RSSter.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            var items = _itemService.GetAllUnreadUserItems(userId);
-            return View("ShowAllUserItems", null);
+            var allUnreadUserItems = _itemService.GetAllUnreadUserItems(userId);
+            return View("ShowAllUnreadUserItems", allUnreadUserItems);
         }
 
         public ActionResult MarkAllItemsAsRead()

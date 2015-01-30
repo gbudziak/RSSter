@@ -1,8 +1,7 @@
-﻿
-@model List<Models.ViewModels.ShowAllUserItemsViewModel>
+﻿@model List<Models.ViewModels.ShowAllUserItemsViewModel>
 
 @{
-    ViewBag.Title = "Show All User Items";
+    ViewBag.Title = "Show All Unread User Items";
     Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
 }
 
@@ -47,8 +46,9 @@
 
 @section scripts
 {
+
+    <script src="~/Scripts/Developer/PostIsReadFunctionality.js"></script>
     <script src="~/Scripts/Developer/ratings.js"></script>
-    <script src="~/Scripts/Attachers/showAllUserItems.js"></script>
-    <script src="~/Scripts/Developer/PostIsReadFunctionalityOnShowAllItemsView.js"></script>
+    <script src="~/Scripts/Attachers/showUserItems.js"></script>
 
 }

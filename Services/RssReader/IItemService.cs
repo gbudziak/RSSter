@@ -11,7 +11,7 @@ namespace Services.RssReader
 
         List<ShowAllUserItemsViewModel> GetAllUserItems(string userId);
 
-        List<UserItem> GetAllUnreadUserItems(string userId);
+        List<ShowAllUserItemsViewModel> GetAllUnreadUserItems(string userId);
 
         void IncreaseUserRating(long userItemId);
 
