@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Models.RSS;
+using Models.ViewModels;
 
 namespace Services.RssReader
 {
@@ -14,7 +15,7 @@ namespace Services.RssReader
 
         long ReturnChannelId(string url);
         
-        List<UserChannel> GetUserChannels(string userId);
+        List<ShowUserChannelsViewModel> GetUserChannels(string userId);
         
         long ReturnUserChannelId(string url, string userId);
 

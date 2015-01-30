@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using AutoMapper;
 using Models.RSS;
+using Models.ViewModels;
 using RssDataContext;
 
 namespace Services.RssReader.Implementation
@@ -71,14 +74,30 @@ namespace Services.RssReader.Implementation
             }
         }
 
-        public List<UserChannel> GetUserChannels(string userId)
+        public List<ShowUserChannelsViewModel> GetUserChannels(string userId)
         {
-            var channels = _rssDatabase.UserChannels
-                            .Where(x => x.ApplicationUserId == userId)
-                            .Where(x => x.IsHidden == false)
-                            .ToList();
+            var userChannels = _rssDatabase.UserChannels
+                .Include(x => x.Channel)
+                .Include(x => x.UserItems)
+                .Where(x => x.ApplicationUserId == userId)
+                .Where(x => x.IsHidden == false);
+            
+            var userChannelsViewModel = new List<ShowUserChannelsViewModel>();
+            
+            foreach (var userChannel in userChannels)
+            {
+                var completeChannel = Mapper.Map<UserChannel, ShowUserChannelsViewModel>(userChannel);
+                Mapper.Map<Channel, ShowUserChannelsViewModel>(userChannel.Channel, completeChannel);
+            
+                completeChannel.AllItemsCount = userChannel.UserItems.Count;
 
-            return channels;
+                var unreadUserItems = userChannel.UserItems.Where(userItem => userItem.Read == false);
+                completeChannel.UnreadItemsCount = unreadUserItems.Count();
+
+                userChannelsViewModel.Add(completeChannel);
+            }
+
+            return userChannelsViewModel;
         }
 
         public long ReturnChannelId(string url)

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using AutoMapper;
 using Models.RSS;
+using Models.ViewModels;
 using RssDataContext;
 
 namespace Services.RssReader.Implementation
@@ -10,45 +13,70 @@ namespace Services.RssReader.Implementation
     {
 
         private readonly IApplicationRssDataContext _rssDatabase;
-        private readonly IChannelGet _iChannelGet;
 
-        public ItemService(IApplicationRssDataContext rssDatabase, IChannelGet iChannelGet)
+        public ItemService(IApplicationRssDataContext rssDatabase)
         {
             _rssDatabase = rssDatabase;
-            _iChannelGet = iChannelGet;
         }
 
-        public List<UserItem> GetUserChannelItems(long userChannelId, string userId)
+        public UserItemsViewModel GetUserChannelItems(long userChannelId, string userId)
         {
-            
-            var items = _rssDatabase.UsersItems
-                        .Where(x => x.UserChannelId == userChannelId)
-                        .Where(x => x.ApplicationUserId == userId)
-                        .OrderByDescending(x=>x.Item.PublishDate)
-                        .ToList();
+            var itemsAndChannel = _rssDatabase.UserChannels
+                .Include(x => x.Channel)
+                .Include(x => x.UserItems)
+                .Include(x => x.Channel.Items)
+                .Where(userChannel => userChannel.ApplicationUserId == userId)
+                .First(userChannel => userChannel.Id == userChannelId);
 
-            return items;
+            var userItemsViewModel = Mapper.Map<Channel, UserItemsViewModel>(itemsAndChannel.Channel);
+            Mapper.Map<UserChannel, UserItemsViewModel>(itemsAndChannel, userItemsViewModel);
+
+            var itemList = new List<CompleteItemInfo>();
+
+            foreach (var userItem in itemsAndChannel.UserItems)
+            {
+                var completeItemView = Mapper.Map<UserItem, CompleteItemInfo>(userItem);
+                Mapper.Map<Item, CompleteItemInfo>(userItem.Item, completeItemView);
+
+                completeItemView.ItemAge = CalculateItemAge(completeItemView.PublishDate);
+                itemList.Add(completeItemView);
+            }
+
+            userItemsViewModel.Items = itemList.OrderBy(item => item.ItemAge).ToList();
+
+            return userItemsViewModel;
         }
 
-        public List<UserItem> GetAllUserItems(string userId)
+        public List<ShowAllUserItemsViewModel> GetAllUserItems(string userId)
         {
-            var items = _rssDatabase.UsersItems
-                        .Where(x => x.ApplicationUserId == userId)
-                        .OrderByDescending(x => x.Item.PublishDate)
-                        .ToList();
+            var userItems = _rssDatabase.UsersItems
+                .Include(x => x.Item)
+                .Include(x => x.UserChannel.Channel)
+                .Where(userItem => userItem.ApplicationUserId == userId).ToList();
 
-            return items;
+            var allUserItemsViewModel = new List<ShowAllUserItemsViewModel>();
+
+            foreach (UserItem userItem in userItems)
+            {
+                var userItemViewModel = Mapper.Map<UserItem, ShowAllUserItemsViewModel>(userItem);
+                Mapper.Map<Item, ShowAllUserItemsViewModel>(userItem.Item, userItemViewModel);
+                Mapper.Map<Channel, ShowAllUserItemsViewModel>(userItem.UserChannel.Channel, userItemViewModel);
+                userItemViewModel.ItemAge = CalculateItemAge(userItemViewModel.PublishDate);
+                
+                allUserItemsViewModel.Add(userItemViewModel);
+            }
+
+            var allUserItemViewModelSorted = allUserItemsViewModel.OrderBy(x => x.ItemAge).ToList();
+
+            return allUserItemViewModelSorted;
         }
 
-        public List<UserItem> GetAllUnreadUserItems(string userId)
+        public List<ShowAllUserItemsViewModel> GetAllUnreadUserItems(string userId)
         {
-            var items = _rssDatabase.UsersItems
-                        .Where(x => x.ApplicationUserId == userId)
-                        .Where(x => x.Read == false)
-                        .OrderByDescending(x => x.Item.PublishDate)
-                        .ToList();
+            var allUserItems = GetAllUserItems(userId);
+            var allUnreadUserItemsViewModel = allUserItems.Where(x => x.Read == false).ToList();
 
-            return items;
+            return allUnreadUserItemsViewModel;
         }
         
         public void IncreaseUserRating(long userItemId)
@@ -140,6 +168,11 @@ namespace Services.RssReader.Implementation
                 .FirstOrDefault(userItem => userItem.Id == userItemId);
         }
 
+        public TimeSpan CalculateItemAge(DateTime publishTime)
+        {
+            var result = DateTime.Now - publishTime;
+            return result;
+        }
 
         private void IncreaseItemRating(long userItemId)
         {

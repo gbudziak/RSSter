@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Models.ViewModels;
 using Services.RssReader;
 
 namespace RSSter.Controllers
@@ -43,15 +44,12 @@ namespace RSSter.Controllers
             return View("AddRssChannel");
         }
 
-        public ActionResult ShowUserItems(long userChannelId, long channelId, string url)
+        public ActionResult ShowUserItems(long userChannelId)
         {
             var userId = User.Identity.GetUserId();
+            var userItemList = _itemService.GetUserChannelItems(userChannelId, userId);
 
-            ViewBag.UserChannelId = userChannelId;
-            ViewBag.ChannelId = channelId;
-            ViewBag.Url = url;
-
-            return View(_itemService.GetUserChannelItems(userChannelId,userId));
+            return View("ShowUserItems", userItemList);
         }
 
         public ActionResult ShowUserItemsByUrl(string url)
@@ -74,24 +72,24 @@ namespace RSSter.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            var channels = _channelService.GetUserChannels(userId);
-            return PartialView("ShowUserChannels", channels);
+            var userChannelsViewModel = _channelService.GetUserChannels(userId);
+            return PartialView("ShowUserChannels", userChannelsViewModel);
         }
 
         public ActionResult ShowAllUserItems()
         {
             var userId = User.Identity.GetUserId();
 
-            var items = _itemService.GetAllUserItems(userId);
-            return View("ShowAllUserItems", items);
+            var allUserItems = _itemService.GetAllUserItems(userId);
+            return View("ShowAllUserItems", allUserItems);
         }
 
         public ActionResult ShowAllUnreadUserItems()
         {
             var userId = User.Identity.GetUserId();
 
-            var items = _itemService.GetAllUnreadUserItems(userId);
-            return View("ShowAllUserItems", items);
+            var allUnreadUserItems = _itemService.GetAllUnreadUserItems(userId);
+            return View("ShowAllUnreadUserItems", allUnreadUserItems);
         }
 
         public ActionResult MarkAllItemsAsRead()
@@ -119,9 +117,9 @@ namespace RSSter.Controllers
         {
             var userId = User.Identity.GetUserId();
             var channels = _channelService.GetUserChannels(userId);
-            foreach (var channel in channels)
+            foreach (var completeChannelInfo in channels)
             {
-                RefreshChannelItems(channel.Id,channel.ChannelId,channel.Channel.Url);
+                RefreshChannelItems(completeChannelInfo.UserChannelId, completeChannelInfo.ChannelId, completeChannelInfo.Url);
             }
 
             return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);

@@ -1,6 +1,7 @@
-﻿@model Models.ViewModels.CompleteItemInfo
+﻿@model Models.ViewModels.ShowAllUserItemsViewModel
 
 <tr id="@Model.UserItemId" data-item-read="@Model.Read">
+
 
     <td>
         <p>
@@ -17,15 +18,13 @@
         <i class="frown icon" data-item-rate="@Model.RatingPlus"></i>
         <a class="ui red label">@Model.RatingMinusCount</a>
     </td>
+    <td>@Model.ChannelTitle</td>
     <td class="collapsing">
         <a href="@Model.Url" target="_blank" data-item-id="@Model.UserItemId">@Model.Title</a>
     </td>
     <td>@Html.Raw(Model.Description)</td>
-    <td class="right aligned collapsing"><a href="@Model.Url" target="_blank">More</a></td>
-    <td>
-        <p>@Model.ItemAge.Hours h @Model.ItemAge.Minutes min</p>
-        <p>@Model.PublishDate.Hour : @Model.PublishDate.Minute</p>
-    </td>
+    <td class="right aligned collapsing"><a href="@Model.Url" target="_blank"><i class="external link icon"></i></a></td>
+    <td>@Model.ItemAge</td>
 
 
 </tr>

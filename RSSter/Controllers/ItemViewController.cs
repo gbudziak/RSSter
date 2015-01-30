@@ -37,7 +37,7 @@ namespace RSSter.Controllers
                 default:
                     return PartialView("ErrorView");
             }
-            var userItemView = new UserItemViewModel(returnView, userItem);
+            var userItemView = new UserItemsViewModel(returnView, userItem);
 
             return PartialView("ViewItem", userItemView);
         }
