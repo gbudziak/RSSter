@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using AutoMapper;
 using Models.RSS;
+using Models.ViewModels;
 using RssDataContext;
 
 namespace Services.RssReader.Implementation
@@ -30,14 +34,28 @@ namespace Services.RssReader.Implementation
             return items;
         }
 
-        public List<UserItem> GetAllUserItems(string userId)
+        public List<ShowAllUserItemsViewModel> GetAllUserItems(string userId)
         {
-            var items = _rssDatabase.UsersItems
-                        .Where(x => x.ApplicationUserId == userId)
-                        .OrderByDescending(x => x.Item.PublishDate)
-                        .ToList();
+            var userItems = _rssDatabase.UsersItems
+                .Include(x => x.Item)
+                .Include(x => x.UserChannel.Channel)
+                .Where(userItem => userItem.ApplicationUserId == userId).ToList();
 
-            return items;
+            var allUserItemsViewModel = new List<ShowAllUserItemsViewModel>();
+
+            foreach (UserItem userItem in userItems)
+            {
+                var userItemViewModel = Mapper.Map<UserItem, ShowAllUserItemsViewModel>(userItem);
+                Mapper.Map<Item, ShowAllUserItemsViewModel>(userItem.Item, userItemViewModel);
+                Mapper.Map<Channel, ShowAllUserItemsViewModel>(userItem.UserChannel.Channel, userItemViewModel);
+                userItemViewModel.ItemAge = CalculateItemAge(userItemViewModel.PublishDate);
+                
+                allUserItemsViewModel.Add(userItemViewModel);
+            }
+
+            var allUserItemViewModelSorted = allUserItemsViewModel.OrderBy(x => x.ItemAge).ToList();
+
+            return allUserItemViewModelSorted;
         }
 
         public List<UserItem> GetAllUnreadUserItems(string userId)
@@ -140,6 +158,11 @@ namespace Services.RssReader.Implementation
                 .FirstOrDefault(userItem => userItem.Id == userItemId);
         }
 
+        public TimeSpan CalculateItemAge(DateTime publishTime)
+        {
+            var result = DateTime.Now - publishTime;
+            return result;
+        }
 
         private void IncreaseItemRating(long userItemId)
         {

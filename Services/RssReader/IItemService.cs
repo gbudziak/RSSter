@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Models.RSS;
+using Models.ViewModels;
 
 namespace Services.RssReader
 {
@@ -7,7 +9,7 @@ namespace Services.RssReader
     {
         List<UserItem> GetUserChannelItems(long channelId, string userId);
 
-        List<UserItem> GetAllUserItems(string userId);
+        List<ShowAllUserItemsViewModel> GetAllUserItems(string userId);
 
         List<UserItem> GetAllUnreadUserItems(string userId);
 
@@ -22,5 +24,7 @@ namespace Services.RssReader
         void MarkAllChannelItemsAsRead(string userId, long channelId);
         
         UserItem FetchUserItem(long userItemId);
+
+        TimeSpan CalculateItemAge(DateTime publishTime);
     }
 }

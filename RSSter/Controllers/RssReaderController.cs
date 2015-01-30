@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Models.ViewModels;
 using Services.RssReader;
 
 namespace RSSter.Controllers
@@ -74,16 +75,16 @@ namespace RSSter.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            var channels = _channelService.GetUserChannels(userId);
-            return PartialView("ShowUserChannels", channels);
+            var userChannelsViewModel = _channelService.GetUserChannels(userId);
+            return PartialView("ShowUserChannels", userChannelsViewModel);
         }
 
         public ActionResult ShowAllUserItems()
         {
             var userId = User.Identity.GetUserId();
 
-            var items = _itemService.GetAllUserItems(userId);
-            return View("ShowAllUserItems", items);
+            var allUserItems = _itemService.GetAllUserItems(userId);
+            return View("ShowAllUserItems", allUserItems);
         }
 
         public ActionResult ShowAllUnreadUserItems()
@@ -91,7 +92,7 @@ namespace RSSter.Controllers
             var userId = User.Identity.GetUserId();
 
             var items = _itemService.GetAllUnreadUserItems(userId);
-            return View("ShowAllUserItems", items);
+            return View("ShowAllUserItems", null);
         }
 
         public ActionResult MarkAllItemsAsRead()
@@ -119,9 +120,9 @@ namespace RSSter.Controllers
         {
             var userId = User.Identity.GetUserId();
             var channels = _channelService.GetUserChannels(userId);
-            foreach (var channel in channels)
+            foreach (var completeChannelInfo in channels)
             {
-                RefreshChannelItems(channel.Id,channel.ChannelId,channel.Channel.Url);
+                RefreshChannelItems(completeChannelInfo.UserChannelId, completeChannelInfo.ChannelId, completeChannelInfo.Url);
             }
 
             return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);

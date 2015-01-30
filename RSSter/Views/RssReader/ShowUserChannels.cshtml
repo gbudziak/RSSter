@@ -1,16 +1,16 @@
-﻿@model List<Models.RSS.UserChannel>
+﻿@using Models.ViewModels
+@model List<ShowUserChannelsViewModel>
 
 @{
-    ViewBag.Title = "SHowUserChannels";
+    ViewBag.Title = "ShowUserChannels";
     Layout = null;
-
     var allItems = 0;
-    var notReaded = 0;
-    foreach (var x in Model)
+    var unreadItems = 0;
+    foreach (ShowUserChannelsViewModel channelInfo in Model)
     {
-        allItems += x.UserItems.Count(item => item.ApplicationUserId == x.ApplicationUserId);
-        notReaded += x.UserItems.Count(foo => foo.ApplicationUserId == x.ApplicationUserId && foo.Read == false);
-    }
+        allItems += channelInfo.AllItemsCount;
+        unreadItems += channelInfo.UnreadItemsCount;
+    } 
 }
 
 
@@ -19,51 +19,50 @@
     <div class="item">
         <div class="content">
             <div class="header">
-                @Html.ActionLink("Add new RSS", "AddRssChannel", "RssReader")
+                <i class="wizard icon"></i> @Html.ActionLink("Add new RSS", "AddRssChannel", "RssReader")
             </div>
         </div>
     </div>
     <div class="item">
         <div class="content">
             <div class="header">
-                @Html.ActionLink("refresh all channels", "RefreshAllUserChannels", "RssReader")
+                <i class="refresh icon"></i> @Html.ActionLink("Refresh all channels", "RefreshAllUserChannels", "RssReader")
             </div>
         </div>
     </div>
     <div class="item">
         <div class="content">
             <div class="header">
-                @Html.ActionLink("All news", "ShowAllUserItems", "RssReader")
-
+                @Html.ActionLink("Show All", "ShowAllUserItems", "RssReader")
                 <div class=" ui red circular label">
-            @allItems
-            </div>
-            </div>
-        </div>
-    </div>
-    <div class="item">
-        <div class="content">
-            <div class="header">
-                @Html.ActionLink("All unread news", "ShowAllUnreadUserItems", "RssReader")
-                <div class=" ui red circular label">
-                    @notReaded
+                    @allItems
                 </div>
             </div>
         </div>
+    </div>
+    <div class="item">
+        <div class="content">
+            <div class="header">
+                @Html.ActionLink("Show All Unread", "ShowAllUnreadUserItems", "RssReader")
+                <div class=" ui red circular label">
+                    @unreadItems
+                </div>
+            </div>
         </div>
-    @foreach (var item in Model)
+    </div>
+    @foreach (var userChannel in Model)
     {
         <div class="link item">
-            <img class="ui avatar image" src="@item.Channel.ImageUrl" />
+            <img class="ui avatar image" src="@userChannel.ImageUrl" />
             <div class="content">
                 <div class="header">
-                    @Html.ActionLink(@item.Channel.Title, "ShowUserItems", "RssReader",
-                                    new { userChannelId = @item.Id, channelId = @item.ChannelId, url = @item.Channel.Url },
+                    @Html.ActionLink(userChannel.Title, "ShowUserItems", "RssReader",
+                             new { userChannelId = userChannel.UserChannelId },
                                     new { })
                 </div>
             </div>
             <div class=" ui green circular label">
-                @item.UserItems.Where(x => x.UserChannelId == item.Id && x.ApplicationUserId == item.ApplicationUserId).Count(x => x.Read == false)
+                @userChannel.UnreadItemsCount
             </div>
         </div>
     }

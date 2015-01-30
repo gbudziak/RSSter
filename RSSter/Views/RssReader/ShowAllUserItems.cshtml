@@ -1,5 +1,5 @@
 ﻿
-@model List<Models.RSS.UserItem>
+@model List<Models.ViewModels.ShowAllUserItemsViewModel>
 
 @{
     ViewBag.Title = "RssReader";
@@ -12,7 +12,7 @@
         We are experiencing some trouble processing your request
     </div>
     <p>
-        Please try again in few minites
+        Please try again.
     </p>
 </div>
 
@@ -22,6 +22,7 @@
     <thead>
         <tr>
             <th></th>
+            <th>Channel</th>
             <th>
                 Title
             </th>
@@ -32,14 +33,14 @@
                 Link
             </th>
             <th>
-                Publish Date
+                Publication
             </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var userItem in Model)
+        @foreach (var userItemViewModel in Model)
         {
-            @Html.Partial("_UserItem", userItem)
+            @Html.Partial("_AllUserItemsView", userItemViewModel)
         }
     </tbody>
 </table>

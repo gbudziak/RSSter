@@ -32,17 +32,33 @@ namespace RSSter
                 .ForMember(dest => dest.RatingPlus, opts => opts.MapFrom(uitem => uitem.RatingPlus))
                 .ForMember(dest => dest.RatingMinus, opts => opts.MapFrom(uitem => uitem.RatingMinus));
 
-            Mapper.CreateMap<Channel, CompleteChannelInfo>()
+            Mapper.CreateMap<Channel, ShowUserChannelsViewModel>()
                 .ForMember(dest => dest.ChannelId, opts => opts.MapFrom(channel => channel.Id))
                 .ForMember(dest => dest.Url, opts => opts.MapFrom(channel => channel.Url))
-                .ForMember(dest => dest.Description, opts => opts.MapFrom(channel => channel.Description))
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(channel => channel.ImageUrl))
-                .ForMember(dest => dest.Title, opt => opt.MapFrom(channel => channel.Title))
-                .ForMember(dest => dest.Readers, opt => opt.MapFrom(channel => channel.Readers));
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(channel => channel.Title));
 
-            Mapper.CreateMap<UserChannel, CompleteChannelInfo>()
-                .ForMember(dest => dest.UserChannelId, opt => opt.MapFrom(uchannel => uchannel.Id))
-                .ForMember(dest => dest.IsHidden, opt => opt.MapFrom(uchannel => uchannel.IsHidden));
+            Mapper.CreateMap<UserChannel, ShowUserChannelsViewModel>()
+                .ForMember(dest => dest.UserChannelId, opt => opt.MapFrom(uchannel => uchannel.Id));
+
+            Mapper.CreateMap<Item, ShowAllUserItemsViewModel>()
+              .ForMember(dest => dest.ItemId, opts => opts.MapFrom(item => item.Id))
+              .ForMember(dest => dest.Url, opts => opts.MapFrom(item => item.Url))
+              .ForMember(dest => dest.Description, opts => opts.MapFrom(item => item.Description))
+              .ForMember(dest => dest.Title, opts => opts.MapFrom(item => item.Title))
+              .ForMember(dest => dest.PublishDate, opts => opts.MapFrom(item => item.PublishDate))
+              .ForMember(dest => dest.RatingPlusCount, opts => opts.MapFrom(item => item.RatingPlus))
+              .ForMember(dest => dest.RatingMinusCount, opts => opts.MapFrom(item => item.RatingMinus));
+
+            Mapper.CreateMap<UserItem, ShowAllUserItemsViewModel>()
+                .ForMember(dest => dest.UserItemId, opts => opts.MapFrom(uitem => uitem.Id))
+                .ForMember(dest => dest.Read, opts => opts.MapFrom(uitem => uitem.Read))
+                .ForMember(dest => dest.RatingPlus, opts => opts.MapFrom(uitem => uitem.RatingPlus))
+                .ForMember(dest => dest.RatingMinus, opts => opts.MapFrom(uitem => uitem.RatingMinus));
+
+            Mapper.CreateMap<Channel, ShowAllUserItemsViewModel>()
+                .ForMember(dest => dest.ChannelTitle, opt => opt.MapFrom(channel => channel.Title))
+                .ForMember(dest => dest.Title, opt => opt.Ignore());
         }
     }
 }

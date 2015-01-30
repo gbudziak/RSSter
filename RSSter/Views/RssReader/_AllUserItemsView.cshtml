@@ -1,0 +1,30 @@
+﻿@model Models.ViewModels.ShowAllUserItemsViewModel
+
+<tr id="@Model.UserItemId" data-item-read="@Model.Read">
+
+
+    <td>
+        <p>
+            <div class="ui slider checkbox">
+                <input type="checkbox" data-item-id="@Model.UserItemId">
+                <label>Keep unread</label>
+            </div>
+        </p>
+        <i class="hide icon" data-item-id="@Model.UserItemId"></i>
+        <a class="ui green label">@Model.RatingPlusCount</a>
+        <i class="thumbs outline up icon" data-item-id="@Model.UserItemId" data-item-rate="@Model.RatingPlus"></i>
+        <i class="smile icon" data-item-rate="@Model.RatingMinus"></i>
+        <i class="thumbs outline down icon" data-item-id="@Model.UserItemId" data-item-rate="@Model.RatingMinus"></i>
+        <i class="frown icon" data-item-rate="@Model.RatingPlus"></i>
+        <a class="ui red label">@Model.RatingMinusCount</a>
+    </td>
+    <td>@Model.ChannelTitle</td>
+    <td class="collapsing">
+        <a href="@Model.Url" target="_blank" data-item-id="@Model.UserItemId">@Model.Title</a>
+    </td>
+    <td>@Html.Raw(Model.Description)</td>
+    <td class="right aligned collapsing"><a href="@Model.Url" target="_blank"><i class="external link icon"></i></a></td>
+    <td>@Model.ItemAge</td>
+
+
+</tr>
