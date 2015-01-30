@@ -7,9 +7,9 @@ namespace Services.RssReader
 {
     public interface  ISearchResultsBuilder
     {
-        List<Channel> GetAllChannels();
-        List<Item> GetAllItems();
-        List<Channel> SearchForString(string searchString);
+        IEnumerable<Channel> GetAllChannels();
+        IEnumerable<Item> GetAllItems();
+        IEnumerable<Channel> SearchForString(string searchString);
     }
 
 }

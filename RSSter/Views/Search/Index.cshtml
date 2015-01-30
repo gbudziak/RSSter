@@ -1,4 +1,6 @@
-﻿@model List<Models.RSS.Channel>
+﻿@using Models.RSS;
+
+@model IEnumerable<Channel>
 
 @{
     ViewBag.Title = "title";
@@ -7,7 +9,6 @@
 }
 
 <h2>Search!</h2>
-
 
 <p>
 @using (Html.BeginForm())
@@ -19,8 +20,10 @@
     }
     </p>
 
-
 <br />
+
+@try
+{
 <table class="ui celled striped table">
     <thead>
         <tr>
@@ -52,3 +55,7 @@
         }
     </tbody>
 </table>
+}
+catch (NullReferenceException nullex)
+{
+}
