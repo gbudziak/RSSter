@@ -1,0 +1,42 @@
+﻿@model Models.ViewModels.UserItemsViewModel
+
+<div class="ui two column centered grid">
+
+    <div class="column">
+        <div class="ui card">
+            <div class="content">
+                <div class="header">@Model.Title</div>
+                <div class="meta">
+                    <img src="@Model.ImageUrl" alt="image should be here!" />
+                </div>
+                <div class="description">
+                    <p>@Model.Description</p>
+                    <p>
+                        <a href="@Model.Url" target="_blank">Link</a>
+                    </p>
+                </div>
+            </div>
+            <div class="extra content">
+                <i class="unhide icon"></i>
+                @Model.Readers
+                <i class="unlock icon"></i>@Html.ActionLink("Unsubscibe", "Delete", new { channelId = @Model.ChannelId })
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="ui vertical labeled icon buttons">
+            <div class="ui button">
+                <i class="pause icon"></i>
+                Pause
+            </div>
+            <div class="ui button">
+                <i class="play icon"></i>
+                Play
+            </div>
+            <div class="ui button">
+                <i class="shuffle icon"></i>
+                Shuffle
+            </div>
+        </div>
+    </div>
+</div>

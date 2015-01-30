@@ -59,6 +59,17 @@ namespace RSSter
             Mapper.CreateMap<Channel, ShowAllUserItemsViewModel>()
                 .ForMember(dest => dest.ChannelTitle, opt => opt.MapFrom(channel => channel.Title))
                 .ForMember(dest => dest.Title, opt => opt.Ignore());
+
+            Mapper.CreateMap<Channel, UserItemsViewModel>()
+                .ForMember(dest => dest.Url, opts => opts.MapFrom(channel => channel.Url))
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(channel => channel.ImageUrl))
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(channel => channel.Title))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(channel => channel.Description))
+                .ForMember(dest => dest.Readers, opt => opt.MapFrom(channel => channel.Readers))
+                .ForMember(dest => dest.ChannelId, opt => opt.MapFrom(channel => channel.Id));
+
+            Mapper.CreateMap<UserChannel, UserItemsViewModel>()
+                .ForMember(dest => dest.UserChannelId, opt => opt.MapFrom(userChannel => userChannel.Id));
         }
     }
 }

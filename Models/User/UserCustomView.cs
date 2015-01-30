@@ -16,6 +16,7 @@ namespace Models.User
         public bool Description { get; set; }
         public bool PublishDate { get; set; }
         public bool Rating { get; set; }
+        //item age format / publication date
         //size
         //color
         //font

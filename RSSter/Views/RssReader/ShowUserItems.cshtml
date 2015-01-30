@@ -1,4 +1,5 @@
-﻿@model List<Models.RSS.UserItem>
+﻿@using System.Web.Mvc.Html
+@model Models.ViewModels.UserItemsViewModel
 
 @{
     ViewBag.Title = "RssReader";
@@ -17,8 +18,7 @@
 </div>
 
 
-
-    @Html.Action("ViewChannelInfo", "RssReader", new { userChannelId = @ViewBag.UserChannelId })
+    @Html.Partial("_ChannelCard", Model)
 <br/>
     @Html.ActionLink("Mark all items as read", "MarkAllChannelItemsAsRead", "RssReader", new { userChannelId = @ViewBag.UserChannelId }, null)
 <br />
@@ -29,7 +29,7 @@
 <br/><br/>
         <div class="ui toggle checkbox">
             <input type="checkbox" id="unreadOrAll">
-            <label>show read</label>
+            <label>show all (already read including)</label>
         </div>
 
 
@@ -47,23 +47,23 @@
             Link
         </th>
         <th>
-            Publish Date
         </th>
     </tr>
     </thead>
 
     <tbody>
     <tr></tr>
-    @foreach (var userItem in Model)
+    @foreach (var item in Model.Items)
     {
-        @Html.Partial("_UserItem", userItem)
+        @Html.Partial("_UserItem", item)
     }
     </tbody>
 </table>
 
 @section scripts
 {
-    <script src="~/Scripts/Developer/isRead.js"></script>
+    
+    <script src="~/Scripts/Developer/PostIsReadFunctionality.js"></script>
     <script src="~/Scripts/Developer/ratings.js"></script>
     <script src="~/Scripts/Attachers/showUserItems.js"></script>
 

@@ -44,15 +44,12 @@ namespace RSSter.Controllers
             return View("AddRssChannel");
         }
 
-        public ActionResult ShowUserItems(long userChannelId, long channelId, string url)
+        public ActionResult ShowUserItems(long userChannelId)
         {
             var userId = User.Identity.GetUserId();
+            var userItemList = _itemService.GetUserChannelItems(userChannelId, userId);
 
-            ViewBag.UserChannelId = userChannelId;
-            ViewBag.ChannelId = channelId;
-            ViewBag.Url = url;
-
-            return View(_itemService.GetUserChannelItems(userChannelId,userId));
+            return View("ShowUserItems", userItemList);
         }
 
         public ActionResult ShowUserItemsByUrl(string url)

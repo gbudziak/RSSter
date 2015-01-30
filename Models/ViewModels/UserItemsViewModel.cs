@@ -1,20 +1,20 @@
-﻿using Models.RSS;
+﻿using System.Collections.Generic;
+using Models.RSS;
 using Models.User;
 
 namespace Models.ViewModels
 {
     public class UserItemsViewModel
     {
-        public UserCustomView UserCustomView { get; set; }
-        public UserItem UserItem { get; set; }
+        public List<CompleteItemInfo> Items { get; set; }
 
-        public UserItemsViewModel():this(null,null)
-        { }
+        public long UserChannelId { get; set; }
 
-        public UserItemsViewModel(UserCustomView view, UserItem userItem)
-        {
-            this.UserCustomView = view;
-            this.UserItem = userItem;
-        }
+        public long ChannelId { get; set; }
+        public string Url { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }
+        public string Title { get; set; }
+        public long Readers { get; set; }
     }
 }

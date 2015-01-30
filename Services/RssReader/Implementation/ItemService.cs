@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using AutoMapper;
 using Models.RSS;
 using Models.ViewModels;
@@ -14,24 +13,38 @@ namespace Services.RssReader.Implementation
     {
 
         private readonly IApplicationRssDataContext _rssDatabase;
-        private readonly IChannelGet _iChannelGet;
 
-        public ItemService(IApplicationRssDataContext rssDatabase, IChannelGet iChannelGet)
+        public ItemService(IApplicationRssDataContext rssDatabase)
         {
             _rssDatabase = rssDatabase;
-            _iChannelGet = iChannelGet;
         }
 
-        public List<UserItem> GetUserChannelItems(long userChannelId, string userId)
+        public UserItemsViewModel GetUserChannelItems(long userChannelId, string userId)
         {
-            
-            var items = _rssDatabase.UsersItems
-                        .Where(x => x.UserChannelId == userChannelId)
-                        .Where(x => x.ApplicationUserId == userId)
-                        .OrderByDescending(x=>x.Item.PublishDate)
-                        .ToList();
+            var itemsAndChannel = _rssDatabase.UserChannels
+                .Include(x => x.Channel)
+                .Include(x => x.UserItems)
+                .Include(x => x.Channel.Items)
+                .Where(userChannel => userChannel.ApplicationUserId == userId)
+                .First(userChannel => userChannel.Id == userChannelId);
 
-            return items;
+            var userItemsViewModel = Mapper.Map<Channel, UserItemsViewModel>(itemsAndChannel.Channel);
+            Mapper.Map<UserChannel, UserItemsViewModel>(itemsAndChannel, userItemsViewModel);
+
+            var itemList = new List<CompleteItemInfo>();
+
+            foreach (var userItem in itemsAndChannel.UserItems)
+            {
+                var completeItemView = Mapper.Map<UserItem, CompleteItemInfo>(userItem);
+                Mapper.Map<Item, CompleteItemInfo>(userItem.Item, completeItemView);
+
+                completeItemView.ItemAge = CalculateItemAge(completeItemView.PublishDate);
+                itemList.Add(completeItemView);
+            }
+
+            userItemsViewModel.Items = itemList.OrderBy(item => item.ItemAge).ToList();
+
+            return userItemsViewModel;
         }
 
         public List<ShowAllUserItemsViewModel> GetAllUserItems(string userId)
