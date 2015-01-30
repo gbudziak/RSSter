@@ -97,9 +97,9 @@
     <Compile Include="User\UserCustomView.cs" />
     <Compile Include="ViewModels\ShowAllUserItemsViewModel.cs" />
     <Compile Include="ViewModels\ShowUserChannelsViewModel.cs" />
-    <Compile Include="ViewModels\CompleteItemInfo.cs" />
     <Compile Include="ViewModels\DefaultViews.cs" />
     <Compile Include="ViewModels\UserItemsViewModel.cs" />
+    <Compile Include="ViewModels\SearchChannel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
