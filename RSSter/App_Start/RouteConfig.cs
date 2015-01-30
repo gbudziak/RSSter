@@ -20,6 +20,8 @@ namespace RSSter
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Account", action = "LoginIndex", id = UrlParameter.Optional }
             );
+
+
         }
     }
 }

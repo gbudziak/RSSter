@@ -10,7 +10,7 @@
     {
         allItems += channelInfo.AllItemsCount;
         unreadItems += channelInfo.UnreadItemsCount;
-    } 
+    }
 }
 
 
@@ -26,7 +26,14 @@
     <div class="item">
         <div class="content">
             <div class="header">
-                <i class="refresh icon"></i> @Html.ActionLink("Refresh all channels", "RefreshAllUserChannels", "RssReader")
+                @Html.ActionLink("Search", "Index", "Search")
+            </div>
+        </div>
+    </div>
+    <div class="item">
+        <div class="content">
+            <div class="header">
+                <i class="refresh icon"></i>@Html.ActionLink("refresh all channels", "RefreshAllUserChannels", "RssReader")
             </div>
         </div>
     </div>
@@ -35,8 +42,8 @@
             <div class="header">
                 @Html.ActionLink("Show All", "ShowAllUserItems", "RssReader")
                 <div class=" ui red circular label">
-                    @allItems
-                </div>
+            @allItems
+            </div>
             </div>
         </div>
     </div>
@@ -49,7 +56,7 @@
                 </div>
             </div>
         </div>
-    </div>
+        </div>
     @foreach (var userChannel in Model)
     {
         <div class="link item">

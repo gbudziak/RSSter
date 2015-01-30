@@ -98,9 +98,11 @@
     <Compile Include="RssReader\IChannelGet.cs" />
     <Compile Include="RssReader\IItemService.cs" />
     <Compile Include="RssReader\Implementation\ItemService.cs" />
+    <Compile Include="RssReader\Implementation\SearchResultsBuilder.cs" />
     <Compile Include="RssReader\Implementation\SyndicationFeedProvider.cs" />
     <Compile Include="RssReader\IChannelProvider.cs" />
     <Compile Include="RssReader\Implementation\ViewService.cs" />
+    <Compile Include="RssReader\ISearchResultsBuilder.cs" />
     <Compile Include="RssReader\ISyndicationFeedProvider.cs" />
     <Compile Include="RssReader\Implementation\ValidateService.cs" />
     <Compile Include="RssReader\IValidateService.cs" />

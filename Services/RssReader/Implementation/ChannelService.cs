@@ -119,23 +119,24 @@ namespace Services.RssReader.Implementation
         public void IncreaseReadersCount(long channelId)
         {
             _rssDatabase.Channels.FirstOrDefault(channel => channel.Id == channelId).Readers++;
+            _rssDatabase.SaveChanges();
         }
 
         public void DecreaseReadersCount(long channelId)
         {
             _rssDatabase.Channels.FirstOrDefault(channel => channel.Id == channelId).Readers--;
+            _rssDatabase.SaveChanges();
         }
 
         private DateTime GetDateTimeFromLastChannelItem(long channelId)
         {
             var lastItemDateTime = _rssDatabase.AllItems
                 .Where(x => x.ChannelId == channelId)
-                .OrderByDescending(x => x.PublishDate)
-                .ToList();
+                .Max(x => x.PublishDate);
 
-            if (lastItemDateTime.Any())
+            if (lastItemDateTime != null)
             {
-                return lastItemDateTime[0].PublishDate;;
+                return lastItemDateTime;
             }
 
             return new DateTime(0);
@@ -157,11 +158,11 @@ namespace Services.RssReader.Implementation
 
             var lastItemDateTime = _rssDatabase.UsersItems
                 .Where(x => x.UserChannelId == userChannelId)
-                .OrderByDescending(x => x.Item.PublishDate)
-                .ToList();
-            if (lastItemDateTime.Any())
+                .Max(x => x.Item.PublishDate);
+          
+            if (lastItemDateTime != null)
             {
-                return lastItemDateTime[0].Item.PublishDate;
+                return lastItemDateTime;
             }
 
             return DateTime.Now;

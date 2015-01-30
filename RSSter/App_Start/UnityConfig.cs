@@ -47,6 +47,7 @@ namespace RSSter
             container.RegisterType<IChannelProvider, ChannelProvider>();
             container.RegisterType<ISyndicationFeedProvider, SyndicationFeedProvider>();
             container.RegisterType<IViewService, ViewService>();
+            container.RegisterType<ISearchResultsBuilder, SearchResultsBuilder>();
 
 
 
