@@ -20,10 +20,8 @@
 
     @Html.Partial("_ChannelCard", Model)
 <br/>
-    @Html.ActionLink("Mark all items as read", "MarkAllChannelItemsAsRead", "RssReader", new { userChannelId = @ViewBag.UserChannelId }, null)
-<br />
-
-@Html.ActionLink("refresh news", "RefreshChannelItems", "RssReader", new { userChannelId = @ViewBag.UserChannelId, channelId = @ViewBag.ChannelId, channelUrl = @ViewBag.Url}, null)
+@Html.ActionLink("Mark all items as read", "MarkAllChannelItemsAsRead", "RssReader", new { userChannelId = @ViewBag.UserChannelId }, new { @class = "ui button" })
+@Html.ActionLink("refresh news", "RefreshChannelItems", "RssReader", new { userChannelId = @Model.UserChannelId, channelId = @Model.ChannelId, channelUrl = @Model.Url}, new{ @class="ui button" })
 
 
 <br/><br/>
