@@ -23,13 +23,13 @@ namespace RSSter.Controllers
             return View("Index");
         }
 
-        //[HttpGet]
-        //public ActionResult AddRssChannel()
-        //{
-        //    return View("AddRssChannel");
-        //}
+        [HttpGet]
+        public ActionResult AddRssChannel()
+        {
+            return View("AddRssChannel");
+        }
 
-       // [HttpPost]
+        //[HttpPost]
         public ActionResult AddRssChannel(string url)
         {
             if (ModelState.IsValid)
