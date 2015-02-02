@@ -10,28 +10,25 @@ namespace RSSter.Controllers
     [Authorize]
     public class AjaxController : Controller
     {
-        private readonly IChannelService _channelService;
         private readonly IItemService _itemService;
 
-        public AjaxController(IChannelService channelService, 
-            IItemService itemService)
+        public AjaxController(IItemService itemService)
         {
-            _channelService = channelService;
             _itemService = itemService;
         }
 
         [HttpPost]
         public JsonResult RatingUp(long userItemId)
         {
-            _itemService.IncreaseUserRating(userItemId);
-            return Json(null);
+            var response = _itemService.IncreaseUserRating(userItemId);
+            return Json(response);
         }
 
         [HttpPost]
         public JsonResult RatingDown(long userItemId)
         {
-            _itemService.DecreaseUserRating(userItemId);
-            return Json(null);
+            var response = _itemService.DecreaseUserRating(userItemId);
+            return Json(response);
         }
 
         [HttpPost]

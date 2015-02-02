@@ -6,7 +6,7 @@ function RateUp(e) {
     $.ajax({
         url: "/Ajax/RatingUp/?userItemId=" + userItemId,
         method:"POST",
-        success: RateUpSuccess(icon),
+        success: function(response) { RateUpSuccess(icon, response) },
         error: errorToggle
     });
 };
@@ -18,7 +18,7 @@ function RateDown(e) {
     $.ajax({
         url: "/Ajax/RatingDown/?userItemId=" + userItemId,
         method: "POST",
-        success: RateDownSuccess(icon),
+        success: function(response) { RateDownSuccess(icon, response) },
         error: errorToggle
     });
 };
@@ -27,7 +27,7 @@ function errorToggle() {
     $("#ratingError").show();
 }
 
-function RateUpSuccess(icon) {
+function RateUpSuccess(icon, response) {
     var up = icon.parent().find(".up");
     up.hide();
     var smile = icon.parent().find(".smile");
@@ -39,12 +39,14 @@ function RateUpSuccess(icon) {
     var greenLabel = icon.parent().find(".green");
     var greenLabelValue = Number(greenLabel.html());
     greenLabel.html(greenLabelValue + 1);
-    var redLabel = icon.parent().find(".red");
-    var redLabelValue = Number(redLabel.html());
-    redLabel.html(redLabelValue - 1);
+    if (response) {
+        var redLabel = icon.parent().find(".red");
+        var redLabelValue = Number(redLabel.html());
+        redLabel.html(redLabelValue - 1);
+    }
 }
 
-function RateDownSuccess(icon) {
+function RateDownSuccess(icon, response) {
     var up = icon.parent().find(".up");
     up.show();
     var smile = icon.parent().find(".smile");
@@ -53,9 +55,11 @@ function RateDownSuccess(icon) {
     frown.show();
     var down = icon.parent().find(".down");
     down.hide();
-    var greenLabel = icon.parent().find(".green");
-    var greenLabelValue = Number(greenLabel.html());
-    greenLabel.html(greenLabelValue - 1);
+    if (response) {
+        var greenLabel = icon.parent().find(".green");
+        var greenLabelValue = Number(greenLabel.html());
+        greenLabel.html(greenLabelValue - 1);
+    }
     var redLabel = icon.parent().find(".red");
     var redLabelValue = Number(redLabel.html());    
     redLabel.html(redLabelValue + 1);

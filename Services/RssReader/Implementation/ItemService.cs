@@ -79,13 +79,14 @@ namespace Services.RssReader.Implementation
             return allUnreadUserItemsViewModel;
         }
         
-        public void IncreaseUserRating(long userItemId)
+        public bool IncreaseUserRating(long userItemId)
         {
+            var response = false;
             using (var transaction = _rssDatabase.OpenTransaction())
             {
                 try
                 {
-                    IncreaseItemRating(userItemId);
+                    response = IncreaseItemRating(userItemId);
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -93,15 +94,18 @@ namespace Services.RssReader.Implementation
                     transaction.Rollback();
                 }
             }
+            return response;
+
         }
         
-        public void DecreaseUserRating(long userItemId)
+        public bool DecreaseUserRating(long userItemId)
         {
+            var response = false;
             using (var transaction = _rssDatabase.OpenTransaction())
             {
                 try
                 {
-                    DecreaseItemRating(userItemId);
+                    response = DecreaseItemRating(userItemId);
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -109,6 +113,7 @@ namespace Services.RssReader.Implementation
                     transaction.Rollback();
                 }
             }
+            return response;
         }
 
         public void MarkAsRead(long userItemId)
@@ -174,14 +179,16 @@ namespace Services.RssReader.Implementation
             return result;
         }
 
-        private void IncreaseItemRating(long userItemId)
+        private bool IncreaseItemRating(long userItemId)
         {
+            var response = false;
             var userItem =
                 _rssDatabase.UsersItems
                     .FirstOrDefault(querry => querry.Id == userItemId);
             var item =
                 _rssDatabase.AllItems
                     .FirstOrDefault(querry => querry.Id == userItem.ItemId);
+            response = CheckIfThisIsUserFirstSelection(userItem, response);
             if (userItem.RatingMinus)
             {
                 userItem.RatingMinus = false;
@@ -191,14 +198,18 @@ namespace Services.RssReader.Implementation
             item.RatingPlus++;
 
             _rssDatabase.SaveChanges();
+            return response;
         }
 
-        private void DecreaseItemRating(long userItemId)
+        private bool DecreaseItemRating(long userItemId)
         {
+            var response = false;
+
             var userItem =
                 _rssDatabase.UsersItems.FirstOrDefault(querry => querry.Id == userItemId);
             var item =
                 _rssDatabase.AllItems.FirstOrDefault(querry => querry.Id == userItem.ItemId);
+            response = CheckIfThisIsUserFirstSelection(userItem, response);
             if (userItem.RatingPlus)
             {
                 userItem.RatingPlus = false;
@@ -208,8 +219,16 @@ namespace Services.RssReader.Implementation
             item.RatingMinus++;
 
             _rssDatabase.SaveChanges();
+            return response;
         }
 
-
+        private bool CheckIfThisIsUserFirstSelection(UserItem userItem, bool response)
+        {
+            if (userItem.RatingPlus == true ^ userItem.RatingMinus == true)
+            {
+                response = true;
+            }
+            return response;
+        }
     }
 }
