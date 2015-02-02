@@ -19,6 +19,15 @@ namespace Services.RssReader.Implementation
             _rssDatabase = rssDatabase;
         }
 
+        public Channel GetChannelWithItems(long channelId)
+        {
+            var channel = _rssDatabase.Channels
+                .Include(x => x.Items)
+                .First(x => x.Id == channelId);
+ 
+            return channel;
+        }
+
         public UserItemsViewModel GetUserChannelItems(long userChannelId, string userId)
         {
             var itemsAndChannel = _rssDatabase.UserChannels

@@ -7,6 +7,8 @@ namespace Services.RssReader
 {
     public interface IItemService
     {
+        Channel GetChannelWithItems(long channelId);
+
         UserItemsViewModel GetUserChannelItems(long channelId, string userId);
 
         List<ShowAllUserItemsViewModel> GetAllUserItems(string userId);
