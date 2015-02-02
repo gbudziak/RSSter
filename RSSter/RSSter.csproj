@@ -347,6 +347,7 @@
     <Content Include="Views\RssReader\ShowAllUnreadUserItems.cshtml" />
     <Content Include="Views\RssReader\_ChannelCard.cshtml" />
     <Content Include="Views\RssReader\ShowChannelItems.cshtml" />
+    <Content Include="Views\RssReader\_UserItem2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

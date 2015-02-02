@@ -20,7 +20,7 @@ namespace RSSter
                Include("~/Content/checkbox.min.css",
                        "~/Content/dimmer.min.css",
                        "~/Content/icon.min.css",
-                       "~/Content/card.mion.css",
+                       "~/Content/card.min.css",
                        "~/Content/grid.min.css",
                        "~/Content/semantic.css",
                        "~/Content/semantic.site.css"));
