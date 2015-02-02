@@ -23,6 +23,19 @@
     <td>@Html.Raw(Model.Description)</td>
     <td class="right aligned collapsing"><a href="@Model.Url" target="_blank">More</a></td>
     <td>
+        @{
+            switch (Model.ItemAge.Days)
+            {
+                case 0:
+                    break;
+                case 1:
+                    <p>1 day</p>
+                    break;
+                default:
+                <p>@Model.ItemAge.Days days</p>
+                    break;
+            }
+        }
         <p>@Model.ItemAge.Hours h @Model.ItemAge.Minutes min</p>
         <p>@Model.PublishDate.Hour : @Model.PublishDate.Minute</p>
     </td>

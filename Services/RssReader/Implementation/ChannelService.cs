@@ -118,13 +118,15 @@ namespace Services.RssReader.Implementation
 
         public void IncreaseReadersCount(long channelId)
         {
-            _rssDatabase.Channels.FirstOrDefault(channel => channel.Id == channelId).Readers++;
+            var channel = _rssDatabase.Channels.First(chan => chan.Id == channelId);
+            channel.Readers++;
             _rssDatabase.SaveChanges();
         }
 
         public void DecreaseReadersCount(long channelId)
         {
-            _rssDatabase.Channels.FirstOrDefault(channel => channel.Id == channelId).Readers--;
+            var channel = _rssDatabase.Channels.FirstOrDefault(chan => chan.Id == channelId);
+            channel.Readers--;
             _rssDatabase.SaveChanges();
         }
 
