@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using AutoMapper;
 using Models.RSS;
 using Models.ViewModels;
 using RssDataContext;
@@ -32,7 +33,7 @@ namespace Services.RssReader.Implementation
             return model;
         }
 
-        public IEnumerable<Channel> SearchForString(string searchString)
+        public IEnumerable<SearchChannel> SearchForString(string searchString)
         {
             var resultModels = new List<SearchChannel>();
 
@@ -41,12 +42,21 @@ namespace Services.RssReader.Implementation
 
             var model = GetAllChannels();
 
+
             var containsFullTextInUrlOrTitleOrDescription = model.Where(x => x.Url.ToLower().Contains(searchString) ||
                                                             x.Title.ToLower().Contains(searchString) ||
                                                             x.Description.ToLower().Contains(searchString))
-                                                            .OrderBy(x => x.Readers);
+                                                            .OrderBy(x => x.Readers).ToList();
 
-            var zzz = containsFullTextInUrlOrTitleOrDescription.OrderBy(x=>x.Readers).ToList();
+            foreach (var channel in containsFullTextInUrlOrTitleOrDescription)
+            {
+                var foundChannel = Mapper.Map<Channel,SearchChannel>(channel);
+                foundChannel.Rating = 1000;
+                resultModels.Add(foundChannel);
+            }
+            var check = resultModels.ToList();
+
+
 
             var containsAllWordsInUrlTitleOrDescription = from channel in model
                                                             let url = SplitText(RemoveDiacritics(channel.Url))
@@ -57,8 +67,18 @@ namespace Services.RssReader.Implementation
                                                                 || title.Distinct().Intersect(wordsToMatch).Count() == wordsToMatch.Count())
                                                             select channel;
 
-            var xxx = containsAllWordsInUrlTitleOrDescription.OrderBy(x => x.Readers).ToList();
-            var merged = zzz.Union(xxx, new ChannelComparer());
+
+            var toMerge = new List<SearchChannel>();
+            foreach (var channel in containsAllWordsInUrlTitleOrDescription)
+            {
+                var foundChannel = Mapper.Map<Channel, SearchChannel>(channel);
+                foundChannel.Rating = 100;
+
+                toMerge.Add(foundChannel);
+            }
+
+
+            var check2 = toMerge.ToList();
 
             if (wordsToMatch.Count() >= 2)
             {
@@ -72,40 +92,75 @@ namespace Services.RssReader.Implementation
                                                                  select channel;
 
                 var ttt = containsHalfWordsInUrlOrTitleOrDescription.OrderBy(x => x.Readers).ToList();
-                merged = merged.Union(ttt, new ChannelComparer());
+
+                foreach (var channel in containsHalfWordsInUrlOrTitleOrDescription)
+                {
+                    var foundChannel = Mapper.Map<Channel, SearchChannel>(channel);
+                    foundChannel.Rating = 10;
+
+                    toMerge.Add(foundChannel);
+                }
 
             }
+            var check3 = toMerge.ToList();
 
-            
-            return merged;
+            var result = ListComparer(resultModels, toMerge);
+            return result.OrderByDescending(x=>x.Rating).ThenByDescending(x=>x.Readers);
 
         }
-        public string[] SplitText(string wordsToSplit)
+        private string[] SplitText(string wordsToSplit)
         {
             return wordsToSplit.ToLower().Split(new char[] { '.', '?', '!', ' ', ';', ':', ',' },StringSplitOptions.RemoveEmptyEntries);
         }
 
-        static string RemoveDiacritics(string text)
+        private string RemoveDiacritics(string text)
         {
             return string.Concat(
                 text.Normalize(NormalizationForm.FormD)
-                .Where(ch => CharUnicodeInfo.GetUnicodeCategory(ch) !=
-                                              UnicodeCategory.NonSpacingMark)
-              ).Normalize(NormalizationForm.FormC);
+                .Where(ch => CharUnicodeInfo.GetUnicodeCategory(ch) != UnicodeCategory.NonSpacingMark))
+                .Normalize(NormalizationForm.FormC);
         }
 
-        class ChannelComparer : IEqualityComparer<Channel>
+        class ChannelComparer : IEqualityComparer<SearchChannel>
         {
-            public bool Equals(Channel x, Channel y)
+            public bool Equals(SearchChannel x, SearchChannel y)
             {
-                return x.Id == y.Id;
+                if (x.Id == y.Id)
+                {
+                    x.Rating += y.Rating;
+                    return true;
+                }
+                return false;
             }
 
-            public int GetHashCode(Channel obj)
+            public int GetHashCode(SearchChannel obj)
             {
-                return 1;
+                return 0;
             }
+
         }
+
+        private List<SearchChannel> ListComparer(List<SearchChannel> list1, List<SearchChannel> list2)
+        {
+            var dict = list1.ToDictionary(x => x.Id);
+            foreach (var channel in list2)
+            {
+                try
+                {
+                    channel.Rating += dict[channel.Id].Rating;
+                }
+                 catch
+                {
+
+                }
+                
+
+                dict[channel.Id] = channel;
+            }
+            var merged = dict.Values.ToList();
+            return merged;
+        }
+
     }
                   
 }

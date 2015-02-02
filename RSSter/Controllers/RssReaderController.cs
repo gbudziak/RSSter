@@ -23,13 +23,13 @@ namespace RSSter.Controllers
             return View("Index");
         }
 
-        [HttpGet]
-        public ActionResult AddRssChannel()
-        {
-            return View("AddRssChannel");
-        }
+        //[HttpGet]
+        //public ActionResult AddRssChannel()
+        //{
+        //    return View("AddRssChannel");
+        //}
 
-        [HttpPost]
+       // [HttpPost]
         public ActionResult AddRssChannel(string url)
         {
             if (ModelState.IsValid)
@@ -41,7 +41,15 @@ namespace RSSter.Controllers
                 //return RedirectToAction("ShowUserItems","RssReader", new { userChannelId = userChannelId, url}); 
                 return RedirectToAction("Index","RssReader");
             }
-            return View("AddRssChannel");
+            return View("Index","Search");
+        }
+
+        public ActionResult ShowChannelItems(long channelId)
+        {
+            //var userId = User.Identity.GetUserId();
+            var channelWithItems = _itemService.GetChannelWithItems(channelId);
+
+            return View("ShowChannelItems", channelWithItems);
         }
 
         public ActionResult ShowUserItems(long userChannelId)

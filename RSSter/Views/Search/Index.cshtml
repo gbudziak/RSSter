@@ -1,9 +1,9 @@
-﻿@using Models.RSS;
+﻿@using Models.ViewModels;
 
-@model IEnumerable<Channel>
+@model IEnumerable<SearchChannel>
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "AddRssChannel";
     Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
 
 }
@@ -11,8 +11,8 @@
 <h2>Search!</h2>
 
 <p>
-@using (Html.BeginForm())
-{
+    @using (Html.BeginForm())
+    {
     <p>
         Title: @Html.TextBox("searchString") <br />
         <input type="submit" value="Search" />
@@ -20,42 +20,63 @@
     }
     </p>
 
+
 <br />
 
 @try
 {
-<table class="ui celled striped table">
-    <thead>
-        <tr>
-            <th>
-                Title
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Readers
-            </th>
-            <th>
-                Action
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var x in Model)
-        {
-            <tr>
-                <td>
-                    @x.Title
-                </td>
-                <td>@Html.Raw(x.Description)</td>
-                <td>@x.Readers</td>
-                <td >ADD CHANNEL</td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+        <table class="ui celled striped table">
+            <thead>
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Readers
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                    <th>
+                        rating
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in Model)
+                {
+                    <tr>
+                        <td>
+                            @x.Title
+                        </td>
+                        <td>@Html.Raw(x.Description)</td>
+                        <td>@x.Readers</td>
+                        <td>
+                           @Html.ActionLink("Add channel", "AddRssChannel", "RssReader",
+                             new { url = x.Url },
+                                    new { })
+                            @Html.ActionLink("Show news", "ShowChannelItems", "RssReader",
+                             new { channelId = x.Id },
+                                    new { })
+                        </td>
+                        <td>@x.Rating</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
 }
 catch (NullReferenceException nullex)
 {
+}
+
+
+@section scripts
+{
+    <script src="~/Scripts/Attachers/AddRssChannel.js"></script>
+    <script src="~/Scripts/Developer/AddChannel.js"></script>
 }
