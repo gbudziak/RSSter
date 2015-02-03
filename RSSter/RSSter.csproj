@@ -335,7 +335,6 @@
     <Content Include="Views\Home\Index-cat-example.cshtml" />
     <Content Include="Views\Account\LoginIndex-test.cshtml" />
     <Content Include="Views\Shared\_Layout_RSSreader.cshtml" />
-    <Content Include="Views\RssReader\ViewChannelInfo.cshtml" />
     <Content Include="Views\Account\LoginIndex.cshtml" />
     <Content Include="Views\RssReader\ShowAllUserItems.cshtml" />
     <Content Include="Views\ItemView\ViewItem.cshtml" />

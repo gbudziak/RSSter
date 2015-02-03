@@ -7,8 +7,6 @@ namespace Services.RssReader
 {
     public interface IChannelService
     {
-        Channel GetChannel(string userId, long userChannelId);
-
         long AddChannel(string userId, string url);
 
         void RemoveChannel(string userId, long channelId);

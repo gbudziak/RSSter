@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Models.RSS;
 using Models.User;
 
@@ -16,5 +17,9 @@ namespace Models.ViewModels
         public string ImageUrl { get; set; }
         public string Title { get; set; }
         public long Readers { get; set; }
+        public long TotalPosts { get; set; }
+        public double PostsPerDay { get; set; }
+        public TimeSpan LastPost { get; set; }
+
     }
 }

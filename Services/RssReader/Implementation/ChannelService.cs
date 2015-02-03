@@ -22,15 +22,6 @@ namespace Services.RssReader.Implementation
             _channelGet = channelGet;
         }
 
-        public Channel GetChannel(string userId, long userChannelId)
-        {
-            var channel = _rssDatabase.UserChannels
-                .Where(userChannel => userChannel.ApplicationUserId == userId)
-                .FirstOrDefault(userChannel => userChannel.Id == userChannelId)
-                .Channel;
-            return channel;
-        }
-
         public long AddChannel(string userId, string url)
         {
             var result = -1L;

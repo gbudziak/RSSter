@@ -40,6 +40,8 @@ namespace Services.RssReader.Implementation
             var userItemsViewModel = Mapper.Map<Channel, UserItemsViewModel>(itemsAndChannel.Channel);
             Mapper.Map<UserChannel, UserItemsViewModel>(itemsAndChannel, userItemsViewModel);
 
+            
+
             var itemList = new List<CompleteItemInfo>();
 
             foreach (var userItem in itemsAndChannel.UserItems)
@@ -52,6 +54,11 @@ namespace Services.RssReader.Implementation
             }
 
             userItemsViewModel.Items = itemList.OrderBy(item => item.ItemAge).ToList();
+            userItemsViewModel.LastPost = userItemsViewModel.Items[0].ItemAge;
+            userItemsViewModel.TotalPosts = userItemsViewModel.Items.Count;
+            userItemsViewModel.PostsPerDay = Convert.ToDouble( userItemsViewModel.TotalPosts /
+                                                Convert.ToInt64(
+                                                    (userItemsViewModel.Items.First().PublishDate -userItemsViewModel.Items.Last().PublishDate).TotalDays));
 
             return userItemsViewModel;
         }
@@ -174,12 +181,6 @@ namespace Services.RssReader.Implementation
 
             _rssDatabase.SaveChanges();
 
-        }
-
-        public UserItem FetchUserItem(long userItemId)
-        {
-            return _rssDatabase.UsersItems
-                .FirstOrDefault(userItem => userItem.Id == userItemId);
         }
 
         public TimeSpan CalculateItemAge(DateTime publishTime)
