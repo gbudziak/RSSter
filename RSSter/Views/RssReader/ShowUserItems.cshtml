@@ -6,63 +6,81 @@
     Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
 
 }
-
-<div id="Error" class="ui negative message" hidden="hidden">
-    <i class="close icon"></i>
-    <div class="header">
-        We are experiencing some trouble processing your request
+<div class="ui grid">
+    <div class="one column row">
+        <div class="column">
+            <div id="Error" class="ui negative message" hidden="hidden">
+                <i class="close icon"></i>
+                <div class="header">
+                    We are experiencing some trouble processing your request
+                </div>
+                <p>
+                    Please try again in few minites
+                </p>
+            </div>
+        </div>
     </div>
-    <p>
-        Please try again in few minites
-    </p>
-</div>
-
 
     @Html.Partial("_ChannelCard", Model)
-<br/>
-@Html.ActionLink("Mark all items as read", "MarkAllChannelItemsAsRead", "RssReader", new { userChannelId = @ViewBag.UserChannelId }, new { @class = "ui button" })
-@Html.ActionLink("refresh news", "RefreshChannelItems", "RssReader", new { userChannelId = @Model.UserChannelId, channelId = @Model.ChannelId, channelUrl = @Model.Url}, new{ @class="ui button" })
 
-
-<br/><br/>
-        <div class="ui toggle checkbox">
-            <input type="checkbox" id="unreadOrAll">
-            <label>show all (already read including)</label>
+    <div class="three column row">
+        <div class="three wide column">
+            <div class="ui toggle checkbox">
+                <input type="checkbox" id="unreadOrAll">
+                <label>show all (already read including)</label>
+            </div>
         </div>
-
-
-<table class="ui celled striped table">
-    <thead>
-    <tr>
-        <th></th>
-        <th>
-            Title
-        </th>
-        <th>
-            Description
-        </th>
-        <th>
-            Link
-        </th>
-        <th>
-        </th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <tr></tr>
+        <div class="three wide column">
+            @Html.ActionLink("Mark all items as read", "MarkAllChannelItemsAsRead", "RssReader", new {userChannelId = @Model.UserChannelId}, new {@class = "ui button"})
+        </div>
+        <div class="three wide column">
+            @Html.ActionLink("refresh news", "RefreshChannelItems", "RssReader", new {userChannelId = @Model.UserChannelId, channelId = @Model.ChannelId, channelUrl = @Model.Url}, new {@class = "ui button"})
+        </div>
+    </div>
+    <div class="four column row">
+        <div class="two wide column">Actions</div>
+        <div class="five wide column">Title</div>
+        <div class="six wide column">Description</div>
+        <div class="three wide column">Time</div>
+    </div>
     @foreach (var item in Model.Items)
     {
-        @Html.Partial("_UserItem", item)
+        @Html.Partial("_UserItem2", item)
     }
-    </tbody>
-</table>
+</div>
 
-@section scripts
+    <table class="ui celled striped table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Link
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr></tr>
+            @foreach (var item in Model.Items)
+            {
+                @Html.Partial("_UserItem", item)
+            }
+        </tbody>
+    </table>
+
+    @section scripts
 {
-    
-    <script src="~/Scripts/Developer/PostIsReadFunctionality.js"></script>
-    <script src="~/Scripts/Developer/ratings.js"></script>
-    <script src="~/Scripts/Attachers/showUserItems.js"></script>
 
-}
+        <script src="~/Scripts/Developer/PostIsReadFunctionality.js"></script>
+        <script src="~/Scripts/Developer/ratings.js"></script>
+        <script src="~/Scripts/Attachers/showUserItems.js"></script>
+
+    }

@@ -1,8 +1,8 @@
 ﻿@model Models.ViewModels.UserItemsViewModel
 
-<div class="ui two column centered grid">
 
-    <div class="column">
+<div class="two column row">
+    <div class="four wide column">
         <div class="ui card">
             <div class="content">
                 <div class="header">@Model.Title</div>
@@ -14,16 +14,18 @@
                     <p>
                         <a href="@Model.Url" target="_blank">Link</a>
                     </p>
+                    <p>@Html.ActionLink("Unsubscibe", "Delete", new { channelId = @Model.UserChannelId })</p>
                 </div>
             </div>
             <div class="extra content">
-                <i class="unhide icon"></i>
-                @Model.Readers
-                <i class="unlock icon"></i>@Html.ActionLink("Unsubscibe", "Delete", new { channelId = @Model.ChannelId })
+                <div><a class="ui teal ribbon label">Readers</a> 0</div>
+                <div><a class="ui teal ribbon label">Posts</a> 10</div>
+                <div><a class="ui teal ribbon label">Frequency</a> 2 posts/day</div>
+                <div><a class="ui teal ribbon label">Last post</a> 1h 20mins ago</div>
             </div>
         </div>
     </div>
-    <div class="column">
+    <div class="two wide column">
         <div class="ui vertical labeled icon buttons">
             <div class="ui button">
                 <i class="pause icon"></i>
