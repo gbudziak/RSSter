@@ -1,6 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Models.ViewModels;
+using RssDataContext;
 using Services.RssReader;
 
 namespace RSSter.Controllers
@@ -11,7 +13,7 @@ namespace RSSter.Controllers
         private readonly IChannelService _channelService;
         private readonly IItemService _itemService;
 
-        public RssReaderController(IChannelService channelService, 
+        public RssReaderController(IChannelService channelService,
             IItemService itemService)
         {
             _channelService = channelService;
@@ -20,21 +22,20 @@ namespace RSSter.Controllers
 
         public ActionResult Index()
         {
-            return View("Index");
+            return RedirectToAction("Index","Search");
         }
 
-        [HttpGet]
-        public ActionResult AddRssChannel()
-        {
-            return View("AddRssChannel");
-        }
+        //[HttpGet]
+        //public ActionResult AddRssChannel()
+        //{
+        //    return View("AddRssChannel");
+        //}
 
         //[HttpPost]
         public ActionResult AddRssChannel(string url)
         {
             if (ModelState.IsValid)
             {
-                
                 var userId = User.Identity.GetUserId();                
                 var userChannelId = _channelService.AddChannel(userId, url);                
                 //TO DO

@@ -6,6 +6,7 @@
     ViewBag.Title = "AddRssChannel";
     Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
 
+
 }
 
 <h2>Search!</h2>
@@ -14,7 +15,7 @@
     @using (Html.BeginForm())
     {
     <p>
-        Title: @Html.TextBox("searchString") <br />
+        Title: @Html.TextBox("id") <br />
         <input type="submit" value="Search" />
     </p>
     }

@@ -39,3 +39,19 @@ $("#AddRssForm").submit(function (event) {
     });
 });
 
+
+$("#keyword").submit(function (event) {
+    event.preventDefault();
+    var id = $("#id").val();
+    $.ajax({
+        url: "/Search/Index/" + id,
+        success: function (result) {
+            if (result) {
+                $("#keyword").unbind("submit").submit();
+            } else {
+                $("#wrongUrl").show();
+            }
+
+        }
+    });
+});

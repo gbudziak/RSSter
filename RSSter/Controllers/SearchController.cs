@@ -19,12 +19,15 @@ namespace RSSter.Controllers
             _searchResultBuilder = searchResultBuilder;
         }
 
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string id)
         {
 
-            if (!String.IsNullOrEmpty(searchString))
+
+            if (!String.IsNullOrEmpty(id))
             {
-                var result = _searchResultBuilder.SearchForString(searchString);
+                _channelService.AddChannel(id);
+
+                var result = _searchResultBuilder.SearchForString(id);
                 return View(result);
             }
             
