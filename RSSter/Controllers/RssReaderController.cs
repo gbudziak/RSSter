@@ -1,8 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using Models.ViewModels;
-using RssDataContext;
+
 using Services.RssReader;
 
 namespace RSSter.Controllers
@@ -22,7 +21,7 @@ namespace RSSter.Controllers
 
         public ActionResult Index()
         {
-            return RedirectToAction("Index","Search");
+            return View();
         }
 
         //[HttpGet]

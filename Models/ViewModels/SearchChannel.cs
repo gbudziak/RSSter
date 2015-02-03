@@ -1,5 +1,4 @@
-﻿using Models.RSS;
-using System;
+﻿using System;
 using System.Linq;
 
 namespace Models.ViewModels

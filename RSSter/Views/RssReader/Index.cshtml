@@ -1,112 +1,52 @@
 ﻿@{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
 }
 
-<!DOCTYPE html>
+@*<script src="~/Scripts/jquery-2.1.3.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.2.js"></script>*@
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-    <script src="~/Scripts/search.js"></script>
-    <link rel="stylesheet" href="~/Content/search.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
-    <script src="~/Scripts/semantic.js"></script>
-    <script src="~/Scripts/semantic.site.js"></script>
-
-    
-
+<header>
     <script>
-    $(function () {
-        var availableTags = [
-          "ActionScript",
-          "AppleScript",
-          "Asp",
-          "BASIC",
-          "C",
-          "C++",
-          "Clojure",
-          "COBOL",
-          "ColdFusion",
-          "Erlang",
-          "Fortran",
-          "Groovy",
-          "Haskell",
-          "Java",
-          "JavaScript",
-          "Lisp",
-          "Perl",
-          "PHP",
-          "Python",
-          "Ruby",
-          "Scala",
-          "Scheme"
-        ];
-
-        var content = [
-  { title: 'Andorra' },
-  { title: 'United Arab Emirates' },
-  { title: 'Afghanistan' },
-  { title: 'Antigua' },
-  { title: 'Anguilla' },
-  { title: 'Albania' },
-  { title: 'Armenia' },
-  { title: 'Netherlands Antilles' },
-  { title: 'Angola' },
-  { title: 'Argentina' },
-  { title: 'American Samoa' },
-  { title: 'Austria' },
-  { title: 'Australia' },
-  { title: 'Aruba' },
-  { title: 'Aland Islands' },
-  { title: 'Azerbaijan' },
-  { title: 'Bosnia' },
-  { title: 'Barbados' },
-  { title: 'Bangladesh' },
-  { title: 'Belgium' },
-  { title: 'Burkina Faso' },
-  { title: 'Bulgaria' },
-  { title: 'Bahrain' },
-  { title: 'Burundi' }
-  // etc
-        ];
-
-        $("#tags").autocomplete({
-            source: content
-        });
-
-        $(document)
-        .ready(function () {
+        $(document).ready(function () {
+            var content = [
+              { title: 'Andorra' },
+              { title: 'United Arab Emirates' },
+              { title: 'Afghanistan' },
+              { title: 'Antigua' },
+              { title: 'Anguilla' },
+              { title: 'Albania' },
+              { title: 'Armenia' },
+              { title: 'Netherlands Antilles' },
+              { title: 'Angola' },
+              { title: 'Argentina' },
+              { title: 'American Samoa' },
+              { title: 'Austria' },
+              { title: 'Australia' },
+              { title: 'Aruba' },
+              { title: 'Aland Islands' },
+              { title: 'Azerbaijan' },
+              { title: 'Bosnia' },
+              { title: 'Barbados' },
+              { title: 'Bangladesh' },
+              { title: 'Belgium' },
+              { title: 'Burkina Faso' },
+              { title: 'Bulgaria' },
+              { title: 'Bahrain' },
+              { title: 'Burundi' }
+            ];
 
             $('.ui.search')
-            .search({
-                source: content
-            })
-            ;
-
-
-
-
+              .search({
+                  source: content,
+              });
         });
 
-    });
+
+
     </script>
-</head>
+</header>
+
 <body>
-    <div>
-        dupa
-    </div>
-
-
-    <div class="ui-widget">
-        <label for="tags">Tags: </label>
-        <input id="tags">
-    </div>
-
-    <div>dupa2</div>
-
-
 
     <div class="ui search">
         <div class="ui icon input">
@@ -116,8 +56,5 @@
         <div class="results"></div>
     </div>
 
-
-
-
 </body>
-</html>
+

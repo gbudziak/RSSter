@@ -1,15 +1,16 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
-namespace RSSter
+namespace RSSter.App_Start
 {
     public class BundleConfig
     {
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                "~/Scripts/jquery-2.1.3.js",        
+                "~/Scripts/jquery-ui-1.11.2.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*",
@@ -24,8 +25,8 @@ namespace RSSter
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/bundles/css").Include(
+                      "~/Content/Site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/menu").Include(
                         "~/Scripts/Attacher/showUserChannels.js"));

@@ -1,4 +1,3 @@
-using System.Web;
 using System.Web.Optimization;
 
 [assembly: WebActivatorEx.PostApplicationStartMethod(
@@ -12,18 +11,12 @@ namespace RSSter
         public static void PostStart()
         {
             BundleTable.Bundles.Add(new ScriptBundle("~/bundles/semantic").
-               Include("~/Scripts/dimmer.min.js",
-                       "~/Scripts/semantic.js",
-                       "~/Scripts/semantic.site.js"));
+               Include("~/Content/semanticUI/components/*.js",
+               "~/Content/semanticUI/semantic.js"));
+
 
             BundleTable.Bundles.Add(new StyleBundle("~/Content/semantic").
-               Include("~/Content/checkbox.min.css",
-                       "~/Content/dimmer.min.css",
-                       "~/Content/icon.min.css",
-                       "~/Content/card.min.css",
-                       "~/Content/grid.min.css",
-                       "~/Content/semantic.css",
-                       "~/Content/semantic.site.css"));
+               Include("~/Content/semanticUI/*.css"));
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Services.RssReader.Implementation
             return model;
         }
 
-        public IEnumerable<SearchChannel> SearchForString(string searchString)
+        public string SearchForString(string searchString)
         {
             var resultModels = new List<SearchChannel>();
 
@@ -95,10 +95,10 @@ namespace Services.RssReader.Implementation
             }
 
             var result = ListComparer(resultModels, toMerge);
-
-            //string json = JsonConvert.SerializeObject(result);
-
-            return result.OrderByDescending(x=>x.Rating).ThenByDescending(x=>x.Readers);
+            var foo  = result.OrderByDescending(x=>x.Rating).ThenByDescending(x=>x.Readers);
+            string jsonResult = JsonConvert.SerializeObject(foo);
+            string json = JsonConvert.SerializeObject(foo , Formatting.Indented);
+            return jsonResult;
 
 
         }
