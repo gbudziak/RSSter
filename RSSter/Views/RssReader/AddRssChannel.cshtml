@@ -1,4 +1,4 @@
-﻿@model Models.RSS.Channel
+﻿@*@model Models.RSS.Channel
 
 @{
     ViewBag.Title = "AddRssChannel";
@@ -50,4 +50,49 @@
 {
     <script src="~/Scripts/Attachers/AddRssChannel.js"></script>
     <script src="~/Scripts/Developer/AddChannel.js"></script>
+}*@
+
+
+@model string
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
+
+    AjaxOptions options = new AjaxOptions
+    {
+        UpdateTargetId = "searchResult",
+        Confirm = "Are you sure to start search?",
+        InsertionMode = InsertionMode.Replace,
+        LoadingElementId = "divLoading"
+    };
+}
+
+@using (Ajax.BeginForm("SearchResultsView", options))
+{
+    <div id="divLoading" style="color:red;width:200px;background-color:yellow;font-size:larger;display:none;position:absolute;">Loading ....</div>
+    <div>
+        @Html.TextBox("keyword")
+        <button type="submit">Search</button>
+    </div>
+}
+
+<h2>Index</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>r</th>
+            <th>desc</th>
+            <th>url</th>
+            <th>image</th>
+        </tr>
+    </thead>
+    <tbody id="searchResult">
+        @Html.Action("SearchResults", new { keyword = "" })
+    </tbody>
+</table>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }

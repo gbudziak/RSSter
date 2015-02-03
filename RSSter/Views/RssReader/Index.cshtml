@@ -1,75 +1,123 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
- }
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/search.js"></script>
+    <link rel="stylesheet" href="~/Content/search.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script src="~/Scripts/semantic.js"></script>
+    <script src="~/Scripts/semantic.site.js"></script>
+
+    
+
+    <script>
+    $(function () {
+        var availableTags = [
+          "ActionScript",
+          "AppleScript",
+          "Asp",
+          "BASIC",
+          "C",
+          "C++",
+          "Clojure",
+          "COBOL",
+          "ColdFusion",
+          "Erlang",
+          "Fortran",
+          "Groovy",
+          "Haskell",
+          "Java",
+          "JavaScript",
+          "Lisp",
+          "Perl",
+          "PHP",
+          "Python",
+          "Ruby",
+          "Scala",
+          "Scheme"
+        ];
+
+        var content = [
+  { title: 'Andorra' },
+  { title: 'United Arab Emirates' },
+  { title: 'Afghanistan' },
+  { title: 'Antigua' },
+  { title: 'Anguilla' },
+  { title: 'Albania' },
+  { title: 'Armenia' },
+  { title: 'Netherlands Antilles' },
+  { title: 'Angola' },
+  { title: 'Argentina' },
+  { title: 'American Samoa' },
+  { title: 'Austria' },
+  { title: 'Australia' },
+  { title: 'Aruba' },
+  { title: 'Aland Islands' },
+  { title: 'Azerbaijan' },
+  { title: 'Bosnia' },
+  { title: 'Barbados' },
+  { title: 'Bangladesh' },
+  { title: 'Belgium' },
+  { title: 'Burkina Faso' },
+  { title: 'Bulgaria' },
+  { title: 'Bahrain' },
+  { title: 'Burundi' }
+  // etc
+        ];
+
+        $("#tags").autocomplete({
+            source: content
+        });
+
+        $(document)
+        .ready(function () {
+
+            $('.ui.search')
+            .search({
+                source: content
+            })
+            ;
 
 
 
+
+        });
+
+    });
+    </script>
+</head>
 <body>
-    <div class="ui tabular filter menu">
-        <a class="active item" data-tab="unread">Unread</a>
-        <a class="item" data-tab="saved">Saved</a>
-        <a class="item" data-tab="all">All</a>
-    </div>
-    <div class="ui divided inbox selection list active tab" data-tab="unread">
-        <a class="item">
-            <div class="left floated ui star rating">
-                <i class="icon"></i>
-            </div>
-            <div class="right floated date">Sep 14, 2013</div>
-            <div class="description">Weekly Webcomic Wrapup fought the law, and the law won</div>
-        </a>
-    </div>
-    <div class="ui divided inbox selection list tab" data-tab="saved">
-        <a class="item">
-            <div class="left floated ui star rating">
-                <i class="icon"></i>
-            </div>
-            <div class="right floated date">Sep 14, 2013</div>
-            <div class="description">Your favorite saved article</div>
-        </a>
-    </div>
-    <div class="ui divided inbox selection list tab" data-tab="all">
-        <a class="item">
-            <div class="left floated ui star rating">
-                <i class="link icon"></i>
-            </div>
-            <div class="right floated date">Sep 14, 2013</div>
-            <div class="description">There turns out there is only one article under all.</div>
-        </a>
-    </div>
-
-    <div class="ui divider"></div>
-
-    <div class="page">
-        Showing <b>1</b> of 12
-    </div>
-
-    <div class="ui pagination menu">
-        <a class="icon item"><i class="icon left arrow"></i></a>
-        <a class="active item">1</a>
-        <div class="disabled item">...</div>
-        <a class="item">10</a>
-        <a class="item">11</a>
-        <a class="item">12</a>
-        <a class="icon item"><i class="icon right arrow"></i></a>
+    <div>
+        dupa
     </div>
 
 
-    @*<div class="ui search">
+    <div class="ui-widget">
+        <label for="tags">Tags: </label>
+        <input id="tags">
+    </div>
+
+    <div>dupa2</div>
+
+
+
+    <div class="ui search">
         <div class="ui icon input">
-            <input class="prompt" type="text" placeholder="Search countries...">
+            <input class="prompt" type="text" placeholder="Search...">
             <i class="search icon"></i>
         </div>
         <div class="results"></div>
     </div>
 
-    <select id="selectRegisterType">
-        <option value="None">Select One</option>
-        <option value="tenant">Tentant</option>
-        <option value="Apartment Owner">Apartment Owner</option>
-    </select>*@
+
+
+
 </body>
-
-
+</html>

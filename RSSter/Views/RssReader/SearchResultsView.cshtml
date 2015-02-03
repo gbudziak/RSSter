@@ -1,0 +1,15 @@
+﻿@using Models.RSS;
+
+@model List<Channel>
+
+
+@foreach (var x in Model)
+{
+    <tr>
+        <td>@x.Title</td>
+        <td>@x.Readers</td>
+        <td>@x.Description</td>
+        <td>@x.Url</td>
+        <td>@x.ImageUrl</td>
+    </tr>
+}

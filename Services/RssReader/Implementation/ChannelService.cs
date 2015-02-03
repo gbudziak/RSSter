@@ -123,6 +123,8 @@ namespace Services.RssReader.Implementation
 
         private DateTime GetDateTimeFromLastChannelItem(long channelId)
         {
+            if (_rssDatabase.AllItems.Where(x => x.ChannelId == channelId).Any())
+            {
             var lastItemDateTime = _rssDatabase.AllItems
                 .Where(x => x.ChannelId == channelId)
                 .Max(x => x.PublishDate);
@@ -131,7 +133,7 @@ namespace Services.RssReader.Implementation
             {
                 return lastItemDateTime;
             }
-
+            }
             return new DateTime(0);
         }
 
@@ -140,6 +142,7 @@ namespace Services.RssReader.Implementation
             var lastItemDateTime = GetDateTimeFromLastChannelItem(channelId);
             var channel = _channelGet.GetUpdatedRssChannel(url, lastItemDateTime, channelId);
 
+            channel.Readers = _rssDatabase.Channels.First(x => x.Id == channelId).Readers;
             _rssDatabase.Channels.AddOrUpdate(channel);
             _rssDatabase.AllItems.AddRange(channel.Items);
 
@@ -148,7 +151,8 @@ namespace Services.RssReader.Implementation
 
         private DateTime GetDateTimeFromLastUserChannelItem(long userChannelId)
         {
-
+            if (_rssDatabase.UsersItems.Where(x => x.UserChannelId == userChannelId).Any())
+            {
             var lastItemDateTime = _rssDatabase.UsersItems
                 .Where(x => x.UserChannelId == userChannelId)
                 .Max(x => x.Item.PublishDate);
@@ -156,6 +160,7 @@ namespace Services.RssReader.Implementation
             if (lastItemDateTime != null)
             {
                 return lastItemDateTime;
+            }
             }
 
             return DateTime.Now;

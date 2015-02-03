@@ -6,6 +6,7 @@ using System.Text;
 using AutoMapper;
 using Models.RSS;
 using Models.ViewModels;
+using Newtonsoft.Json;
 using RssDataContext;
 
 namespace Services.RssReader.Implementation
@@ -17,13 +18,11 @@ namespace Services.RssReader.Implementation
         public SearchResultsBuilder(IApplicationRssDataContext rssDatabase)
         {
             _rssDatabase = rssDatabase;
-
         }
 
         public IEnumerable<Channel> GetAllChannels()
         {
             var model = _rssDatabase.Channels.Select(x => x);
-       
             return model;
         }
 
@@ -42,7 +41,6 @@ namespace Services.RssReader.Implementation
 
             var model = GetAllChannels();
 
-
             var containsFullTextInUrlOrTitleOrDescription = model.Where(x => x.Url.ToLower().Contains(searchString) ||
                                                             x.Title.ToLower().Contains(searchString) ||
                                                             x.Description.ToLower().Contains(searchString))
@@ -54,9 +52,6 @@ namespace Services.RssReader.Implementation
                 foundChannel.Rating = 1000;
                 resultModels.Add(foundChannel);
             }
-            var check = resultModels.ToList();
-
-
 
             var containsAllWordsInUrlTitleOrDescription = from channel in model
                                                             let url = SplitText(RemoveDiacritics(channel.Url))
@@ -67,7 +62,6 @@ namespace Services.RssReader.Implementation
                                                                 || title.Distinct().Intersect(wordsToMatch).Count() == wordsToMatch.Count())
                                                             select channel;
 
-
             var toMerge = new List<SearchChannel>();
             foreach (var channel in containsAllWordsInUrlTitleOrDescription)
             {
@@ -76,9 +70,6 @@ namespace Services.RssReader.Implementation
 
                 toMerge.Add(foundChannel);
             }
-
-
-            var check2 = toMerge.ToList();
 
             if (wordsToMatch.Count() >= 2)
             {
@@ -102,10 +93,13 @@ namespace Services.RssReader.Implementation
                 }
 
             }
-            var check3 = toMerge.ToList();
 
             var result = ListComparer(resultModels, toMerge);
+
+            //string json = JsonConvert.SerializeObject(result);
+
             return result.OrderByDescending(x=>x.Rating).ThenByDescending(x=>x.Readers);
+
 
         }
         private string[] SplitText(string wordsToSplit)
@@ -121,39 +115,20 @@ namespace Services.RssReader.Implementation
                 .Normalize(NormalizationForm.FormC);
         }
 
-        class ChannelComparer : IEqualityComparer<SearchChannel>
-        {
-            public bool Equals(SearchChannel x, SearchChannel y)
-            {
-                if (x.Id == y.Id)
-                {
-                    x.Rating += y.Rating;
-                    return true;
-                }
-                return false;
-            }
-
-            public int GetHashCode(SearchChannel obj)
-            {
-                return 0;
-            }
-
-        }
 
         private List<SearchChannel> ListComparer(List<SearchChannel> list1, List<SearchChannel> list2)
         {
             var dict = list1.ToDictionary(x => x.Id);
             foreach (var channel in list2)
             {
-                try
-                {
-                    channel.Rating += dict[channel.Id].Rating;
-                }
-                 catch
-                {
+               try
+               {
+                 channel.Rating += dict[channel.Id].Rating;
+               }
+               catch
+               {
 
-                }
-                
+               }
 
                 dict[channel.Id] = channel;
             }
