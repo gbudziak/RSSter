@@ -13,8 +13,7 @@ function PostIsRead(e) {
 
 function HideTr(userItemId) {
     var itemRow = $(".itemRow#" + userItemId);
-    itemRow.transition('fade left');
-    //$(".itemRow#" + userItemId).slideToggle();
+    itemRow.transition('fade up');
     itemRow.data("item-read", "True");
 };
 
@@ -22,29 +21,25 @@ function MarkAsRead(e) {
     PostIsRead(e);
 }
 
-function ShowReadItems() {
+function ToggleReadItems(command) {
     $(".itemRow").each(function(ind, e) {
         var itemRow = $(e);
         if (itemRow.data("item-read") == "True") {
-            itemRow.show();            
-        };
-    });
-}
-
-function HideReadItems() {
-    $(".itemRow").each(function (ind, e) {
-        var itemRow = $(e);
-        if (itemRow.data("item-read") == "True") {
-            itemRow.hide();            
+            if (command == "hide") {
+                itemRow.transition("fade");
+            }
+            if (command == "show") {
+                itemRow.transition("scale");
+            }
         };
     });
 }
 
 function CheckboxAllChange(e) {
     var checkbox = $(e.target);
-    if (checkbox.prop('checked')) {
-        ShowReadItems();
+    if (checkbox.prop("checked")) {
+        ToggleReadItems("hide");
     } else {
-        HideReadItems();
+        ToggleReadItems("show");
     }
 }

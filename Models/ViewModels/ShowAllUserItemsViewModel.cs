@@ -24,6 +24,6 @@ namespace Models.ViewModels
 
         public string ChannelTitle { get; set; }
 
-        public TimeSpan ItemAge { get; set; }
+        public string ItemAge { get; set; }
     }
 }

@@ -19,7 +19,6 @@ namespace Models.ViewModels
         public long Readers { get; set; }
         public long TotalPosts { get; set; }
         public double PostsPerDay { get; set; }
-        public TimeSpan LastPost { get; set; }
-
+        public string LastPost { get; set; }
     }
 }

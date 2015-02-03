@@ -40,8 +40,6 @@ namespace Services.RssReader.Implementation
             var userItemsViewModel = Mapper.Map<Channel, UserItemsViewModel>(itemsAndChannel.Channel);
             Mapper.Map<UserChannel, UserItemsViewModel>(itemsAndChannel, userItemsViewModel);
 
-            
-
             var itemList = new List<CompleteItemInfo>();
 
             foreach (var userItem in itemsAndChannel.UserItems)
@@ -53,15 +51,16 @@ namespace Services.RssReader.Implementation
                 itemList.Add(completeItemView);
             }
 
-            userItemsViewModel.Items = itemList.OrderBy(item => item.ItemAge).ToList();
+            userItemsViewModel.Items = itemList.OrderByDescending(item => item.PublishDate).ToList();
             userItemsViewModel.LastPost = userItemsViewModel.Items[0].ItemAge;
             userItemsViewModel.TotalPosts = userItemsViewModel.Items.Count;
-            userItemsViewModel.PostsPerDay = Convert.ToDouble( userItemsViewModel.TotalPosts /
-                                                Convert.ToInt64(
-                                                    (userItemsViewModel.Items.First().PublishDate -userItemsViewModel.Items.Last().PublishDate).TotalDays));
+
+            userItemsViewModel.PostsPerDay = CalculatePostsPerDay(userItemsViewModel.Items.First().PublishDate, userItemsViewModel.Items.Last().PublishDate, userItemsViewModel.TotalPosts);
 
             return userItemsViewModel;
         }
+
+      
 
         public List<ShowAllUserItemsViewModel> GetAllUserItems(string userId)
         {
@@ -82,7 +81,7 @@ namespace Services.RssReader.Implementation
                 allUserItemsViewModel.Add(userItemViewModel);
             }
 
-            var allUserItemViewModelSorted = allUserItemsViewModel.OrderBy(x => x.ItemAge).ToList();
+            var allUserItemViewModelSorted = allUserItemsViewModel.OrderByDescending( x => x.PublishDate).ToList();
 
             return allUserItemViewModelSorted;
         }
@@ -183,9 +182,25 @@ namespace Services.RssReader.Implementation
 
         }
 
-        public TimeSpan CalculateItemAge(DateTime publishTime)
+        public string CalculateItemAge(DateTime publishTime)
         {
-            var result = DateTime.Now - publishTime;
+            var timeSpan = DateTime.Now - publishTime;
+            string result;
+            var days = timeSpan.Days;
+            var hours = timeSpan.Hours;
+            var minutes = timeSpan.Minutes;
+            switch (days)
+            {
+                case 0:
+                    result = string.Format("{0} h {1} min", hours, minutes);
+                    break;
+                case 1:
+                    result = string.Format("1 day {0} h {1} min", hours, minutes);
+                    break;
+                default:
+                    result = string.Format("{0} days {1} h {2} min", days, hours, minutes);
+                    break;
+            }
             return result;
         }
 
@@ -239,6 +254,17 @@ namespace Services.RssReader.Implementation
                 response = true;
             }
             return response;
+        }
+
+        private double CalculatePostsPerDay(DateTime firstPostPublish, DateTime lastPostPublish, long totalPosts)
+        {
+            var timeSpan = (firstPostPublish - lastPostPublish).Days;
+            if (timeSpan == 0)
+            {
+                timeSpan = 1;
+            }
+            double result = totalPosts / timeSpan;
+            return result;
         }
     }
 }

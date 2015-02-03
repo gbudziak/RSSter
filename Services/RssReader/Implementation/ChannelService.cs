@@ -61,9 +61,6 @@ namespace Services.RssReader.Implementation
             return result;
         }
 
-
-
-
         public void RemoveChannel(string userId, long channelId)
         {
             using (var transaction = _rssDatabase.OpenTransaction())
@@ -142,22 +139,6 @@ namespace Services.RssReader.Implementation
             _rssDatabase.SaveChanges();
         }
 
-        private DateTime GetDateTimeFromLastChannelItem(long channelId)
-        {
-            if (_rssDatabase.AllItems.Where(x => x.ChannelId == channelId).Any())
-            {
-                var lastItemDateTime = _rssDatabase.AllItems
-                    .Where(x => x.ChannelId == channelId)
-                    .Max(x => x.PublishDate);
-
-                if (lastItemDateTime != null)
-                {
-                    return lastItemDateTime;
-                }
-            }
-            return new DateTime(0);
-        }
-
         public void AddNewItemsToChannel(long channelId, string url)
         {
             var lastItemDateTime = GetDateTimeFromLastChannelItem(channelId);
@@ -168,23 +149,6 @@ namespace Services.RssReader.Implementation
             _rssDatabase.AllItems.AddRange(channel.Items);
 
             _rssDatabase.SaveChanges();
-        }
-
-        private DateTime GetDateTimeFromLastUserChannelItem(long userChannelId)
-        {
-            if (_rssDatabase.UsersItems.Where(x => x.UserChannelId == userChannelId).Any())
-            {
-                var lastItemDateTime = _rssDatabase.UsersItems
-                    .Where(x => x.UserChannelId == userChannelId)
-                    .Max(x => x.Item.PublishDate);
-
-                if (lastItemDateTime != null)
-                {
-                    return lastItemDateTime;
-                }
-            }
-
-            return DateTime.Now;
         }
 
         public void AddNewItemsToUserChannel(string userId, long channelId, long userChannelId)
@@ -272,6 +236,39 @@ namespace Services.RssReader.Implementation
             }
 
             _rssDatabase.SaveChanges();
+        }
+
+        private DateTime GetDateTimeFromLastChannelItem(long channelId)
+        {
+            if (_rssDatabase.AllItems.Where(x => x.ChannelId == channelId).Any())
+            {
+                var lastItemDateTime = _rssDatabase.AllItems
+                    .Where(x => x.ChannelId == channelId)
+                    .Max(x => x.PublishDate);
+
+                if (lastItemDateTime != null)
+                {
+                    return lastItemDateTime;
+                }
+            }
+            return new DateTime(0);
+        }
+
+        private DateTime GetDateTimeFromLastUserChannelItem(long userChannelId)
+        {
+            if (_rssDatabase.UsersItems.Where(x => x.UserChannelId == userChannelId).Any())
+            {
+                var lastItemDateTime = _rssDatabase.UsersItems
+                    .Where(x => x.UserChannelId == userChannelId)
+                    .Max(x => x.Item.PublishDate);
+
+                if (lastItemDateTime != null)
+                {
+                    return lastItemDateTime;
+                }
+            }
+
+            return DateTime.Now;
         }
     }
 }

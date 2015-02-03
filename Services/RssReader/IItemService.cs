@@ -25,6 +25,6 @@ namespace Services.RssReader
 
         void MarkAllChannelItemsAsRead(string userId, long channelId);
         
-        TimeSpan CalculateItemAge(DateTime publishTime);
+        string CalculateItemAge(DateTime publishTime);
     }
 }

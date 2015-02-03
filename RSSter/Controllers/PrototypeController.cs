@@ -35,7 +35,7 @@ namespace RSSter.Controllers
                 var i = items.First(item => item.Id == ui.ItemId);
                 var o = Mapper.Map<UserItem, CompleteItemInfo>(ui);
                 Mapper.Map<Item, CompleteItemInfo>(i, o);
-                o.ItemAge = _viewService.CalculateItemAge(i.PublishDate);
+                //o.ItemAge = _viewService.CalculateItemAge(i.PublishDate);
                 output.Add(o);
             }
             var sortedOutput = output.OrderBy(o => o.ItemAge);

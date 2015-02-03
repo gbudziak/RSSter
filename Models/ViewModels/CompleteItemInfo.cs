@@ -19,6 +19,6 @@ namespace Models.ViewModels
         public int RatingPlusCount { get; set; }
         public int RatingMinusCount { get; set; }
         
-        public TimeSpan ItemAge { get; set; }
+        public string ItemAge { get; set; }
     }
 }
