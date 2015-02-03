@@ -8,9 +8,8 @@ $(function() {
     $(".hide").on("click", PostIsRead);
     $("a").on("click", MarkAsRead);
     $("i").each(RateIconsInitialization);
-    $("tr").each(HideEmoticons).each(HideReadItems);
+    $(".itemRow").each(HideReadItems);
     $(".ui.checkbox")
         .checkbox();
-    $("#unreadOrAll").on("change", CheckboxAllChange);
-    $(".label").on("change", RatingDisplayChange);
+    $("#unreadOrAll").on("change", CheckboxAllChange);    
 })

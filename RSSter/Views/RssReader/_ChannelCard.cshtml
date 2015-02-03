@@ -18,10 +18,22 @@
                 </div>
             </div>
             <div class="extra content">
-                <div><a class="ui teal ribbon label">Readers</a> 0</div>
-                <div><a class="ui teal ribbon label">Posts</a> 10</div>
-                <div><a class="ui teal ribbon label">Frequency</a> 2 posts/day</div>
-                <div><a class="ui teal ribbon label">Last post</a> 1h 20mins ago</div>
+                <div><a class="ui teal ribbon label">Readers</a>@Model.Readers</div>
+                <div><a class="ui teal ribbon label">Posts</a>@Model.TotalPosts</div>
+                <div><a class="ui teal ribbon label">Frequency</a>@Model.PostsPerDay posts/day</div>
+                <div><a class="ui teal ribbon label">Last post</a>@{
+                    switch (Model.LastPost.Days)
+                    {
+                        case 0:
+                            break;
+                        case 1:
+                            <p>1 day</p>
+                            break;
+                        default:
+                        <p>@Model.LastPost.Days days</p>
+                            break;
+                    }}@Model.LastPost.Hours h @Model.LastPost.Minutes min
+                </div>
             </div>
         </div>
     </div>

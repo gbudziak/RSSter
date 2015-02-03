@@ -27,60 +27,34 @@
         <div class="three wide column">
             <div class="ui toggle checkbox">
                 <input type="checkbox" id="unreadOrAll">
-                <label>show all (already read including)</label>
+                <label> Show all </label>
             </div>
         </div>
         <div class="three wide column">
-            @Html.ActionLink("Mark all items as read", "MarkAllChannelItemsAsRead", "RssReader", new {userChannelId = @Model.UserChannelId}, new {@class = "ui button"})
+            @Html.ActionLink("Mark all items as read", "MarkAllChannelItemsAsRead", "RssReader", new { userChannelId = @Model.UserChannelId }, new { @class = "ui button" })
         </div>
         <div class="three wide column">
-            @Html.ActionLink("refresh news", "RefreshChannelItems", "RssReader", new {userChannelId = @Model.UserChannelId, channelId = @Model.ChannelId, channelUrl = @Model.Url}, new {@class = "ui button"})
+            @Html.ActionLink("refresh news", "RefreshChannelItems", "RssReader", new { userChannelId = @Model.UserChannelId, channelId = @Model.ChannelId, channelUrl = @Model.Url }, new { @class = "ui button" })
         </div>
     </div>
-    <div class="four column row">
-        <div class="two wide column">Actions</div>
-        <div class="five wide column">Title</div>
-        <div class="six wide column">Description</div>
-        <div class="three wide column">Time</div>
+    <div class="ui celled grid">
+        <div class="four column orange row">
+            <div class="two wide column">Actions</div>
+            <div class="five wide column">Title</div>
+            <div class="six wide column">Description</div>
+            <div class="three wide column">Time</div>
+        </div>
+        @foreach (var item in Model.Items)
+        {
+            @Html.Partial("_UserItemGrid", item)
+        }
     </div>
-    @foreach (var item in Model.Items)
-    {
-        @Html.Partial("_UserItem2", item)
-    }
-</div>
-
-    <table class="ui celled striped table">
-        <thead>
-            <tr>
-                <th></th>
-                <th>
-                    Title
-                </th>
-                <th>
-                    Description
-                </th>
-                <th>
-                    Link
-                </th>
-                <th>
-                </th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr></tr>
-            @foreach (var item in Model.Items)
-            {
-                @Html.Partial("_UserItem", item)
-            }
-        </tbody>
-    </table>
 
     @section scripts
-{
-
+    {
         <script src="~/Scripts/Developer/PostIsReadFunctionality.js"></script>
         <script src="~/Scripts/Developer/ratings.js"></script>
         <script src="~/Scripts/Attachers/showUserItems.js"></script>
 
     }
+</div>

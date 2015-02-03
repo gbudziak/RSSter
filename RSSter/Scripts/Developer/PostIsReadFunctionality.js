@@ -12,7 +12,10 @@ function PostIsRead(e) {
 };
 
 function HideTr(userItemId) {
-    $("tr#" + userItemId).slideToggle();
+    var itemRow = $(".itemRow#" + userItemId);
+    itemRow.transition('fade left');
+    //$(".itemRow#" + userItemId).slideToggle();
+    itemRow.data("item-read", "True");
 };
 
 function MarkAsRead(e) {
@@ -20,19 +23,19 @@ function MarkAsRead(e) {
 }
 
 function ShowReadItems() {
-    $("tr").each(function(ind, e) {
-        var tr = $(e);
-        if (tr.data("item-read") == "True") {
-            tr.show();            
+    $(".itemRow").each(function(ind, e) {
+        var itemRow = $(e);
+        if (itemRow.data("item-read") == "True") {
+            itemRow.show();            
         };
     });
 }
 
 function HideReadItems() {
-    $("tr").each(function (ind, e) {
-        var tr = $(e);
-        if (tr.data("item-read") == "True") {
-            tr.hide();            
+    $(".itemRow").each(function (ind, e) {
+        var itemRow = $(e);
+        if (itemRow.data("item-read") == "True") {
+            itemRow.hide();            
         };
     });
 }

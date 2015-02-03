@@ -1,13 +1,11 @@
 ﻿@model Models.ViewModels.CompleteItemInfo
 
-<div class="four column row">
+<div class="four column row itemRow" id="@Model.UserItemId" data-item-read="@Model.Read">
     <div class="two wide column">
         <i class="hide icon" data-item-id="@Model.UserItemId"></i>
         <a class="ui green label">@Model.RatingPlusCount</a>
         <i class="thumbs outline up icon" data-item-id="@Model.UserItemId" data-item-rate="@Model.RatingPlus"></i>
-        <i class="smile icon" data-item-rate="@Model.RatingMinus"></i>
         <i class="thumbs outline down icon" data-item-id="@Model.UserItemId" data-item-rate="@Model.RatingMinus"></i>
-        <i class="frown icon" data-item-rate="@Model.RatingPlus"></i>
         <a class="ui red label">@Model.RatingMinusCount</a>
     </div>
     <div class="five wide column">
