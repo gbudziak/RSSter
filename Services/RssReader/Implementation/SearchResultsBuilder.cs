@@ -32,7 +32,7 @@ namespace Services.RssReader.Implementation
             return model;
         }
 
-        public string SearchForString(string searchString)
+        public IEnumerable<SearchChannel> SearchForString(string searchString)
         {
             var resultModels = new List<SearchChannel>();
 
@@ -98,7 +98,7 @@ namespace Services.RssReader.Implementation
             var foo  = result.OrderByDescending(x=>x.Rating).ThenByDescending(x=>x.Readers);
             string jsonResult = JsonConvert.SerializeObject(foo);
             string json = JsonConvert.SerializeObject(foo , Formatting.Indented);
-            return jsonResult;
+            return foo;
 
 
         }
