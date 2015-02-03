@@ -46,37 +46,9 @@
         </div>
         @foreach (var item in Model.Items)
         {
-            @Html.Partial("_UserItem2", item)
+            @Html.Partial("_UserItemGrid", item)
         }
     </div>
-
-
-    @*<table class="ui celled striped table">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>
-                        Title
-                    </th>
-                    <th>
-                        Description
-                    </th>
-                    <th>
-                        Link
-                    </th>
-                    <th>
-                    </th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr></tr>
-                @foreach (var item in Model.Items)
-                {
-                    @Html.Partial("_UserItem", item)
-                }
-            </tbody>
-        </table>*@
 
     @section scripts
     {

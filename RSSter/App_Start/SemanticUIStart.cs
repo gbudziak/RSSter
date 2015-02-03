@@ -12,12 +12,14 @@ namespace RSSter
         public static void PostStart()
         {
             BundleTable.Bundles.Add(new ScriptBundle("~/bundles/semantic").
-               Include("~/Scripts/dimmer.min.js",
+               Include("~/Scripts/transition.js",
+                       "~/Scripts/dimmer.min.js",
                        "~/Scripts/semantic.js",
                        "~/Scripts/semantic.site.js"));
 
             BundleTable.Bundles.Add(new StyleBundle("~/Content/semantic").
                Include("~/Content/checkbox.min.css",
+                       "~/Content/transition.css",
                        "~/Content/dimmer.min.css",
                        "~/Content/icon.min.css",
                        "~/Content/card.min.css",

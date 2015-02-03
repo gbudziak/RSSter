@@ -285,6 +285,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\transition.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\basic.icons.svg" />
     <Content Include="fonts\icons.svg" />
@@ -331,6 +332,7 @@
     <Content Include="Scripts\semantic.js" />
     <Content Include="Scripts\semantic.min.js" />
     <Content Include="Scripts\semantic.site.js" />
+    <Content Include="Scripts\transition.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -379,13 +381,13 @@
     <Content Include="Views\ItemView\ViewItem.cshtml" />
     <Content Include="Views\ItemView\ErrorView.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
-    <Content Include="Views\RssReader\_UserItem.cshtml" />
+    <Content Include="Views\RssReader\_UserItemList.cshtml" />
     <Content Include="Views\Prototype\Index.cshtml" />
     <Content Include="Views\RssReader\_AllUserItemsView.cshtml" />
     <Content Include="Views\RssReader\ShowAllUnreadUserItems.cshtml" />
     <Content Include="Views\RssReader\_ChannelCard.cshtml" />
     <Content Include="Views\RssReader\ShowChannelItems.cshtml" />
-    <Content Include="Views\RssReader\_UserItem2.cshtml" />
+    <Content Include="Views\RssReader\_UserItemGrid.cshtml" />
     <Content Include="Views\RssReader\SearchResultsView.cshtml" />
     <Content Include="Views\RssReader\Index.cshtml" />
   </ItemGroup>

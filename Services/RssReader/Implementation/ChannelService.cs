@@ -12,7 +12,7 @@ namespace Services.RssReader.Implementation
 {
     public class ChannelService : IChannelService
     {
- 
+
         private readonly IApplicationRssDataContext _rssDatabase;
         private readonly IChannelGet _channelGet;
 
@@ -20,6 +20,25 @@ namespace Services.RssReader.Implementation
         {
             _rssDatabase = rssDatabase;
             _channelGet = channelGet;
+        }
+
+        public void AddChannel(string url)
+        {
+
+            using (var transaction = _rssDatabase.OpenTransaction())
+            {
+                try
+                {
+                    CheckAndCreateChannel(url);
+                    transaction.Commit();
+
+                }
+                catch
+                {
+                    transaction.Rollback();
+                }
+            }
+
         }
 
         public long AddChannel(string userId, string url)
@@ -41,6 +60,8 @@ namespace Services.RssReader.Implementation
             }
             return result;
         }
+
+
 
 
         public void RemoveChannel(string userId, long channelId)
@@ -72,14 +93,14 @@ namespace Services.RssReader.Implementation
                 .Include(x => x.UserItems)
                 .Where(x => x.ApplicationUserId == userId)
                 .Where(x => x.IsHidden == false);
-            
+
             var userChannelsViewModel = new List<ShowUserChannelsViewModel>();
-            
+
             foreach (var userChannel in userChannels)
             {
                 var completeChannel = Mapper.Map<UserChannel, ShowUserChannelsViewModel>(userChannel);
                 Mapper.Map<Channel, ShowUserChannelsViewModel>(userChannel.Channel, completeChannel);
-            
+
                 completeChannel.AllItemsCount = userChannel.UserItems.Count;
 
                 var unreadUserItems = userChannel.UserItems.Where(userItem => userItem.Read == false);
@@ -125,14 +146,14 @@ namespace Services.RssReader.Implementation
         {
             if (_rssDatabase.AllItems.Where(x => x.ChannelId == channelId).Any())
             {
-            var lastItemDateTime = _rssDatabase.AllItems
-                .Where(x => x.ChannelId == channelId)
-                .Max(x => x.PublishDate);
+                var lastItemDateTime = _rssDatabase.AllItems
+                    .Where(x => x.ChannelId == channelId)
+                    .Max(x => x.PublishDate);
 
-            if (lastItemDateTime != null)
-            {
-                return lastItemDateTime;
-            }
+                if (lastItemDateTime != null)
+                {
+                    return lastItemDateTime;
+                }
             }
             return new DateTime(0);
         }
@@ -147,26 +168,26 @@ namespace Services.RssReader.Implementation
             _rssDatabase.AllItems.AddRange(channel.Items);
 
             _rssDatabase.SaveChanges();
-         }
+        }
 
         private DateTime GetDateTimeFromLastUserChannelItem(long userChannelId)
         {
             if (_rssDatabase.UsersItems.Where(x => x.UserChannelId == userChannelId).Any())
             {
-            var lastItemDateTime = _rssDatabase.UsersItems
-                .Where(x => x.UserChannelId == userChannelId)
-                .Max(x => x.Item.PublishDate);
-          
-            if (lastItemDateTime != null)
-            {
-                return lastItemDateTime;
-            }
+                var lastItemDateTime = _rssDatabase.UsersItems
+                    .Where(x => x.UserChannelId == userChannelId)
+                    .Max(x => x.Item.PublishDate);
+
+                if (lastItemDateTime != null)
+                {
+                    return lastItemDateTime;
+                }
             }
 
             return DateTime.Now;
         }
 
-        public void AddNewItemsToUserChannel(string userId, long channelId,long userChannelId)
+        public void AddNewItemsToUserChannel(string userId, long channelId, long userChannelId)
         {
             var lastUserItemDateTime = GetDateTimeFromLastUserChannelItem(userChannelId);
 
@@ -178,7 +199,7 @@ namespace Services.RssReader.Implementation
             foreach (var item in items)
             {
                 var userItem = new UserItem(userId, item.Id, userChannelId);
-                    _rssDatabase.UsersItems.Add(userItem);
+                _rssDatabase.UsersItems.Add(userItem);
             }
 
             _rssDatabase.SaveChanges();
@@ -236,7 +257,7 @@ namespace Services.RssReader.Implementation
 
             var channelId = ReturnChannelId(url);
             IncreaseReadersCount(channelId);
-            
+
             var userItems =
                 _rssDatabase.UsersItems.Where(
                     foo => foo.ApplicationUserId == userId && foo.UserChannelId == hiddenUserChannel.Id).ToList();
@@ -244,12 +265,12 @@ namespace Services.RssReader.Implementation
 
             var userItemsIds = userItems.Select(foo => foo.ItemId).ToList();
             var items = _rssDatabase.AllItems.Where(x => x.ChannelId == channelId && !userItemsIds.Contains(x.Id)).ToList();
-            
+
             foreach (var item in items)
             {
                 hiddenUserChannel.UserItems.Add(new UserItem(userId, item.Id));
             }
-            
+
             _rssDatabase.SaveChanges();
         }
     }

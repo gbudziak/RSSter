@@ -30,10 +30,6 @@ function errorToggle() {
 function RateUpSuccess(icon, response) {
     var up = icon.parent().find(".up");
     up.hide();
-    var smile = icon.parent().find(".smile");
-    smile.show();
-    var frown = icon.parent().find(".frown");
-    frown.hide();
     var down = icon.parent().find(".down");
     down.show();
     var greenLabel = icon.parent().find(".green");
@@ -49,10 +45,6 @@ function RateUpSuccess(icon, response) {
 function RateDownSuccess(icon, response) {
     var up = icon.parent().find(".up");
     up.show();
-    var smile = icon.parent().find(".smile");
-    smile.hide();
-    var frown = icon.parent().find(".frown");
-    frown.show();
     var down = icon.parent().find(".down");
     down.hide();
     if (response) {
@@ -70,14 +62,5 @@ function RateIconsInitialization(idx,e) {
     var show = $(e).data("item-rate");
     if (show == "True") {
         $(e).hide();
-    }
-}
-
-function HideEmoticons(idx, e) {
-    var smile = $(e).find(".smile");
-    var frown = $(e).find(".frown");
-    if (smile.data("item-rate") == frown.data("item-rate")) {
-        smile.hide();
-        frown.hide();
     }
 }
