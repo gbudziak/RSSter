@@ -1,4 +1,5 @@
 ﻿@using System.Web.Mvc.Html
+@using PagedList.Mvc
 @model Models.ViewModels.UserItemsViewModel
 
 @{
@@ -24,12 +25,19 @@
     @Html.Partial("_ChannelCard", Model)
 
     <div class="two column row">
-        @*<div class="three wide column">
-            <div class="ui toggle checkbox">
-                <input type="checkbox" id="unreadOrAll">
-                <label> Show all </label>
+        <div class="six wide column">
+            @*<div class="ui toggle checkbox">
+                    <input type="checkbox" id="unreadOrAll">
+                    <label> Show all </label>
+                </div>*@
+            <div class="col-md-10">
+                <div class="center">
+                    Page @(Model.Items.PageCount < Model.Items.PageNumber ? 0 : Model.Items.PageNumber) of @Model.Items.PageCount
+
+                    @Html.PagedListPager(Model.Items, page => Url.Action("ShowUserItems", "RssReader", new { userChannelId = @Model.UserChannelId, page }))
+                </div>
             </div>
-        </div>*@
+        </div>
         <div class="three wide column">
             @Html.ActionLink("Mark all items as read", "MarkAllChannelItemsAsRead", "RssReader", new { userChannelId = @Model.UserChannelId }, new { @class = "ui button" })
         </div>
@@ -39,7 +47,7 @@
     </div>
     <div class="ui internally celled grid">
         @Html.Partial("_UserItemViewSetter", @Model.Items[0].ViewDisplay)
-      
+
         @foreach (var item in Model.Items)
         {
             @Html.Partial("_UserItemGrid", item)
@@ -53,4 +61,10 @@
         <script src="~/Scripts/Attachers/showUserItems.js"></script>
 
     }
+
+    @section style
+{
+        <link href="~/Content/PagedList.css" rel="stylesheet" />
+    }
+
 </div>

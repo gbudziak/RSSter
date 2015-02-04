@@ -6,6 +6,7 @@ using AutoMapper;
 using Models.RSS;
 using Models.User;
 using Models.ViewModels;
+using PagedList;
 using RssDataContext;
 
 namespace Services.RssReader.Implementation
@@ -29,7 +30,7 @@ namespace Services.RssReader.Implementation
             return channel;
         }
 
-        public UserItemsViewModel GetUserChannelItems(long userChannelId, string userId, int viewType)
+        public UserItemsViewModel GetUserChannelItems(long userChannelId, string userId, int viewType, int page, int pageSize)
         {
             var itemsAndChannel = _rssDatabase.UserChannels
                 .Include(x => x.Channel)
@@ -53,7 +54,8 @@ namespace Services.RssReader.Implementation
                 itemList.Add(completeItemView);
             }
 
-            userItemsViewModel.Items = itemList.OrderByDescending(item => item.PublishDate).ToList();
+            var orderedItemList = itemList.OrderByDescending(item => item.PublishDate).ToList();
+            userItemsViewModel.Items = new PagedList<CompleteItemInfo>(orderedItemList, page, pageSize);
             userItemsViewModel.LastPost = userItemsViewModel.Items[0].ItemAge;
             userItemsViewModel.TotalPosts = userItemsViewModel.Items.Count;
 
