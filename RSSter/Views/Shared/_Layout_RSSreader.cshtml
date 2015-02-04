@@ -1,6 +1,4 @@
 ﻿@using Microsoft.AspNet.Identity
-@using Models.RSS
-
 
 <!DOCTYPE html>
 <html>
@@ -26,8 +24,13 @@
                     <div class="title item">
                         <b>RSSter</b>
                     </div>
-                    @*<a href="/about" class="launch item">About</a>
-                    <a href="/contact" class="launch item">Contact</a>*@
+                    <div class="title item">
+                                <i class="plus icon"></i>@Html.ActionLink("Search & Add", "Index", "Search")
+                    </div>
+                    <div class="title item">
+                                <i class="refresh icon"></i>@Html.ActionLink("Refresh Channels", "RefreshAllUserChannels", "RssReader")
+                    </div>
+
                 </div>
 
                 <div class="right menu ">

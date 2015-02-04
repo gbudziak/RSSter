@@ -48,7 +48,7 @@ namespace Services.RssReader.Implementation
             {
                 try
                 {
-                    CheckAndCreateChannel(url);
+                    //CheckAndCreateChannel(url);
                     result = CreateOrRestoreUserChannel(userId, url);
                     transaction.Commit();
                     return result;
@@ -177,7 +177,12 @@ namespace Services.RssReader.Implementation
                     .FirstOrDefault(userChannel => userChannel.Channel.Url == url);
             if (hiddenUserChannel != null)
             {
-                RestoreHiddenChannel(userId, url, hiddenUserChannel);
+                if (hiddenUserChannel.IsHidden == true)
+                {
+                    RestoreHiddenChannel(userId, url, hiddenUserChannel);
+                    return hiddenUserChannel.Id;
+                }
+
                 return hiddenUserChannel.Id;
             }
             else

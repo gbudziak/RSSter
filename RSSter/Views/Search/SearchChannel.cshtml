@@ -1,0 +1,57 @@
+﻿@using Models.ViewModels;
+
+@model IEnumerable<SearchChannel>
+
+@{
+    Layout = null;
+
+
+}
+
+@try
+{
+
+    <table class="ui celled striped table">
+        <thead>
+            <tr>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Readers
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model)
+            {
+                <tr>
+                    <td>
+                        @x.Title
+                    </td>
+                    <td>@Html.Raw(x.Description)</td>
+                    <td>@x.Readers</td>
+                    <td>
+                        @Html.ActionLink("Add channel", "AddRssChannel", "RssReader",
+                             new { url = x.Url },
+                                    new { })
+                        <br />
+                        @Html.ActionLink("Show news", "ShowChannelItems", "RssReader",
+                             new { channelId = x.Id },
+                                    new { })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+catch (NullReferenceException nullex)
+{
+}

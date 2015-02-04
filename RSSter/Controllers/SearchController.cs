@@ -38,19 +38,25 @@ namespace RSSter.Controllers
         //    return Json(null);
 
         //}
-        public ActionResult Index(string id)
+        //}
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(string searchString)
         {
 
-
-            if (!String.IsNullOrEmpty(id))
+            if (!String.IsNullOrEmpty(searchString))
             {
 
-                if (id.Contains("."))
+                if (searchString.Contains("."))
                 {
-                    _channelService.AddChannel(id);
+                    _channelService.AddChannel(searchString);
                 }
 
-                var result = _searchResultBuilder.SearchForString(id);
+                var result = _searchResultBuilder.SearchForString(searchString);
                 return View(result);
             }
 

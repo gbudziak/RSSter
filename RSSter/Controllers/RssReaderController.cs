@@ -37,10 +37,10 @@ namespace RSSter.Controllers
             if (ModelState.IsValid)
             {
                 var userId = User.Identity.GetUserId();                
-                var userChannelId = _channelService.AddChannel(userId, url);                
-                //TO DO
-                //return RedirectToAction("ShowUserItems","RssReader", new { userChannelId = userChannelId, url}); 
-                return RedirectToAction("Index","RssReader");
+                var userChannelId =_channelService.AddChannel(userId, url);      
+          
+                return RedirectToAction("ShowUserItems","RssReader", new { userChannelId = userChannelId}); 
+                //return RedirectToAction("Index","Search");
             }
             return RedirectToAction("Index", "Search");
         }

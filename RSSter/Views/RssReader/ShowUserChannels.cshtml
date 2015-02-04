@@ -15,18 +15,10 @@
 
 
 <div class="ui tiny animated selection list">
-
-    <div class="item">
+    @*<div class="item">
         <div class="content">
             <div class="header">
-                <i class="wizard icon"></i> @Html.ActionLink("Add new RSS", "AddRssChannel", "RssReader")
-            </div>
-        </div>
-    </div>
-    <div class="item">
-        <div class="content">
-            <div class="header">
-                @Html.ActionLink("Search", "Index", "Search")
+                <i class="plus icon"></i>@Html.ActionLink("Search", "Index", "Search")
             </div>
         </div>
     </div>
@@ -36,11 +28,11 @@
                 <i class="refresh icon"></i>@Html.ActionLink("refresh all channels", "RefreshAllUserChannels", "RssReader")
             </div>
         </div>
-    </div>
+    </div>*@
     <div class="item">
         <div class="content">
             <div class="header">
-                @Html.ActionLink("Show All", "ShowAllUserItems", "RssReader")
+                @Html.ActionLink("Show All News", "ShowAllUserItems", "RssReader")
                 <div class=" ui red circular label">
                     @allItems
                 </div>
@@ -50,7 +42,7 @@
     <div class="item">
         <div class="content">
             <div class="header">
-                @Html.ActionLink("Show All Unread", "ShowAllUnreadUserItems", "RssReader")
+                @Html.ActionLink("Show All Unread News", "ShowAllUnreadUserItems", "RssReader")
                 <div class=" ui red circular label">
                     @unreadItems
                 </div>
