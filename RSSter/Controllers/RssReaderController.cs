@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-
+using Models.ViewModels;
+using PagedList;
 using Services.RssReader;
 
 namespace RSSter.Controllers
@@ -84,20 +85,26 @@ namespace RSSter.Controllers
             return PartialView("ShowUserChannels", userChannelsViewModel);
         }
 
-        public ActionResult ShowAllUserItems()
+        public ActionResult ShowAllUserItems(int page = 1, int pageSize = 20)
         {
             var userId = User.Identity.GetUserId();
 
             var allUserItems = _itemService.GetAllUserItems(userId);
-            return View("ShowAllUserItems", allUserItems);
+
+            PagedList<ShowAllUserItemsViewModel> pagedViewModel = new PagedList<ShowAllUserItemsViewModel>(allUserItems, page, pageSize);
+
+            return View("ShowAllUserItems", pagedViewModel);
         }
 
-        public ActionResult ShowAllUnreadUserItems()
+        public ActionResult ShowAllUnreadUserItems(int page = 1, int pageSize = 20)
         {
             var userId = User.Identity.GetUserId();
 
             var allUnreadUserItems = _itemService.GetAllUnreadUserItems(userId);
-            return View("ShowAllUnreadUserItems", allUnreadUserItems);
+
+            PagedList<ShowAllUserItemsViewModel> pagedViewModel = new PagedList<ShowAllUserItemsViewModel>(allUnreadUserItems, page, pageSize);
+
+            return View("ShowAllUnreadUserItems", pagedViewModel);
         }
 
         public ActionResult MarkAllItemsAsRead()
