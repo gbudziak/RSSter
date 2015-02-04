@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using Models.User;
 
 namespace Models.ViewModels
 {
@@ -20,5 +20,6 @@ namespace Models.ViewModels
         public int RatingMinusCount { get; set; }
         
         public string ItemAge { get; set; }
+        public UserCustomView ViewDisplay { get; set; }
     }
 }

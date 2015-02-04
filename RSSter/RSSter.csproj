@@ -528,7 +528,6 @@
     <Content Include="Views\ItemView\ViewItem.cshtml" />
     <Content Include="Views\ItemView\ErrorView.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
-    <Content Include="Views\RssReader\_UserItemList.cshtml" />
     <Content Include="Views\Prototype\Index.cshtml" />
     <Content Include="Views\RssReader\_AllUserItemsView.cshtml" />
     <Content Include="Views\RssReader\ShowAllUnreadUserItems.cshtml" />
@@ -537,6 +536,7 @@
     <Content Include="Views\RssReader\_UserItemGrid.cshtml" />
     <Content Include="Views\RssReader\SearchResultsView.cshtml" />
     <Content Include="Views\RssReader\Index.cshtml" />
+    <Content Include="Views\RssReader\_UserItemViewSetter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

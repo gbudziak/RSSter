@@ -52,10 +52,10 @@ namespace RSSter.Controllers
             return View("ShowChannelItems", channelWithItems);
         }
 
-        public ActionResult ShowUserItems(long userChannelId)
+        public ActionResult ShowUserItems(long userChannelId, int viewType = 1)
         {
             var userId = User.Identity.GetUserId();
-            var userItemList = _itemService.GetUserChannelItems(userChannelId, userId);
+            var userItemList = _itemService.GetUserChannelItems(userChannelId, userId, viewType);
 
             return View("ShowUserItems", userItemList);
         }
@@ -66,7 +66,7 @@ namespace RSSter.Controllers
             var userChannelId = _channelService.ReturnUserChannelId(url, userId);
             ViewBag.UserChannelId = userChannelId;
 
-            return View("ShowUserItems", _itemService.GetUserChannelItems(userChannelId, userId));
+            return View("ShowUserItems", _itemService.GetUserChannelItems(userChannelId, userId, 1));
         }
 
         public ActionResult Delete(long channelId)

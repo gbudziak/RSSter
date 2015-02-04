@@ -11,6 +11,7 @@ namespace Models.User
     public class UserCustomView
     {
         public long Id { get; set; }
+        public string ViewType { get; set; }
         public bool Image { get; set; }
         public bool Title { get; set; }
         public bool Description { get; set; }

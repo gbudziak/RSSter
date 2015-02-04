@@ -9,7 +9,7 @@ namespace Services.RssReader
     {
         Channel GetChannelWithItems(long channelId);
 
-        UserItemsViewModel GetUserChannelItems(long channelId, string userId);
+        UserItemsViewModel GetUserChannelItems(long channelId, string userId, int viewType);
 
         List<ShowAllUserItemsViewModel> GetAllUserItems(string userId);
 

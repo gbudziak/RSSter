@@ -26,10 +26,10 @@ function ToggleReadItems(command) {
         var itemRow = $(e);
         if (itemRow.data("item-read") == "True") {
             if (command == "hide") {
-                itemRow.transition("fade");
+                itemRow.transition("fade up");
             }
             if (command == "show") {
-                itemRow.transition("scale");
+                itemRow.transition("fade down");
             }
         };
     });

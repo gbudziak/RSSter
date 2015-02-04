@@ -76,6 +76,10 @@
     <Compile Include="Migrations\201501291009252_UserInfo.Designer.cs">
       <DependentUpon>201501291009252_UserInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502041048599_added viewName to customViewModel.cs" />
+    <Compile Include="Migrations\201502041048599_added viewName to customViewModel.Designer.cs">
+      <DependentUpon>201502041048599_added viewName to customViewModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RssTransaction.cs" />
@@ -96,6 +100,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201501291009252_UserInfo.resx">
       <DependentUpon>201501291009252_UserInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502041048599_added viewName to customViewModel.resx">
+      <DependentUpon>201502041048599_added viewName to customViewModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

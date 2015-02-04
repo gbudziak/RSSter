@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using AutoMapper;
 using Models.RSS;
+using Models.User;
 using Models.ViewModels;
 using RssDataContext;
 
@@ -28,7 +29,7 @@ namespace Services.RssReader.Implementation
             return channel;
         }
 
-        public UserItemsViewModel GetUserChannelItems(long userChannelId, string userId)
+        public UserItemsViewModel GetUserChannelItems(long userChannelId, string userId, int viewType)
         {
             var itemsAndChannel = _rssDatabase.UserChannels
                 .Include(x => x.Channel)
@@ -48,6 +49,7 @@ namespace Services.RssReader.Implementation
                 Mapper.Map<Item, CompleteItemInfo>(userItem.Item, completeItemView);
 
                 completeItemView.ItemAge = CalculateItemAge(completeItemView.PublishDate);
+                completeItemView.ViewDisplay = GetViewDisplay(viewType);
                 itemList.Add(completeItemView);
             }
 
@@ -60,7 +62,20 @@ namespace Services.RssReader.Implementation
             return userItemsViewModel;
         }
 
-      
+        private UserCustomView GetViewDisplay(int viewType)
+        {
+            var result = new UserCustomView();
+            switch (viewType)
+            {
+                case 1:
+                    result = DefaultViews.Simple;
+                    break;
+                case 2:
+                    result = DefaultViews.Full;
+                    break;
+            }
+            return result;
+        }
 
         public List<ShowAllUserItemsViewModel> GetAllUserItems(string userId)
         {
@@ -263,7 +278,7 @@ namespace Services.RssReader.Implementation
             {
                 timeSpan = 1;
             }
-            double result = totalPosts / timeSpan;
+            double result = Math.Round((double)totalPosts / timeSpan, 1);
             return result;
         }
     }

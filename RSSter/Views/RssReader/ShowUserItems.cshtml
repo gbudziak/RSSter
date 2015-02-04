@@ -38,12 +38,8 @@
         </div>
     </div>
     <div class="ui internally celled grid">
-        <div class="four column orange row">
-            <div class="two wide column">Actions</div>
-            <div class="five wide column">Title</div>
-            <div class="six wide column">Description</div>
-            <div class="three wide column">Time</div>
-        </div>
+        @Html.Partial("_UserItemViewSetter", @Model.Items[0].ViewDisplay)
+      
         @foreach (var item in Model.Items)
         {
             @Html.Partial("_UserItemGrid", item)

@@ -64,7 +64,7 @@
             <div class="content">
                 <div class="header">
                     @Html.ActionLink(userChannel.Title, "ShowUserItems", "RssReader",
-                             new { userChannelId = userChannel.UserChannelId },
+                      new { userChannelId = userChannel.UserChannelId, viewType = 2 },
                                     new { })
                     <div class=" ui red circular label">
                         @userChannel.UnreadItemsCount
