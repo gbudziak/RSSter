@@ -23,18 +23,18 @@
 
     @Html.Partial("_ChannelCard", Model)
 
-    <div class="three column row">
-        <div class="three wide column">
+    <div class="two column row">
+        @*<div class="three wide column">
             <div class="ui toggle checkbox">
                 <input type="checkbox" id="unreadOrAll">
                 <label> Show all </label>
             </div>
-        </div>
+        </div>*@
         <div class="three wide column">
             @Html.ActionLink("Mark all items as read", "MarkAllChannelItemsAsRead", "RssReader", new { userChannelId = @Model.UserChannelId }, new { @class = "ui button" })
         </div>
         <div class="three wide column">
-            @Html.ActionLink("refresh news", "RefreshChannelItems", "RssReader", new { userChannelId = @Model.UserChannelId, channelId = @Model.ChannelId, channelUrl = @Model.Url }, new { @class = "ui button" })
+            @Html.ActionLink("Refresh news", "RefreshChannelItems", "RssReader", new { userChannelId = @Model.UserChannelId, channelId = @Model.ChannelId, channelUrl = @Model.Url }, new { @class = "ui button" })
         </div>
     </div>
     <div class="ui internally celled grid">

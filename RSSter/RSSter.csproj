@@ -458,6 +458,7 @@
     <Content Include="Scripts\Attachers\showUserChannels.js" />
     <Content Include="Scripts\Attachers\showUserItems.js" />
     <Content Include="Scripts\Developer\AddChannel.js" />
+    <Content Include="Scripts\Developer\Display.js" />
     <Content Include="Scripts\Developer\PostIsReadFunctionalityOnShowAllItemsView.js" />
     <Content Include="Scripts\Developer\test.js" />
     <Content Include="Scripts\dimmer.min.js" />
