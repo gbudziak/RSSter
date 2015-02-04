@@ -19,19 +19,43 @@ namespace RSSter.Controllers
             _searchResultBuilder = searchResultBuilder;
         }
 
+
+        //public ActionResult Index(string searchString)
+        //{
+        //    if (!String.IsNullOrEmpty(searchString))
+        //    {
+
+
+        //        _channelService.AddChannel(searchString);
+              
+        //            var results = _searchResultBuilder.SearchForString(searchString);
+        //            //var r = new { results = results };
+        //            //string jsonResult1 = JsonConvert.SerializeObject(r);
+        //            //return Json(r, JsonRequestBehavior.AllowGet);
+        //            return View(results);
+        //    }
+
+        //    return Json(null);
+
+        //}
         public ActionResult Index(string id)
         {
 
 
             if (!String.IsNullOrEmpty(id))
             {
-                _channelService.AddChannel(id);
+
+                if (id.Contains("."))
+                {
+                    _channelService.AddChannel(id);
+                }
 
                 var result = _searchResultBuilder.SearchForString(id);
                 return View(result);
             }
-            
+
             return View();
         }
+            
+        }
     }
-}

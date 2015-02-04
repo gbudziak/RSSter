@@ -41,7 +41,7 @@ namespace RSSter.Controllers
                 //return RedirectToAction("ShowUserItems","RssReader", new { userChannelId = userChannelId, url}); 
                 return RedirectToAction("Index","RssReader");
             }
-            return View("Index","Search");
+            return RedirectToAction("Index", "Search");
         }
 
         public ActionResult ShowChannelItems(long channelId)

@@ -19,6 +19,7 @@ namespace RSSter
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             MapperConfig.Register();
 
+
         }
 
     }

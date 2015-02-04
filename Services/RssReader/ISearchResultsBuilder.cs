@@ -10,7 +10,7 @@ namespace Services.RssReader
     {
         IEnumerable<Channel> GetAllChannels();
         IEnumerable<Item> GetAllItems();
-        IEnumerable<SearchChannel> SearchForString(string searchString);
+        List<SearchChannel> SearchForString(string searchString);
     }
 
 }

@@ -32,74 +32,86 @@ namespace Services.RssReader.Implementation
             return model;
         }
 
-        public IEnumerable<SearchChannel> SearchForString(string searchString)
+        public List<SearchChannel> SearchForString(string searchString)
         {
-            var resultModels = new List<SearchChannel>();
 
-            searchString = RemoveDiacritics(searchString);
-            string[] wordsToMatch = SplitText(searchString);
-
-            var model = GetAllChannels();
-
-            var containsFullTextInUrlOrTitleOrDescription = model.Where(x => x.Url.ToLower().Contains(searchString) ||
-                                                            x.Title.ToLower().Contains(searchString) ||
-                                                            x.Description.ToLower().Contains(searchString))
-                                                            .OrderBy(x => x.Readers).ToList();
-
-            foreach (var channel in containsFullTextInUrlOrTitleOrDescription)
+            using (var transaction = _rssDatabase.OpenTransaction())
             {
-                var foundChannel = Mapper.Map<Channel,SearchChannel>(channel);
-                foundChannel.Rating = 1000;
-                resultModels.Add(foundChannel);
-            }
-
-            var containsAllWordsInUrlTitleOrDescription = from channel in model
-                                                            let url = SplitText(RemoveDiacritics(channel.Url))
-                                                            let description = SplitText(RemoveDiacritics(channel.Description))
-                                                            let title = SplitText(RemoveDiacritics(channel.Title))
-                                                            where (url.Distinct().Intersect(wordsToMatch).Count() == wordsToMatch.Count() 
-                                                                || description.Distinct().Intersect(wordsToMatch).Count() == wordsToMatch.Count()
-                                                                || title.Distinct().Intersect(wordsToMatch).Count() == wordsToMatch.Count())
-                                                            select channel;
-
-            var toMerge = new List<SearchChannel>();
-            foreach (var channel in containsAllWordsInUrlTitleOrDescription)
-            {
-                var foundChannel = Mapper.Map<Channel, SearchChannel>(channel);
-                foundChannel.Rating = 100;
-
-                toMerge.Add(foundChannel);
-            }
-
-            if (wordsToMatch.Count() >= 2)
-            {
-                var containsHalfWordsInUrlOrTitleOrDescription = from channel in model
-                                                                 let url = SplitText(channel.Url)
-                                                                 let description = SplitText(channel.Description)
-                                                                 let title = SplitText(channel.Title)
-                                                                 where (url.Distinct().Intersect(wordsToMatch).Count() == (wordsToMatch.Count() / 2)
-                                                                     || description.Distinct().Intersect(wordsToMatch).Count() == (wordsToMatch.Count() / 2)
-                                                                     || title.Distinct().Intersect(wordsToMatch).Count() == (wordsToMatch.Count() / 2))
-                                                                 select channel;
-
-                var ttt = containsHalfWordsInUrlOrTitleOrDescription.OrderBy(x => x.Readers).ToList();
-
-                foreach (var channel in containsHalfWordsInUrlOrTitleOrDescription)
+                try
                 {
-                    var foundChannel = Mapper.Map<Channel, SearchChannel>(channel);
-                    foundChannel.Rating = 10;
+                    var resultModels = new List<SearchChannel>();
 
-                    toMerge.Add(foundChannel);
+                    searchString = RemoveDiacritics(searchString);
+                    string[] wordsToMatch = SplitText(searchString);
+
+                    var model = GetAllChannels();
+
+                    var containsFullTextInUrlOrTitleOrDescription = model.Where(x => x.Url.ToLower().Contains(searchString) ||
+                                                                    x.Title.ToLower().Contains(searchString) ||
+                                                                    x.Description.ToLower().Contains(searchString))
+                                                                    .OrderBy(x => x.Readers).ToList();
+
+                    foreach (var channel in containsFullTextInUrlOrTitleOrDescription)
+                    {
+                        var foundChannel = Mapper.Map<Channel, SearchChannel>(channel);
+                        foundChannel.Rating = 1000;
+                        resultModels.Add(foundChannel);
+                    }
+
+                    var containsAllWordsInUrlTitleOrDescription = from channel in model
+                                                                  let url = SplitText(RemoveDiacritics(channel.Url))
+                                                                  let description = SplitText(RemoveDiacritics(channel.Description))
+                                                                  let title = SplitText(RemoveDiacritics(channel.Title))
+                                                                  where (url.Distinct().Intersect(wordsToMatch).Count() == wordsToMatch.Count()
+                                                                      || description.Distinct().Intersect(wordsToMatch).Count() == wordsToMatch.Count()
+                                                                      || title.Distinct().Intersect(wordsToMatch).Count() == wordsToMatch.Count())
+                                                                  select channel;
+
+                    var toMerge = new List<SearchChannel>();
+                    foreach (var channel in containsAllWordsInUrlTitleOrDescription)
+                    {
+                        var foundChannel = Mapper.Map<Channel, SearchChannel>(channel);
+                        foundChannel.Rating = 100;
+
+                        toMerge.Add(foundChannel);
+                    }
+
+                    if (wordsToMatch.Count() >= 2)
+                    {
+                        var containsHalfWordsInUrlOrTitleOrDescription = from channel in model
+                                                                         let url = SplitText(channel.Url)
+                                                                         let description = SplitText(channel.Description)
+                                                                         let title = SplitText(channel.Title)
+                                                                         where (url.Distinct().Intersect(wordsToMatch).Count() == (wordsToMatch.Count() / 2)
+                                                                             || description.Distinct().Intersect(wordsToMatch).Count() == (wordsToMatch.Count() / 2)
+                                                                             || title.Distinct().Intersect(wordsToMatch).Count() == (wordsToMatch.Count() / 2))
+                                                                         select channel;
+
+                        var ttt = containsHalfWordsInUrlOrTitleOrDescription.OrderBy(x => x.Readers).ToList();
+
+                        foreach (var channel in containsHalfWordsInUrlOrTitleOrDescription)
+                        {
+                            var foundChannel = Mapper.Map<Channel, SearchChannel>(channel);
+                            foundChannel.Rating = 10;
+
+                            toMerge.Add(foundChannel);
+                        }
+
+                    }
+
+                    var foo = ListComparer(resultModels, toMerge);
+                    var result = foo.OrderByDescending(x => x.Rating).ThenByDescending(x => x.Readers).ToList();
+                    //string jsonResult = JsonConvert.SerializeObject(foo);
+                    //string json = JsonConvert.SerializeObject(foo , Formatting.Indented);
+                    transaction.Commit();
+                    return result;
                 }
-
+                catch
+                {
+                    transaction.Rollback();
+                    return null;
+                }
             }
-
-            var result = ListComparer(resultModels, toMerge);
-            var foo  = result.OrderByDescending(x=>x.Rating).ThenByDescending(x=>x.Readers);
-            string jsonResult = JsonConvert.SerializeObject(foo);
-            string json = JsonConvert.SerializeObject(foo , Formatting.Indented);
-            return foo;
-
 
         }
         private string[] SplitText(string wordsToSplit)
@@ -127,7 +139,6 @@ namespace Services.RssReader.Implementation
                }
                catch
                {
-
                }
 
                 dict[channel.Id] = channel;
