@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Models.RSS;
-using Models.User;
+﻿using PagedList;
 
 namespace Models.ViewModels
 {
     public class UserItemsViewModel
     {
-        public List<CompleteItemInfo> Items { get; set; }
+        public PagedList<CompleteItemInfo> Items { get; set; }
 
         public long UserChannelId { get; set; }
 

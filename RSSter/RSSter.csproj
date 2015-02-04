@@ -96,6 +96,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -249,6 +255,7 @@
     <Content Include="Content\input.css" />
     <Content Include="Content\input.min.css" />
     <Content Include="Content\loginPageStyle.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\semanticUI\components\accordion.css" />
     <Content Include="Content\semanticUI\components\accordion.js" />
     <Content Include="Content\semanticUI\components\accordion.min.css" />
@@ -451,6 +458,7 @@
     <Content Include="Scripts\Attachers\showUserChannels.js" />
     <Content Include="Scripts\Attachers\showUserItems.js" />
     <Content Include="Scripts\Developer\AddChannel.js" />
+    <Content Include="Scripts\Developer\Display.js" />
     <Content Include="Scripts\Developer\PostIsReadFunctionalityOnShowAllItemsView.js" />
     <Content Include="Scripts\Developer\test.js" />
     <Content Include="Scripts\dimmer.min.js" />
@@ -528,7 +536,6 @@
     <Content Include="Views\ItemView\ViewItem.cshtml" />
     <Content Include="Views\ItemView\ErrorView.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
-    <Content Include="Views\RssReader\_UserItemList.cshtml" />
     <Content Include="Views\Prototype\Index.cshtml" />
     <Content Include="Views\RssReader\_AllUserItemsView.cshtml" />
     <Content Include="Views\RssReader\ShowAllUnreadUserItems.cshtml" />
@@ -537,6 +544,7 @@
     <Content Include="Views\RssReader\_UserItemGrid.cshtml" />
     <Content Include="Views\RssReader\SearchResultsView.cshtml" />
     <Content Include="Views\RssReader\Index.cshtml" />
+    <Content Include="Views\RssReader\_UserItemViewSetter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

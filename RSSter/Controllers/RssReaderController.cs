@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-
+using Models.ViewModels;
+using PagedList;
 using Services.RssReader;
 
 namespace RSSter.Controllers
@@ -52,10 +53,10 @@ namespace RSSter.Controllers
             return View("ShowChannelItems", channelWithItems);
         }
 
-        public ActionResult ShowUserItems(long userChannelId)
+        public ActionResult ShowUserItems(long userChannelId, int page = 1, int pageSize = 20, int viewType = 1)
         {
             var userId = User.Identity.GetUserId();
-            var userItemList = _itemService.GetUserChannelItems(userChannelId, userId);
+            var userItemList = _itemService.GetUserChannelItems(userChannelId, userId, viewType, page, pageSize);
 
             return View("ShowUserItems", userItemList);
         }
@@ -66,7 +67,7 @@ namespace RSSter.Controllers
             var userChannelId = _channelService.ReturnUserChannelId(url, userId);
             ViewBag.UserChannelId = userChannelId;
 
-            return View("ShowUserItems", _itemService.GetUserChannelItems(userChannelId, userId));
+            return View("ShowUserItems", _itemService.GetUserChannelItems(userChannelId, userId, 1, 20, 1));
         }
 
         public ActionResult Delete(long channelId)
@@ -84,20 +85,26 @@ namespace RSSter.Controllers
             return PartialView("ShowUserChannels", userChannelsViewModel);
         }
 
-        public ActionResult ShowAllUserItems()
+        public ActionResult ShowAllUserItems(int page = 1, int pageSize = 20)
         {
             var userId = User.Identity.GetUserId();
 
             var allUserItems = _itemService.GetAllUserItems(userId);
-            return View("ShowAllUserItems", allUserItems);
+
+            PagedList<ShowAllUserItemsViewModel> pagedViewModel = new PagedList<ShowAllUserItemsViewModel>(allUserItems, page, pageSize);
+
+            return View("ShowAllUserItems", pagedViewModel);
         }
 
-        public ActionResult ShowAllUnreadUserItems()
+        public ActionResult ShowAllUnreadUserItems(int page = 1, int pageSize = 20)
         {
             var userId = User.Identity.GetUserId();
 
             var allUnreadUserItems = _itemService.GetAllUnreadUserItems(userId);
-            return View("ShowAllUnreadUserItems", allUnreadUserItems);
+
+            PagedList<ShowAllUserItemsViewModel> pagedViewModel = new PagedList<ShowAllUserItemsViewModel>(allUnreadUserItems, page, pageSize);
+
+            return View("ShowAllUnreadUserItems", pagedViewModel);
         }
 
         public ActionResult MarkAllItemsAsRead()

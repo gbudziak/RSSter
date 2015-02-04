@@ -1,5 +1,18 @@
 ﻿@model Models.ViewModels.UserItemsViewModel
 
+@{
+    var isSimpleView = "";
+    var isFullView = "";
+    if (Model.Items[0].ViewDisplay.ViewType == "simple")
+    {
+        isSimpleView = " active";
+    }
+    else if (Model.Items[0].ViewDisplay.ViewType == "full")
+    {
+        isFullView = " active";
+    }
+}
+
 
 <div class="two column row">
     <div class="four wide column">
@@ -27,18 +40,15 @@
         </div>
     </div>
     <div class="two wide column">
-        <div class="ui vertical labeled icon buttons">
+        <div class="ui vertical buttons">
+            @Html.ActionLink("Simple", "ShowUserItems", "RssReader",
+                                      new { userChannelId = Model.UserChannelId, viewType = 1 },
+                                    new { @class="ui button"+isSimpleView})
+            @Html.ActionLink("Full", "ShowUserItems", "RssReader",
+                                      new { userChannelId = Model.UserChannelId, viewType = 2 },
+                                    new { @class = "ui button"+isFullView })
             <div class="ui button">
-                <i class="pause icon"></i>
-                Pause
-            </div>
-            <div class="ui button">
-                <i class="play icon"></i>
-                Play
-            </div>
-            <div class="ui button">
-                <i class="shuffle icon"></i>
-                Shuffle
+                Custom View
             </div>
         </div>
     </div>

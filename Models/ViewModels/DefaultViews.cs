@@ -12,7 +12,8 @@ namespace Models.ViewModels
             Image = false,
             Rating = false,
             PublishDate = true,
-            Title = true
+            Title = true,
+            ViewType = "simple"
         };
 
         private static UserCustomView _full = new UserCustomView
@@ -21,7 +22,8 @@ namespace Models.ViewModels
             Image = true,
             Rating = true,
             PublishDate = true,
-            Title = true
+            Title = true,
+            ViewType = "full"
         };
 
         public static UserCustomView Simple

@@ -1,0 +1,21 @@
+﻿@model Models.User.UserCustomView
+
+@{
+    switch (@Model.ViewType)
+    {
+        case "simple":
+            <div class="two column orange row">
+                <div class="eight wide column">Title</div>
+                <div class="two wide column">Time</div>
+            </div>
+            break;
+        case "full":
+            <div class="four column orange row">
+                <div class="two wide column">Actions</div>
+                <div class="five wide column">Title</div>
+                <div class="six wide column">Description</div>
+                <div class="three wide column">Time</div>
+            </div>
+            break;
+    }
+}

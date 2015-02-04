@@ -4,7 +4,9 @@ using System.Data.Entity;
 using System.Linq;
 using AutoMapper;
 using Models.RSS;
+using Models.User;
 using Models.ViewModels;
+using PagedList;
 using RssDataContext;
 
 namespace Services.RssReader.Implementation
@@ -28,7 +30,7 @@ namespace Services.RssReader.Implementation
             return channel;
         }
 
-        public UserItemsViewModel GetUserChannelItems(long userChannelId, string userId)
+        public UserItemsViewModel GetUserChannelItems(long userChannelId, string userId, int viewType, int page, int pageSize)
         {
             var itemsAndChannel = _rssDatabase.UserChannels
                 .Include(x => x.Channel)
@@ -48,10 +50,12 @@ namespace Services.RssReader.Implementation
                 Mapper.Map<Item, CompleteItemInfo>(userItem.Item, completeItemView);
 
                 completeItemView.ItemAge = CalculateItemAge(completeItemView.PublishDate);
+                completeItemView.ViewDisplay = GetViewDisplay(viewType);
                 itemList.Add(completeItemView);
             }
 
-            userItemsViewModel.Items = itemList.OrderByDescending(item => item.PublishDate).ToList();
+            var orderedItemList = itemList.OrderByDescending(item => item.PublishDate).ToList();
+            userItemsViewModel.Items = new PagedList<CompleteItemInfo>(orderedItemList, page, pageSize);
             userItemsViewModel.LastPost = userItemsViewModel.Items[0].ItemAge;
             userItemsViewModel.TotalPosts = userItemsViewModel.Items.Count;
 
@@ -60,7 +64,20 @@ namespace Services.RssReader.Implementation
             return userItemsViewModel;
         }
 
-      
+        private UserCustomView GetViewDisplay(int viewType)
+        {
+            var result = new UserCustomView();
+            switch (viewType)
+            {
+                case 1:
+                    result = DefaultViews.Simple;
+                    break;
+                case 2:
+                    result = DefaultViews.Full;
+                    break;
+            }
+            return result;
+        }
 
         public List<ShowAllUserItemsViewModel> GetAllUserItems(string userId)
         {
@@ -263,7 +280,7 @@ namespace Services.RssReader.Implementation
             {
                 timeSpan = 1;
             }
-            double result = totalPosts / timeSpan;
+            double result = Math.Round((double)totalPosts / timeSpan, 1);
             return result;
         }
     }

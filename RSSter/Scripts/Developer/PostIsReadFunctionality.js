@@ -13,33 +13,34 @@ function PostIsRead(e) {
 
 function HideTr(userItemId) {
     var itemRow = $(".itemRow#" + userItemId);
-    itemRow.transition('fade up');
+    //itemRow.transition('fade up');
     itemRow.data("item-read", "True");
+    itemRow.removeClass("yellow");
 };
 
 function MarkAsRead(e) {
     PostIsRead(e);
 }
 
-function ToggleReadItems(command) {
-    $(".itemRow").each(function(ind, e) {
-        var itemRow = $(e);
-        if (itemRow.data("item-read") == "True") {
-            if (command == "hide") {
-                itemRow.transition("fade");
-            }
-            if (command == "show") {
-                itemRow.transition("scale");
-            }
-        };
-    });
-}
+//function ToggleReadItems(command) {
+//    $(".itemRow").each(function(ind, e) {
+//        var itemRow = $(e);
+//        if (itemRow.data("item-read") == "True") {
+//            if (command == "hide") {
+//                itemRow.transition("fade up");
+//            }
+//            if (command == "show") {
+//                itemRow.transition("fade down");
+//            }
+//        };
+//    });
+//}
 
-function CheckboxAllChange(e) {
-    var checkbox = $(e.target);
-    if (checkbox.prop("checked")) {
-        ToggleReadItems("hide");
-    } else {
-        ToggleReadItems("show");
-    }
-}
+//function CheckboxAllChange(e) {
+//    var checkbox = $(e.target);
+//    if (checkbox.prop("checked")) {
+//        ToggleReadItems("hide");
+//    } else {
+//        ToggleReadItems("show");
+//    }
+//}
