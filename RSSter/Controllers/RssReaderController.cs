@@ -82,7 +82,8 @@ namespace RSSter.Controllers
             var userId = User.Identity.GetUserId();
 
             var userChannelsViewModel = _channelService.GetUserChannels(userId);
-            return PartialView("ShowUserChannels", userChannelsViewModel);
+            var returnModel = userChannelsViewModel.OrderByDescending(x => x.UnreadItemsCount).ToList();
+            return PartialView("ShowUserChannels", returnModel);
         }
 
         public ActionResult ShowAllUserItems(int page = 1, int pageSize = 20)

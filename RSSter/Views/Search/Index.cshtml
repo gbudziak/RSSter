@@ -11,16 +11,16 @@
 <script type='text/javascript'>
     $(document).ready(function () {
 
-        $('.ui.massive.fluid.input').keypress(function (e) {
+        $('.ui.fluid.icon.massive.input.loading').keypress(function (e) {
             if (e.which === 13) {
                 var input = $(e.target);
-                var myURL = '@Url.Action("IndexSearch", "Search")';
+                var myURL = '@Url.Action("Index", "Search")';
                 $.ajax({
                     type: 'POST',
                     url: myURL,
                     data: { searchString: input.val() },
                     success: function (data) {
-                        $('#myPartialDiv').html(data);
+                        $('#feed').html(data);
                     }
                 })
             }
@@ -29,20 +29,45 @@
     });
 </script>
 
-@using (Html.BeginForm())
-{
-    <p>
-        @Html.TextBox("searchString")
-    </p>
-}
+@*@using (Html.BeginForm())
+    {
+        <div class="ui grid">
 
-@*<div class="ui massive fluid input">
-        <input type="text" placeholder="Search by string or rss Url">
-    </div>*@
+            <div class="ui two column centered grid">
+                <div class="column">
+
+                    @Html.TextBox("searchString", null, new { @class = "ui fluid massive input", @placeholder = "         Search by string or rss Url...", @style = "width:500px;height:60px" })
+
+                </div>
+
+            </div>
+        </div>
 
 
-<div id="myPartialDiv">
-        @Html.Partial("SearchChannel", Model)
-        <!-- here your partial -->
+        <div class="ui right labeled left icon input">
+      <i class="tags icon"></i>
+      <input type="text" placeholder="Enter categories">
+      <div class="ui tag label">
+        Tags
+      </div>
+    </div>
+    }*@
+
+<div class="ui grid">
+
+    <div class="ui two column centered grid">
+        <div class="column">
+            <div class="ui fluid icon massive input loading">
+                <input type="text" placeholder="Search by string or rss Url...">
+                <i class="search icon"></i>
+            </div>
+        </div>
+    </div>
 </div>
-
+<br />
+@if (@Model != null)
+{
+    <div id="myPartialDiv">
+        @Html.Partial("SearchChannel", Model)
+    </div>
+}

@@ -529,9 +529,9 @@
     <Content Include="Views\RssReader\AddRssChannel.cshtml" />
     <Content Include="Views\RssReader\ShowUserChannels.cshtml" />
     <Content Include="Views\Home\Index-cat-example.cshtml" />
-    <Content Include="Views\Account\LoginIndex-test.cshtml" />
-    <Content Include="Views\Shared\_Layout_RSSreader.cshtml" />
     <Content Include="Views\Account\LoginIndex.cshtml" />
+    <Content Include="Views\Shared\_Layout_RSSreade1r.cshtml" />
+    <Content Include="Views\Account\LoginInde1x.cshtml" />
     <Content Include="Views\RssReader\ShowAllUserItems.cshtml" />
     <Content Include="Views\ItemView\ViewItem.cshtml" />
     <Content Include="Views\ItemView\ErrorView.cshtml" />
@@ -546,6 +546,7 @@
     <Content Include="Views\RssReader\Index.cshtml" />
     <Content Include="Views\RssReader\_UserItemViewSetter.cshtml" />
     <Content Include="Views\Search\SearchChannel.cshtml" />
+    <Content Include="Views\Shared\_Layout_RSSreader.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
