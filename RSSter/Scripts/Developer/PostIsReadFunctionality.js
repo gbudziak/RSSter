@@ -15,7 +15,7 @@ function HideTr(userItemId) {
     var itemRow = $(".itemRow#" + userItemId);
     //itemRow.transition('fade up');
     itemRow.data("item-read", "True");
-    itemRow.removeClass("yellow");
+    itemRow.removeClass("unread");
 };
 
 function MarkAsRead(e) {

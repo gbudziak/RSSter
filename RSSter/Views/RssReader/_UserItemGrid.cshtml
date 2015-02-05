@@ -1,20 +1,21 @@
-﻿@model Models.ViewModels.CompleteItemInfo
+﻿@using Models.User
+@model Models.ViewModels.CompleteItemInfo
 
 @{
     switch (@Model.ViewDisplay.ViewType)
     {
-        case 1:
-            <div class="two column row itemRow @(Model.Read == false ? "yellow" : "")" id="@Model.UserItemId" data-item-read="@Model.Read">
-                <div class="eight wide column">
+        case UserViewType.Simple:
+            <div class="two column row itemRow @(Model.Read == false ? "unread" : "")" id="@Model.UserItemId" data-item-read="@Model.Read">
+                <div class="twelve wide column">
                     <a href="@Model.Url" target="_blank" data-item-id="@Model.UserItemId">@Model.Title</a>
                 </div>
-                <div class="two wide column">
+                <div class="four wide column">
                     @Model.ItemAge
                 </div>
             </div>
             break;
-        case 2:
-        <div class="four column row itemRow @(Model.Read == false ? "yellow" : "")" id="@Model.UserItemId" data-item-read="@Model.Read">
+        case UserViewType.Full:
+        <div class="four column row itemRow @(Model.Read == false ? "unread" : "")" id="@Model.UserItemId" data-item-read="@Model.Read">
             <div class="two wide column">
                 <i class="big hide icon" data-item-id="@Model.UserItemId"></i>
                 <a class="ui green label">@Model.RatingPlusCount</a>

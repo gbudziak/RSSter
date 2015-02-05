@@ -433,6 +433,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\transition.css" />
+    <Content Include="Content\unreadItemsFormatting.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\basic.icons.svg" />
     <Content Include="fonts\icons.svg" />

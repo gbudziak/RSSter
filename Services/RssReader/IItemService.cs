@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Models.RSS;
+using Models.User;
 using Models.ViewModels;
 
 namespace Services.RssReader
@@ -9,7 +10,7 @@ namespace Services.RssReader
     {
         Channel GetChannelWithItems(long channelId);
 
-        UserItemsViewModel GetUserChannelItems(long channelId, string userId, int viewType, int page, int pageSize);
+        UserItemsViewModel GetUserChannelItems(long channelId, string userId, UserViewType viewType, int page, int pageSize);
 
         List<ShowAllUserItemsViewModel> GetAllUserItems(string userId);
 

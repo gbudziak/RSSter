@@ -30,7 +30,7 @@ namespace Services.RssReader.Implementation
             return channel;
         }
 
-        public UserItemsViewModel GetUserChannelItems(long userChannelId, string userId, int viewType, int page, int pageSize)
+        public UserItemsViewModel GetUserChannelItems(long userChannelId, string userId, UserViewType viewType, int page, int pageSize)
         {
             var itemsAndChannel = _rssDatabase.UserChannels
                 .Include(x => x.Channel)
@@ -271,15 +271,15 @@ namespace Services.RssReader.Implementation
             return result;
         }
 
-        private UserCustomView GetViewDisplay(int viewType)
+        private UserCustomView GetViewDisplay(UserViewType viewType)
         {
             var result = new UserCustomView();
             switch (viewType)
             {
-                case 1:
+                case UserViewType.Simple:
                     result = DefaultViews.Simple;
                     break;
-                case 2:
+                case UserViewType.Full:
                     result = DefaultViews.Full;
                     break;
             }

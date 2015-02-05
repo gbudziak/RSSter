@@ -1,13 +1,14 @@
-﻿@model Models.ViewModels.UserItemsViewModel
+﻿@using Models.User
+@model Models.ViewModels.UserItemsViewModel
 
 @{
     var isSimpleView = "";
     var isFullView = "";
-    if (Model.Items[0].ViewDisplay.ViewType == 1)
+    if (Model.Items[0].ViewDisplay.ViewType == UserViewType.Simple)
     {
         isSimpleView = " active";
     }
-    else if (Model.Items[0].ViewDisplay.ViewType == 2)
+    else if (Model.Items[0].ViewDisplay.ViewType == UserViewType.Full)
     {
         isFullView = " active";
     }
@@ -42,10 +43,10 @@
     <div class="two wide column">
         <div class="ui vertical buttons">
             @Html.ActionLink("Simple", "ShowUserItems", "RssReader",
-                                      new { userChannelId = Model.UserChannelId, page = Model.Items.PageNumber, viewType = 1 },
+                                      new { userChannelId = Model.UserChannelId, page = Model.Items.PageNumber, viewType = UserViewType.Simple },
                                     new { @class="ui button"+isSimpleView})
             @Html.ActionLink("Full", "ShowUserItems", "RssReader",
-                                               new { userChannelId = Model.UserChannelId, page = Model.Items.PageNumber, viewType = 2 },
+                                               new { userChannelId = Model.UserChannelId, page = Model.Items.PageNumber, viewType = UserViewType.Full },
                                     new { @class = "ui button"+isFullView })
             @*<div class="ui button">
                 Custom View
