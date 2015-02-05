@@ -1,28 +1,6 @@
 ﻿@model Models.ViewModels.ShowAllUserItemsViewModel
 
-@*<tr id="@Model.UserItemId" data-item-read="@Model.Read" class="itemRow">
 
-
-    <td>
-        <i class="hide icon" data-item-id="@Model.UserItemId"></i>
-        <a class="ui green label">@Model.RatingPlusCount</a>
-        <i class="thumbs outline up icon" data-item-id="@Model.UserItemId" data-item-rate="@Model.RatingPlus"></i>
-        <i class="thumbs outline down icon" data-item-id="@Model.UserItemId" data-item-rate="@Model.RatingMinus"></i>
-        <a class="ui red label">@Model.RatingMinusCount</a>
-    </td>
-    <td>@Model.ChannelTitle</td>
-    <td class="collapsing">
-        <a href="@Model.Url" target="_blank" data-item-id="@Model.UserItemId">@Model.Title</a>
-    </td>
-    <td>@Html.Raw(Model.Description)</td>
-    <td class="right aligned collapsing"><a href="@Model.Url" target="_blank"><i class="external link icon"></i></a></td>
-    <td>
-        <p>@Model.ItemAge</p>
-        <p>@Model.PublishDate.Hour : @Model.PublishDate.Minute</p>
-    </td>*@
-
-
-@*</tr>*@
 
 <div class="four column row itemRow @(Model.Read == false ? "yellow" : "")" id="@Model.UserItemId" data-item-read="@Model.Read">
     <div class="two wide column">

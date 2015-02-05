@@ -7,53 +7,73 @@
 }
 
 
+<div class="ui grid">
+    <div class="one column row">
+        <div class="column">
+            <div id="Error" class="ui negative message" hidden="hidden">
+                <i class="close icon"></i>
+                <div class="header">
+                    We are experiencing some trouble processing your request
+                </div>
+                <p>
+                    Please try again in few minites
+                </p>
+            </div>
+        </div>
+    </div>
 
-    @try
+
+</div>
+<div class="ui internally celled grid">
+    <div class="four column orange row">
+        <div class="three wide column">Title</div>
+        <div class="nine wide column">Description</div>
+        <div class="one wide column">Readers</div>
+        <div class="three wide column">Action</div>
+    </div>
+
+    @foreach (var channel in Model)
+        {
+
+
+
+        <div class="four column row itemRow">
+            <div class="three wide column">
+                @channel.Title
+            </div>
+            <div class="nine wide column">
+                @Html.Raw(channel.Description)
+            </div>
+            <div class="one wide column">
+                @channel.Readers
+            </div>
+            <div class="three wide column">
+                @Html.ActionLink("Add channel", "AddRssChannel", "RssReader",
+                             new { url = channel.Url },
+                                     new { @class = "ui icon button" })
+                
+                @Html.ActionLink("Show news", "ShowChannelItems", "RssReader",
+                             new { channelId = channel.Id },
+                                    new { @class = "ui icon button"})
+            </div>
+        </div>
+
+
+        }
+</div>
+
+@section scripts
     {
+    <script src="~/Scripts/Developer/PostIsReadFunctionality.js"></script>
+    <script src="~/Scripts/Developer/ratings.js"></script>
+    <script src="~/Scripts/Attachers/showUserItems.js"></script>
 
-        <table class="ui celled striped table">
-            <thead>
-                <tr>
-                    <th>
-                        Title
-                    </th>
-                    <th>
-                        Description
-                    </th>
-                    <th>
-                        Readers
-                    </th>
-                    <th>
-                        Action
-                    </th>
-                </tr>
-            </thead>
+}
 
-            <tbody>
-                @foreach (var x in Model)
-                {
-                    <tr>
-                        <td>
-                            @x.Title
-                        </td>
-                        <td>@Html.Raw(x.Description)</td>
-                        <td>@x.Readers</td>
-                        <td>
-                            @Html.ActionLink("Add channel", "AddRssChannel", "RssReader",
-                             new { url = x.Url },
-                                    new { })
-                            <br />
-                            @Html.ActionLink("Show news", "ShowChannelItems", "RssReader",
-                             new { channelId = x.Id },
-                                    new { })
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+@section style
+{
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+}
 
-    }
-    catch (NullReferenceException nullex)
-    {
-    }
+
 
