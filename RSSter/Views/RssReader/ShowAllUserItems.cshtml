@@ -7,62 +7,65 @@
     Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
 }
 
-<div id="Error" class="ui negative message" hidden="hidden">
-    <i class="close icon"></i>
-    <div class="header">
-        We are experiencing some trouble processing your request
+
+
+
+<div class="ui grid">
+
+    <div id="Error" class="ui negative message" hidden="hidden">
+        <i class="close icon"></i>
+        <div class="header">
+            We are experiencing some trouble processing your request
+        </div>
+        <p>
+            Please try again.
+        </p>
     </div>
-    <p>
-        Please try again.
-    </p>
-</div>
 
-<p>@Html.ActionLink("Mark all items as read", "MarkAllItemsAsRead", "RssReader", null, new { @class = "ui purple button" })</p>
-<div class="col-md-10">
-    <div class="center">
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    <div class="one column row">
+    </div>
+    <div class="two column row">
+        <div class="six wide column">
+            <div class="col-md-10">
+                <div class="center">
+                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-        @Html.PagedListPager(Model, page => Url.Action("ShowAllUserItems", "RssReader",
+                    @Html.PagedListPager(Model, page => Url.Action("ShowAllUnreadUserItems", "RssReader",
         new { page }))
+                </div>
+            </div>
+        </div>
+        <div class="three wide column">
+            @Html.ActionLink("Mark all items as read", "MarkAllItemsAsRead", "RssReader", null, new { @class = "ui button" })
+        </div>
+        <div class="three wide column">
+        </div>
     </div>
-</div>
 
-<table class="ui celled striped table">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Channel</th>
-            <th>
-                Title
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Link
-            </th>
-            <th>
-                Publication
-            </th>
-        </tr>
-    </thead>
-    <tbody>
+ 
+    <div class="ui internally celled grid">
+
+        <div class="four column orange row">
+            <div class="two wide column">Actions</div>
+            <div class="five wide column">Title</div>
+            <div class="six wide column">Description</div>
+            <div class="three wide column">Time</div>
+        </div>
         @foreach (var userItemViewModel in Model)
         {
             @Html.Partial("_AllUserItemsView", userItemViewModel)
         }
-    </tbody>
-</table>
+    </div>
 
-@section scripts
-{
-    <script src="~/Scripts/Developer/ratings.js"></script>
-    <script src="~/Scripts/Attachers/showAllUserItems.js"></script>
-    <script src="~/Scripts/Developer/PostIsReadFunctionalityOnShowAllItemsView.js"></script>
+    @section scripts
+    {
+        <script src="~/Scripts/Developer/ratings.js"></script>
+        <script src="~/Scripts/Attachers/showAllUserItems.js"></script>
+        <script src="~/Scripts/Developer/PostIsReadFunctionalityOnShowAllItemsView.js"></script>
 
-}
+    }
 
-@section style
-{
-    <link href="~/Content/PagedList.css" rel="stylesheet" />
-}
+    @section style
+    {
+        <link href="~/Content/PagedList.css" rel="stylesheet" />
+    }

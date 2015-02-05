@@ -172,7 +172,7 @@ namespace RSSter.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "RssReader");
+                    return RedirectToAction("Index", "Search");
                 }
                 AddErrors(result);
             }
@@ -342,7 +342,7 @@ namespace RSSter.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Index", "RssReader");
+                    return RedirectToAction("Index", "Search");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -365,7 +365,7 @@ namespace RSSter.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "RssReader");
+                return RedirectToAction("Index", "Search");
             }
 
             if (ModelState.IsValid)
