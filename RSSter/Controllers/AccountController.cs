@@ -25,7 +25,7 @@ namespace RSSter.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "RssReader");
+                return RedirectToAction("Index", "Search");
             }
 
             return View();
@@ -88,7 +88,7 @@ namespace RSSter.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Index", "RssReader");
+                    return RedirectToAction("Index", "Search");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

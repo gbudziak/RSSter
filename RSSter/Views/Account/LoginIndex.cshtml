@@ -9,21 +9,54 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <title>The Facebook-Twitter-Google-Login Website Template | Home :: w3layouts</title>
     <link href="~/Content/loginPageStyle.css" rel="stylesheet" type="text/css" media="all" />
-    <link href='http://fonts.googleapis.com/css?family=Rokkitt' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Rokkitt' rel='stylesheet' type='text/css'>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="~/Content/semantic.css">
 
+    <script type='text/javascript'>
+        $(document).ready(function ()
+        {
+            $('.ui.modal')
+            .modal();
+        })
+    </script>
+
 </head>
 <body>
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+            Modal Title
+        </div>
+        <div class="content">
+            <div class="image">
+                An image can appear on left or an icon
+            </div>
+            <div class="description">
+                A description can appear on the right
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui button">Cancel</div>
+            <div class="ui button">OK</div>
+        </div>
+    </div>
+
+
+
     <div class="wrap">
+        @*<div class="circle"></div>*@
+
         <!-- strat-contact-form -->
         <div class="contact-form">
+
             <!-- start-form -->
-            <div class="contact_form">
+            <div class=" contact_form">
                 <h1>Login Into Your Account</h1>
                 <h5>Use a local account to log in or @Html.ActionLink("Register as a new user", "Register", "Account")</h5>
 
@@ -42,12 +75,15 @@
             </div>
 
 
+
+
+
             <!-- end-form -->
-            <div class="ui vertical divider">or</div>
+            <div class="ui vertical divider"><b>OR</b></div>
 
             <!-- start-account -->
             <div class="account">
-                <h2>Don't have an account? Sign Up!</h2>
+                <h1>Don't have an account? Sign Up!</h1>
                 @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
             </div>
             <!-- end-account -->
