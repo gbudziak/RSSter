@@ -34,7 +34,7 @@
                 <div class="center">
                     Page @(Model.Items.PageCount < Model.Items.PageNumber ? 0 : Model.Items.PageNumber) of @Model.Items.PageCount
 
-                    @Html.PagedListPager(Model.Items, page => Url.Action("ShowUserItems", "RssReader", new { userChannelId = @Model.UserChannelId, page }))
+                    @Html.PagedListPager(Model.Items, page => Url.Action("ShowUserItems", "RssReader", new { userChannelId = @Model.UserChannelId, page = page, viewType = Model.Items[0].ViewDisplay.ViewType }))
                 </div>
             </div>
         </div>

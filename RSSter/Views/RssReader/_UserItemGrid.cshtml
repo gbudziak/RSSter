@@ -3,8 +3,8 @@
 @{
     switch (@Model.ViewDisplay.ViewType)
     {
-        case "simple":
-            <div class="two column row itemRow @(Model.Read == false ? "yellow" : "")" id="@Model.UserItemId" data-item-read="@Model.Read">
+        case 1:
+            <div class="two column row itemRow @(Model.Read == false ? "bold" : "")" id="@Model.UserItemId" data-item-read="@Model.Read">
                 <div class="eight wide column">
                     <a href="@Model.Url" target="_blank" data-item-id="@Model.UserItemId">@Model.Title</a>
                 </div>
@@ -13,8 +13,8 @@
                 </div>
             </div>
             break;
-        case "full":
-        <div class="four column row itemRow @(Model.Read == false ? "yellow" : "")" id="@Model.UserItemId" data-item-read="@Model.Read">
+        case 2:
+        <div class="four column row itemRow @(Model.Read == false ? "bold" : "")" id="@Model.UserItemId" data-item-read="@Model.Read">
             <div class="two wide column">
                 <i class="big hide icon" data-item-id="@Model.UserItemId"></i>
                 <a class="ui green label">@Model.RatingPlusCount</a>

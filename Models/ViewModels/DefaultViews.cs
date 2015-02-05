@@ -13,7 +13,7 @@ namespace Models.ViewModels
             Rating = false,
             PublishDate = true,
             Title = true,
-            ViewType = "simple"
+            ViewType = 1
         };
 
         private static UserCustomView _full = new UserCustomView
@@ -23,7 +23,7 @@ namespace Models.ViewModels
             Rating = true,
             PublishDate = true,
             Title = true,
-            ViewType = "full"
+            ViewType = 2
         };
 
         public static UserCustomView Simple

@@ -80,6 +80,10 @@
     <Compile Include="Migrations\201502041048599_added viewName to customViewModel.Designer.cs">
       <DependentUpon>201502041048599_added viewName to customViewModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502051021479_viewType from string to short.cs" />
+    <Compile Include="Migrations\201502051021479_viewType from string to short.Designer.cs">
+      <DependentUpon>201502051021479_viewType from string to short.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RssTransaction.cs" />
@@ -103,6 +107,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502041048599_added viewName to customViewModel.resx">
       <DependentUpon>201502041048599_added viewName to customViewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502051021479_viewType from string to short.resx">
+      <DependentUpon>201502051021479_viewType from string to short.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
