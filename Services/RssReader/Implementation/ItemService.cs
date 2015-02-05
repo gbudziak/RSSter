@@ -71,7 +71,9 @@ namespace Services.RssReader.Implementation
             var userItems = _rssDatabase.UsersItems
                 .Include(x => x.Item)
                 .Include(x => x.UserChannel.Channel)
-                .Where(userItem => userItem.ApplicationUserId == userId).ToList();
+                .Where(userItem => userItem.ApplicationUserId == userId)
+                .Where(userItem => userItem.UserChannel.IsHidden == false)
+                .ToList();
 
             var allUserItemsViewModel = new List<ShowAllUserItemsViewModel>();
 

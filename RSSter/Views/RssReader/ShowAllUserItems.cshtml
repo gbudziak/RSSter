@@ -1,5 +1,4 @@
-﻿
-@using PagedList.Mvc
+﻿@using PagedList.Mvc
 @model PagedList.PagedList<Models.ViewModels.ShowAllUserItemsViewModel>
 
 @{
@@ -12,17 +11,18 @@
 
 <div class="ui grid">
 
-    <div id="Error" class="ui negative message" hidden="hidden">
-        <i class="close icon"></i>
-        <div class="header">
-            We are experiencing some trouble processing your request
-        </div>
-        <p>
-            Please try again.
-        </p>
-    </div>
+
 
     <div class="one column row">
+        <div id="Error" class="ui negative message" hidden="hidden">
+            <i class="close icon"></i>
+            <div class="header">
+                We are experiencing some trouble processing your request
+            </div>
+            <p>
+                Please try again.
+            </p>
+        </div>
     </div>
     <div class="two column row">
         <div class="six wide column">
@@ -42,13 +42,14 @@
         </div>
     </div>
 
- 
+
     <div class="ui internally celled grid">
 
-        <div class="four column orange row">
+        <div class="five column orange row">
             <div class="two wide column">Actions</div>
-            <div class="five wide column">Title</div>
-            <div class="six wide column">Description</div>
+            <div class="three wide column">Channel</div>
+            <div class="four wide column">Title</div>
+            <div class="four wide column">Description</div>
             <div class="three wide column">Time</div>
         </div>
         @foreach (var userItemViewModel in Model)
@@ -56,16 +57,17 @@
             @Html.Partial("_AllUserItemsView", userItemViewModel)
         }
     </div>
+</div>
 
-    @section scripts
+@section scripts
     {
-        <script src="~/Scripts/Developer/ratings.js"></script>
-        <script src="~/Scripts/Attachers/showAllUserItems.js"></script>
-        <script src="~/Scripts/Developer/PostIsReadFunctionalityOnShowAllItemsView.js"></script>
+    <script src="~/Scripts/Developer/ratings.js"></script>
+    <script src="~/Scripts/Attachers/showAllUserItems.js"></script>
+    <script src="~/Scripts/Developer/PostIsReadFunctionalityOnShowAllItemsView.js"></script>
 
-    }
+}
 
-    @section style
+@section style
     {
-        <link href="~/Content/PagedList.css" rel="stylesheet" />
-    }
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+}
