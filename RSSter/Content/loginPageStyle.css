@@ -32,6 +32,19 @@ nav.vertical ul li{	display:block;}/* vertical menu */
 nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
 /*end reset*/
+
+.circle {
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    border-radius: 100px;
+    background-image: url('http://www.logomoose.com/wp-content/uploads/2013/10/Rooster-0011.png');
+    background-size: 141px;   
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+
 body {
     font-family: 'Rokkitt', serif;
 	font-size:100%;
@@ -50,7 +63,7 @@ body {
 /*start-contact-form*/
 .contact_form {
 	width: 55%;
-	background: url(data:image/png;base64,~/Content/Images/loginPage/border.png) no-repeat 331px 77px;
+	background: url(data:image/png,~/Content/Images/loginpage/border.png) no-repeat 331px 77px;
 	float: left;
 	position: relative;
 }
@@ -360,7 +373,7 @@ body {
 }
 .checkbox input + i:after {
 	content: '';
-	background: url(data:image/png;base64,~/Content/Images/loginPage/mark.png) no-repeat 3px 2px;
+	background: url(data:image/png;base64,~/Content/Images/loginpage/mark.png) no-repeat 3px 2px;
 	top: -1px;
 	left: -1px;
 	width: 15px;
@@ -469,7 +482,7 @@ body {
 		padding: 13px 20px;
 	}
 	.contact_form {
-		background: url(data:image/png;base64,~/Content/Images/loginPage/border.png) no-repeat 313px 77px;
+		background: url(data:image/png;base64,~/Content/Images/loginpage/border.png) no-repeat 313px 77px;
 	}
 	.forgot {
 		margin-right: 65px;
@@ -525,7 +538,7 @@ body {
 		font-size: 1em;
 	}
 	.contact_form {
-		background: url(data:image/png;base64,~/Content/Images/loginPage/border.png) no-repeat 247px 41px;
+		background: url(data:image/png;base64,~/Content/Images/loginpage/border.png) no-repeat 247px 41px;
 	}
 	.forgot {
 		margin-right: 27px;

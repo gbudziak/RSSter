@@ -52,6 +52,12 @@
             </div>
         </div>
     </div>
+
+    @*<div class="massive header item">
+        <i class="large user icon"></i>
+        Your Channels
+    </div>*@
+
     @foreach (var userChannel in Model)
     {
         <div class="item">
@@ -61,9 +67,13 @@
                     @Html.ActionLink(userChannel.Title, "ShowUserItems", "RssReader",
                       new { userChannelId = userChannel.UserChannelId, viewType = UserViewType.Full },
                                     new { })
-                    <div class=" ui red circular label">
-                        @userChannel.UnreadItemsCount
-                    </div>
+                    @if (@userChannel.UnreadItemsCount>0)
+                    {
+                        <div class=" ui red circular label">
+                            @userChannel.UnreadItemsCount
+                        </div>
+                    }
+                    
                 </div>
             </div>
         </div>

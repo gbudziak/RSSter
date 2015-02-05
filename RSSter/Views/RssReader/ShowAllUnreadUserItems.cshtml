@@ -6,64 +6,99 @@
     Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
 }
 
-<div id="Error" class="ui negative message" hidden="hidden">
-    <i class="close icon"></i>
-    <div class="header">
-        We are experiencing some trouble processing your request
+
+
+
+
+
+<div class="ui grid">
+
+    <div id="Error" class="ui negative message" hidden="hidden">
+        <i class="close icon"></i>
+        <div class="header">
+            We are experiencing some trouble processing your request
+        </div>
+        <p>
+            Please try again.
+        </p>
     </div>
-    <p>
-        Please try again.
-    </p>
+
+    <div class="one column row">
 </div>
+        <div class="two column row">
+            <div class="six wide column">
+                <div class="col-md-10">
+                    <div class="center">
+                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-<p>@Html.ActionLink("Mark all items as read", "MarkAllItemsAsRead", "RssReader", null, new{ @class="ui purple button" })</p>
-
-<div class="col-md-10">
-    <div class="center">
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-        @Html.PagedListPager(Model, page => Url.Action("ShowAllUnreadUserItems", "RssReader",
+                        @Html.PagedListPager(Model, page => Url.Action("ShowAllUnreadUserItems", "RssReader",
         new { page }))
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                @Html.ActionLink("Mark all items as read", "MarkAllItemsAsRead", "RssReader", null, new { @class = "ui button" })
+            </div>
+            <div class="three wide column">
+            </div>
+        </div>
+
+
+
+        <div class="ui internally celled grid">
+
+            <div class="four column orange row">
+                <div class="two wide column">Actions</div>
+                <div class="five wide column">Title</div>
+                <div class="six wide column">Description</div>
+                <div class="three wide column">Time</div>
+            </div>
+            @foreach (var userItemViewModel in Model)
+            {
+                @Html.Partial("_AllUserItemsView", userItemViewModel)
+            }
+        </div>
+
     </div>
-</div>
 
-<table class="ui celled striped table">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Channel</th>
-            <th>
-                Title
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Link
-            </th>
-            <th>
-                Publication
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var userItemViewModel in Model)
-        {
-            @Html.Partial("_AllUserItemsView", userItemViewModel)
-        }
-    </tbody>
-</table>
 
-@section scripts
+    @*<table class="ui celled striped table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Channel</th>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Link
+                    </th>
+                    <th>
+                        Publication
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var userItemViewModel in Model)
+                {
+                    @Html.Partial("_AllUserItemsView", userItemViewModel)
+                }
+            </tbody>
+        </table>*@
+
+    @section scripts
 {
 
-    <script src="~/Scripts/Developer/PostIsReadFunctionality.js"></script>
-    <script src="~/Scripts/Developer/ratings.js"></script>
-    <script src="~/Scripts/Attachers/showUserItems.js"></script>
+        <script src="~/Scripts/Developer/PostIsReadFunctionality.js"></script>
+        <script src="~/Scripts/Developer/ratings.js"></script>
+        <script src="~/Scripts/Attachers/showUserItems.js"></script>
 
-}
+    }
 
-@section style
+    @section style
 {
-    <link href="~/Content/PagedList.css" rel="stylesheet" />
-}
+        <link href="~/Content/PagedList.css" rel="stylesheet" />
+    }
