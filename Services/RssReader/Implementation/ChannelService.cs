@@ -61,7 +61,7 @@ namespace Services.RssReader.Implementation
             return result;
         }
 
-        public void RemoveChannel(string userId, long channelId)
+        public void RemoveChannel(string userId, long userChannelId)
         {
             using (var transaction = _rssDatabase.OpenTransaction())
             {
@@ -70,9 +70,9 @@ namespace Services.RssReader.Implementation
                     var toRemove =
                         _rssDatabase.UserChannels
                             .Where(userChannel => userChannel.ApplicationUserId == userId)
-                            .FirstOrDefault(userChannel => userChannel.ChannelId == channelId);
+                            .FirstOrDefault(userChannel => userChannel.Id == userChannelId);
                     toRemove.IsHidden = true;
-                    DecreaseReadersCount(channelId);
+                    DecreaseReadersCount(toRemove.ChannelId);
                     _rssDatabase.SaveChanges();
                     transaction.Commit();
                 }

@@ -70,10 +70,10 @@ namespace RSSter.Controllers
             return View("ShowUserItems", _itemService.GetUserChannelItems(userChannelId, userId, 1, 20, 1));
         }
 
-        public ActionResult Delete(long channelId)
+        public ActionResult Delete(long userChannelId)
         {
             var userId = User.Identity.GetUserId();
-            _channelService.RemoveChannel(userId, channelId);
+            _channelService.RemoveChannel(userId, userChannelId);
             return RedirectToAction("Index");
         }
 
