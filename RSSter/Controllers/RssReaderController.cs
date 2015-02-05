@@ -75,7 +75,7 @@ namespace RSSter.Controllers
         {
             var userId = User.Identity.GetUserId();
             _channelService.RemoveChannel(userId, userChannelId);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Search");
         }
 
         public ActionResult ShowUserChannels()
