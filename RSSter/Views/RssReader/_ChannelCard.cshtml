@@ -42,10 +42,10 @@
     <div class="two wide column">
         <div class="ui vertical buttons">
             @Html.ActionLink("Simple", "ShowUserItems", "RssReader",
-                                      new { userChannelId = Model.UserChannelId, viewType = 1 },
+                                      new { userChannelId = Model.UserChannelId, page = Model.Items.PageNumber, viewType = 1 },
                                     new { @class="ui button"+isSimpleView})
             @Html.ActionLink("Full", "ShowUserItems", "RssReader",
-                                      new { userChannelId = Model.UserChannelId, viewType = 2 },
+                                               new { userChannelId = Model.UserChannelId, page = Model.Items.PageNumber, viewType = 2 },
                                     new { @class = "ui button"+isFullView })
             @*<div class="ui button">
                 Custom View
