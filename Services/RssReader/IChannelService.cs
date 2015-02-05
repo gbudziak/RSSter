@@ -11,7 +11,7 @@ namespace Services.RssReader
 
         void AddChannel(string url);
 
-        void RemoveChannel(string userId, long channelId);
+        void RemoveChannel(string userId, long userChannelId);
 
         long ReturnChannelId(string url);
         

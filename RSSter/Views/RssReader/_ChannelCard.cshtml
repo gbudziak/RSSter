@@ -27,7 +27,7 @@
                     <p>
                         <a href="@Model.Url" target="_blank">Link</a>
                     </p>
-                    <p>@Html.ActionLink("Unsubscibe", "Delete", new { channelId = @Model.UserChannelId })</p>
+                    <p>@Html.ActionLink("Unsubscibe", "Delete", new { userChannelId = @Model.UserChannelId })</p>
                 </div>
             </div>
             <div class="extra content">
@@ -47,9 +47,9 @@
             @Html.ActionLink("Full", "ShowUserItems", "RssReader",
                                       new { userChannelId = Model.UserChannelId, viewType = 2 },
                                     new { @class = "ui button"+isFullView })
-            <div class="ui button">
+            @*<div class="ui button">
                 Custom View
-            </div>
+            </div>*@
         </div>
     </div>
 </div>
