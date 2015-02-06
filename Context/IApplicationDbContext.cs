@@ -6,12 +6,12 @@ namespace RssDataContext
 {
     public interface IApplicationRssDataContext
     {        
-        DbSet<Channel> Channels { get; set; }
-        DbSet<UserChannel> UserChannels { get; set; }
-        DbSet<UserItem> UsersItems { get; set; }
-        DbSet<Item> AllItems { get; set; }
-        DbSet<UserCustomView> UsersCustomViews { get; set; }
-        DbSet<UserInfo> UserInfos { get; set; }
+        IDbSet<Channel> Channels { get; set; }
+        IDbSet<UserChannel> UserChannels { get; set; }
+        IDbSet<UserItem> UsersItems { get; set; }
+        IDbSet<Item> AllItems { get; set; }
+        IDbSet<UserCustomView> UsersCustomViews { get; set; }
+        IDbSet<UserInfo> UserInfos { get; set; }
 
         void SaveChanges();
 

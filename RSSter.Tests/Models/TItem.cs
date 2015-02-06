@@ -1,54 +1,189 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Models.RSS;
-using NUnit.Framework;
-
-namespace RSSter.Tests.Models
+﻿namespace RSSter.Tests
 {
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+
+    using Models.RSS;
+    using Models.User;
+
+    using Moq;
+
+    using NUnit.Framework;
+    using NUnit.Framework.Constraints;
+
+    using RssDataContext;
+
+    using Services.RssReader.Implementation;
+
     [TestFixture]
-    class TItem
-    {        
-        //[Test]
-        //[TestCase(false,false)]
-        //[TestCase(true, true)]        
-        //public void T001_Given_Item_And_Like_Value_Sets_Like_value_of_that_Item(bool like, bool expected)
-        //{
-        //    // arrange
-        //    Item cut = new Item();
-        //    ItemService _is = new ItemService();
+    public class ItemServiceTests
+    {
+        [SetUp]
+        public void inti()
+        {
+            MapperConfig.Register();
+        }
 
-        //    // arrange-mock
+        [Test]
+        [ExpectedException]
+        public void T001_GetUserChannelItems_When_Not_Items_On_Channel()
+        {
+            // arrange
+            var dbMock = new Mock<IApplicationRssDataContext>();
+            var sut = new ItemService(dbMock.Object);
 
-        //    // act
-        //    _is.ChangeLike(like, cut.Id); // <-dopytać Jarka o znajdowanie Itemów, co ma duży wpływ na konstrukcje bazy danych
+            var userChannel = new UserChannel(1, "1");
+            userChannel.Id = 1;
+            userChannel.UserItems = new List<UserItem>();
+            userChannel.Channel = new Channel();
 
-        //    // assert
-        //    Assert.AreEqual(expected, cut.Like);
+            var userChannels = new List<UserChannel> { userChannel }.AsQueryable();
 
-        //    // assert-mock
-        //}
+            // arrange_mock
+            dbMock.Setup(s => s.UserChannels.Provider).Returns(userChannels.Provider);
+            dbMock.Setup(s => s.UserChannels.Expression).Returns(userChannels.Expression);
+            dbMock.Setup(s => s.UserChannels.ElementType).Returns(userChannels.ElementType);
+            dbMock.Setup(s => s.UserChannels.GetEnumerator()).Returns(userChannels.GetEnumerator());
 
 
-        //[Test]
-        //[TestCase(true, true)]
-        //public void T002_Given_Item_and_Read_value_Sets_Read_value_of_that_item(bool read, bool expected)
-        //{
-        //    // arrange
-        //    Item cut = new Item();
-        //    ItemService _is = new ItemService();
+            // act
+            sut.GetUserChannelItems(1, "1", UserViewType.Custom1, 1, 1);
 
-        //    // arrange-mock
+            // assert
 
-        //    // act
-        //    _is.ChangeRead(read, cut.Id); // dopytać jak wyżej
+            // assert_mock
+        }
 
-        //    // assert
-        //    Assert.AreEqual(expected, cut.Read);
+        [Test]
+        public void T002_GetUserChannelItems_not_throwing_when_there_are_items_on_user_list()
+        {
+            // arrange
+            var dbMock = new Mock<IApplicationRssDataContext>();
+            var sut = new ItemService(dbMock.Object);
 
-        //    // assert-mock
-        //}
+            var userChannel = new UserChannel(1, "1");
+            userChannel.Id = 1;
+            userChannel.UserItems = new List<UserItem> { new UserItem() };
+            var channel = new Channel();
+            channel.Items = new List<Item>() { new Item() };
+            userChannel.Channel = channel;
+            
+
+            var userChannels = new List<UserChannel> { userChannel }.AsQueryable();
+
+            // arrange_mock
+            dbMock.Setup(s => s.UserChannels.Provider).Returns(userChannels.Provider);
+            dbMock.Setup(s => s.UserChannels.Expression).Returns(userChannels.Expression);
+            dbMock.Setup(s => s.UserChannels.ElementType).Returns(userChannels.ElementType);
+            dbMock.Setup(s => s.UserChannels.GetEnumerator()).Returns(userChannels.GetEnumerator());
+
+
+            // act
+            sut.GetUserChannelItems(1, "1", UserViewType.Custom1, 1, 1);
+
+            // assert
+
+            // assert_mock
+        }
+
+
+        [Test]
+        public void T004_not_workign_for_NotConstraint_existing()
+        {
+            // arrange
+            var dbMock = new Mock<IApplicationRssDataContext>();
+            var sut = new ItemService(dbMock.Object);
+
+            var userChannel = new UserChannel(1, "1");
+            userChannel.Id = 1;
+            userChannel.UserItems = new List<UserItem> { new UserItem() };
+            var channel = new Channel();
+            channel.Items = new List<Item>() { new Item() };
+            userChannel.Channel = channel;
+
+
+            var userChannels = new List<UserChannel> { userChannel }.AsQueryable();
+
+            // arrange_mock
+            dbMock.Setup(s => s.UserChannels.Provider).Returns(userChannels.Provider);
+            dbMock.Setup(s => s.UserChannels.Expression).Returns(userChannels.Expression);
+            dbMock.Setup(s => s.UserChannels.ElementType).Returns(userChannels.ElementType);
+            dbMock.Setup(s => s.UserChannels.GetEnumerator()).Returns(userChannels.GetEnumerator());
+
+
+            // act
+            sut.GetUserChannelItems(1, "10", UserViewType.Custom1, 10, 1000);
+
+            // assert
+
+            // assert_mock
+        }
+
+
+        [Test]
+        public void T005_not_workign_for_not_existing_channel()
+        {
+            // arrange
+            var dbMock = new Mock<IApplicationRssDataContext>();
+            var sut = new ItemService(dbMock.Object);
+
+            var userChannel = new UserChannel(1, "1");
+            userChannel.Id = 1;
+            userChannel.UserItems = new List<UserItem> { new UserItem() };
+            var channel = new Channel();
+            channel.Items = new List<Item>() { new Item() };
+            userChannel.Channel = channel;
+
+
+            var userChannels = new List<UserChannel> { userChannel }.AsQueryable();
+
+            // arrange_mock
+            dbMock.Setup(s => s.UserChannels.Provider).Returns(userChannels.Provider);
+            dbMock.Setup(s => s.UserChannels.Expression).Returns(userChannels.Expression);
+            dbMock.Setup(s => s.UserChannels.ElementType).Returns(userChannels.ElementType);
+            dbMock.Setup(s => s.UserChannels.GetEnumerator()).Returns(userChannels.GetEnumerator());
+
+
+            // act
+            sut.GetUserChannelItems(10, "1", UserViewType.Custom1, 10, 1000);
+
+            // assert
+
+            // assert_mock
+        }
+
+        [Test]
+        public void T005_workign_for_not_existing_channel()
+        {
+            // arrange
+            var dbMock = new Mock<IApplicationRssDataContext>();
+            var sut = new ItemService(dbMock.Object);
+
+            var userChannel = new UserChannel(1, "1");
+            userChannel.Id = 1;
+            userChannel.UserItems = new List<UserItem> { new UserItem() };
+            var channel = new Channel();
+            channel.Items = new List<Item>() { new Item() };
+            userChannel.Channel = channel;
+
+
+            var userChannels = new List<UserChannel> { userChannel }.AsQueryable();
+
+            // arrange_mock
+            dbMock.Setup(s => s.UserChannels.Provider).Returns(userChannels.Provider);
+            dbMock.Setup(s => s.UserChannels.Expression).Returns(userChannels.Expression);
+            dbMock.Setup(s => s.UserChannels.ElementType).Returns(userChannels.ElementType);
+            dbMock.Setup(s => s.UserChannels.GetEnumerator()).Returns(userChannels.GetEnumerator());
+
+
+            // act
+            sut.GetUserChannelItems(1, "1", UserViewType.Simple, 10, 1000);
+
+            // assert
+
+            // assert_mock
+        }
+
     }
 }

@@ -15,28 +15,15 @@ namespace RssDataContext
         IdentityDbContext<ApplicationUser>, IApplicationRssDataContext
     {
         
-        //static private List<Channel> _channels;
-        
-        //public List<Channel> Channels
-        //{
-        //    get { return _channels; }
-        //    set { _channels = value; }
-        //}
-   
-        //static Database()
-        //{
-        //    _channels = new List<Channel>(); 
-        //}
-
         public ApplicationRssDataContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
             this.Configuration.LazyLoadingEnabled = true;
         }
 
-        public DbSet<UserCustomView> UsersCustomViews { get; set; }
+        public IDbSet<UserCustomView> UsersCustomViews { get; set; }
 
-        public DbSet<UserInfo> UserInfos { get; set; }
+        public IDbSet<UserInfo> UserInfos { get; set; }
 
         public new void SaveChanges()
         {
@@ -48,13 +35,13 @@ namespace RssDataContext
             return new RssTransaction(this.Database);
         }
 
-        public DbSet<Channel> Channels { get; set; }
+        public IDbSet<Channel> Channels { get; set; }
 
-        public DbSet<UserChannel> UserChannels { get; set; }
+        public IDbSet<UserChannel> UserChannels { get; set; }
 
-        public DbSet<UserItem> UsersItems { get; set; }
+        public IDbSet<UserItem> UsersItems { get; set; }
 
-        public DbSet<Item> AllItems { get; set; }
+        public IDbSet<Item> AllItems { get; set; }
 
         public static ApplicationRssDataContext Create()
         {

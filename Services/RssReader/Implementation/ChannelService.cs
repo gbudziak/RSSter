@@ -146,8 +146,7 @@ namespace Services.RssReader.Implementation
 
             channel.Readers = _rssDatabase.Channels.First(x => x.Id == channelId).Readers;
             _rssDatabase.Channels.AddOrUpdate(channel);
-            _rssDatabase.AllItems.AddRange(channel.Items);
-
+            channel.Items.ForEach(item => _rssDatabase.AllItems.Add(item));
             _rssDatabase.SaveChanges();
         }
 
