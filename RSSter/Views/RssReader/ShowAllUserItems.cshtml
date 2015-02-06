@@ -30,8 +30,7 @@
                 <div class="center">
                     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-                    @Html.PagedListPager(Model, page => Url.Action("ShowAllUnreadUserItems", "RssReader",
-        new { page }))
+                    @Html.PagedListPager(Model, page => Url.Action("ShowAllUserItems", "RssReader", new { page }))
                 </div>
             </div>
         </div>

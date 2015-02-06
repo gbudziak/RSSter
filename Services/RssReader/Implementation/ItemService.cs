@@ -56,7 +56,7 @@ namespace Services.RssReader.Implementation
 
             var orderedItemList = itemList.OrderByDescending(item => item.PublishDate).ToList();
             userItemsViewModel.Items = new PagedList<CompleteItemInfo>(orderedItemList, page, pageSize);
-            userItemsViewModel.LastPost = userItemsViewModel.Items[0].ItemAge;
+            userItemsViewModel.LastPost = orderedItemList[0].ItemAge;
             userItemsViewModel.TotalPosts = orderedItemList.Count;
 
             userItemsViewModel.PostsPerDay = CalculatePostsPerDay(orderedItemList.First().PublishDate, orderedItemList.Last().PublishDate, userItemsViewModel.TotalPosts);
