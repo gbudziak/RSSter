@@ -548,6 +548,8 @@
     <Content Include="Views\RssReader\_UserItemViewSetter.cshtml" />
     <Content Include="Views\Search\SearchChannel.cshtml" />
     <Content Include="Views\Shared\_Layout_RSSreader.cshtml" />
+    <Content Include="Views\RssReader\SetUserCustomView.cshtml" />
+    <Content Include="Views\RssReader\_UserCustomView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

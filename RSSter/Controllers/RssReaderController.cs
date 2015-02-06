@@ -13,12 +13,13 @@ namespace RSSter.Controllers
     {
         private readonly IChannelService _channelService;
         private readonly IItemService _itemService;
+        private readonly IUserService _userService;
 
-        public RssReaderController(IChannelService channelService,
-            IItemService itemService)
+        public RssReaderController(IChannelService channelService, IItemService itemService, IUserService userService)
         {
             _channelService = channelService;
             _itemService = itemService;
+            _userService = userService;
         }
 
         public ActionResult Index()
@@ -143,6 +144,25 @@ namespace RSSter.Controllers
             _channelService.AddNewItemsToChannel(channelId,channelUrl);
             _channelService.AddNewItemsToUserChannel(userId, channelId,userChannelId);
             return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
+        }
+
+        public ActionResult SetUserCustomView()
+        {
+            var sampleCompleteItemInfo = _itemService.GetSampleCompleteItemInfo();
+
+            return View("SetUserCustomView", sampleCompleteItemInfo);
+        }
+
+        [HttpPost]
+        public ActionResult SetUserCustomView(UserCustomView userCustomView)
+        {
+            if (ModelState.IsValid)
+            {
+                userCustomView.UserId = User.Identity.GetUserId();
+                _userService.SetUserCustomView(userCustomView);
+                return RedirectToAction("Index", "Search");
+            }
+            return View("SetUserCustomView");
         }
     }
 }

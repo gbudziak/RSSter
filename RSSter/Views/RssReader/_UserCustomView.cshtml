@@ -1,0 +1,44 @@
+﻿@model Models.ViewModels.CompleteItemInfo
+
+<div class="ui card">
+    <div class="content">
+        <div class="header">@Model.Title</div>
+        <div class="meta">
+            @{
+                if (Model.ViewDisplay.ItemAge)
+                {
+                    <span>@Model.ItemAge</span>
+
+                }
+                if (Model.ViewDisplay.PublishDate)
+                {
+                    <span>@Model.PublishDate</span>
+                }
+            }
+        </div>
+        <div class="description">
+            @{
+                if (Model.ViewDisplay.Description)
+                {
+                    <p>@Html.Raw(Model.Description)</p>
+                }
+            }
+        </div>
+    </div>
+    <div class="extra content">
+        <p><i class="big hide icon" data-item-id="@Model.UserItemId"></i><span>Mark as read</span></p>
+        @{
+            if (Model.ViewDisplay.Rating)
+            {
+                <p>
+                    <a class="ui green label">@Model.RatingPlusCount</a>
+                    <i class="thumbs outline up icon" data-item-id="@Model.UserItemId" data-item-rate="@Model.RatingPlus"></i>
+                </p>
+                <p>
+                    <a class="ui red label">@Model.RatingMinusCount</a>
+                    <i class="thumbs outline down icon" data-item-id="@Model.UserItemId" data-item-rate="@Model.RatingMinus"></i>
+                </p>
+            }
+        }
+    </div>
+</div>

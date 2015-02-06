@@ -88,6 +88,14 @@
     <Compile Include="Migrations\201502051133283_enumeration implemented.Designer.cs">
       <DependentUpon>201502051133283_enumeration implemented.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502061257054_expanding UserCustomView.cs" />
+    <Compile Include="Migrations\201502061257054_expanding UserCustomView.Designer.cs">
+      <DependentUpon>201502061257054_expanding UserCustomView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502061259062_again expaning customView.cs" />
+    <Compile Include="Migrations\201502061259062_again expaning customView.Designer.cs">
+      <DependentUpon>201502061259062_again expaning customView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RssTransaction.cs" />
@@ -117,6 +125,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502051133283_enumeration implemented.resx">
       <DependentUpon>201502051133283_enumeration implemented.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502061257054_expanding UserCustomView.resx">
+      <DependentUpon>201502061257054_expanding UserCustomView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502061259062_again expaning customView.resx">
+      <DependentUpon>201502061259062_again expaning customView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
