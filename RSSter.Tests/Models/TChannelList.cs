@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using Models.RSS;
 using Moq;
+using Services.RssReader;
 using Services.RssReader.Implementation;
 
 namespace RSSter.Tests.Models

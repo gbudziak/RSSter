@@ -22,7 +22,7 @@
             <div class="container">
                 <div class="left menu">
                     <div class="title item">
-                        <i class="dribbble icon"></i><b>RSSter</b>
+                        <i class="feed icon"></i><b>RSSter</b>
 </div>
                     <div class="title item">
                                 <i class="plus icon"></i>@Html.ActionLink("Search & Add", "Index", "Search")
@@ -40,7 +40,7 @@
 
                         <div class="title item">
 
-                            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Search", routeValues: null, htmlAttributes: new { title = "Manage" })
                         </div>
 
 

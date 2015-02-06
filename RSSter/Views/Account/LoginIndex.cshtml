@@ -17,36 +17,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="~/Content/semantic.css">
+    <script>
+        $(document).ready(function () {
 
-    <script type='text/javascript'>
-        $(document).ready(function ()
-        {
-            $('.ui.modal')
-            .modal();
-        })
+            $('.button')
+              .popup({
+                  inline: true,
+                  variation: 'inverted'
+              })
+            ;
+
+            $('.modal-show').on('click', function () {
+                $($(this).attr('data-target')).modal('show');
+            });
+        });
     </script>
 
 </head>
+
+
 <body>
-    <div class="ui modal">
+
+
+    <a class="modal-show" data-target="#myModal"> Click</a>
+
+    <div class="ui modal" id="myModal">
         <i class="close icon"></i>
         <div class="header">
             Modal Title
         </div>
         <div class="content">
-            <div class="image">
-                An image can appear on left or an icon
-            </div>
-            <div class="description">
-                A description can appear on the right
-            </div>
-        </div>
-        <div class="actions">
-            <div class="ui button">Cancel</div>
-            <div class="ui button">OK</div>
+
+
         </div>
     </div>
-
 
 
     <div class="wrap">
@@ -59,8 +63,6 @@
             <div class=" contact_form">
                 <h1>Login Into Your Account</h1>
                 <h5>Use a local account to log in or @Html.ActionLink("Register as a new user", "Register", "Account")</h5>
-
-
 
                 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {

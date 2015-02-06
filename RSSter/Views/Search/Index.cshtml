@@ -26,32 +26,36 @@
             }
         });
 
+
+            $('.button')
+              .popup({
+                  inline: true,
+                  variation: 'inverted'
+              })
+            ;
+
+
+            $('.modal-show').on('click', function () {
+                $($(this).attr('data-target')).modal('show');
+            });
+
+
     });
 </script>
 
-@*@using (Html.BeginForm())
-    {
-        <div class="ui grid">
 
-            <div class="ui two column centered grid">
-                <div class="column">
+<a class="modal-show" data-target="#myModal"> Click</a>
 
-                    @Html.TextBox("searchString", null, new { @class = "ui fluid massive input", @placeholder = "         Search by string or rss Url...", @style = "width:500px;height:60px" })
-
-                </div>
-
-            </div>
-        </div>
-
-
-        <div class="ui right labeled left icon input">
-      <i class="tags icon"></i>
-      <input type="text" placeholder="Enter categories">
-      <div class="ui tag label">
-        Tags
-      </div>
+<div class="ui modal" id="myModal">
+    <i class="close icon"></i>
+    <div class="header">
+        Modal Title
     </div>
-    }*@
+    <div class="content">
+
+
+    </div>
+</div>
 
 <div class="ui grid">
 
@@ -71,3 +75,4 @@
         @Html.Partial("SearchChannel", Model)
     </div>
 }
+

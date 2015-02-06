@@ -1,11 +1,10 @@
 ﻿using PagedList;
+
 namespace Models.ViewModels
 {
-    public class UserItemsViewModel
+    public class ChannelItemsViewModel
     {
         public PagedList<CompleteItemInfo> Items { get; set; }
-
-        public long UserChannelId { get; set; }
 
         public long ChannelId { get; set; }
         public string Url { get; set; }

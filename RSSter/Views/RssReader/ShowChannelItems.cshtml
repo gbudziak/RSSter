@@ -21,34 +21,36 @@
                              new { url = Model.Url },
                                         new { @class = "ui button" })
 
-<table class="ui celled striped table">
-    <thead>
-        <tr>
-            <th>
-                Title
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Publish Date
-            </th>
-        </tr>
-    </thead>
 
-    <tbody>
-
-        @foreach (var item in Model.Items)
-        {
+    @*@Html.Partial("_ChannelCard", Model)*@
+    <table class="ui celled striped table">
+        <thead>
             <tr>
-                <td class="left aligned collapsing"><a href="@item.Url" target="_blank">@item.Title</a></td>
-                    
-                <td>@Html.Raw(item.Description)</td>
-                <td>
-                    @item.PublishDate
-                </td>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Publish Date
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td class="left aligned collapsing"><a href="@item.Url" target="_blank">@item.Title</a></td>
+
+                    <td>@Html.Raw(item.Description)</td>
+                    <td>
+                        @item.PublishDate
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
