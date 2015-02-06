@@ -16,7 +16,8 @@ namespace RSSter
 
 
             BundleTable.Bundles.Add(new StyleBundle("~/Content/semantic").
-               Include("~/Content/semanticUI/*.css"));
+               Include("~/Content/semanticUI/*.css",
+                        "~/Content/unreadItemsFormatting.css"));
         }
     }
 }

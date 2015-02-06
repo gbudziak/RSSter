@@ -7,6 +7,7 @@ function PostIsRead(e) {
     $.ajax({
         url: "/Ajax/Read/?userItemId=" + userItemId,
         method: "POST",
+        success: HideTr(userItemId),
         error: errorToggle
     });
 };
@@ -14,3 +15,10 @@ function PostIsRead(e) {
 function MarkAsRead(e) {
     PostIsRead(e);
 }
+
+function HideTr(userItemId) {
+    var itemRow = $(".itemRow#" + userItemId);
+    //itemRow.transition('fade up');
+    itemRow.data("item-read", "True");
+    itemRow.removeClass("unread");
+};

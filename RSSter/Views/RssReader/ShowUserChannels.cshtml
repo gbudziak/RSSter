@@ -1,4 +1,5 @@
-﻿@using Models.ViewModels
+﻿@using Models.User
+@using Models.ViewModels
 @model List<ShowUserChannelsViewModel>
 
 @{
@@ -64,7 +65,7 @@
             <div class="content">
                 <div class="header">
                     @Html.ActionLink(userChannel.Title, "ShowUserItems", "RssReader",
-                      new { userChannelId = userChannel.UserChannelId, viewType = 2 },
+                      new { userChannelId = userChannel.UserChannelId, viewType = UserViewType.Full },
                                     new { })
                     @if (@userChannel.UnreadItemsCount>0)
                     {

@@ -30,7 +30,7 @@ namespace Services.RssReader.Implementation
             return channel;
         }
 
-        public UserItemsViewModel GetUserChannelItems(long userChannelId, string userId, int viewType, int page, int pageSize)
+        public UserItemsViewModel GetUserChannelItems(long userChannelId, string userId, UserViewType viewType, int page, int pageSize)
         {
             var itemsAndChannel = _rssDatabase.UserChannels
                 .Include(x => x.Channel)
@@ -57,9 +57,9 @@ namespace Services.RssReader.Implementation
             var orderedItemList = itemList.OrderByDescending(item => item.PublishDate).ToList();
             userItemsViewModel.Items = new PagedList<CompleteItemInfo>(orderedItemList, page, pageSize);
             userItemsViewModel.LastPost = userItemsViewModel.Items[0].ItemAge;
-            userItemsViewModel.TotalPosts = userItemsViewModel.Items.Count;
+            userItemsViewModel.TotalPosts = orderedItemList.Count;
 
-            userItemsViewModel.PostsPerDay = CalculatePostsPerDay(userItemsViewModel.Items.First().PublishDate, userItemsViewModel.Items.Last().PublishDate, userItemsViewModel.TotalPosts);
+            userItemsViewModel.PostsPerDay = CalculatePostsPerDay(orderedItemList.First().PublishDate, orderedItemList.Last().PublishDate, userItemsViewModel.TotalPosts);
 
             return userItemsViewModel;
         }
@@ -71,7 +71,9 @@ namespace Services.RssReader.Implementation
             var userItems = _rssDatabase.UsersItems
                 .Include(x => x.Item)
                 .Include(x => x.UserChannel.Channel)
-                .Where(userItem => userItem.ApplicationUserId == userId).ToList();
+                .Where(userItem => userItem.ApplicationUserId == userId)
+                .Where(userItem => userItem.UserChannel.IsHidden == false)
+                .ToList();
 
             var allUserItemsViewModel = new List<ShowAllUserItemsViewModel>();
 
@@ -271,15 +273,15 @@ namespace Services.RssReader.Implementation
             return result;
         }
 
-        private UserCustomView GetViewDisplay(int viewType)
+        private UserCustomView GetViewDisplay(UserViewType viewType)
         {
             var result = new UserCustomView();
             switch (viewType)
             {
-                case 1:
+                case UserViewType.Simple:
                     result = DefaultViews.Simple;
                     break;
-                case 2:
+                case UserViewType.Full:
                     result = DefaultViews.Full;
                     break;
             }

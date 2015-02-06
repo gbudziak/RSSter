@@ -1,15 +1,16 @@
-﻿@model Models.User.UserCustomView
+﻿@using Models.User
+@model Models.User.UserCustomView
 
 @{
     switch (@Model.ViewType)
     {
-        case 1:
+        case UserViewType.Simple:
             <div class="two column orange row">
-                <div class="eight wide column">Title</div>
-                <div class="two wide column">Time</div>
+                <div class="twelve wide column">Title</div>
+                <div class="four wide column">Time</div>
             </div>
             break;
-        case 2:
+        case UserViewType.Full:
             <div class="four column orange row">
                 <div class="two wide column">Actions</div>
                 <div class="five wide column">Title</div>

@@ -1,29 +1,29 @@
-﻿@using Models.RSS
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/semantic.css">
+    <script src="~/Scripts/semantic.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
     @Styles.Render("~/Content/semantic")
+    @Scripts.Render("~/bundles/jquery")
+
+
+
 
 </head>
 <body>
-
-
-
-            @RenderBody()
-
-
-
+    @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/semantic")
     @Scripts.Render("~/bundles/css")
     @*@Styles.Render("~/Content/css")*@
-    @Styles.Render("~/Content/semantic")
+    @*@Styles.Render("~/Content/semantic")*@
 
     @RenderSection("scripts", required: false)
     @RenderSection("style", required: false)

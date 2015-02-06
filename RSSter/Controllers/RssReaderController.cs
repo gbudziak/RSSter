@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Models.User;
 using Models.ViewModels;
 using PagedList;
 using Services.RssReader;
@@ -53,7 +54,7 @@ namespace RSSter.Controllers
             return View("ShowChannelItems", channelWithItems);
         }
 
-        public ActionResult ShowUserItems(long userChannelId, int page = 1, int pageSize = 20, int viewType = 1)
+        public ActionResult ShowUserItems(long userChannelId, int page = 1, int pageSize = 20, UserViewType viewType = UserViewType.Simple)
         {
             var userId = User.Identity.GetUserId();
             var userItemList = _itemService.GetUserChannelItems(userChannelId, userId, viewType, page, pageSize);
@@ -61,20 +62,20 @@ namespace RSSter.Controllers
             return View("ShowUserItems", userItemList);
         }
 
-        public ActionResult ShowUserItemsByUrl(string url)
-        {
-            var userId = User.Identity.GetUserId();
-            var userChannelId = _channelService.ReturnUserChannelId(url, userId);
-            ViewBag.UserChannelId = userChannelId;
+        //public ActionResult ShowUserItemsByUrl(string url)
+        //{
+        //    var userId = User.Identity.GetUserId();
+        //    var userChannelId = _channelService.ReturnUserChannelId(url, userId);
+        //    ViewBag.UserChannelId = userChannelId;
 
-            return View("ShowUserItems", _itemService.GetUserChannelItems(userChannelId, userId, 1, 20, 1));
-        }
+        //    return View("ShowUserItems", _itemService.GetUserChannelItems(userChannelId, userId, 1, 20, 1));
+        //}
 
         public ActionResult Delete(long userChannelId)
         {
             var userId = User.Identity.GetUserId();
             _channelService.RemoveChannel(userId, userChannelId);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Search");
         }
 
         public ActionResult ShowUserChannels()
