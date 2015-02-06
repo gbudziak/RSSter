@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Models.RSS;
+﻿using System.Collections.Generic;
+
 using Models.ViewModels;
 
 namespace Services.RssReader

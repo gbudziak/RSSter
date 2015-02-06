@@ -1,5 +1,4 @@
 ﻿using PagedList;
-
 namespace Models.ViewModels
 {
     public class UserItemsViewModel

@@ -6,7 +6,7 @@ using Models.ViewModels;
 
 namespace RSSter
 {
-    public class MapperConfig
+    public static class MapperConfig
     {
         public static void Register()
         {
