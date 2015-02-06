@@ -43,6 +43,8 @@ namespace RssDataContext
 
         public IDbSet<Item> AllItems { get; set; }
 
+
+
         public static ApplicationRssDataContext Create()
         {
             return new ApplicationRssDataContext();

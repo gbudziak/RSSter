@@ -1,0 +1,46 @@
+﻿@model List<Models.Models.ApplicationUser>
+@{
+    ViewBag.Title = "Documents";
+}
+
+
+<table style="width: 100%;">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Id
+        </th>
+        <th>
+            email
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <h4>
+                    @item.UserName
+
+                </h4>
+            </td>
+            <td>
+                <h4>
+                    @item.Id
+
+                </h4>
+            </td>
+            <td>
+                <h4>
+                    @item.Email
+
+                </h4>
+            </td>
+
+        </tr>
+    }
+
+</table>

@@ -17,6 +17,7 @@ namespace RSSter.Controllers
 
         public AccountController()
         {
+          
         }
 
         [RequireHttps]
@@ -66,6 +67,7 @@ namespace RSSter.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            
             ViewBag.ReturnUrl = returnUrl;
             return View("LoginIndex");
         }
@@ -411,6 +413,14 @@ namespace RSSter.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+        public ActionResult GetUsers()
+        {
+            //var x = _userManager.Users.ToList();
+            var users = UserManager.Users.ToList();
+            var z = users;
+            return View(users);
         }
 
         protected override void Dispose(bool disposing)
