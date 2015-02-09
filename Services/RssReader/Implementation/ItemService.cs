@@ -26,7 +26,7 @@ namespace Services.RssReader.Implementation
             var channel = _rssDatabase.Channels
                 .Include(x => x.Items)
                 .First(x => x.Id == channelId);
- 
+
             return channel;
         }
 
@@ -64,7 +64,7 @@ namespace Services.RssReader.Implementation
             return userItemsViewModel;
         }
 
-       
+
 
         public List<ShowAllUserItemsViewModel> GetAllUserItems(string userId)
         {
@@ -83,11 +83,11 @@ namespace Services.RssReader.Implementation
                 Mapper.Map<Item, ShowAllUserItemsViewModel>(userItem.Item, userItemViewModel);
                 Mapper.Map<Channel, ShowAllUserItemsViewModel>(userItem.UserChannel.Channel, userItemViewModel);
                 userItemViewModel.ItemAge = CalculateItemAge(userItemViewModel.PublishDate);
-                
+
                 allUserItemsViewModel.Add(userItemViewModel);
             }
 
-            var allUserItemViewModelSorted = allUserItemsViewModel.OrderByDescending( x => x.PublishDate).ToList();
+            var allUserItemViewModelSorted = allUserItemsViewModel.OrderByDescending(x => x.PublishDate).ToList();
 
             return allUserItemViewModelSorted;
         }
@@ -99,7 +99,7 @@ namespace Services.RssReader.Implementation
 
             return allUnreadUserItemsViewModel;
         }
-        
+
         public bool IncreaseUserRating(long userItemId)
         {
             var response = false;
@@ -118,7 +118,7 @@ namespace Services.RssReader.Implementation
             return response;
 
         }
-        
+
         public bool DecreaseUserRating(long userItemId)
         {
             var response = false;
@@ -143,10 +143,10 @@ namespace Services.RssReader.Implementation
             {
                 try
                 {
-                     var userItem = _rssDatabase.UsersItems
-                     .Single(item => item.Id == userItemId);
+                    var userItem = _rssDatabase.UsersItems
+                    .Single(item => item.Id == userItemId);
 
-                     userItem.Read = true;
+                    userItem.Read = true;
 
                     _rssDatabase.SaveChanges();
                     transaction.Commit();
@@ -208,6 +208,28 @@ namespace Services.RssReader.Implementation
                     break;
             }
             return result;
+        }
+
+        public CompleteItemInfo GetSampleCompleteItemInfo()
+        {
+            CompleteItemInfo sampleInfo = new CompleteItemInfo
+            {
+                Description =
+                    "This is sample Description. This is sample Description. This is sample Description. This is sample Description.",
+                ItemAge = "2 days 14 h 22 min",
+                ItemId = 12,
+                PublishDate = new DateTime(2015,01,15,15,15,15),
+                RatingMinus = false,
+                RatingPlus = false,
+                RatingMinusCount = 20,
+                RatingPlusCount = 30,
+                Read = false,
+                Title = "This is sample Title.",
+                Url = "http://www.w3schools.com/html/html_examples.asp",
+                ViewDisplay = DefaultViews.Full
+            };
+
+            return sampleInfo;
         }
 
         private bool IncreaseItemRating(long userItemId)

@@ -109,10 +109,12 @@
     <Compile Include="RssReader\Implementation\SearchResultsBuilder.cs" />
     <Compile Include="RssReader\Implementation\SyndicationFeedProvider.cs" />
     <Compile Include="RssReader\IChannelProvider.cs" />
+    <Compile Include="RssReader\Implementation\UserService.cs" />
     <Compile Include="RssReader\Implementation\ViewService.cs" />
     <Compile Include="RssReader\ISearchResultsBuilder.cs" />
     <Compile Include="RssReader\ISyndicationFeedProvider.cs" />
     <Compile Include="RssReader\Implementation\ValidateService.cs" />
+    <Compile Include="RssReader\IUserService.cs" />
     <Compile Include="RssReader\IValidateService.cs" />
     <Compile Include="RssReader\IViewService.cs" />
   </ItemGroup>

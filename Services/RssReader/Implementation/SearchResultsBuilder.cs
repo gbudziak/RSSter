@@ -39,7 +39,12 @@ namespace Services.RssReader.Implementation
             {
                 try
                 {
-                    var resultModels = new List<SearchChannel>();
+                    var ChannelList = new List<SearchChannel>();
+                    
+                    var toMerge = new List<SearchChannel>();
+
+                    var userSearch = new Search();
+
 
                     searchString = RemoveDiacritics(searchString);
                     string[] wordsToMatch = SplitText(searchString);
@@ -55,8 +60,11 @@ namespace Services.RssReader.Implementation
                     {
                         var foundChannel = Mapper.Map<Channel, SearchChannel>(channel);
                         foundChannel.Rating = 1000;
-                        resultModels.Add(foundChannel);
+                        ChannelList.Add(foundChannel);
                     }
+
+
+
 
                     var containsAllWordsInUrlTitleOrDescription = from channel in model
                                                                   let url = SplitText(RemoveDiacritics(channel.Url))
@@ -67,14 +75,15 @@ namespace Services.RssReader.Implementation
                                                                       || title.Distinct().Intersect(wordsToMatch).Count() == wordsToMatch.Count())
                                                                   select channel;
 
-                    var toMerge = new List<SearchChannel>();
                     foreach (var channel in containsAllWordsInUrlTitleOrDescription)
                     {
                         var foundChannel = Mapper.Map<Channel, SearchChannel>(channel);
                         foundChannel.Rating = 100;
-
                         toMerge.Add(foundChannel);
                     }
+
+
+
 
                     if (wordsToMatch.Count() >= 2)
                     {
@@ -93,14 +102,27 @@ namespace Services.RssReader.Implementation
                         {
                             var foundChannel = Mapper.Map<Channel, SearchChannel>(channel);
                             foundChannel.Rating = 10;
-
                             toMerge.Add(foundChannel);
                         }
-
                     }
 
-                    var foo = ListComparer(resultModels, toMerge);
-                    var result = foo.OrderByDescending(x => x.Rating).ThenByDescending(x => x.Readers).ToList();
+                    //var users = UserManager.Users.ToList();
+
+
+                    //var containsHalfWordsInUrlOrTitleOrDescription = from channel in model
+                    //                                                 let url = SplitText(channel.Url)
+                    //                                                 let description = SplitText(channel.Description)
+                    //                                                 let title = SplitText(channel.Title)
+                    //                                                 where (url.Distinct().Intersect(wordsToMatch).Count() == (wordsToMatch.Count() / 2)
+                    //                                                     || description.Distinct().Intersect(wordsToMatch).Count() == (wordsToMatch.Count() / 2)
+                    //                                                     || title.Distinct().Intersect(wordsToMatch).Count() == (wordsToMatch.Count() / 2))
+                    //                                                 select channel;
+
+
+                    var ChannelListCompare = ListComparer(ChannelList, toMerge);
+                    var result = ChannelListCompare.OrderByDescending(x => x.Rating).ThenByDescending(x => x.Readers).ToList();
+
+
                     //string jsonResult = JsonConvert.SerializeObject(foo);
                     //string json = JsonConvert.SerializeObject(foo , Formatting.Indented);
                     transaction.Commit();

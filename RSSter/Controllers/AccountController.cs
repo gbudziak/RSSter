@@ -417,9 +417,7 @@ namespace RSSter.Controllers
 
         public ActionResult GetUsers()
         {
-            //var x = _userManager.Users.ToList();
             var users = UserManager.Users.ToList();
-            var z = users;
             return View(users);
         }
 

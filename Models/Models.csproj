@@ -105,6 +105,7 @@
     <Compile Include="User\UserCustomView.cs" />
     <Compile Include="User\UserViewType.cs" />
     <Compile Include="ViewModels\CompleteItemInfo.cs" />
+    <Compile Include="ViewModels\Search.cs" />
     <Compile Include="ViewModels\ShowAllUserItemsViewModel.cs" />
     <Compile Include="ViewModels\ShowUserChannelsViewModel.cs" />
     <Compile Include="ViewModels\DefaultViews.cs" />

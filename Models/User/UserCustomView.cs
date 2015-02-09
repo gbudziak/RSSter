@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using Models.Models;
 
 namespace Models.User
@@ -17,6 +12,7 @@ namespace Models.User
         public bool Description { get; set; }
         public bool PublishDate { get; set; }
         public bool Rating { get; set; }
+        public bool ItemAge { get; set; }
         //item age format / publication date
         //size
         //color
@@ -30,7 +26,7 @@ namespace Models.User
 
         public UserCustomView(string userId, bool image, 
             bool title, bool description, 
-            bool publishDate, bool rating)
+            bool publishDate, bool itemAge, bool rating)
         {
             this.UserId = userId;
             this.Image = image;
@@ -38,6 +34,7 @@ namespace Models.User
             this.Description = description;
             this.PublishDate = publishDate;
             this.Rating = rating;
+            this.ItemAge = itemAge;
         }
     }
 }
