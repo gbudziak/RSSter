@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Models.RSS;
 using Models.ViewModels;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Services.RssReader
 {
@@ -10,7 +11,9 @@ namespace Services.RssReader
     {
         IEnumerable<Channel> GetAllChannels();
         IEnumerable<Item> GetAllItems();
-        List<SearchChannel> SearchForString(string searchString);
+        List<IdentityUser> GetAllUsers();
+        Search MainSearch(string searchString);
+        List<IdentityUser> SearchUsersForString(string searchString);
+        List<SearchChannel> SearchChannelsForString(string searchString);
     }
-
 }

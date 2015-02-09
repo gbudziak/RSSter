@@ -1,4 +1,5 @@
-﻿using Models.Models;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Models.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace Models.ViewModels
     public class Search
     {
         public List<SearchChannel> ChannelList{get; set;}
-        public List<ApplicationUser> User { get; set; }
+        public List<IdentityUser> UsersList { get; set; }
     }
 }

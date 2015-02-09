@@ -14,12 +14,16 @@ namespace RSSter.Controllers
         private readonly IChannelService _channelService;
         private readonly IItemService _itemService;
         private readonly IUserService _userService;
+        private readonly ISubscriptionService _subscriptionService;
 
-        public RssReaderController(IChannelService channelService, IItemService itemService, IUserService userService)
+
+        public RssReaderController(IChannelService channelService, IItemService itemService, IUserService userService, ISubscriptionService subscriptionService)
         {
             _channelService = channelService;
             _itemService = itemService;
             _userService = userService;
+            _subscriptionService = subscriptionService;
+
         }
 
         public ActionResult Index()
@@ -27,13 +31,6 @@ namespace RSSter.Controllers
             return View();
         }
 
-        //[HttpGet]
-        //public ActionResult AddRssChannel()
-        //{
-        //    return View("AddRssChannel");
-        //}
-
-        //[HttpPost]
         public ActionResult AddRssChannel(string url)
         {
             if (ModelState.IsValid)
@@ -43,6 +40,19 @@ namespace RSSter.Controllers
           
                 return RedirectToAction("ShowUserItems","RssReader", new { userChannelId = userChannelId}); 
                 //return RedirectToAction("Index","Search");
+            }
+            return RedirectToAction("Index", "Search");
+        }
+
+        public ActionResult AddUserSubscription(string subscriptionId, string subscriptionEmail)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = User.Identity.GetUserId();
+
+                _subscriptionService.AddSubscription(userId, subscriptionId, subscriptionEmail);
+
+                return View("ShowUserSubscriptionPage");
             }
             return RedirectToAction("Index", "Search");
         }

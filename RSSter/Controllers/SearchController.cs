@@ -58,7 +58,7 @@ namespace RSSter.Controllers
                     _channelService.AddChannel(searchString);
                 }
 
-                var result = _searchResultBuilder.SearchForString(searchString);
+                var result = _searchResultBuilder.MainSearch(searchString);
                 return View(result);
             }
 

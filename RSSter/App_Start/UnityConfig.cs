@@ -49,6 +49,7 @@ namespace RSSter
             container.RegisterType<IViewService, ViewService>();
             container.RegisterType<ISearchResultsBuilder, SearchResultsBuilder>();
             container.RegisterType<IUserService, UserService>();
+            container.RegisterType<ISubscriptionService, SubscriptionService>();
 
 
 

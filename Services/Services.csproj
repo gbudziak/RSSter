@@ -99,14 +99,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RssReader\IAccountService.cs" />
     <Compile Include="RssReader\IChannelService.cs" />
     <Compile Include="RssReader\Implementation\ChannelProvider.cs" />
     <Compile Include="RssReader\Implementation\ChannelService.cs" />
     <Compile Include="RssReader\Implementation\ChannelGet.cs" />
     <Compile Include="RssReader\IChannelGet.cs" />
     <Compile Include="RssReader\IItemService.cs" />
+    <Compile Include="RssReader\ISubscriptionService.cs" />
     <Compile Include="RssReader\Implementation\ItemService.cs" />
     <Compile Include="RssReader\Implementation\SearchResultsBuilder.cs" />
+    <Compile Include="RssReader\Implementation\SubscriptionService.cs" />
     <Compile Include="RssReader\Implementation\SyndicationFeedProvider.cs" />
     <Compile Include="RssReader\IChannelProvider.cs" />
     <Compile Include="RssReader\Implementation\UserService.cs" />

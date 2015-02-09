@@ -550,9 +550,12 @@
     <Content Include="Views\Shared\_Layout_RSSreader.cshtml" />
     <Content Include="Views\RssReader\_ChannelCardWithoutUser.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
-	<Content Include="Views\RssReader\SetUserCustomView.cshtml" />
+    <Content Include="Views\RssReader\SetUserCustomView.cshtml" />
     <Content Include="Views\RssReader\_UserCustomView.cshtml" />
     <Content Include="Views\Account\GetUsers.cshtml" />
+    <Content Include="Views\Search\SearchUsers.cshtml" />
+    <Content Include="Views\RssReader\AddUserSubscription.cshtml" />
+    <Content Include="Views\RssReader\ShowUserSubscriptionPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
