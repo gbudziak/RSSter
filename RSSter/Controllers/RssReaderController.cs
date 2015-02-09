@@ -53,6 +53,7 @@ namespace RSSter.Controllers
                 _subscriptionService.AddSubscription(userId, subscriptionId, subscriptionEmail);
 
                 return View("ShowUserSubscriptionPage");
+               
             }
             return RedirectToAction("Index", "Search");
         }
