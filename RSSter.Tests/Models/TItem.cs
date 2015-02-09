@@ -1,21 +1,14 @@
-﻿namespace RSSter.Tests
+﻿using System.Collections.Generic;
+using System.Linq;
+using Models.RSS;
+using Models.User;
+using Moq;
+using NUnit.Framework;
+using RssDataContext;
+using Services.RssReader.Implementation;
+
+namespace RSSter.Tests
 {
-    using System.Collections.Generic;
-    using System.Data.Entity;
-    using System.Linq;
-
-    using Models.RSS;
-    using Models.User;
-
-    using Moq;
-
-    using NUnit.Framework;
-    using NUnit.Framework.Constraints;
-
-    using RssDataContext;
-
-    using Services.RssReader.Implementation;
-
     [TestFixture]
     public class ItemServiceTests
     {
@@ -62,11 +55,8 @@
             var dbMock = new Mock<IApplicationRssDataContext>();
             var sut = new ItemService(dbMock.Object);
 
-            var userChannel = new UserChannel(1, "1");
-            userChannel.Id = 1;
-            userChannel.UserItems = new List<UserItem> { new UserItem() };
-            var channel = new Channel();
-            channel.Items = new List<Item>() { new Item() };
+            var userChannel = new UserChannel(1, "1") {Id = 1, UserItems = new List<UserItem> {new UserItem()}};
+            var channel = new Channel {Items = new List<Item>() {new Item()}};
             userChannel.Channel = channel;
             
 
@@ -86,7 +76,7 @@
 
             // assert_mock
         }
-
+        
 
         [Test]
         public void T004_not_workign_for_NotConstraint_existing()

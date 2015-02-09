@@ -139,6 +139,7 @@ namespace Services.RssReader.Implementation
                }
                catch
                {
+                   // ignored
                }
 
                 dict[channel.Id] = channel;
