@@ -68,33 +68,9 @@
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="IApplicationDbContext.cs" />
     <Compile Include="IRssTransaction.cs" />
-    <Compile Include="Migrations\201501271435023_userCustomViewModel.cs" />
-    <Compile Include="Migrations\201501271435023_userCustomViewModel.Designer.cs">
-      <DependentUpon>201501271435023_userCustomViewModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201501291009252_UserInfo.cs" />
-    <Compile Include="Migrations\201501291009252_UserInfo.Designer.cs">
-      <DependentUpon>201501291009252_UserInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502041048599_added viewName to customViewModel.cs" />
-    <Compile Include="Migrations\201502041048599_added viewName to customViewModel.Designer.cs">
-      <DependentUpon>201502041048599_added viewName to customViewModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502051021479_viewType from string to short.cs" />
-    <Compile Include="Migrations\201502051021479_viewType from string to short.Designer.cs">
-      <DependentUpon>201502051021479_viewType from string to short.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502051133283_enumeration implemented.cs" />
-    <Compile Include="Migrations\201502051133283_enumeration implemented.Designer.cs">
-      <DependentUpon>201502051133283_enumeration implemented.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502061257054_expanding UserCustomView.cs" />
-    <Compile Include="Migrations\201502061257054_expanding UserCustomView.Designer.cs">
-      <DependentUpon>201502061257054_expanding UserCustomView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502061259062_again expaning customView.cs" />
-    <Compile Include="Migrations\201502061259062_again expaning customView.Designer.cs">
-      <DependentUpon>201502061259062_again expaning customView.cs</DependentUpon>
+    <Compile Include="Migrations\201502091352192_new migration.cs" />
+    <Compile Include="Migrations\201502091352192_new migration.Designer.cs">
+      <DependentUpon>201502091352192_new migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,26 +87,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201501271435023_userCustomViewModel.resx">
-      <DependentUpon>201501271435023_userCustomViewModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201501291009252_UserInfo.resx">
-      <DependentUpon>201501291009252_UserInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502041048599_added viewName to customViewModel.resx">
-      <DependentUpon>201502041048599_added viewName to customViewModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502051021479_viewType from string to short.resx">
-      <DependentUpon>201502051021479_viewType from string to short.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502051133283_enumeration implemented.resx">
-      <DependentUpon>201502051133283_enumeration implemented.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502061257054_expanding UserCustomView.resx">
-      <DependentUpon>201502061257054_expanding UserCustomView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502061259062_again expaning customView.resx">
-      <DependentUpon>201502061259062_again expaning customView.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201502091352192_new migration.resx">
+      <DependentUpon>201502091352192_new migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

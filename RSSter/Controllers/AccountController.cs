@@ -15,10 +15,15 @@ namespace RSSter.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AccountController()
+        public AccountController() { }
+
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
+            UserManager = userManager;
+            SignInManager = signInManager;
         }
 
+        
         [RequireHttps]
         [AllowAnonymous]
         public ActionResult LoginIndex()
@@ -29,12 +34,6 @@ namespace RSSter.Controllers
             }
 
             return View();
-        }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
         }
 
         public ApplicationSignInManager SignInManager
@@ -66,6 +65,7 @@ namespace RSSter.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            
             ViewBag.ReturnUrl = returnUrl;
             return View("LoginIndex");
         }
@@ -411,6 +411,12 @@ namespace RSSter.Controllers
         public ActionResult ExternalLoginFailure()
         {
             return View();
+        }
+
+        public ActionResult GetUsers()
+        {
+            var users = UserManager.Users.ToList();
+            return View(users);
         }
 
         protected override void Dispose(bool disposing)

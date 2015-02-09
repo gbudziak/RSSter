@@ -7,13 +7,13 @@ namespace RssDataContext.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.2-31219")]
-    public sealed partial class addedviewNametocustomViewModel : IMigrationMetadata
+    public sealed partial class newmigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addedviewNametocustomViewModel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(newmigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201502041048599_added viewName to customViewModel"; }
+            get { return "201502091352192_new migration"; }
         }
         
         string IMigrationMetadata.Source

@@ -1,11 +1,11 @@
 ﻿@using Models.ViewModels;
 
-@model IEnumerable<SearchChannel>
+@model Search
 
 @{
     Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
 
-
+    
 }
 
 <script type='text/javascript'>
@@ -69,10 +69,22 @@
     </div>
 </div>
 <br />
-@if (@Model != null)
+
+@if (Model != null)
+{
+    
+
+if (Model.ChannelList != null)
 {
     <div id="myPartialDiv">
-        @Html.Partial("SearchChannel", Model)
+        @Html.Partial("SearchChannel", Model.ChannelList)
     </div>
 }
 
+if (Model.UsersList != null)
+{
+    <div id="myPartialDiv">
+        @Html.Partial("SearchUsers", Model.UsersList)
+    </div>
+}
+}

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using Services.RssReader;
-
+using Models.Models;
 namespace RSSter.Controllers
 {
     public class SearchController : Controller
@@ -10,6 +10,7 @@ namespace RSSter.Controllers
         private readonly IChannelService _channelService;
         private readonly IItemService _itemService;
         private readonly ISearchResultsBuilder _searchResultBuilder;
+        //private ApplicationUserManager _userManager;
 
 
         public SearchController(IChannelService channelService, IItemService itemService, ISearchResultsBuilder searchResultBuilder)
@@ -17,10 +18,11 @@ namespace RSSter.Controllers
             _channelService = channelService;
             _itemService = itemService;
             _searchResultBuilder = searchResultBuilder;
+            //UserManager = userManager;
         }
 
 
-        //public ActionResult Index(string searchString)
+        //public ActionResult SearchItems(string searchString)
         //{
         //    if (!String.IsNullOrEmpty(searchString))
         //    {
@@ -56,7 +58,7 @@ namespace RSSter.Controllers
                     _channelService.AddChannel(searchString);
                 }
 
-                var result = _searchResultBuilder.SearchForString(searchString);
+                var result = _searchResultBuilder.MainSearch(searchString);
                 return View(result);
             }
 

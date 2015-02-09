@@ -1,6 +1,6 @@
 ﻿@using Models.ViewModels;
 
-@model List<SearchChannel>
+@model List<Microsoft.AspNet.Identity.EntityFramework.IdentityUser>
 
 @{
     Layout = null;
@@ -26,35 +26,41 @@
 </div>
 <div class="ui internally celled grid">
     <div class="four column orange row">
-        <div class="three wide column">Title</div>
-        <div class="nine wide column">Description</div>
-        <div class="one wide column">Readers</div>
-        <div class="three wide column">Action</div>
+        <div class="three wide column">Id</div>
+        <div class="two wide column">UserName</div>
+        <div class="two wide column">Email</div>
+        <div class="nine wide column">Action</div>
     </div>
 
-    @foreach (var channel in Model)
+    @foreach (var user in Model)
         {
 
 
 
         <div class="four column row itemRow">
             <div class="three wide column">
-                @channel.Title
+                @user.Id
+            </div>
+            <div class="two wide column">
+                @user.UserName
+
+
+            </div>
+            <div class="two wide column">
+                @user.Email
+
+
             </div>
             <div class="nine wide column">
-                @Html.Raw(channel.Description)
-            </div>
-            <div class="one wide column">
-                @channel.Readers
-            </div>
-            <div class="three wide column">
-                @Html.ActionLink("Add channel", "AddRssChannel", "RssReader",
-                             new { url = channel.Url },
+                @Html.ActionLink("Subscribe user", "AddUserSubscription", "RssReader",
+                              new { subscriptionId = user.Id, subscriptionEmail = user.Email },
                                      new { @class = "ui icon button" })
-                
-                @Html.ActionLink("Show news", "ShowChannelItems", "RssReader",
-                             new { channelId = channel.Id },
-                                    new { @class = "ui icon button"})
+
+                @Html.ActionLink("Show user page", "ShowChannelItems", "RssReader",
+                             new { },
+                                    new { @class = "ui icon button" })
+
+
             </div>
         </div>
 
