@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace Models.RSS
 {
-    public class UsersHistory
+    public class UserHistory
     {
         [Key]
         public long Id { get; set; }
 
-        public HistoryAction ActionName { get; set; }
+        public string ActionName { get; set; }
         public DateTime Date { get; set; }
         public long UserChannelId { get; set; }
-        public long USerItemId { get; set; }
+        public long UserItemId { get; set; }
         public string SubscriptionId { get; set; }
 
         [ForeignKey("ApplicationUser")]

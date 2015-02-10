@@ -106,6 +106,7 @@
     <Compile Include="RssReader\Implementation\ChannelGet.cs" />
     <Compile Include="RssReader\IChannelGet.cs" />
     <Compile Include="RssReader\IItemService.cs" />
+    <Compile Include="RssReader\Implementation\UserHistoryService.cs" />
     <Compile Include="RssReader\ISubscriptionService.cs" />
     <Compile Include="RssReader\Implementation\ItemService.cs" />
     <Compile Include="RssReader\Implementation\SearchResultsBuilder.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="RssReader\ISearchResultsBuilder.cs" />
     <Compile Include="RssReader\ISyndicationFeedProvider.cs" />
     <Compile Include="RssReader\Implementation\ValidateService.cs" />
+    <Compile Include="RssReader\IUserHistoryService.cs" />
     <Compile Include="RssReader\IUserService.cs" />
     <Compile Include="RssReader\IValidateService.cs" />
     <Compile Include="RssReader\IViewService.cs" />

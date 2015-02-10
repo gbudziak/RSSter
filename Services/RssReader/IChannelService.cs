@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 
 using Models.ViewModels;
+using Models.RSS;
+using System;
 
 namespace Services.RssReader
 {
@@ -25,6 +27,8 @@ namespace Services.RssReader
         void AddNewItemsToChannel(long channelId, string url);
 
         void AddNewItemsToUserChannel(string userId, long channelId, long userChannelId);
+
+        //void AddToHistory(string actionName, DateTime date, long userChannelId, long userItemId, string subscriptionId, string userId);
 
         //List<long> GetUserChannelsIdList(string userId);
 

@@ -5,6 +5,7 @@ using Models.User;
 using Models.ViewModels;
 using PagedList;
 using Services.RssReader;
+using System;
 
 namespace RSSter.Controllers
 {
@@ -15,14 +16,16 @@ namespace RSSter.Controllers
         private readonly IItemService _itemService;
         private readonly IUserService _userService;
         private readonly ISubscriptionService _subscriptionService;
+        private readonly IUserHistoryService _userHistoryService;
 
 
-        public RssReaderController(IChannelService channelService, IItemService itemService, IUserService userService, ISubscriptionService subscriptionService)
+        public RssReaderController(IChannelService channelService, IItemService itemService, IUserService userService, ISubscriptionService subscriptionService, IUserHistoryService userHistoryService)
         {
             _channelService = channelService;
             _itemService = itemService;
             _userService = userService;
             _subscriptionService = subscriptionService;
+            _userHistoryService = userHistoryService;
 
         }
 
@@ -51,10 +54,29 @@ namespace RSSter.Controllers
                 var userId = User.Identity.GetUserId();
 
                 _subscriptionService.AddSubscription(userId, subscriptionId, subscriptionEmail);
+                _userHistoryService.AddToHistory("AddSubscription", DateTime.Now, 0, 0, subscriptionId, userId);
+
                 var model =_subscriptionService.GetSubscriptionModel(subscriptionId);
 
                 return View("ShowUserSubscriptionPage", model);
                
+            }
+            return RedirectToAction("Index", "Search");
+        }
+
+        public ActionResult RemoveUserSubscription(string subscriptionId, string subscriptionEmail)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = User.Identity.GetUserId();
+
+                _subscriptionService.AddSubscription(userId, subscriptionId, subscriptionEmail);
+                _userHistoryService.AddToHistory("RemoveSubscription", DateTime.Now, 0, 0, subscriptionId, userId);
+
+                var model = _subscriptionService.GetSubscriptionModel(subscriptionId);
+
+                return View("ShowUserSubscriptionPage", model);
+
             }
             return RedirectToAction("Index", "Search");
         }

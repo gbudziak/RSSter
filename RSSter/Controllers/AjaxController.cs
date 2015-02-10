@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Services.RssReader;
+using Microsoft.AspNet.Identity;
 
 namespace RSSter.Controllers
 {
@@ -20,21 +21,27 @@ namespace RSSter.Controllers
         [HttpPost]
         public JsonResult RatingUp(long userItemId)
         {
-            var response = _itemService.IncreaseUserRating(userItemId);
+            var userId = User.Identity.GetUserId();
+
+            var response = _itemService.IncreaseUserRating(userItemId,userId);
             return Json(response);
         }
 
         [HttpPost]
         public JsonResult RatingDown(long userItemId)
         {
-            var response = _itemService.DecreaseUserRating(userItemId);
+            var userId = User.Identity.GetUserId();
+
+            var response = _itemService.DecreaseUserRating(userItemId, userId);
             return Json(response);
         }
 
         [HttpPost]
         public JsonResult Read(long userItemId)
         {
-            _itemService.MarkAsRead(userItemId);
+            var userId = User.Identity.GetUserId();
+
+            _itemService.MarkAsRead(userItemId, userId);
             return Json(null);
         }
     }

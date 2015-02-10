@@ -16,11 +16,11 @@ namespace Services.RssReader
 
         List<ShowAllUserItemsViewModel> GetAllUnreadUserItems(string userId);
 
-        bool IncreaseUserRating(long userItemId);
+        bool IncreaseUserRating(long userItemId, string userId);
 
-        bool DecreaseUserRating(long userItemId);
+        bool DecreaseUserRating(long userItemId, string userId);
 
-        void MarkAsRead(long userItemId);
+        void MarkAsRead(long userItemId, string userId);
 
         void MarkAllItemsAsRead(string userId);
 

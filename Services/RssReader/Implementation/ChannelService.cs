@@ -15,11 +15,14 @@ namespace Services.RssReader.Implementation
 
         private readonly IApplicationRssDataContext _rssDatabase;
         private readonly IChannelGet _channelGet;
+        private readonly IUserHistoryService _userHistoryService;
 
-        public ChannelService(IApplicationRssDataContext rssDatabase, IChannelGet channelGet)
+
+        public ChannelService(IApplicationRssDataContext rssDatabase, IChannelGet channelGet, IUserHistoryService userHistoryService)
         {
             _rssDatabase = rssDatabase;
             _channelGet = channelGet;
+            _userHistoryService = userHistoryService;
         }
 
         public void AddChannel(string url)
@@ -74,6 +77,9 @@ namespace Services.RssReader.Implementation
                     toRemove.IsHidden = true;
                     DecreaseReadersCount(toRemove.ChannelId);
                     _rssDatabase.SaveChanges();
+                    
+                    _userHistoryService.AddToHistory("RemoveChannel", DateTime.Now, userChannelId, 0, null, userId);
+
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -199,6 +205,8 @@ namespace Services.RssReader.Implementation
             _rssDatabase.SaveChanges();
         }
 
+
+
         private long CreateNewUserChannel(string userId, string url)
         {
             var channelId = ReturnChannelId(url);
@@ -216,6 +224,9 @@ namespace Services.RssReader.Implementation
 
             _rssDatabase.UserChannels.AddOrUpdate(userchannel);
             _rssDatabase.SaveChanges();
+
+            _userHistoryService.AddToHistory("AddChannel", DateTime.Now, channelId, 0, null, userId);
+
             return userchannel.Id;
         }
 

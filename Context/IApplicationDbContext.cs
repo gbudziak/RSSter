@@ -14,6 +14,7 @@ namespace RssDataContext
         IDbSet<UserCustomView> UsersCustomViews { get; set; }
         IDbSet<UserInfo> UserInfos { get; set; }
         IDbSet<UserSubscriptions> AllUserSubscriptions { get; set; }
+        IDbSet<UserHistory> UsersHistory { get; set; }
 
         void SaveChanges();
 

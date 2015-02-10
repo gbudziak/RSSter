@@ -15,10 +15,13 @@ namespace Services.RssReader.Implementation
     {
 
         private readonly IApplicationRssDataContext _rssDatabase;
+        private readonly IUserHistoryService _userHistoryService;
 
-        public ItemService(IApplicationRssDataContext rssDatabase)
+        public ItemService(IApplicationRssDataContext rssDatabase, IUserHistoryService userHistoryService)
         {
             _rssDatabase = rssDatabase;
+            _userHistoryService = userHistoryService;
+
         }
 
         public Channel GetChannelWithItems(long channelId)
@@ -100,7 +103,7 @@ namespace Services.RssReader.Implementation
             return allUnreadUserItemsViewModel;
         }
 
-        public bool IncreaseUserRating(long userItemId)
+        public bool IncreaseUserRating(long userItemId, string userId)
         {
             var response = false;
             using (var transaction = _rssDatabase.OpenTransaction())
@@ -108,6 +111,8 @@ namespace Services.RssReader.Implementation
                 try
                 {
                     response = IncreaseItemRating(userItemId);
+                    _userHistoryService.AddToHistory("RatingPlus", DateTime.Now, 0, userItemId, null, userId);
+
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -119,7 +124,7 @@ namespace Services.RssReader.Implementation
 
         }
 
-        public bool DecreaseUserRating(long userItemId)
+        public bool DecreaseUserRating(long userItemId, string userId)
         {
             var response = false;
             using (var transaction = _rssDatabase.OpenTransaction())
@@ -127,6 +132,8 @@ namespace Services.RssReader.Implementation
                 try
                 {
                     response = DecreaseItemRating(userItemId);
+                    _userHistoryService.AddToHistory("RatingMinus", DateTime.Now, 0, userItemId, null, userId);
+
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -137,7 +144,7 @@ namespace Services.RssReader.Implementation
             return response;
         }
 
-        public void MarkAsRead(long userItemId)
+        public void MarkAsRead(long userItemId, string userId)
         {
             using (var transaction = _rssDatabase.OpenTransaction())
             {
@@ -149,6 +156,8 @@ namespace Services.RssReader.Implementation
                     userItem.Read = true;
 
                     _rssDatabase.SaveChanges();
+                    _userHistoryService.AddToHistory("Read", DateTime.Now, 0, userItemId, null, userId);
+
                     transaction.Commit();
                 }
                 catch (Exception)
