@@ -45,6 +45,8 @@ namespace RssDataContext
 
         public IDbSet<UserSubscriptions> AllUserSubscriptions { get; set; }
 
+        public IDbSet<UsersHistory> UsersHistory { get; set; }
+
 
 
         public static ApplicationRssDataContext Create()

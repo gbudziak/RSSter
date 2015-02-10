@@ -100,6 +100,7 @@
     <Compile Include="RSS\Channel.cs" />
     <Compile Include="RSS\Item.cs" />
     <Compile Include="RSS\UserChannel.cs" />
+    <Compile Include="RSS\UserHistory.cs" />
     <Compile Include="RSS\UserItem.cs" />
     <Compile Include="RSS\UserSubscriptions.cs" />
     <Compile Include="User\UserInfo.cs" />
