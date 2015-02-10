@@ -7,13 +7,13 @@ namespace RssDataContext.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.2-31219")]
-    public sealed partial class newmigration : IMigrationMetadata
+    public sealed partial class asd : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(newmigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(asd));
         
         string IMigrationMetadata.Id
         {
-            get { return "201502091352192_new migration"; }
+            get { return "201502092240099_asd"; }
         }
         
         string IMigrationMetadata.Source

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ServiceModel.Syndication;
 using AutoMapper;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Models.RSS;
 using Models.ViewModels;
 
@@ -83,6 +84,12 @@ namespace RSSter
                 .ForMember(dest => dest.Title, opt => opt.MapFrom(channel => channel.Title))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(channel => channel.Description))
                 .ForMember(dest => dest.Readers, opt => opt.MapFrom(channel => channel.Readers));
+
+            Mapper.CreateMap<IdentityUser, SubscriptionViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(user => user.Id))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(user => user.Email))
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(user => user.UserName));
+
         }
     }
 }

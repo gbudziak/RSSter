@@ -1,7 +1,9 @@
-﻿@*@model string
+﻿@model Models.ViewModels.SubscriptionViewModel
+@{
 
+    Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
 
-
+}
 
 <div class="ui grid">
     <div class="one column row">
@@ -21,16 +23,44 @@
 
 </div>
 <div class="ui internally celled grid">
-    <div class="four column orange row">
-        <div class="three wide column">@Model</div>
-        <div class="two wide column">@Model</div>
-        <div class="two wide column">@Model</div>
-        <div class="nine wide column">@Model</div>
+    <div class="four column green row">
+        <div class="five wide column">@Model.Email</div>
+        <div class="six wide column">@Model.Id</div>
+        <div class="five wide column">@Model.UserName</div>
+
     </div>
-</div>*@
-@{
+</div>
 
-    Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
+<br/>
 
-}
-zzz
+<div class="ui internally celled grid">
+    <div class="four column orange row">
+        <div class="four wide column">Title</div>
+        <div class="seven wide column">Description</div>
+        <div class="one wide column">Readers</div>
+        <div class="four wide column">Url</div>
+    </div>
+
+    @foreach (var channel in Model.Channels)
+    {
+
+
+
+        <div class="four column row itemRow">
+            <div class="four wide column">
+                @channel.Channel.Title
+            </div>
+            <div class="seven wide column">
+                @Html.Raw(channel.Channel.Description)
+            </div>
+            <div class="one wide column">
+                @channel.Channel.Readers
+            </div>
+            <div class="four wide column">
+                @channel.Channel.Url
+            </div>
+        </div>
+
+
+    }
+</div>

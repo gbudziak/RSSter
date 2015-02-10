@@ -554,8 +554,8 @@
     <Content Include="Views\RssReader\_UserCustomView.cshtml" />
     <Content Include="Views\Account\GetUsers.cshtml" />
     <Content Include="Views\Search\SearchUsers.cshtml" />
-    <Content Include="Views\RssReader\AddUserSubscription.cshtml" />
     <Content Include="Views\RssReader\ShowUserSubscriptionPage.cshtml" />
+    <Content Include="Views\RssReader\ShowUserSubscriptions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

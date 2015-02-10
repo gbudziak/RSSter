@@ -111,6 +111,7 @@
     <Compile Include="ViewModels\ShowUserChannelsViewModel.cs" />
     <Compile Include="ViewModels\DefaultViews.cs" />
     <Compile Include="ViewModels\ChannelItemsViewModel.cs" />
+    <Compile Include="ViewModels\SubscriptionViewModel.cs" />
     <Compile Include="ViewModels\UserItemsViewModel.cs" />
     <Compile Include="ViewModels\SearchChannel.cs" />
   </ItemGroup>

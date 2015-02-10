@@ -51,8 +51,9 @@ namespace RSSter.Controllers
                 var userId = User.Identity.GetUserId();
 
                 _subscriptionService.AddSubscription(userId, subscriptionId, subscriptionEmail);
+                var model =_subscriptionService.GetSubscriptionModel(subscriptionId);
 
-                return View("ShowUserSubscriptionPage");
+                return View("ShowUserSubscriptionPage", model);
                
             }
             return RedirectToAction("Index", "Search");
@@ -174,6 +175,14 @@ namespace RSSter.Controllers
                 return RedirectToAction("Index", "Search");
             }
             return View("SetUserCustomView");
+        }
+
+        public ActionResult ShowUserSubscriptions()
+        {
+            var userId = User.Identity.GetUserId();
+
+            var subscriptions = _subscriptionService.GetUserSubscriptions(userId);
+            return PartialView("ShowUserSubscriptions", subscriptions);
         }
     }
 }

@@ -4,12 +4,10 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using AutoMapper;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Models.RSS;
 using Models.ViewModels;
-using Newtonsoft.Json;
 using RssDataContext;
-using Models.Models;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Services.RssReader.Implementation
 {
@@ -43,19 +41,17 @@ namespace Services.RssReader.Implementation
 
         public Search MainSearch(string searchString)
         {
-            var UserList = SearchUsersForString(searchString);
-            var ChannelList = SearchChannelsForString(searchString);
+            var userList = SearchUsersForString(searchString);
+            var channelList = SearchChannelsForString(searchString);
 
-            var model = new Search();
-            model.ChannelList = ChannelList;
-            model.UsersList = UserList;
+            var model = new Search {ChannelList = channelList, UsersList = userList};
             return model;
         }
 
         public List<IdentityUser> SearchUsersForString(string searchString)
         {
-            var UserList = GetAllUsers();
-            var containsFullTextInEmailOrUserName = UserList.Where(
+            var userList = GetAllUsers();
+            var containsFullTextInEmailOrUserName = userList.Where(
                                                             x => x.Email.ToLower().Contains(searchString) ||
                                                             x.UserName.ToLower().Contains(searchString))
                                                             .OrderBy(x => x.Email).ToList();
@@ -65,7 +61,7 @@ namespace Services.RssReader.Implementation
         public List<SearchChannel> SearchChannelsForString(string searchString)
         {
             var allChannels = GetAllChannels();
-            var ChannelList = new List<SearchChannel>();
+            var channelList = new List<SearchChannel>();
             var toMerge = new List<SearchChannel>();
             searchString = RemoveDiacritics(searchString);
             string[] wordsToMatch = ToLowerAndSplitText(searchString);
@@ -87,15 +83,15 @@ namespace Services.RssReader.Implementation
                 MapToSearchChannelAddRatingAndAddToList(containsHalfWordsInUrlOrTitleOrDescription, toMerge, 10);
             }
 
-            var ChannelListCompare = ListComparer(ChannelList, toMerge);
+            var ChannelListCompare = ListComparer(channelList, toMerge);
             var result = ChannelListCompare.OrderByDescending(x => x.Rating).ThenByDescending(x => x.Readers).ToList();
 
             return result;
         }
 
-        private IEnumerable<Channel> SearchForStringsInChannelList(IEnumerable<Channel> ChannelList, string[] wordsToMatch, int divisor)
+        private IEnumerable<Channel> SearchForStringsInChannelList(IEnumerable<Channel> channelList, string[] wordsToMatch, int divisor)
         {
-            var returnModel = from channel in ChannelList
+            var returnModel = from channel in channelList
                               let url = ToLowerAndSplitText(RemoveDiacritics(channel.Url))
                               let description = ToLowerAndSplitText(RemoveDiacritics(channel.Description))
                               let title = ToLowerAndSplitText(RemoveDiacritics(channel.Title))

@@ -1,0 +1,28 @@
+﻿
+@model List<Models.RSS.UserSubscriptions>
+
+@{
+    ViewBag.Title = "SHowUSerSubscriptions";
+    Layout = null;
+
+}
+
+
+<div class="ui tiny animated selection list">
+    <div class="massive header item">
+        <i class="large user icon"></i>
+        Your Subscriptions
+    </div>
+
+    @foreach (var subscribtion in Model)
+    {
+        <div class="item">
+           
+            <div class="content">
+                <div class="header">
+                    @subscribtion.UserEmail
+                </div>
+            </div>
+        </div>
+    }
+</div>
