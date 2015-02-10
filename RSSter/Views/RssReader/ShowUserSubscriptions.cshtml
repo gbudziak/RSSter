@@ -20,7 +20,9 @@
            
             <div class="content">
                 <div class="header">
-                    @subscribtion.UserEmail
+                    @Html.ActionLink(subscribtion.UserEmail, "ShowUserSubscriptionPage", "RssReader",
+               new { subscriptionId = subscribtion.SubscribedUserId },
+                                    new {})
                 </div>
             </div>
         </div>

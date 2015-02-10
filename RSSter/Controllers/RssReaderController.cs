@@ -184,5 +184,13 @@ namespace RSSter.Controllers
             var subscriptions = _subscriptionService.GetUserSubscriptions(userId);
             return PartialView("ShowUserSubscriptions", subscriptions);
         }
+
+        public ActionResult ShowUserSubscriptionPage(string subscriptionid)
+        {
+
+
+            var subscriptions = _subscriptionService.GetSubscriptionModel(subscriptionid);
+            return PartialView("ShowUserSubscriptionPage", subscriptions);
+        }
     }
 }

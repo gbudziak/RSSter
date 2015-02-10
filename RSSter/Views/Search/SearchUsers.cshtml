@@ -56,9 +56,9 @@
                               new { subscriptionId = user.Id, subscriptionEmail = user.Email },
                                      new { @class = "ui icon button" })
 
-                @Html.ActionLink("Show user page", "ShowChannelItems", "RssReader",
-                             new { },
-                                    new { @class = "ui icon button" })
+                @Html.ActionLink("Show user page", "ShowUserSubscriptionPage", "RssReader",
+               new { subscriptionId = user.Id },
+                                     new { @class = "ui icon button" })
 
 
             </div>

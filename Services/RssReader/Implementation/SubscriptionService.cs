@@ -27,6 +27,7 @@ namespace Services.RssReader.Implementation
         public List<UserSubscriptions> GetUserSubscriptions(string userId)
         {
             var model = _rssDatabase.AllUserSubscriptions.Where(x => x.ApplicationUserId == userId).ToList();
+
             return model;
         }
 
@@ -42,10 +43,6 @@ namespace Services.RssReader.Implementation
         public SubscriptionViewModel GetSubscriptionModel(string subscriptionId)
         {
             var subscribtion = _userDatabase.Users.Single(x => x.Id == subscriptionId);
-            //var model = new SubscriptionViewModel();
-            //model.Email = subscribtion.Email;
-            //model.Id = subscribtion.Id;
-            //model.UserName = subscribtion.UserName;
             
             var mappedSubscription = Mapper.Map<IdentityUser, SubscriptionViewModel>(subscribtion);
             var channels = _rssDatabase.UserChannels.Where(x => x.ApplicationUserId == subscriptionId).ToList();
