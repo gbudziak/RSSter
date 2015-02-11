@@ -3,7 +3,7 @@ namespace RssDataContext.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class _new : DbMigration
+    public partial class asd : DbMigration
     {
         public override void Up()
         {
@@ -192,11 +192,11 @@ namespace RssDataContext.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        ActionName = c.String(),
                         Date = c.DateTime(nullable: false),
                         UserChannelId = c.Long(nullable: false),
                         UserItemId = c.Long(nullable: false),
                         SubscriptionId = c.String(),
+                        HistoryActionName = c.Int(nullable: false),
                         ApplicationUserId = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)

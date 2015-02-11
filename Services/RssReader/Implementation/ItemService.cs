@@ -111,7 +111,7 @@ namespace Services.RssReader.Implementation
                 try
                 {
                     response = IncreaseItemRating(userItemId);
-                    _userHistoryService.AddToHistory("RatingPlus", DateTime.Now, 0, userItemId, null, userId);
+                    _userHistoryService.AddToHistory(HistoryAction.RatingPlus, DateTime.Now, 0, userItemId, null, userId);
 
                     transaction.Commit();
                 }
@@ -132,7 +132,7 @@ namespace Services.RssReader.Implementation
                 try
                 {
                     response = DecreaseItemRating(userItemId);
-                    _userHistoryService.AddToHistory("RatingMinus", DateTime.Now, 0, userItemId, null, userId);
+                    _userHistoryService.AddToHistory(HistoryAction.RatingMinus, DateTime.Now, 0, userItemId, null, userId);
 
                     transaction.Commit();
                 }
@@ -156,7 +156,7 @@ namespace Services.RssReader.Implementation
                     userItem.Read = true;
 
                     _rssDatabase.SaveChanges();
-                    _userHistoryService.AddToHistory("Read", DateTime.Now, 0, userItemId, null, userId);
+                    _userHistoryService.AddToHistory(HistoryAction.Read, DateTime.Now, 0, userItemId, null, userId);
 
                     transaction.Commit();
                 }

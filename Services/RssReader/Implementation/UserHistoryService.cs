@@ -14,18 +14,14 @@ namespace Services.RssReader.Implementation
         private readonly IApplicationRssDataContext _rssDatabase;
 
 
-
         public UserHistoryService(IApplicationRssDataContext rssDatabase)
         {
             _rssDatabase = rssDatabase;
-
         }
 
-
-
-        public void AddToHistory(string actionName, DateTime date, long userChannelId, long userItemId, string subscriptionId, string userId)
+        public void AddToHistory(HistoryAction actionName, DateTime date, long userChannelId, long userItemId, string subscriptionId, string userId)
         {
-            var userHistory = new UserHistory() { ActionName = actionName, ApplicationUserId = userId, Date = date, SubscriptionId = subscriptionId, UserChannelId = userChannelId, UserItemId = userItemId };
+            var userHistory = new UserHistory() { HistoryActionName = actionName, ApplicationUserId = userId, Date = date, SubscriptionId = subscriptionId, UserChannelId = userChannelId, UserItemId = userItemId };
             _rssDatabase.UsersHistory.Add(userHistory);
             _rssDatabase.SaveChanges();
 
@@ -33,7 +29,8 @@ namespace Services.RssReader.Implementation
 
         public List<UserHistory> ShowUserHistory(string userId)
         {
-            var model = _rssDatabase.UsersHistory.Where(history => history.ApplicationUserId == userId).ToList();
+            var model = _rssDatabase.UsersHistory.Where(history => history.ApplicationUserId == userId)
+                .ToList();
             return model;
         }
 

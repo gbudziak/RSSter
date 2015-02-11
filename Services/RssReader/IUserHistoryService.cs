@@ -9,7 +9,7 @@ namespace Services.RssReader
 {
     public interface IUserHistoryService
     {
-        void AddToHistory(string actionName, DateTime date, long userChannelId, long userItemId, string subscriptionId, string userId);
+        void AddToHistory(HistoryAction actionName, DateTime date, long userChannelId, long userItemId, string subscriptionId, string userId);
         List<UserHistory> ShowUserHistory(string userId);
 
     }

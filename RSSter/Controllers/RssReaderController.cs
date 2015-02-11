@@ -6,6 +6,7 @@ using Models.ViewModels;
 using PagedList;
 using Services.RssReader;
 using System;
+using Models.RSS;
 
 namespace RSSter.Controllers
 {
@@ -54,7 +55,7 @@ namespace RSSter.Controllers
                 var userId = User.Identity.GetUserId();
 
                 _subscriptionService.AddSubscription(userId, subscriptionId, subscriptionEmail);
-                _userHistoryService.AddToHistory("AddSubscription", DateTime.Now, 0, 0, subscriptionId, userId);
+                _userHistoryService.AddToHistory(HistoryAction.AddSubscription, DateTime.Now, 0, 0, subscriptionId, userId);
 
                 var model =_subscriptionService.GetSubscriptionModel(subscriptionId);
 
@@ -71,7 +72,7 @@ namespace RSSter.Controllers
                 var userId = User.Identity.GetUserId();
 
                 _subscriptionService.AddSubscription(userId, subscriptionId, subscriptionEmail);
-                _userHistoryService.AddToHistory("RemoveSubscription", DateTime.Now, 0, 0, subscriptionId, userId);
+                _userHistoryService.AddToHistory(HistoryAction.RemoveSubscription, DateTime.Now, 0, 0, subscriptionId, userId);
 
                 var model = _subscriptionService.GetSubscriptionModel(subscriptionId);
 

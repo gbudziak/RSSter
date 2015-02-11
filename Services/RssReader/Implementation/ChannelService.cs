@@ -77,8 +77,8 @@ namespace Services.RssReader.Implementation
                     toRemove.IsHidden = true;
                     DecreaseReadersCount(toRemove.ChannelId);
                     _rssDatabase.SaveChanges();
-                    
-                    _userHistoryService.AddToHistory("RemoveChannel", DateTime.Now, userChannelId, 0, null, userId);
+
+                    _userHistoryService.AddToHistory(HistoryAction.RemoveChannel, DateTime.Now, userChannelId, 0, null, userId);
 
                     transaction.Commit();
                 }
@@ -225,7 +225,7 @@ namespace Services.RssReader.Implementation
             _rssDatabase.UserChannels.AddOrUpdate(userchannel);
             _rssDatabase.SaveChanges();
 
-            _userHistoryService.AddToHistory("AddChannel", DateTime.Now, channelId, 0, null, userId);
+            _userHistoryService.AddToHistory(HistoryAction.AddChannel, DateTime.Now, channelId, 0, null, userId);
 
             return userchannel.Id;
         }

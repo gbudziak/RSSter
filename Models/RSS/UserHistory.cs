@@ -13,12 +13,13 @@ namespace Models.RSS
     {
         [Key]
         public long Id { get; set; }
-
-        public string ActionName { get; set; }
         public DateTime Date { get; set; }
+        
         public long UserChannelId { get; set; }
         public long UserItemId { get; set; }
         public string SubscriptionId { get; set; }
+
+        public HistoryAction HistoryActionName { get; set; }
 
         [ForeignKey("ApplicationUser")]
         public string ApplicationUserId { get; set; }
