@@ -4,6 +4,10 @@
     Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
 
 }
+@Html.ActionLink("show history", "ShowUserHistory", "RssReader",
+                                 new { subscriptionId = @Model.Id },
+                                     new { @class = "ui button" })
+<br/>
 
 <div class="ui grid">
     <div class="one column row">
@@ -19,8 +23,7 @@
             </div>
         </div>
     </div>
-
-
+    
 </div>
 <div class="ui internally celled grid">
     <div class="four column green row">

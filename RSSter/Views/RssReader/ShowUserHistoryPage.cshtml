@@ -1,0 +1,72 @@
+﻿@model List<Models.RSS.UserHistory>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout_RSSreader.cshtml";
+}
+
+
+
+<div class="ui grid">
+    <div class="one column row">
+        <div class="column">
+            <div id="Error" class="ui negative message" hidden="hidden">
+                <i class="close icon"></i>
+                <div class="header">
+                    We are experiencing some trouble processing your request
+                </div>
+                <p>
+                    Please try again in few minites
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="ui internally celled grid">
+    <div class="four column orange row">
+        <div class="four wide column">Action</div>
+        <div class="four wide column">date</div>
+        <div class="two wide column">UserChannelId</div>
+        <div class="two wide column">USerItemId</div>
+        <div class="four wide column">SubscriptionId</div>
+
+    </div>
+
+    @foreach (var x in Model)
+    {
+
+
+
+        <div class="four column row itemRow">
+            <div class="four wide column">
+                @x.ActionName
+            </div>
+            <div class="four wide column">
+                @x.Date
+
+
+            </div>
+            <div class="two wide column">
+                @x.UserChannelId
+
+
+            </div>
+            <div class="two wide column">
+                @x.UserItemId
+
+
+            </div>
+            <div class="four wide column">
+                @x.SubscriptionId
+
+
+            </div>
+        </div>
+
+
+    }
+</div>

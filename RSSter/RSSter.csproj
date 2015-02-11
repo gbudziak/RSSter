@@ -557,6 +557,7 @@
     <Content Include="Views\RssReader\ShowUserSubscriptionPage.cshtml" />
     <Content Include="Views\RssReader\ShowUserSubscriptions.cshtml" />
     <Content Include="Views\RssReader\test.cshtml" />
+    <Content Include="Views\RssReader\ShowUserHistoryPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

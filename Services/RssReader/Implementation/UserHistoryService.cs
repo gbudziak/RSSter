@@ -22,6 +22,7 @@ namespace Services.RssReader.Implementation
         }
 
 
+
         public void AddToHistory(string actionName, DateTime date, long userChannelId, long userItemId, string subscriptionId, string userId)
         {
             var userHistory = new UserHistory() { ActionName = actionName, ApplicationUserId = userId, Date = date, SubscriptionId = subscriptionId, UserChannelId = userChannelId, UserItemId = userItemId };
@@ -29,6 +30,14 @@ namespace Services.RssReader.Implementation
             _rssDatabase.SaveChanges();
 
         }
+
+        public List<UserHistory> ShowUserHistory(string userId)
+        {
+            var model = _rssDatabase.UsersHistory.Where(history => history.ApplicationUserId == userId).ToList();
+            return model;
+        }
+
+
 
     }
 }
