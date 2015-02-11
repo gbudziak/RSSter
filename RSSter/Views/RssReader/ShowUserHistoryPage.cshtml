@@ -26,47 +26,255 @@
 </div>
 
 
-<div class="ui internally celled grid">
-    <div class="four column orange row">
-        <div class="four wide column">Action</div>
-        <div class="four wide column">date</div>
-        <div class="two wide column">UserChannelId</div>
-        <div class="two wide column">USerItemId</div>
-        <div class="four wide column">SubscriptionId</div>
+@*<div class="ui internally celled grid">
+        <div class="four column orange row">
+            <div class="four wide column">Action</div>
+            <div class="four wide column">date</div>
+            <div class="two wide column">UserChannelId</div>
+            <div class="two wide column">USerItemId</div>
+            <div class="four wide column">SubscriptionId</div>
 
-    </div>
+        </div>
 
-    @foreach (var x in Model)
-    {
+        @foreach (var x in Model)
+        {
 
 
 
-        <div class="four column row itemRow">
-            <div class="four wide column">
-                @x.ActionName
+            <div class="four column row itemRow">
+                <div class="four wide column">
+                    @x.ActionName
+                </div>
+                <div class="four wide column">
+                    @x.Date
+
+
+                </div>
+                <div class="two wide column">
+                    @x.UserChannelId
+
+
+                </div>
+                <div class="two wide column">
+                    @x.UserItemId
+
+
+                </div>
+                <div class="four wide column">
+                    @x.SubscriptionId
+
+
+                </div>
             </div>
-            <div class="four wide column">
-                @x.Date
 
 
-            </div>
-            <div class="two wide column">
-                @x.UserChannelId
+        }
+    </div>*@
 
 
-            </div>
-            <div class="two wide column">
-                @x.UserItemId
 
 
-            </div>
-            <div class="four wide column">
-                @x.SubscriptionId
 
+<div class="ui grid">
 
+    <div class="ui two column centered grid">
+        <div class="column">
+            <div class="ui large feed">
+                @foreach (var x in Model)
+                {
+                    if (@x.ActionName == "Read")
+                    {
+                        <div class="event">
+                            <div class="label">
+                                <i class="pencil icon"></i>
+                            </div>
+                            <div class="content">
+                                <div class="summary">
+   
+                                    <a class="user">
+                                        @x.ApplicationUserId
+                                    </a> read a post
+                                    <div class="date">
+                                        @x.Date
+                                    </div>
+
+                                </div>
+                                <div class="extra text">
+                                    Vivamus dictum, urna nec semper bibendum, leo ante vulputate nunc, placerat pellentesque est ante semper lacus.
+                                    Sed vulputate, lorem a feugiat pharetra, nisi ante sagittis justo, in elementum massa urna id leo. Praesent at sem aliquet,
+                                    lobortis augue ac, facilisis tortor. In congue leo nec urna feugiat commodo.
+                                    <b>this is news ID - @x.UserItemId</b>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    if (@x.ActionName == "AddChannel")
+                    {
+                        <div class="event">
+                            <div class="label">
+                                <img src="~/Content/Images/elliot.jpg">
+                            </div>
+                            <div class="content">
+                                <div class="summary">
+
+                                    <a class="user">
+                                        @x.ApplicationUserId
+                                    </a> add a channel
+                                    <div class="date">
+                                        @x.Date
+                                    </div>
+
+                                </div>
+                                <div class="extra text">
+                                    Vivamus dictum, urna nec semper bibendum, leo ante vulputate nunc, placerat pellentesque est ante semper lacus.
+                                    Sed vulputate, lorem a feugiat pharetra, nisi ante sagittis justo, in elementum massa urna id leo. Praesent at sem aliquet,
+                                    lobortis augue ac, facilisis tortor. In congue leo nec urna feugiat commodo.
+                                    <b>Check this channel ID - @x.UserChannelId</b>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    if (@x.ActionName == "RemoveChannel")
+                    {
+                        <div class="event">
+                            <div class="label">
+                                <img src="~/Content/Images/joe.jpg">
+                            </div>
+                            <div class="content">
+                                <div class="summary">
+
+                                    <a class="user">
+                                        @x.ApplicationUserId
+                                    </a> remove a channel
+                                    <div class="date">
+                                        @x.Date
+                                    </div>
+
+                                </div>
+                                <div class="extra text">
+                                    Vivamus dictum, urna nec semper bibendum, leo ante vulputate nunc, placerat pellentesque est ante semper lacus.
+                                    Sed vulputate, lorem a feugiat pharetra, nisi ante sagittis justo, in elementum massa urna id leo. Praesent at sem aliquet,
+                                    lobortis augue ac, facilisis tortor. In congue leo nec urna feugiat commodo.
+                                    <b>this is news ID - @x.UserItemId</b>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    if (@x.ActionName == "AddSubscription")
+                    {
+                        <div class="event">
+                            <div class="label">
+                                <img src="~/Content/Images/jenny.jpg">
+                            </div>
+                            <div class="content">
+                                <div class="summary">
+
+                                    <a class="user">
+                                        @x.ApplicationUserId
+                                    </a> add a subscription
+                                    <div class="date">
+                                        @x.Date
+                                    </div>
+
+                                </div>
+                                <div class="extra text">
+                                    Vivamus dictum, urna nec semper bibendum, leo ante vulputate nunc, placerat pellentesque est ante semper lacus.
+                                    Sed vulputate, lorem a feugiat pharetra, nisi ante sagittis justo, in elementum massa urna id leo. Praesent at sem aliquet,
+                                    lobortis augue ac, facilisis tortor. In congue leo nec urna feugiat commodo.
+                                    <b>this is news ID - @x.SubscriptionId</b>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    if (@x.ActionName == "RemoveSubscription")
+                    {
+                        <div class="event">
+                            <div class="label">
+                                <i class="comments icon"></i>
+                            </div>
+                            <div class="content">
+                                <div class="summary">
+
+                                    <a class="user">
+                                        @x.ApplicationUserId
+                                    </a> remove a subscription
+                                    <div class="date">
+                                        @x.Date
+                                    </div>
+
+                                </div>
+                                <div class="extra text">
+                                    Vivamus dictum, urna nec semper bibendum, leo ante vulputate nunc, placerat pellentesque est ante semper lacus.
+                                    Sed vulputate, lorem a feugiat pharetra, nisi ante sagittis justo, in elementum massa urna id leo. Praesent at sem aliquet,
+                                    lobortis augue ac, facilisis tortor. In congue leo nec urna feugiat commodo.
+                                    <b>this is news ID - @x.UserItemId</b>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    if (@x.ActionName == "RatingPlus")
+                    {
+                        <div class="event">
+                            <div class="label">
+                                <i class="thumbs outline up icon"></i>
+                            </div>
+                            <div class="content">
+                                <div class="summary">
+
+                                    <a class="user">
+                                        @x.ApplicationUserId
+                                    </a> like a post
+                                    <div class="date">
+                                        @x.Date
+                                    </div>
+
+                                </div>
+                                <div class="extra text">
+                                    Vivamus dictum, urna nec semper bibendum, leo ante vulputate nunc, placerat pellentesque est ante semper lacus.
+                                    Sed vulputate, lorem a feugiat pharetra, nisi ante sagittis justo, in elementum massa urna id leo. Praesent at sem aliquet,
+                                    lobortis augue ac, facilisis tortor. In congue leo nec urna feugiat commodo.
+                                    <b>this is news ID - @x.UserItemId</b>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    if (@x.ActionName == "RatingMinus")
+                    {
+                        <div class="event">
+                            <div class="label">
+                                <i class="thumbs outline down icon"></i>
+                            </div>
+                            <div class="content">
+                                <div class="summary">
+
+                                    <a class="user">
+                                        @x.ApplicationUserId
+                                    </a> does not like a post
+                                    <div class="date">
+                                        @x.Date
+                                    </div>
+
+                                </div>
+                                <div class="extra text">
+                                    Vivamus dictum, urna nec semper bibendum, leo ante vulputate nunc, placerat pellentesque est ante semper lacus.
+                                    Sed vulputate, lorem a feugiat pharetra, nisi ante sagittis justo, in elementum massa urna id leo. Praesent at sem aliquet,
+                                    lobortis augue ac, facilisis tortor. In congue leo nec urna feugiat commodo.
+                                    <b>this is news ID - @x.UserItemId</b>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                }
             </div>
         </div>
 
+    </div>
 
-    }
 </div>

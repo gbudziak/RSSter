@@ -244,6 +244,9 @@
     <Content Include="Content\icon.min.css" />
     <Content Include="Content\Images\bg.jpg" />
     <Content Include="Content\Images\cat.png" />
+    <Content Include="Content\Images\elliot.jpg" />
+    <Content Include="Content\Images\jenny.jpg" />
+    <Content Include="Content\Images\joe.jpg" />
     <Content Include="Content\Images\loginpage\bg.png" />
     <Content Include="Content\Images\loginpage\border.png" />
     <Content Include="Content\Images\loginpage\contact.png" />

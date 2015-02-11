@@ -3,7 +3,7 @@ namespace RssDataContext.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class asd : DbMigration
+    public partial class _new : DbMigration
     {
         public override void Up()
         {
@@ -132,7 +132,7 @@ namespace RssDataContext.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserId)
-                .ForeignKey("dbo.Channels", t => t.ChannelId, cascadeDelete: false)
+                .ForeignKey("dbo.Channels", t => t.ChannelId, cascadeDelete: true)
                 .Index(t => t.ChannelId)
                 .Index(t => t.ApplicationUserId);
             
@@ -151,7 +151,7 @@ namespace RssDataContext.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserId)
                 .ForeignKey("dbo.Items", t => t.ItemId, cascadeDelete: true)
-                .ForeignKey("dbo.UserChannels", t => t.UserChannelId, cascadeDelete: true)
+                .ForeignKey("dbo.UserChannels", t => t.UserChannelId, cascadeDelete: false)
                 .Index(t => t.ItemId)
                 .Index(t => t.ApplicationUserId)
                 .Index(t => t.UserChannelId);
