@@ -199,7 +199,7 @@ namespace RSSter.Controllers
             }
             return View("SetUserCustomView");
         }
-
+        //[OutputCache]
         public ActionResult ShowUserSubscriptions()
         {
             var userId = User.Identity.GetUserId();
@@ -216,10 +216,11 @@ namespace RSSter.Controllers
             return PartialView("ShowUserSubscriptionPage", subscriptions);
         }
 
-        public ActionResult ShowUserHistory(string subscriptionId)
+        public ActionResult ShowUserHistory(string subscriptionId, string userName)
         {
 
-            var history = _userHistoryService.ShowUserHistory(subscriptionId);
+            var history = _userHistoryService.ShowUserHistory(subscriptionId,userName);
+            
             return PartialView("ShowUserHistoryPage", history);
         }
 

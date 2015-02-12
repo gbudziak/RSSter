@@ -11,7 +11,8 @@ namespace Services.RssReader
     public interface IUserHistoryService
     {
         void AddToHistory(HistoryAction actionName, DateTime date, long userChannelId, long userItemId, string subscriptionId, string userId);
-        List<UserHistoryViewModel> ShowUserHistory(string userId);
+        
+        List<UserHistoryViewModel> ShowUserHistory(string userId,string userName);
 
     }
 }

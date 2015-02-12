@@ -11,6 +11,7 @@ namespace Models.ViewModels
     {
         public DateTime Date { get; set; }
         public string SubscriptionId { get; set; }
+        public string UserName { get; set; }
         public long UserChannelId { get; set; }
         public long UserItemId { get; set; }
 

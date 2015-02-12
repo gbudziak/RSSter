@@ -5,7 +5,7 @@
 
 }
 @Html.ActionLink("show history", "ShowUserHistory", "RssReader",
-                                 new { subscriptionId = @Model.Id },
+                                 new { subscriptionId = @Model.Id, userName = @Model.UserName },
                                      new { @class = "ui button" })
 <br/>
 

@@ -30,7 +30,7 @@ namespace Services.RssReader.Implementation
 
         }
 
-        public List<UserHistoryViewModel> ShowUserHistory(string userId)
+        public List<UserHistoryViewModel> ShowUserHistory(string userId, string userName)
         {
             var model = _rssDatabase.UsersHistory.Where(history => history.ApplicationUserId == userId)
                 .ToList();
@@ -49,11 +49,12 @@ namespace Services.RssReader.Implementation
             foreach (var historyItem in model)
             {
                 var history = Mapper.Map<UserHistory, UserHistoryViewModel>(historyItem);
-
+                history.UserName = userName;
                 if (history.HistoryActionName == HistoryAction.AddChannel || 
                     history.HistoryActionName == HistoryAction.RemoveChannel)
                 {
                     history.Channel = returnChannel(userChannels, history);
+
                 }
 
                 if (history.HistoryActionName == HistoryAction.RatingMinus ||
@@ -93,5 +94,11 @@ namespace Services.RssReader.Implementation
 
 
 
+
+
+        public List<UserHistoryViewModel> ShowUserHistory(string userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
