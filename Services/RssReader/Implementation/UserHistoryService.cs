@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
+using System.Data.Entity;
+using Models.ViewModels;
 
 namespace Services.RssReader.Implementation
 {
@@ -27,12 +30,66 @@ namespace Services.RssReader.Implementation
 
         }
 
-        public List<UserHistory> ShowUserHistory(string userId)
+        public List<UserHistoryViewModel> ShowUserHistory(string userId)
         {
             var model = _rssDatabase.UsersHistory.Where(history => history.ApplicationUserId == userId)
                 .ToList();
-            return model;
+
+            var userChannels = _rssDatabase.UserChannels
+                .Include(x => x.Channel)
+                .Include(x => x.UserItems)
+                .Where(x => x.ApplicationUserId == userId).ToList();
+
+            var userItems = _rssDatabase.UsersItems
+                .Include(x => x.Item)
+                .Where(x => x.ApplicationUserId == userId).ToList();
+
+            var userHistoryViewModel = new List<UserHistoryViewModel>();
+
+            foreach (var historyItem in model)
+            {
+                var history = Mapper.Map<UserHistory, UserHistoryViewModel>(historyItem);
+
+                if (history.HistoryActionName == HistoryAction.AddChannel || 
+                    history.HistoryActionName == HistoryAction.RemoveChannel)
+                {
+                    history.Channel = returnChannel(userChannels, history);
+                }
+
+                if (history.HistoryActionName == HistoryAction.RatingMinus ||
+                    history.HistoryActionName == HistoryAction.RatingPlus ||
+                    history.HistoryActionName == HistoryAction.Read)
+                {
+                    history.Item = returnItem(userItems, history);
+                }
+
+                //if (history.HistoryActionName == HistoryAction.AddSubscription || 
+                //    history.HistoryActionName == HistoryAction.RemoveSubscription)
+                //{
+                    
+                //}
+                userHistoryViewModel.Add(history);
+
+            }
+            return userHistoryViewModel.OrderByDescending(x => x.Date).ToList();
         }
+
+        private Channel returnChannel(List<UserChannel> userChannels, UserHistoryViewModel history)
+        {
+            return userChannels
+                    .Select(x => x.Channel)
+                    .Single(x => x.Id == history.UserChannelId);
+        }
+
+        private Item returnItem(List<UserItem> userItems, UserHistoryViewModel history)
+        {
+
+            var itemId = userItems.First(x => x.Id == history.UserItemId).ItemId;
+            return userItems
+                    .Select(x => x.Item)
+                    .Single(x => x.Id == itemId);
+        }
+
 
 
 

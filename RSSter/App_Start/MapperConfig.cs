@@ -90,6 +90,12 @@ namespace RSSter
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(user => user.Email))
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(user => user.UserName));
 
+            Mapper.CreateMap<UserHistory, UserHistoryViewModel>()
+                .ForMember(dest => dest.Date, opt => opt.MapFrom(history => history.Date))
+                .ForMember(dest => dest.SubscriptionId, opt => opt.MapFrom(history => history.SubscriptionId))
+                .ForMember(dest => dest.UserChannelId, opt => opt.MapFrom(history => history.UserChannelId))
+                .ForMember(dest => dest.UserItemId, opt => opt.MapFrom(history => history.UserItemId))
+                .ForMember(dest => dest.HistoryActionName, opt => opt.MapFrom(history => history.HistoryActionName));
         }
     }
 }
