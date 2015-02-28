@@ -1,5 +1,5 @@
 ﻿@using Models.RSS
-@model List<Models.RSS.UserHistory>
+@model List<Models.ViewModels.UserHistoryViewModel>
 
 @{
     ViewBag.Title = "title";
@@ -27,55 +27,6 @@
 </div>
 
 
-@*<div class="ui internally celled grid">
-        <div class="four column orange row">
-            <div class="four wide column">Action</div>
-            <div class="four wide column">date</div>
-            <div class="two wide column">UserChannelId</div>
-            <div class="two wide column">USerItemId</div>
-            <div class="four wide column">SubscriptionId</div>
-
-        </div>
-
-        @foreach (var x in Model)
-        {
-
-
-
-            <div class="four column row itemRow">
-                <div class="four wide column">
-                    @x.ActionName
-                </div>
-                <div class="four wide column">
-                    @x.Date
-
-
-                </div>
-                <div class="two wide column">
-                    @x.UserChannelId
-
-
-                </div>
-                <div class="two wide column">
-                    @x.UserItemId
-
-
-                </div>
-                <div class="four wide column">
-                    @x.SubscriptionId
-
-
-                </div>
-            </div>
-
-
-        }
-    </div>*@
-
-
-
-
-
 <div class="ui grid">
 
     <div class="ui two column centered grid">
@@ -91,29 +42,30 @@
                             </div>
                             @*<div class="label">
 
-                                <i class="add icon"></i>
+                                    <i class="add icon"></i>
 
-                            </div>
-                            <div class="label">
+                                </div>
+                                <div class="label">
 
-                                <i class="feed icon"></i>
-                            </div>*@
+                                    <i class="feed icon"></i>
+                                </div>*@
                             <div class="content">
                                 <div class="summary">
-   
+
                                     <a class="user">
-                                        @x.ApplicationUserId
-                                    </a> read a post
+                                        @x.UserName
+                                    </a> read a post @x.Item.Title
                                     <div class="date">
                                         @x.Date
                                     </div>
 
                                 </div>
                                 <div class="extra text">
-                                    Vivamus dictum, urna nec semper bibendum, leo ante vulputate nunc, placerat pellentesque est ante semper lacus.
-                                    Sed vulputate, lorem a feugiat pharetra, nisi ante sagittis justo, in elementum massa urna id leo. Praesent at sem aliquet,
-                                    lobortis augue ac, facilisis tortor. In congue leo nec urna feugiat commodo.
-                                    <b>this is news ID - @x.UserItemId</b>
+                                    @x.Item.PublishDate
+                                    <br />
+                                    @x.Item.Url
+                                    <br />
+                                    @x.Item.Description
                                 </div>
                             </div>
                         </div>
@@ -128,31 +80,48 @@
                             </div>
                             @*<div class="label">
 
-                                <i class="add icon"></i>
+                                    <i class="add icon"></i>
 
-                            </div>
-                            <div class="label">
+                                </div>
+                                <div class="label">
 
-                                <i class="feed icon"></i>
-                            </div>*@
+                                    <i class="feed icon"></i>
+                                </div>*@
                             <div class="content">
                                 <div class="summary">
 
                                     <a class="user">
-                                        @x.ApplicationUserId
-                                    </a> add a channel
+                                        @x.UserName
+                                    </a> add a channel <b>@x.Channel.Title</b>
                                     <div class="date">
                                         @x.Date
                                     </div>
 
                                 </div>
                                 <div class="extra text">
-                                    Vivamus dictum, urna nec semper bibendum, leo ante vulputate nunc, placerat pellentesque est ante semper lacus.
-                                    Sed vulputate, lorem a feugiat pharetra, nisi ante sagittis justo, in elementum massa urna id leo. Praesent at sem aliquet,
-                                    lobortis augue ac, facilisis tortor. In congue leo nec urna feugiat commodo.
-                                    <b>Check this channel ID - @x.UserChannelId</b>
+
+
+
+                                
+                                <div class="ui items">
+                                    <div class="item">
+                                        <a class="ui tiny image">
+                                            <img src=@x.Channel.ImageUrl>
+                                        </a>
+                                        <div class="content">
+                                            <a class="header">@x.Channel.Title</a>
+                                            <div class="description">
+                                                <p>@x.Channel.Description</p>
+                                                <a>View Channel - @x.Channel.Url</a>
+                                                <p>Readers: @x.Channel.Readers</p>
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                                    </div>
+
+                             </div>
                         </div>
                     }
 
@@ -164,29 +133,42 @@
                             </div>
                             @*<div class="label">
 
-                                <i class="remove icon"></i>
+                                    <i class="remove icon"></i>
 
-                            </div>
-                            <div class="label">
+                                </div>
+                                <div class="label">
 
-                                <i class="feed icon"></i>
-                            </div>*@
+                                    <i class="feed icon"></i>
+                                </div>*@
                             <div class="content">
                                 <div class="summary">
 
                                     <a class="user">
-                                        @x.ApplicationUserId
-                                    </a> remove a channel
+                                        @x.UserName
+                                    </a> remove a channel <b>@x.Channel.Title</b>
                                     <div class="date">
                                         @x.Date
                                     </div>
 
                                 </div>
                                 <div class="extra text">
-                                    Vivamus dictum, urna nec semper bibendum, leo ante vulputate nunc, placerat pellentesque est ante semper lacus.
-                                    Sed vulputate, lorem a feugiat pharetra, nisi ante sagittis justo, in elementum massa urna id leo. Praesent at sem aliquet,
-                                    lobortis augue ac, facilisis tortor. In congue leo nec urna feugiat commodo.
-                                    <b>this is news ID - @x.UserItemId</b>
+
+                                    <div class="ui items">
+                                        <div class="item">
+                                            <a class="ui tiny image">
+                                                <img src=@x.Channel.ImageUrl>
+                                            </a>
+                                            <div class="content">
+                                                <a class="header">@x.Channel.Title</a>
+                                                <div class="description">
+                                                    <p>@x.Channel.Description</p>
+                                                    <a>View Channel - @x.Channel.Url</a>
+                                                    <p>Readers: @x.Channel.Readers</p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -198,34 +180,18 @@
                             <div class="label">
                                 <img src="~/Content/Images/jenny.jpg">
                             </div>
-                            @*<div class="label">
-
-                                <i class="add icon"></i>
-
-                            </div>
-                            <div class="label">
-
-                                <i class="user icon"></i>
-                            </div>*@
                             <div class="content">
                                 <div class="summary">
-
-                                    <a class="user">
-                                        @x.ApplicationUserId
-                                    </a> add a subscription
+                                    @x.UserName added <a>@x.SubscriptionId</a> to <a>subscription</a> group.
                                     <div class="date">
                                         @x.Date
                                     </div>
-
-                                </div>
-                                <div class="extra text">
-                                    Vivamus dictum, urna nec semper bibendum, leo ante vulputate nunc, placerat pellentesque est ante semper lacus.
-                                    Sed vulputate, lorem a feugiat pharetra, nisi ante sagittis justo, in elementum massa urna id leo. Praesent at sem aliquet,
-                                    lobortis augue ac, facilisis tortor. In congue leo nec urna feugiat commodo.
-                                    <b>this is news ID - @x.SubscriptionId</b>
                                 </div>
                             </div>
                         </div>
+
+
+                        
                     }
 
                     if (@x.HistoryActionName == HistoryAction.RemoveSubscription)
@@ -236,18 +202,18 @@
                             </div>
                             @*<div class="label">
 
-                                <i class="remove icon"></i>
+                                    <i class="remove icon"></i>
 
-                            </div>
-                            <div class="label">
+                                </div>
+                                <div class="label">
 
-                                <i class="user icon"></i>
-                            </div>*@
+                                    <i class="user icon"></i>
+                                </div>*@
                             <div class="content">
                                 <div class="summary">
 
                                     <a class="user">
-                                        @x.ApplicationUserId
+                                        xxx
                                     </a> remove a subscription
                                     <div class="date">
                                         @x.Date
@@ -273,30 +239,31 @@
 
                             </div>
                             @*<div class="label">
-                                <i class="thumbs outline up icon"></i>
-                            </div>
-                            
-                            <div class="label">
+                                    <i class="thumbs outline up icon"></i>
+                                </div>
 
-                                <i class="browser icon"></i>
-                            </div>*@
+                                <div class="label">
+
+                                    <i class="browser icon"></i>
+                                </div>*@
                             <div class="content">
                                 <div class="summary">
 
                                     <a class="user">
-                                        @x.ApplicationUserId
-                                    </a> like a post
+                                        xxx
+                                    </a> like a post @x.Item.Title
                                     <div class="date">
                                         @x.Date
                                     </div>
 
                                 </div>
-                                <div class="extra text">
-                                    Vivamus dictum, urna nec semper bibendum, leo ante vulputate nunc, placerat pellentesque est ante semper lacus.
-                                    Sed vulputate, lorem a feugiat pharetra, nisi ante sagittis justo, in elementum massa urna id leo. Praesent at sem aliquet,
-                                    lobortis augue ac, facilisis tortor. In congue leo nec urna feugiat commodo.
-                                    <b>this is news ID - @x.UserItemId</b>
-                                </div>
+                                    <div class="extra text">
+                                        @x.Item.PublishDate
+                                        <br />
+                                        @x.Item.Url
+                                        <br />
+                                        @x.Item.Description
+                                    </div>
                             </div>
                         </div>
                     }
@@ -310,30 +277,31 @@
 
                             </div>
                             @*<div class="label">
-                                <i class="thumbs outline down icon"></i>
-                            </div>
+                                    <i class="thumbs outline down icon"></i>
+                                </div>
 
-                            <div class="large label">
+                                <div class="large label">
 
-                                <i class="browser icon"></i>
-                            </div>*@
+                                    <i class="browser icon"></i>
+                                </div>*@
                             <div class="content">
                                 <div class="summary">
 
                                     <a class="user">
-                                        @x.ApplicationUserId
-                                    </a> does not like a post
+                                        xxx
+                                    </a> does not like a post @x.Item.Title
                                     <div class="date">
                                         @x.Date
                                     </div>
 
                                 </div>
-                                <div class="extra text">
-                                    Vivamus dictum, urna nec semper bibendum, leo ante vulputate nunc, placerat pellentesque est ante semper lacus.
-                                    Sed vulputate, lorem a feugiat pharetra, nisi ante sagittis justo, in elementum massa urna id leo. Praesent at sem aliquet,
-                                    lobortis augue ac, facilisis tortor. In congue leo nec urna feugiat commodo.
-                                    <b>this is news ID - @x.UserItemId</b>
-                                </div>
+                                    <div class="extra text">
+                                        @x.Item.PublishDate
+                                        <br />
+                                        @x.Item.Url
+                                        <br />
+                                        @x.Item.Description
+                                    </div>
                             </div>
                         </div>
                     }
