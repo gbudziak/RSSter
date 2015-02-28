@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
-
-namespace Models.RSS
+﻿namespace Models.RSS
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
+
     public class Channel
     {
         [Key]
         public long Id { get; set; }
         public List<Item> Items { get; set; }
-
+        
         [Remote("RemoteLinkValidation", "Validation")]
         public string Url { get; set; }
         public string Description { get; set; }
@@ -23,7 +23,8 @@ namespace Models.RSS
 
         public Channel(string link)
             : this(link, string.Empty, string.Empty, string.Empty, new List<Item>())
-        { }
+        {
+        }
 
         public Channel(string url, string title, string description, string imageUrl, List<Item> itemList)
         {

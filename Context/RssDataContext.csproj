@@ -68,9 +68,9 @@
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="IApplicationDbContext.cs" />
     <Compile Include="IRssTransaction.cs" />
-    <Compile Include="Migrations\201502111320278_asd.cs" />
-    <Compile Include="Migrations\201502111320278_asd.Designer.cs">
-      <DependentUpon>201502111320278_asd.cs</DependentUpon>
+    <Compile Include="Migrations\201502120120344_asd.cs" />
+    <Compile Include="Migrations\201502120120344_asd.Designer.cs">
+      <DependentUpon>201502120120344_asd.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,8 +87,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201502111320278_asd.resx">
-      <DependentUpon>201502111320278_asd.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201502120120344_asd.resx">
+      <DependentUpon>201502120120344_asd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
